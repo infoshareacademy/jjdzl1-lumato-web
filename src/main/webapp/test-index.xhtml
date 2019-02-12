@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{userController.loadUsers}"/>
+    </f:metadata>
+    <!--Bootstrap Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>FUEL CALCULATOR THE BEST APP EVER DUDE</title>
+    <!-- Bootstrap CSS   -->
+    <link rel="stylesheet" href="resources/css/bootstrap.css"/>
+    <!-- icons line-awesome -->
+    <link rel="stylesheet" href="resources/icons/line-awesome/css/line-awesome-font-awesome.min.css" type="text/css"/>
+    <!-- style CSS   -->
+    <link rel="stylesheet" href="resources/style.css"/>
+    <script type="text/javascript" src="resources/canvasjs/canvasjs.min.js"></script>
+
+    <script>
+        function toggleNav() {
+            var arrowLeftClass = "fa fa-angle-double-left";
+            var arrowRightClass = "fa fa-angle-double-right";
+            if ($("#menu").width() > 0) {
+                $("#menu").css("width", "0");
+                $("#container-fluid").css("margin-left", "0");
+                $("#open-close-icon").removeClass(arrowLeftClass).addClass(arrowRightClass);
+            } else {
+                $("#menu").css("width", "250px");
+                $("#container-fluid").css("margin-left", "250px");
+                $("#open-close-icon").removeClass(arrowRightClass).addClass(arrowLeftClass);
+            }
+        }
+    </script>
+
+
+</h:head>
+
+<h:body>
+    <div id="menu" class="sideMenu border-right border-danger">
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-head">
+                <a href="#">FUEL CALCULATOR</a>
+            </li>
+            <li class="sidebar brand">
+                <img id="product-logo" src="resources/img/bp.png" width="200px" height="200px"/>
+            </li>
+            <li>
+                <a href="#">Account settings</a>
+                <hr/>
+            </li>
+            <li>
+                <a href="#">My cars</a>
+                <hr/>
+            </li>
+            <li>
+                <a href="#">Register refueling</a>
+            </li>
+            <li>
+                <a href="#">Register extra costs</a>
+            </li>
+            <li>
+                <a href="#">Reports/stats</a>
+                <hr/>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+
+        <div id="copyright">
+           <p>Created by Lumato. All rights reserved</p>
+        </div>
+    </div>
+
+    <div id="container-fluid">
+
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+            <div class="header">
+                <div class="header-section" id="slide-button">
+                    <a id="header-button" class="btn btn-secondary" href="#" onclick="toggleNav()">
+                        <i id="open-close-icon" class="fa fa-angle-double-left"></i>
+                    </a>
+                </div>
+
+                <div class="header-section" id="user-info">
+                    You are logged in as: adam666!
+                </div>
+                <div class="header-section" id="community-buttons">
+                    <a id="header-button" class="btn btn-secondary fb-button" href="#">
+                        <i id="fb-icon" class="fa fa-facebook"></i>
+                    </a>
+                    <a id="header-button" class="btn btn-secondary google-button" href="#">
+                        <i id="google-icon" class="fa fa-google-plus"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <h3> Database Test </h3>
+                <hr/>
+                <hr/>
+                <h:outputText value="#{userController.loadUsers}"/>
+            </div>
+            <div class="col-xl-6 col-md-6"></div>
+        </div>
+
+    </div>
+
+    <!--MUST BE HERE!!! jQuery first, then Tether, then Bootstrap JS.-->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+
+</h:body>
+
+</html>
