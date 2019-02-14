@@ -1,9 +1,13 @@
 package com.infoshare.lumato.test;
 
+import com.infoshare.lumato.models.UserBean;
+import com.infoshare.lumato.models.UserController;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -12,20 +16,15 @@ public class App {
         String password = "password";
 
         try {
-            // 1. Get a connection to database.
-            Connection myConnection = DriverManager.getConnection(url, user, password);
 
-            // 2. Create a statement
-            Statement myStatement = myConnection.createStatement();
+            List<UserBean> list = new UserController().getUsers();
+            for (UserBean userBean :list) {
+                System.out.println(userBean.toString());
 
-            // 3. Execute SQL query
-            ResultSet resultSet = myStatement.executeQuery("select * from users");
-
-            // 4. Process the results
-            Displayer.display(resultSet);
-
-        } catch (Exception exc) {
-            exc.printStackTrace();
+            }
+        } catch (Exception e){
+            System.out.println("Erorr!");
+            e.printStackTrace();
         }
     }
 }
