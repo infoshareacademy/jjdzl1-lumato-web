@@ -94,15 +94,19 @@
         </div>
 
 
-        <h2>User list</h2>
+        <h2>TEST</h2>
+        <h3>User list</h3>
         <div>
             <ul>
-                <ui:repeat var="tempStudent" value="#{userController.getUsers}">
+                <ui:repeat var="tempStudent" value="#{userController.users}">
                     <li>
-                        #{tempStudent.email}</li>
+                        #{tempStudent.firstName} #{tempStudent.lastName} #{tempStudent.email}
+                    </li>
                 </ui:repeat>
             </ul>
         </div>
+
+
 
     </ui:define>
 </ui:composition>

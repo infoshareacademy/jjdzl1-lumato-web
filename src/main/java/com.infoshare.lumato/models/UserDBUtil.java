@@ -11,15 +11,6 @@ public class UserDBUtil {
 
     private List<UserBean> users = new ArrayList<>();
 
-    /*
-    private static UserDBUtil instance;
-
-    public static UserDBUtil getInstance() throws Exception {
-        if (instance == null) {
-            instance = new UserDBUtil();
-        }
-        return instance;
-    }*/
 
     public Connection getConnection() {
         try {
@@ -44,33 +35,44 @@ public class UserDBUtil {
 
     public List<UserBean> getUsers() {
         try {
-            Class.forName(driverName);
-            try {
-                Statement myStatement = getConnection().createStatement();
+            Statement myStatement = getConnection().createStatement();
 
-                ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
+            ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
 
-                while (resultSet.next()) {
-                    String firstName = resultSet.getString("firstname");
-                    String lastName = resultSet.getString("lastname");
-                    String email = resultSet.getString("email");
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("firstname");
+                String lastName = resultSet.getString("lastname");
+                String email = resultSet.getString("email");
 
-                    UserBean tempUser = new UserBean(firstName, lastName, email);
-                    users.add(tempUser);
-                }
-
-            } catch (SQLException e) {
-                System.out.println("Failed to create a connection");
-                e.printStackTrace();
+                UserBean tempUser = new UserBean(firstName, lastName, email);
+                users.add(tempUser);
             }
-        } catch (ClassNotFoundException exc) {
 
-            System.out.println("Driver not found.");
+        } catch (SQLException e) {
+            System.out.println("Failed to create a connection");
+            e.printStackTrace();
         }
+
+        System.out.println("Driver not found.");
         return users;
     }
+
+    public void addUser(UserBean theUser) {
+
+        try {
+            String sql = "insert into users (firstname, lastname, email) values (?, ?, ?)";
+            PreparedStatement myStmt = getConnection().prepareStatement(sql);
+
+            myStmt.setString(1, theUser.getFirstName());
+            myStmt.setString(2, theUser.getLastName());
+            myStmt.setString(3, theUser.getEmail());
+
+            myStmt.execute();
+
+        } catch (Exception ecx) {
+            ecx.printStackTrace();
+            System.out.println("Failed to Add new User!");
+        }
+    }
+
 }
-
-        /*
-        }*/
-
