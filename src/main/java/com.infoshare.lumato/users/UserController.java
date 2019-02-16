@@ -1,6 +1,7 @@
-package com.infoshare.lumato.models;
+package com.infoshare.lumato.users;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,9 @@ public class UserController {
         return users;
     }
 
-    public void loadUsers() {
+    void loadUsers() {
         try {
-            users = userDB.getUsers();
+            users = userDB.getAllUsers();
 
         } catch (Exception e) {
             System.out.println("Cannot load users!");
@@ -31,13 +32,34 @@ public class UserController {
         }
     }
 
-    public void addUser(UserBean theUser) {
+    public String addUser(UserBean theUser) {
         try {
             userDB.addUser(theUser);
 
         } catch (Exception exc) {
             exc.printStackTrace();
             System.out.println("Failed to add user!");
+
         }
+        return "start.xhtml";
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

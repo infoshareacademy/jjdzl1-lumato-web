@@ -1,12 +1,8 @@
 package com.infoshare.lumato.test;
 
-import com.infoshare.lumato.models.UserBean;
-import com.infoshare.lumato.models.UserController;
+import com.infoshare.lumato.users.UserBean;
+import com.infoshare.lumato.users.UserController;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 
 public class App {

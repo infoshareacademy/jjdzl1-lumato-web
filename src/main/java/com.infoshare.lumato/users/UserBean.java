@@ -1,4 +1,4 @@
-package com.infoshare.lumato.models;
+package com.infoshare.lumato.users;
 
 
 import javax.enterprise.context.SessionScoped;
@@ -12,6 +12,8 @@ public class UserBean implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
+
 
     public UserBean() {
 
@@ -21,6 +23,14 @@ public class UserBean implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getFirstName() {
