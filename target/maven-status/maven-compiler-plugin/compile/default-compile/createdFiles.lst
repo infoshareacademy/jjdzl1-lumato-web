@@ -1,6 +1,10 @@
-com\infoshare\lumato\test\SampleUserDataUtil.class
-com\infoshare\lumato\test\UserController.class
-com\infoshare\lumato\test\UserDbUtil.class
+com\infoshare\lumato\DBConnection.class
+com\infoshare\lumato\users\User.class
+com\infoshare\lumato\users\UserController.class
+com\infoshare\lumato\cars\CardDBUtil.class
+com\infoshare\lumato\cars\CarsController.class
 com\infoshare\lumato\test\App.class
 com\infoshare\lumato\test\Displayer.class
-com\infoshare\lumato\test\User.class
+com\infoshare\lumato\cars\CarsBean.class
+com\infoshare\lumato\users\UserDBUtil.class
+com\infoshare\lumato\users\UserBean.class
