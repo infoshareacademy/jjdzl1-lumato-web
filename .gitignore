@@ -8,6 +8,10 @@
 *.ctxt
 
 .idea
+target
+**/.idea
+*.iml
+**/*.iml
 
 **/tag
 # Mobile Tools for Java (J2ME)

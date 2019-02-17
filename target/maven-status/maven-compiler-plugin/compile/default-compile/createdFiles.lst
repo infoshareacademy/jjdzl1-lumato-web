@@ -1,7 +1,0 @@
-com\infoshare\lumato\beans\RegisterViewBean.class
-com\infoshare\lumato\models\Car.class
-com\infoshare\lumato\UserController.class
-com\infoshare\lumato\persistence\DBConnection.class
-com\infoshare\lumato\models\User.class
-com\infoshare\lumato\services\UserService.class
-com\infoshare\lumato\config\DataBaseProp.class
