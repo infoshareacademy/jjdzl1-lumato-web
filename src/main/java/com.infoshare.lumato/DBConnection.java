@@ -3,24 +3,20 @@ package com.infoshare.lumato;
 
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
 @Stateless
-public class DBConnection  {
-
+public class DBConnection {
 
     private static String driverName = "com.mysql.cj.jdbc.Driver";
     private static Connection myConnection;
 
-    public DBConnection(){
 
-    }
-
-    public static Connection getConnection() {
+    public Connection getConnection() {
 
         try {
             Class.forName(driverName);

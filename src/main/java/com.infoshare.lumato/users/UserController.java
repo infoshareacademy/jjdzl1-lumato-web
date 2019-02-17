@@ -1,7 +1,7 @@
 package com.infoshare.lumato.users;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,9 @@ import java.util.List;
 public class UserController {
 
     private List<UserBean> users = new ArrayList<>();
-    private UserDBUtil userDB = new UserDBUtil();
+
+    @Inject
+    private UserDBUtil userDB;
 
     public UserController() throws Exception {
         users = new ArrayList<>();

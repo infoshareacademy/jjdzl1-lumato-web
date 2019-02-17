@@ -2,20 +2,24 @@ package com.infoshare.lumato.users;
 
 import com.infoshare.lumato.DBConnection;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class UserDBUtil {
+@RequestScoped
+public class UserDBUtil {
 
-
-//    DBConnection myConn;
     private List<UserBean> users = new ArrayList<>();
+
+    @Inject
+    DBConnection myConn;
 
     List<UserBean> getAllUsers() {
         try {
 
-            Statement myStatement = DBConnection.getConnection().createStatement();
+            Statement myStatement = myConn.getConnection().createStatement();
 
             ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
 
@@ -41,7 +45,7 @@ class UserDBUtil {
 
         try {
             String sql = "insert into users (firstname, lastname, email) values (?, ?, ?)";
-            PreparedStatement myStmt = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
             myStmt.setString(1, theUser.getFirstName());
             myStmt.setString(2, theUser.getLastName());
@@ -61,7 +65,7 @@ class UserDBUtil {
 
         try {
             String sql = "update users set first_name=?, last_name=?, email=? where id=?";
-            PreparedStatement myStmt = DBConnection.getConnection().prepareStatement(sql);
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
             myStmt.setString(1, theUser.getFirstName());
             myStmt.setString(2, theUser.getLastName());
