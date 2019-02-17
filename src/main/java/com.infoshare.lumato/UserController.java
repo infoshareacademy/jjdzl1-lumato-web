@@ -1,4 +1,7 @@
-package com.infoshare.lumato.users;
+package com.infoshare.lumato;
+
+import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.services.UserService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -10,16 +13,16 @@ import java.util.List;
 @RequestScoped
 public class UserController {
 
-    private List<UserBean> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @Inject
-    private UserDBUtil userDB;
+    private UserService userDB;
 
     public UserController() throws Exception {
         users = new ArrayList<>();
     }
 
-    public List<UserBean> getUsers() {
+    public List<User> getUsers() {
         loadUsers();
         return users;
     }
@@ -34,7 +37,7 @@ public class UserController {
         }
     }
 
-    public String addUser(UserBean theUser) {
+    public String addUser(User theUser) {
         try {
             userDB.addUser(theUser);
 

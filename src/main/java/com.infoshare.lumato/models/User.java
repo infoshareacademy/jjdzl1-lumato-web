@@ -1,13 +1,9 @@
-package com.infoshare.lumato.users;
+package com.infoshare.lumato.models;
 
-
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 import java.io.Serializable;
 
-@Named
-@SessionScoped
-public class UserBean implements Serializable {
+
+public class User implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -15,11 +11,11 @@ public class UserBean implements Serializable {
     private String password;
 
 
-    public UserBean() {
+    public User() {
 
     }
 
-    public UserBean(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

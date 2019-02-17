@@ -1,10 +1,7 @@
-com\infoshare\lumato\DBConnection.class
-com\infoshare\lumato\users\User.class
-com\infoshare\lumato\users\UserController.class
-com\infoshare\lumato\cars\CardDBUtil.class
-com\infoshare\lumato\cars\CarsController.class
-com\infoshare\lumato\test\App.class
-com\infoshare\lumato\test\Displayer.class
-com\infoshare\lumato\cars\CarsBean.class
-com\infoshare\lumato\users\UserDBUtil.class
-com\infoshare\lumato\users\UserBean.class
+com\infoshare\lumato\beans\RegisterViewBean.class
+com\infoshare\lumato\models\Car.class
+com\infoshare\lumato\UserController.class
+com\infoshare\lumato\persistence\DBConnection.class
+com\infoshare\lumato\models\User.class
+com\infoshare\lumato\services\UserService.class
+com\infoshare\lumato\config\DataBaseProp.class

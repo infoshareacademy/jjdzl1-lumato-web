@@ -1,6 +1,7 @@
-package com.infoshare.lumato.users;
+package com.infoshare.lumato.services;
 
-import com.infoshare.lumato.DBConnection;
+import com.infoshare.lumato.persistence.DBConnection;
+import com.infoshare.lumato.models.User;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -9,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
-public class UserDBUtil {
+public class UserService {
 
-    private List<UserBean> users = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     @Inject
     DBConnection myConn;
 
-    List<UserBean> getAllUsers() {
+    public List<User> getAllUsers() {
         try {
 
             Statement myStatement = myConn.getConnection().createStatement();
@@ -28,7 +29,7 @@ public class UserDBUtil {
                 String lastName = resultSet.getString("lastname");
                 String email = resultSet.getString("email");
 
-                UserBean tempUser = new UserBean(firstName, lastName, email);
+                User tempUser = new User(firstName, lastName, email);
                 users.add(tempUser);
             }
 
@@ -41,7 +42,7 @@ public class UserDBUtil {
         return users;
     }
 
-    void addUser(UserBean theUser) {
+    public void addUser(User theUser) {
 
         try {
             String sql = "insert into users (firstname, lastname, email) values (?, ?, ?)";
@@ -61,7 +62,7 @@ public class UserDBUtil {
 
 
     /*  Must figure out how we update user  */
-    void updateUser(UserBean theUser) {
+    void updateUser(User theUser) {
 
         try {
             String sql = "update users set first_name=?, last_name=?, email=? where id=?";

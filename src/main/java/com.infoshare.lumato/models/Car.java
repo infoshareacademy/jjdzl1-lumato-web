@@ -1,15 +1,15 @@
-package com.infoshare.lumato.cars;
+package com.infoshare.lumato.models;
 
-public class CarsBean {
+public class Car {
     private String brand;
     private String model;
     private String productionYear;
 
-    public CarsBean(){
+    public Car(){
 
     }
 
-    public CarsBean(String brand, String model, String productionYear) {
+    public Car(String brand, String model, String productionYear) {
         this.brand = brand;
         this.model = model;
         this.productionYear = productionYear;
