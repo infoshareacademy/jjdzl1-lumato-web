@@ -1,5 +1,4 @@
-package com.infoshare.lumato.models;
-
+package com.infoshare.lumato.users;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
