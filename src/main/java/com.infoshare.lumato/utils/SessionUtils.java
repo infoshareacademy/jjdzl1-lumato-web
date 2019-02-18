@@ -1,7 +1,5 @@
 package com.infoshare.lumato.utils;
 
-import com.infoshare.lumato.models.User;
-
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -21,29 +21,25 @@ public class UserService {
 
     public List<User> getAllUsers() {
         try {
-
             Statement myStatement = myConn.getConnection().createStatement();
-
             ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
 
             while (resultSet.next()) {
                 String firstName = resultSet.getString("firstname");
                 String lastName = resultSet.getString("lastname");
                 String email = resultSet.getString("email");
-
                 User tempUser = new User(firstName, lastName, email);
                 users.add(tempUser);
             }
-
         } catch (SQLException e) {
             System.out.println("Failed to create a connection");
             e.printStackTrace();
         }
-
         System.out.println("Driver not found.");
         return users;
     }
 
+    // TODO: 2019-02-18 no password?
     public void addUser(User theUser) {
         try {
             String sql = "insert into users (firstname, lastname, email) values (?, ?, ?)";
@@ -84,10 +80,8 @@ public class UserService {
         return userInDB;
     }
 
-
     /*  Must figure out how we update user  */
     void updateUser(User theUser) {
-
         try {
             String sql = "update users set first_name=?, last_name=?, email=? where id=?";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
@@ -125,13 +119,5 @@ public class UserService {
         session.setAttribute("currentUser", user);
     }
 
-    public void addWrongCredentialsMessageToSession() {
-        HttpSession session = SessionUtils.getSession();
-        session.setAttribute("loginErrorMessage", "Wrong credentials!");
-    }
 
-    public void deleteErrorMessagesFromSession() {
-        HttpSession session = SessionUtils.getSession();
-        session.removeAttribute("loginErrorMessage");
-    }
 }

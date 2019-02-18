@@ -49,7 +49,7 @@
                     <h:form id="form">
 
                         <div class="errorMessage">
-                            #{request.session.getAttribute("loginErrorMessage").toString()}
+                            #{messageBean.getWrongCredentialsMessage()}
                         </div>
 
                         <div class="form-group">
