@@ -16,7 +16,7 @@
             </div>
 
             <div class="header-section" id="user-info">
-                You are logged in as: #{user.login}, your email: #{user.email}
+                You are logged in as: #{request.session.getAttribute("currentUser").getEmail()}
             </div>
             <div class="header-section" id="community-buttons">
                 <a id="header-button" class="btn btn-secondary fb-button" href="#">
