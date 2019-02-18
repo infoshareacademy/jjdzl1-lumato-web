@@ -2,11 +2,15 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.UserService;
+import com.infoshare.lumato.utils.SessionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RequestScoped
 @Named("loginBean")
@@ -30,14 +34,14 @@ public class LoginViewBean {
         user = new User();
     }
 
-    public String attemptToLogIn() {
+    public void attemptToLogIn() {
         if (userService.verifyLoginAttempt(user)) {
             userService.storeInSession(user);
             userService.deleteErrorMessagesFromSession();
-            return "start.xhtml";
+            SessionUtils.redirect("start.xhtml");
         } else {
             userService.addWrongCredentialsMessageToSession();
-            return "login.xhtml";
+            SessionUtils.redirect("login.xhtml");
         }
     }
 }

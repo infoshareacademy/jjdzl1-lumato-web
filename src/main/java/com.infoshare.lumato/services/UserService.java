@@ -45,7 +45,6 @@ public class UserService {
     }
 
     public void addUser(User theUser) {
-
         try {
             String sql = "insert into users (firstname, lastname, email) values (?, ?, ?)";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
@@ -60,6 +59,29 @@ public class UserService {
             ecx.printStackTrace();
             System.out.println("Failed to Add new User!");
         }
+    }
+
+    public User findUserInDatabaseByEmail(String email){
+        User userInDB = new User();
+        try {
+            String sql = "SELECT * FROM users WHERE email = ?";
+            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.isBeforeFirst()) {
+                userInDB = null;
+            } else {
+                resultSet.next();
+                userInDB.setEmail(resultSet.getString("email"));
+                userInDB.setPassword(resultSet.getString("password"));
+                userInDB.setFirstName(resultSet.getString("firstname"));
+                userInDB.setLastName(resultSet.getString("lastname"));
+                userInDB.setUserId(resultSet.getInt("iduser"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userInDB;
     }
 
 
@@ -83,10 +105,19 @@ public class UserService {
     }
 
     public boolean verifyLoginAttempt(User user) {
-        if (user.getEmail().equals("admin@admin.pl") && user.getPassword().equals("admin")){
+        User userInDB = findUserInDatabaseByEmail(user.getEmail());
+        if (userInDB == null) return false;
+        if (userInDB.getPassword().equals(user.getPassword())) {
+            fillUserData(user, userInDB);
             return true;
         }
         return false;
+    }
+
+    private void fillUserData(User userToFill, User userInDB) {
+        userToFill.setUserId(userInDB.getUserId());
+        userToFill.setFirstName(userInDB.getFirstName());
+        userToFill.setLastName(userInDB.getLastName());
     }
 
     public void storeInSession(User user) {
