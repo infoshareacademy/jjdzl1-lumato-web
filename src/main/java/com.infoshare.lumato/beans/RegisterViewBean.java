@@ -35,4 +35,6 @@ public class RegisterViewBean {
         userService.addUser(user);
         return "start.xhtml";
     }
+
+    //TODO
 }

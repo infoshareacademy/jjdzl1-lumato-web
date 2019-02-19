@@ -10,7 +10,6 @@
     <filter-mapping>
         <filter-name>filter</filter-name>
         <url-pattern>/start.xhtml</url-pattern>
-        <url-pattern>/register.xhtml</url-pattern>
     </filter-mapping>
 
 </web-app>

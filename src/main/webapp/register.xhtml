@@ -56,7 +56,6 @@
                         </div>
 
                         <div class="form-group">
-                            <a class="float-right" href="#">Forgot?</a>
                             <h:inputText a:placeholder="Email" styleClass="form-control form-control-user" style="border-radius:15px" value="#{registerBean.user.email}" id="email"/>
                             <h:message for="email"/>
                         </div>
@@ -74,13 +73,15 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="checkbox">
-                                <label> <input type="checkbox"/> Remember me </label>
-                            </div> <!-- checkbox .// -->
-                        </div> <!-- form-group// -->
-                        <div class="form-group">
                             <h:commandButton value="Register" styleClass="btn btn-primary btn-block" style="border-radius:15px" action="#{registerBean.addUser()}"/>
-                        </div> <!-- form-group// -->
+                        </div>
+
+                        <div class="form-group">
+                            <h:commandButton value="Sign In" styleClass="btn btn btn-secondary btn-block" style="border-radius:15px" action="login.xhtml"/>
+                            <a class="float-right" href="#">Forgot password?</a>
+                        </div>
+
+
                     </h:form>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
