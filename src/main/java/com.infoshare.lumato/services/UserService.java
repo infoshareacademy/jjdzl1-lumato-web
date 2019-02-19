@@ -15,6 +15,7 @@ import java.util.List;
 public class UserService {
 
     private List<User> users = new ArrayList<>();
+    HttpSession session = SessionUtils.getSession();
 
     @Inject
     DBConnection myConn;
