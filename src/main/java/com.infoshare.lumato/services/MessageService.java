@@ -30,4 +30,9 @@ public class MessageService {
         return (String) session.getAttribute("loginErrorMessage");
     }
 
+    public void addUserAlreadyExistMessage() {
+//        HttpSession session = SessionUtils.getSession();
+        session.setAttribute("registerErrorMessage", "User already exist!");
+    }
+
 }
