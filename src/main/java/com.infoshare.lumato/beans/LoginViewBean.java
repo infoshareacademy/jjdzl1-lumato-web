@@ -42,10 +42,10 @@ public class LoginViewBean {
         if (userService.verifyLoginAttempt(user)) {
             userService.storeInSession(user);
             messageService.deleteWrongCredentialsMessage();
-            SessionUtils.redirect("start.xhtml");
+            SessionUtils.redirect("/app/start.xhtml");
         } else {
             messageService.addWrongCredentialsMessage();
-            SessionUtils.redirect("login.xhtml");
+            SessionUtils.redirect("/login.xhtml");
         }
     }
 
@@ -53,7 +53,7 @@ public class LoginViewBean {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().invalidateSession();
         try {
-            context.getExternalContext().redirect("login.xhtml");
+            context.getExternalContext().redirect("/login.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

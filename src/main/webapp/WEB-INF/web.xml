@@ -3,13 +3,21 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <filter>
-        <filter-name>filter</filter-name>
+        <filter-name>restrict-page-filter</filter-name>
         <filter-class>com.infoshare.lumato.filters.RestrictPageFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>no-cache-filter</filter-name>
+        <filter-class>com.infoshare.lumato.filters.NoCacheFilter</filter-class>
     </filter>
 
     <filter-mapping>
-        <filter-name>filter</filter-name>
-        <url-pattern>/start.xhtml</url-pattern>
+        <filter-name>restrict-page-filter</filter-name>
+        <url-pattern>/app/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>no-cache-filter</filter-name>
+        <url-pattern>/app/*</url-pattern>
     </filter-mapping>
 
 </web-app>

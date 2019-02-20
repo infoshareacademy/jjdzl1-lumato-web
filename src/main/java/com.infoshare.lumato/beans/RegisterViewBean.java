@@ -46,7 +46,7 @@ public class RegisterViewBean {
     private void addUser() {
         userService.storeInSession(user);
         userService.addUser(user);
-        SessionUtils.redirect("start.xhtml");
+        SessionUtils.redirect("/app/start.xhtml");
     }
 
 
