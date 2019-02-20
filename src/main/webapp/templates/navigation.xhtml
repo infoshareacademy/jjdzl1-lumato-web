@@ -38,7 +38,9 @@
                 <a href="#">Contact</a>
             </li>
             <li>
-                <a href="login.xhtml">Log out</a>
+                <h:form>
+                    <h:commandLink action="#{loginBean.logOut}" value="Log out"/>
+                </h:form>
             </li>
         </ul>
 

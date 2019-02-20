@@ -15,6 +15,7 @@ import java.util.List;
 public class UserService {
 
     private List<User> users = new ArrayList<>();
+    HttpSession session = SessionUtils.getSession();
 
     @Inject
     DBConnection myConn;
@@ -39,15 +40,15 @@ public class UserService {
         return users;
     }
 
-    // TODO: 2019-02-18 no password?
     public void addUser(User theUser) {
         try {
-            String sql = "insert into users (firstname, lastname, email) values (?, ?, ?)";
+            String sql = "insert into users (firstname, lastname, email, password) values (?, ?, ?, ?)";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
             myStmt.setString(1, theUser.getFirstName());
             myStmt.setString(2, theUser.getLastName());
             myStmt.setString(3, theUser.getEmail());
+            myStmt.setString(4, theUser.getPassword());
 
             myStmt.execute();
 
@@ -57,7 +58,7 @@ public class UserService {
         }
     }
 
-    public User findUserInDatabaseByEmail(String email){
+    public User findUserInDatabaseByEmail(String email) {
         User userInDB = new User();
         try {
             String sql = "SELECT * FROM users WHERE email = ?";
@@ -119,5 +120,9 @@ public class UserService {
         session.setAttribute("currentUser", user);
     }
 
-
+    public boolean doesUserExist(User user) {
+        User userInDB = findUserInDatabaseByEmail(user.getEmail());
+        if (userInDB == null) return false;
+        return (userInDB.getPassword().equals(user.getPassword()) || userInDB.getEmail().equals(user.getEmail()));
+    }
 }

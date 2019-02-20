@@ -7,8 +7,11 @@ import com.infoshare.lumato.utils.SessionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @RequestScoped
 @Named("loginBean")
@@ -38,11 +41,20 @@ public class LoginViewBean {
     public void attemptToLogIn() {
         if (userService.verifyLoginAttempt(user)) {
             userService.storeInSession(user);
-            messageService.deleteWrongCredentialsMessage();
-            SessionUtils.redirect("start.xhtml");
+            SessionUtils.redirect("/app/start.xhtml");
         } else {
             messageService.addWrongCredentialsMessage();
-            SessionUtils.redirect("login.xhtml");
+            SessionUtils.redirect("/login.xhtml");
+        }
+    }
+
+    public void logOut() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().invalidateSession();
+        try {
+            context.getExternalContext().redirect("/login.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
