@@ -4,7 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui">
 
 <ui:composition template="templates/login-register-template.xhtml">
     <ui:define name="content">
@@ -72,15 +74,23 @@
 
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <h:inputText a:placeholder="Password" styleClass="form-control form-control-user" style="border-radius:15px" value="#{registerBean.user.password}" id="password"/>
+                                <h:inputSecret a:placeholder="Password" styleClass="form-control form-control-user"
+                                               value="#{registerBean.user.password}"
+                                               style="border-radius:15px"
+                                               id="password"/>
                                 <h:message for="password"/>
                             </div>
 
                             <div class="col-sm-6">
-                                <h:inputText a:placeholder="Confirm Password" styleClass="form-control form-control-user" style="border-radius:15px" value="#{registerBean.user.password}" id="confirmPassword"/>
+                                <h:inputSecret a:placeholder="Confirm Password"
+                                               value="#{registerBean.user.confirmPassword}"
+                                               styleClass="form-control form-control-user"
+                                               style="border-radius:15px"
+                                               id="confirmPassword"/>
                                 <h:message for="confirmPassword"/>
                             </div>
-                        </div>
+                            <o:validateEqual components="password confirmPassword"
+                                             message="Passwords do not match!" showMessageFor="confirmPassword"/></div>
 
                         <div class="form-group">
                             <h:commandButton value="Register" styleClass="btn btn-primary btn-block"
