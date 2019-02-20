@@ -11,6 +11,8 @@ public class User implements Serializable {
     private String email;
     private String password;
 
+    private String confirmPassword;
+
 
     public User() {
 
@@ -61,6 +63,15 @@ public class User implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
 
     @Override
     public String toString() {
