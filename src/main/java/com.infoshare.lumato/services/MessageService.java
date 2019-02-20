@@ -1,9 +1,13 @@
 package com.infoshare.lumato.services;
 
+import com.infoshare.lumato.utils.SessionUtils;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 
 @RequestScoped
 @Named("messageBean")
@@ -12,32 +16,23 @@ public class MessageService {
     @Inject
     HttpSession session;
 
-    // TODO: 2019-02-18 MAKE IT USE COOKIES INSTEAD OF SESSION
     public void addWrongCredentialsMessage() {
-//        HttpSession session = SessionUtils.getSession();
-        session.setAttribute("loginErrorMessage", "Wrong credentials!");
-
+        Cookie kookey = new Cookie("loginErrorMessage", "Wrong credentials");
+        kookey.setMaxAge(5);
+        SessionUtils.getResponse().addCookie(kookey);
     }
 
-    // TODO: 2019-02-18 MAKE IT US COOKIES INSTEAD OF SESSION
-    public void deleteWrongCredentialsMessage() {
-//        HttpSession session = SessionUtils.getSession();
-        session.removeAttribute("loginErrorMessage");
-    }
-
-    public String getWrongCredentialsMessage(){
-//        HttpSession session = SessionUtils.getSession();
-        return (String) session.getAttribute("loginErrorMessage");
+    public String getWrongCredentialsMessage() {
+        return SessionUtils.getCookieValueByCookieName("loginErrorMessage");
     }
 
     public void addUserAlreadyExistMessage() {
-//        HttpSession session = SessionUtils.getSession();
-        session.setAttribute("registerErrorMessage", "User already exist!");
+        Cookie kookey = new Cookie("registerErrorMessage", "User already exist");
+        kookey.setMaxAge(5);
+        SessionUtils.getResponse().addCookie(kookey);
     }
 
     public String getUserAlreadyExistMessage(){
-//        HttpSession session = SessionUtils.getSession();
-        return (String) session.getAttribute("registerErrorMessage");
+        return SessionUtils.getCookieValueByCookieName("registerErrorMessage");
     }
-
 }

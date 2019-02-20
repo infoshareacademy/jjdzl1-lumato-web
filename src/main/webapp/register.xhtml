@@ -74,7 +74,6 @@
                                              id="lastName">
                                     <f:validateLength minimum="1"/>
                                 </h:inputText>
-                                <h:message for="lastName"/>
                             </div>
                         </div>
 
@@ -87,7 +86,6 @@
                                 <f:validateLength minimum="5"/>
                             </h:inputText>
 
-                            <h:message for="email"/>
                         </div>
 
                         <div class="form-group row">
@@ -97,7 +95,6 @@
                                                style="border-radius:15px"
                                                id="password">
                                     <f:validateLength minimum="3"/>
-                                    <h:message for="password"/>
                                 </h:inputSecret>
 
                             </div>
@@ -108,7 +105,6 @@
                                                styleClass="form-control form-control-user"
                                                style="border-radius:15px"
                                                id="confirmPassword"/>
-                                <h:message for="confirmPassword"/>
                             </div>
                             <o:validateEqual components="password confirmPassword"
                                              message="Passwords do not match!" showMessageFor="confirmPassword"/></div>

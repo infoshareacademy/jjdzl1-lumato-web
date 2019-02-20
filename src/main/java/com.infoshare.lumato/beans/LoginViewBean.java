@@ -41,7 +41,6 @@ public class LoginViewBean {
     public void attemptToLogIn() {
         if (userService.verifyLoginAttempt(user)) {
             userService.storeInSession(user);
-            messageService.deleteWrongCredentialsMessage();
             SessionUtils.redirect("/app/start.xhtml");
         } else {
             messageService.addWrongCredentialsMessage();
