@@ -14,6 +14,9 @@ import javax.inject.Named;
 @Named("editUser")
 public class ChangeUserDataBean {
 
+    private String newPasswordFirst;
+    private String newPasswordSecond;
+
     @Inject
     private UserService userService;
 
@@ -35,10 +38,31 @@ public class ChangeUserDataBean {
         user = new User();
     }
 
+    public String getNewPasswordFirst() {
+        return newPasswordFirst;
+    }
+
+    public void setNewPasswordFirst(String newPasswordFirst) {
+        this.newPasswordFirst = newPasswordFirst;
+    }
+
+    public String getNewPasswordSecond() {
+        return newPasswordSecond;
+    }
+
+    public void setNewPasswordSecond(String newPasswordSecond) {
+        this.newPasswordSecond = newPasswordSecond;
+    }
+
     public void updateUser() {
         if (userService.doesUserExist(user)) {
             messageService.addUserAlreadyExistMessage();
+        } else if (!userService.passwordIsOk(user)) {
+            messageService.addWrongPasswordMessage();
+        } else if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
+            messageService.addPasswordsDoNotMatchMessage();
         } else {
+            user.setPassword(this.newPasswordFirst);
             userService.updateUser(user);
         }
         HttpUtils.redirect("/app/user-management.xhtml");

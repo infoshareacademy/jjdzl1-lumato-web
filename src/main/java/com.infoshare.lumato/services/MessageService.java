@@ -30,4 +30,25 @@ public class MessageService {
     public String getUserAlreadyExistMessage(){
         return HttpUtils.getCookieValueByCookieName("registerErrorMessage");
     }
+
+    public void addPasswordsDoNotMatchMessage() {
+        Cookie kookey = new Cookie("passwordsNotMatchMessage", "Passwords do not match!");
+        kookey.setMaxAge(5);
+        HttpUtils.getResponse().addCookie(kookey);
+    }
+
+    public String getPasswordsDoNotMatchMessage(){
+        return HttpUtils.getCookieValueByCookieName("passwordsNotMatchMessage");
+    }
+
+    public void addWrongPasswordMessage() {
+        Cookie kookey = new Cookie("wrontPasswordMessage", "Wrong password!");
+        kookey.setMaxAge(5);
+        HttpUtils.getResponse().addCookie(kookey);
+    }
+
+    public String getWrongPasswordMessage(){
+        return HttpUtils.getCookieValueByCookieName("wrontPasswordMessage");
+    }
+
 }

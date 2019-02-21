@@ -131,12 +131,15 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        fillUserData(user, currentUser);
+        fillUserData(user, this.currentUser);
         sendUpdateUserQuery(user);
-        currentUser.setFirstName(user.getFirstName());
-        currentUser.setLastName(user.getLastName());
-        currentUser.setEmail(user.getEmail());
-        currentUser.setPassword(user.getPassword());
+        this.currentUser.setFirstName(user.getFirstName());
+        this.currentUser.setLastName(user.getLastName());
+        this.currentUser.setEmail(user.getEmail());
+        this.currentUser.setPassword(user.getPassword());
     }
 
+    public boolean passwordIsOk(User user) {
+        return user.getPassword().equals(this.currentUser.getPassword());
+    }
 }
