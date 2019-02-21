@@ -35,10 +35,8 @@ public class ChangeUserDataBean {
         user = new User();
     }
 
-    public void updateUserFirstName() {
-        userService.updateUserFirstName(user);
-        User userInSession = (User) HttpUtils.getSession().getAttribute("currentUser");
-        userInSession.setFirstName(user.getFirstName());
-        HttpUtils.redirect("/app/start.xhtml");
+    public void updateUser() {
+        userService.updateUser(user);
+        HttpUtils.redirect("/app/user-management.xhtml");
     }
 }

@@ -10,7 +10,7 @@
 <ui:composition>
     <div id="container-fluid">
         <!--UPDATE FIRST NAME -->
-        <h4 class="card-title">Change first name</h4>
+        <h4 class="card-title">Change last name</h4>
         <div class="row">
             <h:form styleClass="form-inline">
                 <div class="form-group mx-sm-2 mb-3"></div>
@@ -18,10 +18,10 @@
                     <h:outputLabel value="New first name:"/>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <h:inputText a:placeholder='#{request.session.getAttribute("currentUser").getFirstName()}'
+                    <h:inputText a:placeholder='#{request.session.getAttribute("currentUser").getLastName()}'
                                  styleClass="form-control"
-                                 value="#{editUser.user.firstName}"
-                                 id="firstname"/>
+                                 value="#{editUser.user.lastName}"
+                                 id="lastname"/>
                 </div>
                 <h:commandButton value="Change"
                                  styleClass="btn btn-primary mb-2"
@@ -32,5 +32,4 @@
     </div>
 </ui:composition>
 </html>
-
 

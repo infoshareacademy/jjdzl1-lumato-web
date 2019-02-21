@@ -82,12 +82,15 @@ public class UserService {
         return userInDB;
     }
 
-    void updateUser(String columnToEdit, String newValue) {
+    void sendUpdateUserQuery(User user) {
         try {
-            String sql = "update users set " + columnToEdit + "=? where iduser=?";
+            String sql = "update users set firstname=?, lastname=?, email=?, password=? where iduser=?";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setString(1, newValue);
-            myStmt.setInt(2, currentUser.getUserId());
+            myStmt.setString(1, user.getFirstName());
+            myStmt.setString(2, user.getLastName());
+            myStmt.setString(3, user.getEmail());
+            myStmt.setString(4, user.getPassword());
+            myStmt.setInt(5, user.getUserId());
             myStmt.executeUpdate();
         } catch (Exception exc) {
             System.out.println("Cannot update an user!");
@@ -105,10 +108,15 @@ public class UserService {
         return false;
     }
 
-    private void fillUserData(User userToFill, User userInDB) {
-        userToFill.setUserId(userInDB.getUserId());
-        userToFill.setFirstName(userInDB.getFirstName());
-        userToFill.setLastName(userInDB.getLastName());
+    private void fillUserData(User userToFill, User fullUserFiller) {
+        if (userToFill.getFirstName() == null) userToFill.setFirstName(fullUserFiller.getFirstName());
+        if (userToFill.getLastName() == null) userToFill.setLastName(fullUserFiller.getLastName());
+        if (userToFill.getEmail() == null) userToFill.setEmail(fullUserFiller.getEmail());
+        if (userToFill.getPassword() == null) userToFill.setPassword(fullUserFiller.getPassword());
+        userToFill.setUserId(fullUserFiller.getUserId());
+//        userToFill.setUserId(fullUserFiller.getUserId());
+//        userToFill.setFirstName(fullUserFiller.getFirstName());
+//        userToFill.setLastName(fullUserFiller.getLastName());
     }
 
     public void storeInSession(User user) {
@@ -122,8 +130,13 @@ public class UserService {
         return (userInDB.getEmail().equals(user.getEmail()));
     }
 
-    public void updateUserFirstName(User user) {
-        updateUser("firstname", user.getFirstName());
+    public void updateUser(User user) {
+        fillUserData(user, currentUser);
+        sendUpdateUserQuery(user);
         currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPassword(user.getPassword());
     }
+
 }
