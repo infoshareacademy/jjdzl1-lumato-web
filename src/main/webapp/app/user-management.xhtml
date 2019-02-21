@@ -9,35 +9,7 @@
 
 <ui:composition template="/templates/maintemplate.xhtml">
     <ui:define name="content">
-
-        <div class="container-fluid"
-             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 100px 0px; border-radius:5px">
-
-            <!-- UPDATE FIRST NAME -->
-            <div class="row">
-                <div class="col-md-4 col-sm-3 col-xs-2"></div>
-                <div class="col-md-4 col-sm-6 col-xs-8">
-                    <h4 class="card-title">Change user firstname</h4>
-                    <h:form id="form-inline">
-                        <div class="form-group">
-                            <label>First name: </label>
-                        </div>
-                        <div class="form-group">
-                            <h:inputText a:placeholder='#{request.session.getAttribute("currentUser").getFirstName()}'
-                                     styleClass="form-control" style="border-radius:15px"
-                                     value="#{editUser.user.firstName}" id="firstname"/>
-                        </div>
-                        <div class="form-group">
-                            <h:commandButton value="Change"
-                                         styleClass="btn btn-primary btn-block" style="border-radius:15px"
-                                         action="#{editUser.updateUserFirstName}"/>
-                        </div>
-                    </h:form>
-                </div>
-                <div class="col-md-4 col-sm-3 col-xs-2"></div>
-            </div>
-
-        </div>
+        <ui:include src = "/templates/form-templates/change-firstname-form.xhtml" />
     </ui:define>
 </ui:composition>
 </html>
