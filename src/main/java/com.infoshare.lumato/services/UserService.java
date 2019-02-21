@@ -2,7 +2,7 @@ package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.persistence.DBConnection;
 import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.utils.SessionUtils;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,7 +15,6 @@ import java.util.List;
 public class UserService {
 
     private List<User> users = new ArrayList<>();
-    HttpSession session = SessionUtils.getSession();
 
     @Inject
     DBConnection myConn;
@@ -116,13 +115,13 @@ public class UserService {
     }
 
     public void storeInSession(User user) {
-        HttpSession session = SessionUtils.getSession();
+        HttpSession session = HttpUtils.getSession();
         session.setAttribute("currentUser", user);
     }
 
     public boolean doesUserExist(User user) {
         User userInDB = findUserInDatabaseByEmail(user.getEmail());
         if (userInDB == null) return false;
-        return (userInDB.getPassword().equals(user.getPassword()) || userInDB.getEmail().equals(user.getEmail()));
+        return (userInDB.getEmail().equals(user.getEmail()));
     }
 }

@@ -3,7 +3,7 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
-import com.infoshare.lumato.utils.SessionUtils;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -40,10 +40,10 @@ public class LoginViewBean {
     public void attemptToLogIn() {
         if (userService.verifyLoginAttempt(user)) {
             userService.storeInSession(user);
-            SessionUtils.redirect("/app/start.xhtml");
+            HttpUtils.redirect("/app/start.xhtml");
         } else {
             messageService.addWrongCredentialsMessage();
-            SessionUtils.redirect("/login.xhtml");
+            HttpUtils.redirect("/login.xhtml");
         }
     }
 

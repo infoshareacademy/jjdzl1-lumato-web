@@ -4,16 +4,13 @@ package com.infoshare.lumato.persistence;
 import com.infoshare.lumato.config.DataBaseProp;
 
 import javax.ejb.Stateless;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 @Stateless
 public class DBConnection {
 
-    private static String driverName = "com.mysql.cj.jdbc.Driver";
     private static Connection myConnection;
 
     public Connection getConnection() {

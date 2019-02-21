@@ -1,6 +1,6 @@
 package com.infoshare.lumato.config;
 
-import com.infoshare.lumato.utils.SessionUtils;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
@@ -15,12 +15,12 @@ public class DataBaseProp {
 //    private String user = "root";
 
     //Łukasz settings
-    private String url =  "jdbc:mysql://192.168.99.100:9001/lumato";
-    private String password = "root";
-    private String user = "root";
+//    private String url =  "jdbc:mysql://192.168.99.100:9001/lumato";
+//    private String password = "root";
+//    private String user = "root";
 
     public Properties getProperties(){
-        ServletContext context = SessionUtils.getRequest().getServletContext();
+        ServletContext context = HttpUtils.getRequest().getServletContext();
         String fullPath = context.getRealPath("/config/db.properties");
         Properties properties = new Properties();
         try {
@@ -33,7 +33,7 @@ public class DataBaseProp {
     }
 
     public String getUrl() {
-        return getProperties().getProperty("url", );
+        return getProperties().getProperty("url");
     }
 
     public String getPassword() {
