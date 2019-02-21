@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class SessionUtils {
+public class HttpUtils {
 
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance()
@@ -35,7 +35,7 @@ public class SessionUtils {
     }
 
     private static Cookie[] getCookies() {
-        return SessionUtils.getRequest().getCookies();
+        return HttpUtils.getRequest().getCookies();
     }
 
     public static String getCookieValueByCookieName(String cookieKey) {
@@ -44,7 +44,7 @@ public class SessionUtils {
             return "";
         }
         for (int i = 0; i < kookeys.length; i++) {
-            if (kookeys[i].getName().equals("loginErrorMessage")) {
+            if (kookeys[i].getName().equals(cookieKey)) {
                 return kookeys[i].getValue();
             }
         }

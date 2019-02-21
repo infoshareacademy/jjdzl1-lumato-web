@@ -3,7 +3,7 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
-import com.infoshare.lumato.utils.SessionUtils;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -40,13 +40,14 @@ public class RegisterViewBean {
     public void attemptToRegister() {
         if (userService.doesUserExist(user)) {
             messageService.addUserAlreadyExistMessage();
+            HttpUtils.redirect("/register.xhtml");
         } else addUser();
     }
 
     private void addUser() {
         userService.storeInSession(user);
         userService.addUser(user);
-        SessionUtils.redirect("/app/start.xhtml");
+        HttpUtils.redirect("/app/start.xhtml");
     }
 
 

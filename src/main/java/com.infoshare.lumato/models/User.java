@@ -10,9 +10,7 @@ public class User implements Serializable {
     private String lastName;
     private String email;
     private String password;
-
     private String confirmPassword;
-
 
     public User() {
 
@@ -72,7 +70,6 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-
     @Override
     public String toString() {
         return "UserBean{" +
@@ -81,7 +78,5 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 '}';
     }
-
-
 }
 
