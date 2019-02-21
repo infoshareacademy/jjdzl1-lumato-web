@@ -14,7 +14,6 @@ import javax.inject.Named;
 @Named("registerBean")
 public class RegisterViewBean {
 
-
     @Inject
     private UserService userService;
 
@@ -49,6 +48,4 @@ public class RegisterViewBean {
         userService.addUser(user);
         HttpUtils.redirect("/app/start.xhtml");
     }
-
-
 }

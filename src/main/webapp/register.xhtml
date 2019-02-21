@@ -57,22 +57,21 @@
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <h:inputText a:placeholder="First Name"
-                                             styleClass="form-control form-control-user"
+                                             class="form-control form-control-user"
                                              style="border-radius:15px"
                                              value="#{registerBean.user.firstName}"
-                                             id="firstName">
-                                    <f:validateLength minimum="1"/>
+                                             id="firstName"
+                                             validatorMessage="All fields are required ">
+                                    <f:validateLength minimum="3"/>
                                 </h:inputText>
-                                <h:message for="firstName"/>
                             </div>
-
                             <div class="col-sm-6">
                                 <h:inputText a:placeholder="Last Name"
                                              styleClass="form-control form-control-user"
                                              style="border-radius:15px"
                                              value="#{registerBean.user.lastName}"
                                              id="lastName">
-                                    <f:validateLength minimum="1"/>
+                                    <f:validateLength minimum="3"/>
                                 </h:inputText>
                             </div>
                         </div>
@@ -85,7 +84,6 @@
                                          id="email">
                                 <f:validateLength minimum="5"/>
                             </h:inputText>
-
                         </div>
 
                         <div class="form-group row">
@@ -96,7 +94,6 @@
                                                id="password">
                                     <f:validateLength minimum="3"/>
                                 </h:inputSecret>
-
                             </div>
 
                             <div class="col-sm-6">
@@ -111,8 +108,14 @@
                                              showMessageFor="confirmPassword"/>
                         </div>
 
+                        <div class="errorMessage">
+                            <h:message for="firstName"/>
+                            <h:message for="confirmPassword"/>
+                        </div>
+
+
                         <div class="form-group">
-                            <h:commandButton value="Register" styleClass="btn btn-primary btn-block"
+                            <h:commandButton value="Register" styleClass="btn btn-primary btn-block" type="submit"
                                              style="border-radius:15px" action="#{registerBean.attemptToRegister}"/>
                         </div>
 
@@ -124,6 +127,7 @@
                            style="border-radius:15px">Sign in</a>
                         <a class="float-right" href="#">Forgot password?</a>
                     </div>
+
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
             </div>

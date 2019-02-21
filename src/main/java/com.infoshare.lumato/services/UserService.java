@@ -80,7 +80,6 @@ public class UserService {
         return userInDB;
     }
 
-    /*  Must figure out how we update user  */
     void updateUser(User theUser) {
         try {
             String sql = "update users set first_name=?, last_name=?, email=? where id=?";
