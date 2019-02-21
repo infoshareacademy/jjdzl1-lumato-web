@@ -22,7 +22,7 @@ public class MessageService {
     }
 
     public void addUserAlreadyExistMessage() {
-        Cookie kookey = new Cookie("registerErrorMessage", "User already exists!");
+        Cookie kookey = new Cookie("registerErrorMessage", "User with such email already exists!");
         kookey.setMaxAge(5);
         HttpUtils.getResponse().addCookie(kookey);
     }

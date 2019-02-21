@@ -36,7 +36,11 @@ public class ChangeUserDataBean {
     }
 
     public void updateUser() {
-        userService.updateUser(user);
+        if (userService.doesUserExist(user)) {
+            messageService.addUserAlreadyExistMessage();
+        } else {
+            userService.updateUser(user);
+        }
         HttpUtils.redirect("/app/user-management.xhtml");
     }
 }
