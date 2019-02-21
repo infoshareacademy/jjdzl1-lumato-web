@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="../templates/maintemplate.xhtml">
+    <ui:define name="content">
+
+        <div class="row">
+
+            <div class="card shadow h-100 py-2 mb-2"
+                 style="padding: 5px; border: 0px; padding-bottom: 10000px !important;">
+
+                <p:tabView style="border: 0px; font-size: 1em">
+                    <p:tab title="Add a car">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:graphicImage name="demo/images/godfather/godfather1.jpg"/>
+                            <h:outputText
+                                    value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
+                    His beloved son Michael has just come home from the war, but does not intend to become part of his father's business.
+                    Through Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
+                    but given to ruthless violence whenever anything stands against the good of the family."/>
+
+                            <div class="row">
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-"></div>
+                            </div>
+
+                            <h:form>
+
+                                <div class="col-sm-5">
+
+                                    <div class="form-group row">
+                                        <label for="carBrand" class="col-sm-3 col-form-label">Your cars' brand</label>
+                                        <div class="col-sm-9 col align-self-center">
+                                            <h:inputText a:placeholder="Brand"
+                                                         class="form-control form-control-user"
+                                                         id="carBrand"
+                                                         value="#{carsBean.car.brand}"
+                                                         style="border-radius:5px">
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="carModel" class="col-sm-3 col-form-label">Your cars' model</label>
+                                        <div class="col-sm-9 col align-self-center">
+                                            <h:inputText a:placeholder="Model"
+                                                         class="form-control form-control-user"
+                                                         id="carModel"
+                                                         value="#{carsBean.car.model}"
+                                                         style="border-radius:5px">
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="carProductionYear"
+                                               class="col-sm-3 col-form-label">Production Year</label>
+                                        <div class="col-sm-9 col align-self-center">
+                                            <h:inputText a:placeholder="Production Year"
+                                                         class="form-control form-control-user"
+                                                         id="carProductionYear"
+                                                         value="#{carsBean.car.productionYear}"
+                                                         style="border-radius:5px">
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="carModel"
+                                               class="col-sm-3 col-form-label">Additional Description</label>
+                                        <div class="col-sm-9 col align-self-center">
+                                            <h:inputText a:placeholder="Additional Description"
+                                                         class="form-control form-control-user"
+                                                         id="carDescription"
+                                                         value="#{carsBean.car.description}"
+                                                         style="border-radius:5px">
+                                            </h:inputText>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="carModel" class="col-sm-3 col-form-label">Type of fuel</label>
+                                        <div class="col-sm-9 col align-self-center">
+                                            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                                                <p:selectOneButton value="#{carsBean.car.fuelType}">
+                                                    <f:selectItem itemLabel="Petrol" itemValue="Petrol"/>
+                                                    <f:selectItem itemLabel="Diesel" itemValue="Diesel"/>
+                                                    <f:selectItem itemLabel="P+LPG" itemValue="P+LPG"/>
+                                                </p:selectOneButton>
+
+                                                <p:commandButton value="Submit" update="display" icon="pi pi-check"/>
+                                                <p:spacer/>
+
+                                                <h:outputText id="display" value="#{carsBean.car.fuelType}"
+                                                              style="font-weight: bold"/>
+                                            </h:panelGrid>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-6"></div>
+
+                            </h:form>
+                        </h:panelGrid>
+                    </p:tab>
+
+
+                    <p:tab title="Edit a car">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:graphicImage name="demo/images/godfather/godfather2.jpg"/>
+                            <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
+                In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
+                killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."/>
+                        </h:panelGrid>
+                    </p:tab>
+
+
+                    <p:tab title="Delete a car">
+
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:graphicImage name="demo/images/godfather/godfather3.jpg"/>
+                            <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
+                    Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."/>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </div>
+        </div>
+
+    </ui:define>
+</ui:composition>
+</html>
