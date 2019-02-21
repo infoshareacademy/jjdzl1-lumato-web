@@ -19,6 +19,8 @@ public class UserService {
     @Inject
     DBConnection myConn;
 
+    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+
     public List<User> getAllUsers() {
         try {
             Statement myStatement = myConn.getConnection().createStatement();
@@ -80,18 +82,13 @@ public class UserService {
         return userInDB;
     }
 
-    /*  Must figure out how we update user  */
-    void updateUser(User theUser) {
+    void updateUser(String columnToEdit, String newValue) {
         try {
-            String sql = "update users set first_name=?, last_name=?, email=? where id=?";
+            String sql = "update users set " + columnToEdit + "=? where iduser=?";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, theUser.getFirstName());
-            myStmt.setString(2, theUser.getLastName());
-            myStmt.setString(3, theUser.getEmail());
-
-            myStmt.execute();
-
+            myStmt.setString(1, newValue);
+            myStmt.setInt(2, currentUser.getUserId());
+            myStmt.executeUpdate();
         } catch (Exception exc) {
             System.out.println("Cannot update an user!");
             exc.printStackTrace();
@@ -123,5 +120,10 @@ public class UserService {
         User userInDB = findUserInDatabaseByEmail(user.getEmail());
         if (userInDB == null) return false;
         return (userInDB.getEmail().equals(user.getEmail()));
+    }
+
+    public void updateUserFirstName(User user) {
+        updateUser("firstname", user.getFirstName());
+        currentUser.setFirstName(user.getFirstName());
     }
 }
