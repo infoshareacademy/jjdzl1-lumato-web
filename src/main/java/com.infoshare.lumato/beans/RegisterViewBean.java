@@ -45,8 +45,9 @@ public class RegisterViewBean {
     }
 
     private void addUser() {
-        userService.storeInSession(user);
         userService.addUser(user);
+        User justCreatedUser = userService.findUserInDatabaseByEmail(user.getEmail());
+        userService.storeInSession(justCreatedUser);
         HttpUtils.redirect("/app/start.xhtml");
     }
 
