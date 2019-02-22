@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition>
+    <div id="container-fluid" style="margin-left: 0px">
+
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h4 class="card-title">Delete account</h4>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="errorMessage col-6">
+                #{messageBean.getMessageValue("wrongPassWhileDelete")}
+            </div>
+        </div>
+
+        <h:form>
+            <div class="row justify-content-center">
+                <div class="col-2">
+                    <h:outputLabel value="Password:"/>
+                </div>
+                <div class="col-2">
+                    <h:inputText styleClass="form-control"
+                                 value="#{deleteUser.user.password}"
+                                 id="email"/>
+                </div>
+                <div class="col-2">
+                    <h:commandButton value="Delete account"
+                                     styleClass="btn btn-danger"
+                                     action="#{deleteUser.deleteUser()}"/>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</ui:composition>
+</html>
+
+

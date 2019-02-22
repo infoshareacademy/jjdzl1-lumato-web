@@ -1,5 +1,7 @@
 package com.infoshare.lumato.utils;
 
+import com.infoshare.lumato.models.User;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -48,5 +50,9 @@ public class HttpUtils {
             }
         }
         return "";
+    }
+
+    public static User getCurrentUserFromSession(){
+        return (User) HttpUtils.getSession().getAttribute("currentUser");
     }
 }

@@ -7,14 +7,12 @@ import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
 
 @RequestScoped
-@Named("loginBean")
-public class LoginViewBean {
+@Named("deleteUser")
+public class DeleteUserBean {
 
     @Inject
     private UserService userService;
@@ -37,23 +35,14 @@ public class LoginViewBean {
         user = new User();
     }
 
-    public void attemptToLogIn() {
-        if (userService.verifyLoginAttempt(user)) {
-            userService.storeInSession(user);
-            HttpUtils.redirect("/app/start.xhtml");
-        } else {
-            messageService.addMessageCookie("wrongCredentialsMessage", "Wrong email or password!");
+    public void deleteUser() {
+        if (userService.passwordIsOk(user)) {
+            userService.deleteUser(HttpUtils.getCurrentUserFromSession().getUserId());
             HttpUtils.redirect("/login.xhtml");
-        }
-    }
-
-    public void logOut() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().invalidateSession();
-        try {
-            context.getExternalContext().redirect("/login.xhtml");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            messageService.addMessageCookie("wrongPassWhileDelete", "Wrong password!");
+            user = null;
+            HttpUtils.redirect("/app/user-management.xhtml");
         }
     }
 }

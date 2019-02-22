@@ -19,6 +19,8 @@ public class UserService {
     @Inject
     DBConnection myConn;
 
+    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+
     public List<User> getAllUsers() {
         try {
             Statement myStatement = myConn.getConnection().createStatement();
@@ -81,17 +83,16 @@ public class UserService {
         return userInDB;
     }
 
-    void updateUser(User theUser) {
+    void sendUpdateUserQuery(User user) {
         try {
-            String sql = "update users set first_name=?, last_name=?, email=? where id=?";
+            String sql = "update users set firstname=?, lastname=?, email=?, password=? where iduser=?";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, theUser.getFirstName());
-            myStmt.setString(2, theUser.getLastName());
-            myStmt.setString(3, theUser.getEmail());
-
-            myStmt.execute();
-
+            myStmt.setString(1, user.getFirstName());
+            myStmt.setString(2, user.getLastName());
+            myStmt.setString(3, user.getEmail());
+            myStmt.setString(4, user.getPassword());
+            myStmt.setInt(5, user.getUserId());
+            myStmt.executeUpdate();
         } catch (Exception exc) {
             System.out.println("Cannot update an user!");
             exc.printStackTrace();
@@ -108,10 +109,12 @@ public class UserService {
         return false;
     }
 
-    private void fillUserData(User userToFill, User userInDB) {
-        userToFill.setUserId(userInDB.getUserId());
-        userToFill.setFirstName(userInDB.getFirstName());
-        userToFill.setLastName(userInDB.getLastName());
+    public void fillUserData(User userToFill, User fullUserFiller) {
+        if (userToFill.getFirstName() == null) userToFill.setFirstName(fullUserFiller.getFirstName());
+        if (userToFill.getLastName() == null) userToFill.setLastName(fullUserFiller.getLastName());
+        if (userToFill.getEmail() == null) userToFill.setEmail(fullUserFiller.getEmail());
+        if (userToFill.getPassword() == null) userToFill.setPassword(fullUserFiller.getPassword());
+        userToFill.setUserId(fullUserFiller.getUserId());
     }
 
     public void storeInSession(User user) {
@@ -123,5 +126,30 @@ public class UserService {
         User userInDB = findUserInDatabaseByEmail(user.getEmail());
         if (userInDB == null) return false;
         return (userInDB.getEmail().equals(user.getEmail()));
+    }
+
+    public void updateUser(User user) {
+        fillUserData(user, this.currentUser);
+        sendUpdateUserQuery(user);
+        this.currentUser.setFirstName(user.getFirstName());
+        this.currentUser.setLastName(user.getLastName());
+        this.currentUser.setEmail(user.getEmail());
+        this.currentUser.setPassword(user.getPassword());
+    }
+
+    public boolean passwordIsOk(User user) {
+        return user.getPassword().equals(this.currentUser.getPassword());
+    }
+
+    public void deleteUser(int userId) {
+        try {
+            String sql = "DELETE FROM users WHERE iduser=?";
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, userId);
+            myStmt.executeUpdate();
+        } catch (Exception exc) {
+            System.out.println("Cannot update an user!");
+            exc.printStackTrace();
+        }
     }
 }

@@ -22,13 +22,12 @@ public class CarsService {
     @Inject
     DBConnection myConn;
 
-
+    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     public List<Car> getAllCarsByUser() {
         try {
-            String sql = "SELECT cars.brand, cars.model, cars.year, cars.fuelType, cars.comment FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser AND users.iduser=(?)";
+            String sql = "SELECT cars.brand, cars.model, cars.year, cars.fuelType, cars.comment FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser AND users.iduser=" + currentUser.getUserId();
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, userId);
             ResultSet myResults = myStmt.executeQuery(sql);
 
             while (myResults.next()) {
