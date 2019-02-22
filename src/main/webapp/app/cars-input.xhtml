@@ -1,9 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
+<html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
@@ -11,7 +10,7 @@
     <ui:define name="content">
 
 
-        <p:tabView style="border: 0px; font-size: 1em; pa">
+        <p:tabView style="border: 0; font-size: 1em;">
             <p:tab title="Add a car">
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:graphicImage name="demo/images/godfather/godfather1.jpg"/>
@@ -70,7 +69,7 @@
                                 <h:inputText a:placeholder="Additional Description"
                                              class="form-control form-control-user"
                                              id="carDescription"
-                                             value="#{carBean.car.comment}"
+                                             value="#{carBean.car.additionalInfo}"
                                              style="border-radius:5px">
                                 </h:inputText>
                             </div>
@@ -86,24 +85,46 @@
                                         <f:selectItem itemLabel="P+LPG" itemValue="P+LPG"/>
                                     </p:selectOneButton>
 
-                                    <p:commandButton value="Submit" update="display" icon="pi pi-check"/>
                                     <p:spacer/>
 
-                                    <h:outputText id="display" value=""
-                                                  style="font-weight: bold"/>
                                 </h:panelGrid>
                             </div>
                         </div>
 
                         <div class="form-group">
-                        <h:commandButton value="Register" styleClass="btn btn-primary btn-block" type="submit"
-                                         style="border-radius:15px" action="#{carBean.attemptToAddCar}"/>
-                    </div>
+                            <h:commandButton value="Register"
+                                             styleClass="btn btn-primary btn-block" type="submit"
+                                             style="border-radius:15px"
+                                             action="#{carBean.attemptToAddCar}"/>
+                        </div>
 
 
                     </div>
-                    <div class="col-sm-6"></div>
-
+                    <div class="col-sm-6">.
+                        <div class="col-6">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col" colspan="2">Your account</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>First name</td>
+                                    <td>#{request.session.getAttribute("currentUser").getFirstName()}</td>
+                                </tr>
+                                <tr>
+                                    <td>Last name</td>
+                                    <td>#{request.session.getAttribute("currentUser").getLastName()}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>#{request.session.getAttribute("currentUser").getEmail()}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </h:form>
             </p:tab>
 

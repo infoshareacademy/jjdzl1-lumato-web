@@ -9,7 +9,7 @@ public class Car implements Serializable {
     private String model;
     private int productionYear;
     private String fuelType;
-    private String comment;
+    private String additionalInfo;
 
     public Car(){
 
@@ -20,7 +20,7 @@ public class Car implements Serializable {
         this.brand = brand;
         this.model = model;
         this.productionYear = productionYear;
-        this.comment = additionalComment;
+        this.additionalInfo = additionalComment;
         this.fuelType = fuelType;
     }
 
@@ -56,19 +56,12 @@ public class Car implements Serializable {
         this.fuelType = fuelType;
     }
 
-    public String getComment() {
-        return comment;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
-    public int getIdUserInCars() {
-        return idUserInCars;
-    }
-
-    public void getIdUserInCars(int iduser) {
-        this.idUserInCars = iduser;
-    }
 }

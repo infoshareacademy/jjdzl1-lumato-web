@@ -60,7 +60,7 @@ public class CarsService {
             myStmt.setString(2, theCar.getModel());
             myStmt.setInt(3, theCar.getProductionYear());
             myStmt.setString(4, theCar.getFuelType());
-            myStmt.setString(5, theCar.getComment());
+            myStmt.setString(5, theCar.getAdditionalInfo());
             myStmt.setInt(6, currentUser.getUserId());
 
             myStmt.execute();
