@@ -106,6 +106,18 @@
             </ul>
         </div>
 
+        <h2>TEST</h2>
+        <h3>Cars list</h3>
+        <div>
+            <ul>
+                   <ui:repeat var="tempCar" value="#{carActionBean.cars}">
+                    <li>
+                        #{tempCar.brand} #{tempCar.model}
+                    </li>
+                </ui:repeat>
+            </ul>
+        </div>
+
 
 
     </ui:define>

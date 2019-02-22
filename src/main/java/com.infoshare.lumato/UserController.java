@@ -13,10 +13,10 @@ import java.util.List;
 @RequestScoped
 public class UserController {
 
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 
     @Inject
-    private UserService userDB;
+    private UserService userService;
 
     public UserController() throws Exception {
         users = new ArrayList<>();
@@ -29,7 +29,7 @@ public class UserController {
 
     void loadUsers() {
         try {
-            users = userDB.getAllUsers();
+            users = userService.getAllUsers();
 
         } catch (Exception e) {
             System.out.println("Cannot load users!");
@@ -39,11 +39,11 @@ public class UserController {
 
     public String addUser(User theUser) {
         try {
-            userDB.addUser(theUser);
+            userService.addUser(theUser);
 
         } catch (Exception exc) {
             exc.printStackTrace();
-            System.out.println("Failed to add user!");
+            System.out.println("Failed to add userService!");
 
         }
         return "start.xhtml";

@@ -25,10 +25,11 @@ public class UserService {
             ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
 
             while (resultSet.next()) {
+                int iduser = resultSet.getInt("iduser");
                 String firstName = resultSet.getString("firstname");
                 String lastName = resultSet.getString("lastname");
                 String email = resultSet.getString("email");
-                User tempUser = new User(firstName, lastName, email);
+                User tempUser = new User(iduser, firstName, lastName, email);
                 users.add(tempUser);
             }
         } catch (SQLException e) {
