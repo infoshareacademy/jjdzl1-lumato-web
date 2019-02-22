@@ -10,24 +10,13 @@ import javax.servlet.http.Cookie;
 @Named("messageBean")
 public class MessageService {
 
-
-    public void addWrongCredentialsMessage() {
-        Cookie kookey = new Cookie("loginErrorMessage", "Wrong credentials");
+    public void addMessageCookie(String key, String value) {
+        Cookie kookey = new Cookie(key, value);
         kookey.setMaxAge(5);
         HttpUtils.getResponse().addCookie(kookey);
     }
 
-    public String getWrongCredentialsMessage() {
-        return HttpUtils.getCookieValueByCookieName("loginErrorMessage");
-    }
-
-    public void addUserAlreadyExistMessage() {
-        Cookie kookey = new Cookie("registerErrorMessage", "User already exists!");
-        kookey.setMaxAge(5);
-        HttpUtils.getResponse().addCookie(kookey);
-    }
-
-    public String getUserAlreadyExistMessage(){
-        return HttpUtils.getCookieValueByCookieName("registerErrorMessage");
+    public String getMessageValue(String key){
+        return HttpUtils.getCookieValueByCookieName(key);
     }
 }
