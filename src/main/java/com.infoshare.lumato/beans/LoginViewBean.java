@@ -42,7 +42,7 @@ public class LoginViewBean {
             userService.storeInSession(user);
             HttpUtils.redirect("/app/start.xhtml");
         } else {
-            messageService.addWrongCredentialsMessage();
+            messageService.addMessageCookie("wrongCredentialsMessage", "Wrong email or password!");
             HttpUtils.redirect("/login.xhtml");
         }
     }
