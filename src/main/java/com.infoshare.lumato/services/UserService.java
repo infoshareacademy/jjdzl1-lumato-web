@@ -108,15 +108,12 @@ public class UserService {
         return false;
     }
 
-    private void fillUserData(User userToFill, User fullUserFiller) {
+    public void fillUserData(User userToFill, User fullUserFiller) {
         if (userToFill.getFirstName() == null) userToFill.setFirstName(fullUserFiller.getFirstName());
         if (userToFill.getLastName() == null) userToFill.setLastName(fullUserFiller.getLastName());
         if (userToFill.getEmail() == null) userToFill.setEmail(fullUserFiller.getEmail());
         if (userToFill.getPassword() == null) userToFill.setPassword(fullUserFiller.getPassword());
         userToFill.setUserId(fullUserFiller.getUserId());
-//        userToFill.setUserId(fullUserFiller.getUserId());
-//        userToFill.setFirstName(fullUserFiller.getFirstName());
-//        userToFill.setLastName(fullUserFiller.getLastName());
     }
 
     public void storeInSession(User user) {

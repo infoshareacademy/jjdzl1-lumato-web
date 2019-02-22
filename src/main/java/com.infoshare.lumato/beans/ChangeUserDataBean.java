@@ -55,16 +55,33 @@ public class ChangeUserDataBean {
     }
 
     public void updateUser() {
-        if (userService.doesUserExist(user)) {
-            messageService.addUserAlreadyExistMessage();
-        } else if (!userService.passwordIsOk(user)) {
-            messageService.addWrongPasswordMessage();
-        } else if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
-            messageService.addPasswordsDoNotMatchMessage();
-        } else {
-            user.setPassword(this.newPasswordFirst);
-            userService.updateUser(user);
+        if (user.getEmail() != null) {
+            if (userService.doesUserExist(user)) {
+                messageService.addUserAlreadyExistMessage();
+                HttpUtils.redirect("/app/user-management.xhtml");
+                return;
+            }
         }
-        HttpUtils.redirect("/app/user-management.xhtml");
+
+        if (user.getPassword() != null) {
+            if (!userService.passwordIsOk(user)) {
+                messageService.addWrongPasswordMessage();
+                HttpUtils.redirect("/app/user-management.xhtml");
+                return;
+            }
+        }
+
+        if (this.newPasswordFirst != null && this.newPasswordSecond != null){
+            if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
+                messageService.addPasswordsDoNotMatchMessage();
+                HttpUtils.redirect("/app/user-management.xhtml");
+                return;
+            } else {
+                user.setPassword(this.newPasswordFirst);
+            }
+        }
+
+        userService.updateUser(user);
+        user = null;
     }
 }
