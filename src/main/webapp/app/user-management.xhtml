@@ -9,39 +9,12 @@
 
 <ui:composition template="/templates/maintemplate.xhtml">
     <ui:define name="content">
-        <div id="container-fluid" style="margin-left: 0px">
-            <div class="row justify-content-center">
-                <div class="col-6">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th scope="col" colspan="2">Your account</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>First name</td>
-                                <td>#{request.session.getAttribute("currentUser").getFirstName()}</td>
-                            </tr>
-                            <tr>
-                                <td>Last name</td>
-                                <td>#{request.session.getAttribute("currentUser").getLastName()}</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>#{request.session.getAttribute("currentUser").getEmail()}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <ui:include src = "/templates/form-templates/change-firstname-form.xhtml" />
-        <ui:include src = "/templates/form-templates/change-lastname-form.xhtml" />
-        <ui:include src = "/templates/form-templates/change-email-form.xhtml" />
-        <ui:include src = "/templates/form-templates/change-password-form.xhtml" />
-        <ui:include src = "/templates/form-templates/delete-user-form.xhtml" />
+        <ui:include src = "/templates/user-management-templates/user-info-table.xhtml" />
+        <ui:include src = "/templates/user-management-templates/change-firstname-form.xhtml" />
+        <ui:include src = "/templates/user-management-templates/change-lastname-form.xhtml" />
+        <ui:include src = "/templates/user-management-templates/change-email-form.xhtml" />
+        <ui:include src = "/templates/user-management-templates/change-password-form.xhtml" />
+        <ui:include src = "/templates/user-management-templates/delete-user-form.xhtml" />
     </ui:define>
 </ui:composition>
 </html>
