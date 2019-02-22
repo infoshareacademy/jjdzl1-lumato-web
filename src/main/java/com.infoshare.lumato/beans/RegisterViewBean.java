@@ -39,7 +39,7 @@ public class RegisterViewBean {
 
     public void attemptToRegister() {
         if (userService.doesUserExist(user)) {
-            messageService.addUserAlreadyExistMessage();
+            messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
             HttpUtils.redirect("/register.xhtml");
         } else addUser();
     }

@@ -57,7 +57,7 @@ public class ChangeUserDataBean {
     public void updateUser() {
         if (user.getEmail() != null) {
             if (userService.doesUserExist(user)) {
-                messageService.addUserAlreadyExistMessage();
+                messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
                 HttpUtils.redirect("/app/user-management.xhtml");
                 return;
             }
@@ -65,7 +65,7 @@ public class ChangeUserDataBean {
 
         if (user.getPassword() != null) {
             if (!userService.passwordIsOk(user)) {
-                messageService.addWrongPasswordMessage();
+                messageService.addMessageCookie("wrongPasswordMessageWhileEdit", "Wrong password!");
                 HttpUtils.redirect("/app/user-management.xhtml");
                 return;
             }
@@ -73,7 +73,7 @@ public class ChangeUserDataBean {
 
         if (this.newPasswordFirst != null && this.newPasswordSecond != null){
             if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
-                messageService.addPasswordsDoNotMatchMessage();
+                messageService.addMessageCookie("passwordsNotMatch", "Passwords do not match!");
                 HttpUtils.redirect("/app/user-management.xhtml");
                 return;
             } else {
