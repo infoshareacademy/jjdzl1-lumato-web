@@ -45,7 +45,50 @@ public class CarsService {
         }
         return cars;
     }
+
+    public void addCar(Car theCar) {
+        try {
+            String sql = "insert into cars (brand, model, year, fuelType, comment) values (?,?,?,?,?)";
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+
+            myStmt.setString(1, theCar.getBrand());
+            myStmt.setString(2, theCar.getModel());
+            myStmt.setInt(3, theCar.getProductionYear());
+            myStmt.setString(4, theCar.getFuelType());
+            myStmt.setString(5, theCar.getComment());
+
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
