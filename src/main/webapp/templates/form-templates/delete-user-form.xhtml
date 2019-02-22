@@ -8,28 +8,37 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition>
-    <div id="container-fluid">
-        <h4 class="card-title">Delete account</h4>
-        <div class="errorMessage">
-            #{messageBean.getWrongPasswordMessage()}
+    <div id="container-fluid" style="margin-left: 0px">
+
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h4 class="card-title">Delete account</h4>
+            </div>
         </div>
-        <div class="row">
-            <h:form styleClass="form-inline">
-                <div class="form-group mx-sm-2 mb-3"></div>
-                <div class="form-group mb-2">
+
+        <div class="row justify-content-center">
+            <div class="errorMessage col-6">
+                #{messageBean.getWrongPasswordMessage()}
+            </div>
+        </div>
+
+        <h:form>
+            <div class="row justify-content-center">
+                <div class="col-2">
                     <h:outputLabel value="Password:"/>
                 </div>
-                <div class="form-group mx-sm-3 mb-2">
+                <div class="col-2">
                     <h:inputText styleClass="form-control"
                                  value="#{deleteUser.user.password}"
                                  id="email"/>
                 </div>
-                <h:commandButton value="Delete account"
-                                 styleClass="btn btn-danger mb-2"
-                                 action="#{deleteUser.deleteUser()}"/>
-                <div class="form-group mb-2"></div>
-            </h:form>
-        </div>
+                <div class="col-2">
+                    <h:commandButton value="Delete account"
+                                     styleClass="btn btn-danger"
+                                     action="#{deleteUser.deleteUser()}"/>
+                </div>
+            </div>
+        </h:form>
     </div>
 </ui:composition>
 </html>
