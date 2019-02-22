@@ -22,11 +22,15 @@ public class CarsService {
     @Inject
     DBConnection myConn;
 
+
     private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     public List<Car> getAllCarsByUser() {
         try {
-            String sql = "SELECT cars.brand, cars.model, cars.year, cars.fuelType, cars.comment FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser AND users.iduser=" + currentUser.getUserId();
+            String sql = "SELECT cars.brand, cars.model, cars.year, cars.fuelType, cars.comment " +
+                    "FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser " +
+                    "AND users.iduser=" + currentUser.getUserId();
+
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
             ResultSet myResults = myStmt.executeQuery(sql);
 
@@ -37,7 +41,7 @@ public class CarsService {
                 String fuelType = myResults.getString("fuelType");
                 String comment = myResults.getString("comment");
 
-                Car tempCar = new Car(brand, model, year, fuelType, comment);
+                Car tempCar = new Car(currentUser.getUserId(), brand, model, year, fuelType, comment);
                 cars.add(tempCar);
             }
         } catch (SQLException e) {
@@ -48,7 +52,8 @@ public class CarsService {
 
     public void addCar(Car theCar) {
         try {
-            String sql = "insert into cars (brand, model, year, fuelType, comment) values (?,?,?,?,?)";
+            String sql = "insert into cars (brand, model, year, fuelType, comment, iduser) values (?,?,?,?,?,?)";
+
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
             myStmt.setString(1, theCar.getBrand());
@@ -56,6 +61,7 @@ public class CarsService {
             myStmt.setInt(3, theCar.getProductionYear());
             myStmt.setString(4, theCar.getFuelType());
             myStmt.setString(5, theCar.getComment());
+            myStmt.setInt(6, currentUser.getUserId());
 
             myStmt.execute();
 

@@ -2,22 +2,37 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.services.CarsService;
+import com.infoshare.lumato.utils.HttpUtils;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
 @RequestScoped
-@Named("carActionBean")
+@Named("carBean")
 public class CarActionsBean {
-
-    private List<Car> carList;
-
 
     @Inject
     private CarsService carsService;
 
     private Car car;
+
+    private List<Car> carList;
+
+    public Car getCar(){
+        return car;
+    }
+
+    public void setCar(Car car){
+        this.car = car;
+    }
+
+    @PostConstruct
+    public void construct() {
+        car = new Car();
+    }
 
     public List<Car> getCars(){
         loadCars();
@@ -34,13 +49,45 @@ public class CarActionsBean {
         }
     }
 
-
-    public Car getCar(){
-        return car;
+    private void addNewCar() {
+        carsService.addCar(car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
-    public void setCar(Car car){
-        this.car = car;
+    public void attemptToAddCar(){
+        addNewCar();
     }
+
+
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

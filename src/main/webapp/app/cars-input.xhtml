@@ -32,7 +32,7 @@
                                 <h:inputText a:placeholder="Brand"
                                              class="form-control form-control-user"
                                              id="carBrand"
-                                             value="#{carsBean.car.brand}"
+                                             value="#{carBean.car.brand}"
                                              style="border-radius:5px">
                                 </h:inputText>
                             </div>
@@ -44,7 +44,7 @@
                                 <h:inputText a:placeholder="Model"
                                              class="form-control form-control-user"
                                              id="carModel"
-                                             value="#{carsBean.car.model}"
+                                             value="#{carBean.car.model}"
                                              style="border-radius:5px">
                                 </h:inputText>
                             </div>
@@ -57,7 +57,7 @@
                                 <h:inputText a:placeholder="Production Year"
                                              class="form-control form-control-user"
                                              id="carProductionYear"
-                                             value="#{carsBean.car.productionYear}"
+                                             value="#{carBean.car.productionYear}"
                                              style="border-radius:5px">
                                 </h:inputText>
                             </div>
@@ -70,7 +70,7 @@
                                 <h:inputText a:placeholder="Additional Description"
                                              class="form-control form-control-user"
                                              id="carDescription"
-                                             value="#{carsBean.car.description}"
+                                             value="#{carBean.car.comment}"
                                              style="border-radius:5px">
                                 </h:inputText>
                             </div>
@@ -80,7 +80,7 @@
                             <label for="carModel" class="col-sm-3 col-form-label">Type of fuel</label>
                             <div class="col-sm-9 col align-self-center">
                                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                    <p:selectOneButton value="#{carsBean.car.fuelType}">
+                                    <p:selectOneButton value="#{carBean.car.fuelType}">
                                         <f:selectItem itemLabel="Petrol" itemValue="Petrol"/>
                                         <f:selectItem itemLabel="Diesel" itemValue="Diesel"/>
                                         <f:selectItem itemLabel="P+LPG" itemValue="P+LPG"/>
@@ -89,11 +89,16 @@
                                     <p:commandButton value="Submit" update="display" icon="pi pi-check"/>
                                     <p:spacer/>
 
-                                    <h:outputText id="display" value="#{carsBean.car.fuelType}"
+                                    <h:outputText id="display" value=""
                                                   style="font-weight: bold"/>
                                 </h:panelGrid>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                        <h:commandButton value="Register" styleClass="btn btn-primary btn-block" type="submit"
+                                         style="border-radius:15px" action="#{carBean.attemptToAddCar}"/>
+                    </div>
 
 
                     </div>
