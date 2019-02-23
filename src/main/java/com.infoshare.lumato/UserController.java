@@ -1,5 +1,6 @@
 package com.infoshare.lumato;
 
+import com.infoshare.lumato.dao.UserDAO;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.UserService;
 
@@ -18,6 +19,9 @@ public class UserController {
     @Inject
     private UserService userService;
 
+    @Inject
+    UserDAO userDAO;
+
     public UserController() throws Exception {
         users = new ArrayList<>();
     }
@@ -29,7 +33,7 @@ public class UserController {
 
     void loadUsers() {
         try {
-            users = userService.getAllUsers();
+            users = userDAO.getAllUsers();
 
         } catch (Exception e) {
             System.out.println("Cannot load users!");
@@ -39,12 +43,11 @@ public class UserController {
 
     public String addUser(User theUser) {
         try {
-            userService.addUser(theUser);
+            userDAO.addUser(theUser);
 
         } catch (Exception exc) {
             exc.printStackTrace();
             System.out.println("Failed to add userService!");
-
         }
         return "start.xhtml";
     }

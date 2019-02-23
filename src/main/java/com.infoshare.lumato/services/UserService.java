@@ -15,9 +15,6 @@ import java.util.List;
 @RequestScoped
 public class UserService {
 
-    private List<User> users = new ArrayList<>();
-
-
     @Inject
     DBConnection myConn;
 
@@ -27,49 +24,11 @@ public class UserService {
 
     User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    public List<User> getAllUsers() {
-        try {
-            Statement myStatement = myConn.getConnection().createStatement();
-            ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
-
-            while (resultSet.next()) {
-                int iduser = resultSet.getInt("iduser");
-                String firstName = resultSet.getString("firstname");
-                String lastName = resultSet.getString("lastname");
-                String email = resultSet.getString("email");
-                User tempUser = new User(iduser, firstName, lastName, email);
-
-                users.add(tempUser);
-            }
-        } catch (SQLException e) {
-            System.out.println("Failed to create a connection");
-            e.printStackTrace();
-        }
-        System.out.println("Driver not found.");
-        return users;
+    public void addUser(User user) {
+        userDAO.addUser(user);
+        User justCreatedUser = userDAO.findUserInDatabaseByEmail(user.getEmail());
+        storeInSession(justCreatedUser);
     }
-
-    public void addUser(User theUser) {
-        try {
-            String sql = "insert into users (firstname, lastname, email, password) values (?, ?, ?, ?)";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, theUser.getFirstName());
-            myStmt.setString(2, theUser.getLastName());
-            myStmt.setString(3, theUser.getEmail());
-            myStmt.setString(4, theUser.getPassword());
-
-            myStmt.execute();
-
-        } catch (Exception ecx) {
-            ecx.printStackTrace();
-            System.out.println("Failed to Add new User!");
-        }
-    }
-
-
-
-
 
     public boolean verifyLoginAttempt(User user) {
         User userInDB = userDAO.findUserInDatabaseByEmail(user.getEmail());

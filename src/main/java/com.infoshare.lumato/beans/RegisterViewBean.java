@@ -39,18 +39,16 @@ public class RegisterViewBean {
         user = new User();
     }
 
-
     public void attemptToRegister() {
         if (userService.doesUserExist(user)) {
             messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
             HttpUtils.redirect("/register.xhtml");
-        } else addUser();
+        } else {
+            userService.addUser(user);
+            HttpUtils.redirect("/app/start.xhtml");
+        }
+
     }
 
-    private void addUser() {
-        userService.addUser(user);
-        User justCreatedUser = userDAO.findUserInDatabaseByEmail(user.getEmail());
-        userService.storeInSession(justCreatedUser);
-        HttpUtils.redirect("/app/start.xhtml");
-    }
+
 }
