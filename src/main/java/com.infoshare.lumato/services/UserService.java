@@ -1,5 +1,6 @@
 package com.infoshare.lumato.services;
 
+import com.infoshare.lumato.dao.UserDAO;
 import com.infoshare.lumato.persistence.DBConnection;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
@@ -16,8 +17,13 @@ public class UserService {
 
     private List<User> users = new ArrayList<>();
 
+
     @Inject
     DBConnection myConn;
+
+    @Inject
+    UserDAO userDAO;
+
 
     User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
@@ -32,6 +38,7 @@ public class UserService {
                 String lastName = resultSet.getString("lastname");
                 String email = resultSet.getString("email");
                 User tempUser = new User(iduser, firstName, lastName, email);
+
                 users.add(tempUser);
             }
         } catch (SQLException e) {
@@ -60,47 +67,12 @@ public class UserService {
         }
     }
 
-    public User findUserInDatabaseByEmail(String email) {
-        User userInDB = new User();
-        try {
-            String sql = "SELECT * FROM users WHERE email = ?";
-            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                userInDB = null;
-            } else {
-                resultSet.next();
-                userInDB.setEmail(resultSet.getString("email"));
-                userInDB.setPassword(resultSet.getString("password"));
-                userInDB.setFirstName(resultSet.getString("firstname"));
-                userInDB.setLastName(resultSet.getString("lastname"));
-                userInDB.setUserId(resultSet.getInt("iduser"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userInDB;
-    }
 
-    void sendUpdateUserQuery(User user) {
-        try {
-            String sql = "update users set firstname=?, lastname=?, email=?, password=? where iduser=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setString(1, user.getFirstName());
-            myStmt.setString(2, user.getLastName());
-            myStmt.setString(3, user.getEmail());
-            myStmt.setString(4, user.getPassword());
-            myStmt.setInt(5, user.getUserId());
-            myStmt.executeUpdate();
-        } catch (Exception exc) {
-            System.out.println("Cannot update an user!");
-            exc.printStackTrace();
-        }
-    }
+
+
 
     public boolean verifyLoginAttempt(User user) {
-        User userInDB = findUserInDatabaseByEmail(user.getEmail());
+        User userInDB = userDAO.findUserInDatabaseByEmail(user.getEmail());
         if (userInDB == null) return false;
         if (userInDB.getPassword().equals(user.getPassword())) {
             fillUserData(user, userInDB);
@@ -123,14 +95,14 @@ public class UserService {
     }
 
     public boolean doesUserExist(User user) {
-        User userInDB = findUserInDatabaseByEmail(user.getEmail());
+        User userInDB = userDAO.findUserInDatabaseByEmail(user.getEmail());
         if (userInDB == null) return false;
         return (userInDB.getEmail().equals(user.getEmail()));
     }
 
     public void updateUser(User user) {
         fillUserData(user, this.currentUser);
-        sendUpdateUserQuery(user);
+        userDAO.sendUpdateUserQuery(user);
         this.currentUser.setFirstName(user.getFirstName());
         this.currentUser.setLastName(user.getLastName());
         this.currentUser.setEmail(user.getEmail());

@@ -1,5 +1,6 @@
 package com.infoshare.lumato.beans;
 
+import com.infoshare.lumato.dao.UserDAO;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
@@ -16,6 +17,9 @@ public class RegisterViewBean {
 
     @Inject
     private UserService userService;
+
+    @Inject
+    UserDAO userDAO;
 
     @Inject
     private MessageService messageService;
@@ -45,7 +49,7 @@ public class RegisterViewBean {
 
     private void addUser() {
         userService.addUser(user);
-        User justCreatedUser = userService.findUserInDatabaseByEmail(user.getEmail());
+        User justCreatedUser = userDAO.findUserInDatabaseByEmail(user.getEmail());
         userService.storeInSession(justCreatedUser);
         HttpUtils.redirect("/app/start.xhtml");
     }
