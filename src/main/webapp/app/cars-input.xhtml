@@ -4,126 +4,117 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui">
 
-<ui:composition template="../templates/maintemplate.xhtml">
+
+
+<ui:composition template="/templates/maintemplate.xhtml">
+
     <ui:define name="content">
 
 
         <p:tabView style="border: 0; font-size: 1em;">
-            <p:tab title="Add a car">
+            <!--border-right: 1px solid #ddd;border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;padding:10px"-->
+            <p:tab title="Add a car" style="background-color: #4e73df">
                 <h:panelGrid columns="2" cellpadding="10">
-                    <p:graphicImage name="demo/images/godfather/godfather1.jpg"/>
-                    <h:outputText
-                            value="The story begins."/>
                 </h:panelGrid>
 
-
-                <div class="row">
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-"></div>
-                </div>
-
                 <h:form>
-                    <div class="col-sm-5">
-                        <div class="form-group row">
-                            <label for="carBrand" class="col-sm-3 col-form-label">Your cars' brand</label>
-                            <div class="col-sm-9 col align-self-center">
-                                <h:inputText a:placeholder="Brand"
-                                             class="form-control form-control-user"
-                                             id="carBrand"
-                                             value="#{carBean.car.brand}"
-                                             style="border-radius:5px">
-                                </h:inputText>
+                    <div class="row">
+                        <div class="col-1"></div>
+
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="carBrand" class="col-sm-4 col-form-label">Your cars' brand</label>
+                                <div class="col-sm-8 col align-self-center">
+                                    <h:inputText a:placeholder="Brand"
+                                                 class="form-control form-control-user"
+                                                 id="carBrand"
+                                                 value="#{carBean.car.brand}"
+                                                 style="border-radius:5px">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="carModel" class="col-sm-4 col-form-label">Your cars' model</label>
+                                <div class="col-sm-8 col align-self-center">
+                                    <h:inputText a:placeholder="Model"
+                                                 class="form-control form-control-user"
+                                                 id="carModel"
+                                                 value="#{carBean.car.model}"
+                                                 style="border-radius:5px">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="carProductionYear"
+                                       class="col-sm-4 col-form-label">Production Year</label>
+                                <div class="col-sm-8 col align-self-center">
+                                    <h:inputText a:placeholder="Production Year"
+                                                 class="form-control form-control-user"
+                                                 id="carProductionYear"
+                                                 value="#{carBean.car.productionYear}"
+                                                 style="border-radius:5px">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="carModel"
+                                       class="col-sm-4 col-form-label">Description</label>
+                                <div class="col-sm-8 col align-self-center">
+                                    <h:inputText a:placeholder="Additional Description"
+                                                 class="form-control form-control-user"
+                                                 id="carDescription"
+                                                 value="#{carBean.car.additionalInfo}"
+                                                 style="border-radius:5px">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="carModel" class="col-sm-4 col-form-label">Type of fuel</label>
+                                <div class="col-sm-8 col align-self-center">
+                                    <h:panelGrid columns="3">
+                                        <p:selectOneButton value="#{carBean.car.fuelType}">
+                                            <f:selectItem itemLabel="Petrol" itemValue="Petrol"/>
+                                            <f:selectItem itemLabel="Diesel" itemValue="Diesel"/>
+                                            <f:selectItem itemLabel="P+LPG" itemValue="P+LPG"/>
+                                        </p:selectOneButton>
+
+                                        <p:spacer/>
+
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h:commandButton value="Add a car"
+                                                 styleClass="btn btn-primary btn-block" type="submit"
+                                                 style="border-radius:15px"
+                                                 action="#{carBean.attemptToAddCar}"/>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="carModel" class="col-sm-3 col-form-label">Your cars' model</label>
-                            <div class="col-sm-9 col align-self-center">
-                                <h:inputText a:placeholder="Model"
-                                             class="form-control form-control-user"
-                                             id="carModel"
-                                             value="#{carBean.car.model}"
-                                             style="border-radius:5px">
-                                </h:inputText>
-                            </div>
+                        <div class="col-1"></div>
+
+                        <div class="col-5">
+                            <b:dataTable value="#{carBean.cars}"
+                                         var="car">
+                                <b:dataTableColumn value="#{car.productionYear}" width="25px" label="Year" order="asc"/>
+                                <b:dataTableColumn value="#{car.brand}" width="40px"/>
+                                <b:dataTableColumn value="#{car.model}" width="40px"/>
+                                <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
+                                <b:dataTableColumn value="#{car.additionalInfo}" width="60px" label="Comments"/>
+                            </b:dataTable>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="carProductionYear"
-                                   class="col-sm-3 col-form-label">Production Year</label>
-                            <div class="col-sm-9 col align-self-center">
-                                <h:inputText a:placeholder="Production Year"
-                                             class="form-control form-control-user"
-                                             id="carProductionYear"
-                                             value="#{carBean.car.productionYear}"
-                                             style="border-radius:5px">
-                                </h:inputText>
-                            </div>
-                        </div>
+                        <div class="col-1"></div>
 
-                        <div class="form-group row">
-                            <label for="carModel"
-                                   class="col-sm-3 col-form-label">Additional Description</label>
-                            <div class="col-sm-9 col align-self-center">
-                                <h:inputText a:placeholder="Additional Description"
-                                             class="form-control form-control-user"
-                                             id="carDescription"
-                                             value="#{carBean.car.additionalInfo}"
-                                             style="border-radius:5px">
-                                </h:inputText>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="carModel" class="col-sm-3 col-form-label">Type of fuel</label>
-                            <div class="col-sm-9 col align-self-center">
-                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-                                    <p:selectOneButton value="#{carBean.car.fuelType}">
-                                        <f:selectItem itemLabel="Petrol" itemValue="Petrol"/>
-                                        <f:selectItem itemLabel="Diesel" itemValue="Diesel"/>
-                                        <f:selectItem itemLabel="P+LPG" itemValue="P+LPG"/>
-                                    </p:selectOneButton>
-
-                                    <p:spacer/>
-
-                                </h:panelGrid>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h:commandButton value="Register"
-                                             styleClass="btn btn-primary btn-block" type="submit"
-                                             style="border-radius:15px"
-                                             action="#{carBean.attemptToAddCar}"/>
-                        </div>
-
-
-                    </div>
-                    <div class="col-sm-6">.
-                        <div class="col-6">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th scope="col" colspan="2">Your account</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>First name</td>
-                                    <td>#{request.session.getAttribute("currentUser").getFirstName()}</td>
-                                </tr>
-                                <tr>
-                                    <td>Last name</td>
-                                    <td>#{request.session.getAttribute("currentUser").getLastName()}</td>
-                                </tr>
-                                <tr>
-                                    <td>Email</td>
-                                    <td>#{request.session.getAttribute("currentUser").getEmail()}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </h:form>
             </p:tab>
@@ -137,7 +128,6 @@
                 killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."/>
                 </h:panelGrid>
             </p:tab>
-
 
             <p:tab title="Delete a car">
 

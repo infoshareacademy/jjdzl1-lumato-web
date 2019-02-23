@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 
 public class Car implements Serializable {
+    private int carId;
     private int idUserInCars;
     private String brand;
     private String model;
@@ -15,7 +16,8 @@ public class Car implements Serializable {
 
     }
 
-    public Car(int idUserInCars, String brand, String model, int productionYear, String fuelType, String additionalComment) {
+    public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String additionalComment) {
+        this.carId = carId;
         this.idUserInCars = idUserInCars;
         this.brand = brand;
         this.model = model;
@@ -64,4 +66,11 @@ public class Car implements Serializable {
         this.additionalInfo = additionalInfo;
     }
 
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
+    }
 }

@@ -54,8 +54,17 @@ public class CarActionsBean {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
+    private void deleteCar(){
+        carsService.deleteCar(car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
+    }
+
     public void attemptToAddCar(){
         addNewCar();
+    }
+
+    public void attemptToDeleteCar(Car theCar){
+        deleteCar();
     }
 
 

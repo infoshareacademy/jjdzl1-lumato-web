@@ -27,7 +27,7 @@ public class CarsService {
 
     public List<Car> getAllCarsByUser() {
         try {
-            String sql = "SELECT cars.brand, cars.model, cars.year, cars.fuelType, cars.comment " +
+            String sql = "SELECT cars.idcars, cars.brand, cars.model, cars.year, cars.fuelType, cars.comment " +
                     "FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser " +
                     "AND users.iduser=" + currentUser.getUserId();
 
@@ -35,13 +35,14 @@ public class CarsService {
             ResultSet myResults = myStmt.executeQuery(sql);
 
             while (myResults.next()) {
+                int carId = myResults.getInt("idcars");
                 String brand = myResults.getString("brand");
                 String model = myResults.getString("model");
                 int year = myResults.getInt("year");
                 String fuelType = myResults.getString("fuelType");
                 String comment = myResults.getString("comment");
 
-                Car tempCar = new Car(currentUser.getUserId(), brand, model, year, fuelType, comment);
+                Car tempCar = new Car(carId, currentUser.getUserId(), brand, model, year, fuelType, comment);
                 cars.add(tempCar);
             }
         } catch (SQLException e) {
@@ -68,7 +69,20 @@ public class CarsService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public void deleteCar(Car theCar) {
+        try {
+            String sql = "DELETE FROM cars WHERE idcar=?";
+
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, theCar.getCarId());
+
+            myStmt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
