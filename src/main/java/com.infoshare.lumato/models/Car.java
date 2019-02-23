@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 
 public class Car implements Serializable {
+
+    private static final long serialVersionUID = 8242396670252535134L;
     private int carId;
     private int idUserInCars;
     private String brand;
