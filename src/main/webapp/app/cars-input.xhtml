@@ -78,27 +78,32 @@
                             <div class="form-group row">
                                 <label for="carModel" class="col-sm-4 col-form-label">Type of fuel</label>
                                 <div class="col-sm-8 col align-self-center">
+
+
                                     <h:panelGrid columns="3">
-                                        <p:selectOneButton value="#{carBean.car.fuelType}">
+
+                                        <h:selectOneMenu value="#{carBean.car.fuelType}"
+                                                         styleClass="btn btn-primary btn-lg dropdown-toggle"
+                                                         style="width: 100%" >
+
                                             <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
                                                           itemValue="#{carBean.fuelTypes[0].name}"/>
                                             <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
                                                           itemValue="#{carBean.fuelTypes[1].name}"/>
                                             <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
                                                           itemValue="#{carBean.fuelTypes[2].name}"/>
-                                        </p:selectOneButton>
+                                        </h:selectOneMenu>
+
 
                                         <p:spacer/>
-
                                     </h:panelGrid>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <p:commandButton value="Add a car"
-                                                 styleClass="btn btn-primary btn-block"
-                                                 style="border-radius:15px"
-
+                                <h:commandButton value="Add a car"
+                                                 styleClass="btn btn-primary"
+                                                 style="border-radius:15px; width: 100%"
                                                  action="#{carBean.attemptToAddCar}"/>
                                    <!--     process="@all" update="@all" to ma isc nad action w buttonie-->
                             </div>
