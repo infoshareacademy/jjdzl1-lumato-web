@@ -80,9 +80,12 @@
                                 <div class="col-sm-8 col align-self-center">
                                     <h:panelGrid columns="3">
                                         <p:selectOneButton value="#{carBean.car.fuelType}">
-                                            <f:selectItem itemLabel="Petrol" itemValue="Petrol"/>
-                                            <f:selectItem itemLabel="Diesel" itemValue="Diesel"/>
-                                            <f:selectItem itemLabel="P+LPG" itemValue="P+LPG"/>
+                                            <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
+                                                          itemValue="#{carBean.fuelTypes[0].name}"/>
+                                            <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
+                                                          itemValue="#{carBean.fuelTypes[1].name}"/>
+                                            <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
+                                                          itemValue="#{carBean.fuelTypes[2].name}"/>
                                         </p:selectOneButton>
 
                                         <p:spacer/>

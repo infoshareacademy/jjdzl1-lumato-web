@@ -2,6 +2,7 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.services.CarsService;
+import com.infoshare.lumato.utils.FuelType;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
@@ -19,6 +20,8 @@ public class CarActionsBean implements Serializable {
     @Inject
     private CarsService carsService;
 
+    private FuelType[] fuelTypes;
+
     private Car car = new Car();
 
     private List<Car> carList;
@@ -33,7 +36,12 @@ public class CarActionsBean implements Serializable {
 
     @PostConstruct
     public void construct() {
+        fuelTypes = FuelType.values();
         loadCars();
+    }
+
+    public FuelType[] getFuelTypes() {
+        return fuelTypes;
     }
 
     public List<Car> getCars(){
@@ -68,7 +76,6 @@ public class CarActionsBean implements Serializable {
     public void attemptToDeleteCar(Car theCar){
         deleteCar();
     }
-
 }
 
 
