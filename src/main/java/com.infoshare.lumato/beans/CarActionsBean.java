@@ -32,14 +32,15 @@ public class CarActionsBean {
     @PostConstruct
     public void construct() {
         car = new Car();
+        loadCars();
     }
 
     public List<Car> getCars(){
-        loadCars();
         return carList;
     }
 
     private void loadCars() {
+
         try {
             carList = carsService.getAllCarsByUser();
 
@@ -66,14 +67,6 @@ public class CarActionsBean {
     public void attemptToDeleteCar(Car theCar){
         deleteCar();
     }
-
-
-
-
-
-
-
-
 
 }
 

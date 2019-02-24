@@ -8,7 +8,6 @@
       xmlns:b="http://bootsfaces.net/ui">
 
 
-
 <ui:composition template="/templates/maintemplate.xhtml">
 
     <ui:define name="content">
@@ -131,11 +130,20 @@
 
             <p:tab title="Delete a car">
 
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:graphicImage name="demo/images/godfather/godfather3.jpg"/>
-                    <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
-                    Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."/>
-                </h:panelGrid>
+                <b:dataTable value="#{carBean.cars}"
+                             var="car">
+                    <b:dataTableColumn value="#{car.productionYear}" width="25px" label="Year" order="asc"/>
+                    <b:dataTableColumn value="#{car.brand}" width="40px"/>
+                    <b:dataTableColumn value="#{car.model}" width="40px"/>
+                    <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
+                    <b:dataTableColumn value="#{car.additionalInfo}" width="60px" label="Comments"/>
+                </b:dataTable>
+
+                <h:selectOneMenu value="#{carBean.car}">
+                    <f:selectItems value="#{carBean.car.model}"/>
+                </h:selectOneMenu>
+
+
             </p:tab>
         </p:tabView>
 
