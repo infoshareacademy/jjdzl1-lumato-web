@@ -6,18 +6,20 @@ import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 @RequestScoped
 @Named("carBean")
-public class CarActionsBean {
+public class CarActionsBean implements Serializable {
 
     @Inject
     private CarsService carsService;
 
-    private Car car;
+    private Car car = new Car();
 
     private List<Car> carList;
 
@@ -31,7 +33,6 @@ public class CarActionsBean {
 
     @PostConstruct
     public void construct() {
-        car = new Car();
         loadCars();
     }
 

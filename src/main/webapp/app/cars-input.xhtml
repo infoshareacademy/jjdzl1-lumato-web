@@ -92,10 +92,12 @@
                             </div>
 
                             <div class="form-group">
-                                <h:commandButton value="Add a car"
-                                                 styleClass="btn btn-primary btn-block" type="submit"
+                                <p:commandButton value="Add a car"
+                                                 styleClass="btn btn-primary btn-block"
                                                  style="border-radius:15px"
+
                                                  action="#{carBean.attemptToAddCar}"/>
+                                   <!--     process="@all" update="@all" to ma isc nad action w buttonie-->
                             </div>
                         </div>
 
@@ -139,9 +141,7 @@
                     <b:dataTableColumn value="#{car.additionalInfo}" width="60px" label="Comments"/>
                 </b:dataTable>
 
-                <h:selectOneMenu value="#{carBean.car}">
-                    <f:selectItems value="#{carBean.car.model}"/>
-                </h:selectOneMenu>
+
 
 
             </p:tab>
