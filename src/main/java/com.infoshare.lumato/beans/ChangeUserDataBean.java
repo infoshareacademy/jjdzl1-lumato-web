@@ -54,34 +54,41 @@ public class ChangeUserDataBean {
         this.newPasswordSecond = newPasswordSecond;
     }
 
-    public void updateUser() {
-        if (user.getEmail() != null) {
-            if (userService.doesUserExist(user)) {
-                messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
-                HttpUtils.redirect("/app/user-management.xhtml");
-                return;
-            }
-        }
-
-        if (user.getPassword() != null) {
-            if (!userService.passwordIsOk(user)) {
-                messageService.addMessageCookie("wrongPasswordMessageWhileEdit", "Wrong password!");
-                HttpUtils.redirect("/app/user-management.xhtml");
-                return;
-            }
-        }
-
-        if (this.newPasswordFirst != null && this.newPasswordSecond != null){
-            if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
-                messageService.addMessageCookie("passwordsNotMatch", "Passwords do not match!");
-                HttpUtils.redirect("/app/user-management.xhtml");
-                return;
-            } else {
-                user.setPassword(this.newPasswordFirst);
-            }
-        }
-
+    public void updateUserFirstName(){
         userService.updateUser(user);
-        user = null;
+        HttpUtils.redirect("/app/user-management.xhtml");
     }
+
+    public void updateUserLastName(){
+        userService.updateUser(user);
+        HttpUtils.redirect("/app/user-management.xhtml");
+    }
+
+    public void updateUserEmail(){
+        if (userService.doesUserExist(user)){
+            messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
+            HttpUtils.redirect("/app/user-management.xhtml");
+        } else {
+            userService.updateUser(user);
+            HttpUtils.redirect("/app/user-management.xhtml");
+        }
+    }
+
+    public void updateUserPassword(){
+        if (!userService.passwordIsOk(user)){
+            messageService.addMessageCookie("wrongPasswordMessageWhileEdit", "Wrong password!");
+            HttpUtils.redirect("/app/user-management.xhtml");
+            return;
+        }
+        if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
+            messageService.addMessageCookie("passwordsNotMatch", "Passwords do not match!");
+            HttpUtils.redirect("/app/user-management.xhtml");
+            return;
+        }
+        user.setPassword(newPasswordFirst);
+        userService.updateUser(user);
+        HttpUtils.redirect("/app/user-management.xhtml");
+    }
+
+
 }
