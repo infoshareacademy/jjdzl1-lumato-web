@@ -62,13 +62,13 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="carModel"
-                                       class="col-sm-4 col-form-label">Description</label>
+                                <label for="regPlate"
+                                       class="col-sm-4 col-form-label">Registration Plate</label>
                                 <div class="col-sm-8 col align-self-center">
-                                    <h:inputText a:placeholder="Additional Description"
+                                    <h:inputText a:placeholder="Registration Plate"
                                                  class="form-control form-control-user"
-                                                 id="carDescription"
-                                                 value="#{carBean.car.additionalInfo}"
+                                                 id="regPlate"
+                                                 value="#{carBean.car.regPlate}"
                                                  style="border-radius:5px">
                                     </h:inputText>
                                 </div>
@@ -118,7 +118,7 @@
                                 <b:dataTableColumn value="#{car.brand}" width="40px"/>
                                 <b:dataTableColumn value="#{car.model}" width="40px"/>
                                 <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
-                                <b:dataTableColumn value="#{car.additionalInfo}" width="60px" label="Comments"/>
+                                <b:dataTableColumn value="#{car.regPlate}" width="60px" label="Registration Plate"/>
                             </b:dataTable>
                         </div>
 
@@ -146,7 +146,7 @@
                     <b:dataTableColumn value="#{car.brand}" width="40px"/>
                     <b:dataTableColumn value="#{car.model}" width="40px"/>
                     <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
-                    <b:dataTableColumn value="#{car.additionalInfo}" width="60px" label="Comments"/>
+                    <b:dataTableColumn value="#{car.regPlate}" width="60px" label="Registration Plate"/>
                 </b:dataTable>
 
 
