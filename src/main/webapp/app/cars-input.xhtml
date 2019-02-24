@@ -147,10 +147,15 @@
                     <b:dataTableColumn value="#{car.model}" width="40px"/>
                     <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
                     <b:dataTableColumn value="#{car.regPlate}" width="60px" label="Registration Plate"/>
+                    <b:dataTableColumn width="15%" label="Registration Plate">
+                        <h:form>
+                        <h:commandButton value="DELETE "
+                                         styleClass="btn btn-danger"
+                                         style="border-radius:15px; width: 100%"
+                                         action="#{carBean.attemptToDeleteCar(car)}"/>
+                        </h:form>
+                    </b:dataTableColumn>
                 </b:dataTable>
-
-
-
 
             </p:tab>
         </p:tabView>
