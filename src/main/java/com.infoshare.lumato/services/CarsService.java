@@ -27,7 +27,7 @@ public class CarsService {
 
     public List<Car> getAllCarsByUser() {
         try {
-            String sql = "SELECT cars.idcars, cars.brand, cars.model, cars.year, cars.fuelType, cars.comment " +
+            String sql = "SELECT cars.idcars, cars.brand, cars.model, cars.year, cars.fuelType, cars.regplate " +
                     "FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser " +
                     "AND users.iduser=" + currentUser.getUserId();
 
@@ -40,9 +40,9 @@ public class CarsService {
                 String model = myResults.getString("model");
                 int year = myResults.getInt("year");
                 String fuelType = myResults.getString("fuelType");
-                String comment = myResults.getString("comment");
+                String regPlate = myResults.getString("regplate");
 
-                Car tempCar = new Car(carId, currentUser.getUserId(), brand, model, year, fuelType, comment);
+                Car tempCar = new Car(carId, currentUser.getUserId(), brand, model, year, fuelType, regPlate);
                 cars.add(tempCar);
             }
         } catch (SQLException e) {
@@ -53,7 +53,7 @@ public class CarsService {
 
     public void addCar(Car theCar) {
         try {
-            String sql = "insert into cars (brand, model, year, fuelType, comment, iduser) values (?,?,?,?,?,?)";
+            String sql = "insert into cars (brand, model, year, fuelType, regplate, iduser) values (?,?,?,?,?,?)";
 
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
@@ -61,7 +61,7 @@ public class CarsService {
             myStmt.setString(2, theCar.getModel());
             myStmt.setInt(3, theCar.getProductionYear());
             myStmt.setString(4, theCar.getFuelType());
-            myStmt.setString(5, theCar.getAdditionalInfo());
+            myStmt.setString(5, theCar.getRegPlate());
             myStmt.setInt(6, currentUser.getUserId());
 
             myStmt.execute();

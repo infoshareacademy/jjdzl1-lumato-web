@@ -12,19 +12,19 @@ public class Car implements Serializable {
     private String model;
     private int productionYear;
     private String fuelType;
-    private String additionalInfo;
+    private String regPlate;
 
     public Car(){
 
     }
 
-    public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String additionalComment) {
+    public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String regPlate) {
         this.carId = carId;
         this.idUserInCars = idUserInCars;
         this.brand = brand;
         this.model = model;
         this.productionYear = productionYear;
-        this.additionalInfo = additionalComment;
+        this.regPlate = regPlate;
         this.fuelType = fuelType;
     }
 
@@ -60,12 +60,12 @@ public class Car implements Serializable {
         this.fuelType = fuelType;
     }
 
-    public String getAdditionalInfo() {
-        return additionalInfo;
+    public String getRegPlate() {
+        return regPlate;
     }
 
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setRegPlate(String regPlate) {
+        this.regPlate = regPlate;
     }
 
     public int getCarId() {
