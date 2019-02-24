@@ -30,8 +30,7 @@
                                     <h:inputText a:placeholder="Brand"
                                                  class="form-control form-control-user"
                                                  id="carBrand"
-                                                 value="#{carBean.car.brand}"
-                                                 style="border-radius:5px">
+                                                 value="#{carBean.car.brand}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -42,8 +41,7 @@
                                     <h:inputText a:placeholder="Model"
                                                  class="form-control form-control-user"
                                                  id="carModel"
-                                                 value="#{carBean.car.model}"
-                                                 style="border-radius:5px">
+                                                 value="#{carBean.car.model}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -55,8 +53,7 @@
                                     <h:inputText a:placeholder="Production Year"
                                                  class="form-control form-control-user"
                                                  id="carProductionYear"
-                                                 value="#{carBean.car.productionYear}"
-                                                 style="border-radius:5px">
+                                                 value="#{carBean.car.productionYear}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -68,8 +65,7 @@
                                     <h:inputText a:placeholder="Registration Plate"
                                                  class="form-control form-control-user"
                                                  id="regPlate"
-                                                 value="#{carBean.car.regPlate}"
-                                                 style="border-radius:5px">
+                                                 value="#{carBean.car.regPlate}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -79,24 +75,20 @@
                                 <label for="carModel" class="col-sm-4 col-form-label">Type of fuel</label>
                                 <div class="col-sm-8 col align-self-center">
 
+                                    <h:selectOneMenu value="#{carBean.car.fuelType}"
+                                                     styleClass="btn btn-secondary btn-lg dropdown-toggle"
+                                                     style="width: 100%; text-align: center">
 
-                                    <h:panelGrid columns="3">
-
-                                        <h:selectOneMenu value="#{carBean.car.fuelType}"
-                                                         styleClass="btn btn-primary btn-lg dropdown-toggle"
-                                                         style="width: 100%" >
-
-                                            <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
-                                                          itemValue="#{carBean.fuelTypes[0].name}"/>
-                                            <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
-                                                          itemValue="#{carBean.fuelTypes[1].name}"/>
-                                            <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
-                                                          itemValue="#{carBean.fuelTypes[2].name}"/>
-                                        </h:selectOneMenu>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
+                                                      itemValue="#{carBean.fuelTypes[0].name}"/>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
+                                                      itemValue="#{carBean.fuelTypes[1].name}"/>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
+                                                      itemValue="#{carBean.fuelTypes[2].name}"/>
+                                    </h:selectOneMenu>
 
 
-                                        <p:spacer/>
-                                    </h:panelGrid>
+                                    <p:spacer/>
                                 </div>
                             </div>
 
@@ -105,7 +97,7 @@
                                                  styleClass="btn btn-primary"
                                                  style="border-radius:15px; width: 100%"
                                                  action="#{carBean.attemptToAddCar}"/>
-                                   <!--     process="@all" update="@all" to ma isc nad action w buttonie-->
+                                <!--     process="@all" update="@all" to ma isc nad action w buttonie-->
                             </div>
                         </div>
 
@@ -147,12 +139,12 @@
                     <b:dataTableColumn value="#{car.model}" width="40px"/>
                     <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
                     <b:dataTableColumn value="#{car.regPlate}" width="60px" label="Registration Plate"/>
-                    <b:dataTableColumn width="15%" label="Registration Plate">
+                    <b:dataTableColumn width="15%">
                         <h:form>
-                        <h:commandButton value="DELETE "
-                                         styleClass="btn btn-danger"
-                                         style="border-radius:15px; width: 100%"
-                                         action="#{carBean.attemptToDeleteCar(car)}"/>
+                            <h:commandButton value="DELETE "
+                                             styleClass="btn btn-danger"
+                                             style="border-radius:15px; width: 100%"
+                                             action="#{carBean.attemptToDeleteCar(car)}"/>
                         </h:form>
                     </b:dataTableColumn>
                 </b:dataTable>

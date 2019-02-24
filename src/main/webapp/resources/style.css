@@ -181,8 +181,12 @@ body {
     font-size: 20px;
 }
 
-input {
-    border-radius: 15px !important;
+input[type="submit"] {
+    border-radius: 10px !important;
+}
+
+input[type="text"], input[type="password"] {
+    border-radius: 20px !important;
 }
 
 
