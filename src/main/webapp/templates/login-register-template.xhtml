@@ -13,6 +13,11 @@
 </h:head>
 
 <h:body styleClass="log-reg-background">
+
+    <ui:insert name = "head" >
+        <ui:include src = "/templates/login-register-head.xhtml" />
+    </ui:insert>
+
     <ui:insert name = "content" >
         <ui:include src = "/templates/content.xhtml" />
     </ui:insert>
