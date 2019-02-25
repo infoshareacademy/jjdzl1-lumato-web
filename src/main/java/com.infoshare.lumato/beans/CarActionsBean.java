@@ -2,6 +2,7 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.services.CarsService;
+import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelType;
 import com.infoshare.lumato.utils.HttpUtils;
 import net.bootsfaces.C;
@@ -20,6 +21,9 @@ public class CarActionsBean implements Serializable {
 
     @Inject
     private CarsService carsService;
+
+    @Inject
+    private MessageService messageService;
 
     private Car car = new Car();
 
@@ -63,16 +67,12 @@ public class CarActionsBean implements Serializable {
         redirectToCarPage();
     }
 
-    private void deleteCar() {
-        carsService.deleteCar(car);
-        redirectToCarPage();
-    }
+    public void attemptToAddNewCar() {
+        if (carsService.doesCarExist(car)) {
+            messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
 
-    public void attemptToAddCar() {
-        if(carsService.doesCarExist(car)) {
-            HttpUtils.redirect("/app/start.xhtml");
-        }
-        addNewCar();
+            redirectToCarPage();
+        } else addNewCar();
     }
 
     public void attemptToDeleteCar(Car theCar) {
@@ -80,7 +80,12 @@ public class CarActionsBean implements Serializable {
         deleteCar();
     }
 
-    private void redirectToCarPage(){
+    private void deleteCar() {
+        carsService.deleteCar(car);
+        redirectToCarPage();
+    }
+
+    private void redirectToCarPage() {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 }

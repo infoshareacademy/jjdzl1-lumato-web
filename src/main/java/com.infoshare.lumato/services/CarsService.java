@@ -30,22 +30,8 @@ public class CarsService {
 
     public boolean doesCarExist(Car car) {
         Car carInDB = carDAO.findCarByRegistrationPlate(car.getRegPlate());
-        System.out.println(" Po zaincjalizowaniu carinDB " + carInDB);
-
-        if (carInDB == null) {
-            System.out.println("========== Car jest nullem CarService i zwraca false ==============!");
-            return false;
-        } else {
-            System.out.println("========== Car nie jets nullem w CarService ==============!");
-            System.out.println("=============== Rejestracja carInDB   " + carInDB.getRegPlate());
-            if (carInDB.getRegPlate().equals(car.getRegPlate())) {
-                System.out.println("================= Blachy sa rowne, nie mozna dodac!!!");
-                return true;
-            } else {
-                System.out.println("B;achu sa rozne ");
-                return false;
-            }
-        }
+        if (carInDB == null) return false;
+        return carInDB.getRegPlate().equals(car.getRegPlate());
     }
 }
 
