@@ -20,17 +20,18 @@ public class CarActionsBean implements Serializable {
     @Inject
     private CarsService carsService;
 
-    private FuelType[] fuelTypes;
-
     private Car car = new Car();
+
+
+    private FuelType[] fuelTypes;
 
     private List<Car> carList;
 
-    public Car getCar(){
+    public Car getCar() {
         return car;
     }
 
-    public void setCar(Car car){
+    public void setCar(Car car) {
         this.car = car;
     }
 
@@ -44,12 +45,11 @@ public class CarActionsBean implements Serializable {
         return fuelTypes;
     }
 
-    public List<Car> getCars(){
+    public List<Car> getCars() {
         return carList;
     }
 
     private void loadCars() {
-
         try {
             carList = carsService.getAllCarsByUser();
 
@@ -64,16 +64,17 @@ public class CarActionsBean implements Serializable {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
-    private void deleteCar(){
+    private void deleteCar() {
         carsService.deleteCar(car);
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
-    public void attemptToAddCar(){
+    public void attemptToAddCar() {
         addNewCar();
     }
 
-    public void attemptToDeleteCar(Car theCar){
+    public void attemptToDeleteCar(Car theCar) {
+        setCar(theCar);
         deleteCar();
         HttpUtils.redirect("/app/cars-input.xhtml");
 

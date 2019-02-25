@@ -29,7 +29,6 @@
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <h:inputText a:placeholder="First Name"
                                              class="form-control form-control-user"
-                                             style="border-radius:15px"
                                              value="#{registerBean.user.firstName}"
                                              id="firstName"
                                              validatorMessage="All fields are required ">
@@ -39,7 +38,6 @@
                             <div class="col-sm-6">
                                 <h:inputText a:placeholder="Last Name"
                                              styleClass="form-control form-control-user"
-                                             style="border-radius:15px"
                                              value="#{registerBean.user.lastName}"
                                              id="lastName">
                                     <f:validateLength minimum="3"/>
@@ -50,7 +48,6 @@
                         <div class="form-group">
                             <h:inputText a:placeholder="Email"
                                          styleClass="form-control form-control-user"
-                                         style="border-radius:15px"
                                          value="#{registerBean.user.email}"
                                          id="email">
                                 <f:validateLength minimum="5"/>
@@ -61,7 +58,6 @@
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <h:inputSecret a:placeholder="Password" styleClass="form-control form-control-user"
                                                value="#{registerBean.user.password}"
-                                               style="border-radius:15px"
                                                id="password">
                                     <f:validateLength minimum="3"/>
                                 </h:inputSecret>
@@ -71,7 +67,6 @@
                                 <h:inputSecret a:placeholder="Confirm Password"
                                                value="#{registerBean.user.confirmPassword}"
                                                styleClass="form-control form-control-user"
-                                               style="border-radius:15px"
                                                id="confirmPassword"/>
                             </div>
                             <o:validateEqual components="password confirmPassword"
@@ -87,15 +82,15 @@
 
                         <div class="form-group">
                             <h:commandButton value="Register" styleClass="btn btn-primary btn-block" type="submit"
-                                             style="border-radius:15px" action="#{registerBean.attemptToRegister}"/>
+                                             action="#{registerBean.attemptToRegister}"/>
                         </div>
 
 
                     </h:form>
 
                     <div class="form-group">
-                        <a href="login.xhtml" class="btn btn btn-secondary btn-block"
-                           style="border-radius:15px">Sign in</a>
+                        <a href="login.xhtml" class="btn btn-secondary btn-block">
+                           Sign in</a>
                         <a class="float-right" href="#">Forgot password?</a>
                     </div>
 

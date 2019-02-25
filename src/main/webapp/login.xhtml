@@ -12,7 +12,7 @@
 
 
         <div class="container-fluid"
-             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 100px 0px; border-radius:5px">
+             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 100px 0px">
             <div class="row">
                 <div class="col-md-4 col-sm-3 col-xs-2"></div>
                 <div class="col-md-4 col-sm-6 col-xs-8">
@@ -27,13 +27,13 @@
                         <div class="form-group">
                             <label>Your email</label>
                             <h:inputText a:placeholder="Email" styleClass="form-control form-control-user"
-                                         style="border-radius:15px" value="#{loginBean.user.email}" id="email"/>
+                                         value="#{loginBean.user.email}" id="email"/>
                             <h:message for="email" style="color: red;"></h:message>
                         </div>
 
                         <div class="form-group">
                             <h:inputSecret a:placeholder="Password" styleClass="form-control form-control-user"
-                                         style="border-radius:15px" value="#{loginBean.user.password}" id="password"/>
+                                         value="#{loginBean.user.password}" id="password"/>
                             <h:message for="password" style="color: red;"></h:message>
                         </div>
 
@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group">
                             <h:commandButton value="Log In" styleClass="btn btn-primary btn-block"
-                                             style="border-radius:15px" action="#{loginBean.attemptToLogIn()}"/>
+                                             action="#{loginBean.attemptToLogIn()}"/>
                         </div>
 
                     </h:form>

@@ -99,4 +99,16 @@ public class UserDAO {
         }
         return userInDB;
     }
+
+    public void deleteUser(int userId) {
+        try {
+            String sql = "DELETE FROM users WHERE iduser=?";
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, userId);
+            myStmt.executeUpdate();
+        } catch (Exception exc) {
+            System.out.println("Cannot update an user!");
+            exc.printStackTrace();
+        }
+    }
 }

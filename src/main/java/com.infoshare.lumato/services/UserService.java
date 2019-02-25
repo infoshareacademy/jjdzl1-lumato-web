@@ -72,15 +72,7 @@ public class UserService {
         return user.getPassword().equals(this.currentUser.getPassword());
     }
 
-    public void deleteUser(int userId) {
-        try {
-            String sql = "DELETE FROM users WHERE iduser=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, userId);
-            myStmt.executeUpdate();
-        } catch (Exception exc) {
-            System.out.println("Cannot update an user!");
-            exc.printStackTrace();
-        }
+    public void deleteUser(User user){
+        userDAO.deleteUser(user.getUserId());
     }
 }
