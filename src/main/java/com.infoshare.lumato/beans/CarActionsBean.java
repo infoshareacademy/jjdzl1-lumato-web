@@ -4,6 +4,7 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.utils.FuelType;
 import com.infoshare.lumato.utils.HttpUtils;
+import net.bootsfaces.C;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -21,7 +22,6 @@ public class CarActionsBean implements Serializable {
     private CarsService carsService;
 
     private Car car = new Car();
-
 
     private FuelType[] fuelTypes;
 
@@ -52,7 +52,6 @@ public class CarActionsBean implements Serializable {
     private void loadCars() {
         try {
             carList = carsService.getAllCarsByUser();
-
         } catch (Exception e) {
             System.out.println("Cannot load users!");
             e.printStackTrace();
@@ -61,24 +60,28 @@ public class CarActionsBean implements Serializable {
 
     private void addNewCar() {
         carsService.addCar(car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
+        redirectToCarPage();
     }
 
     private void deleteCar() {
         carsService.deleteCar(car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
+        redirectToCarPage();
     }
 
     public void attemptToAddCar() {
-
+        if(carsService.doesCarExist(car)) {
+            HttpUtils.redirect("/app/start.xhtml");
+        }
         addNewCar();
     }
 
     public void attemptToDeleteCar(Car theCar) {
         setCar(theCar);
         deleteCar();
-        //HttpUtils.redirect("/app/cars-input.xhtml");
+    }
 
+    private void redirectToCarPage(){
+        HttpUtils.redirect("/app/cars-input.xhtml");
     }
 }
 

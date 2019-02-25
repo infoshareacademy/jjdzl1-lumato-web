@@ -2,25 +2,15 @@ package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.persistence.DBConnection;
-import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
 
 @RequestScoped
 public class CarsService {
 
-
-    @Inject
-    DBConnection myConn;
 
     @Inject
     CarDAO carDAO;
@@ -38,12 +28,31 @@ public class CarsService {
         return carDAO.getAllCarsByUser();
     }
 
+    public boolean doesCarExist(Car car) {
+        Car carInDB = carDAO.findCarByRegistrationPlate(car.getRegPlate());
+        System.out.println(" Po zaincjalizowaniu carinDB " + carInDB);
 
-
-
-
-
+        if (carInDB == null) {
+            System.out.println("========== Car jest nullem CarService i zwraca false ==============!");
+            return false;
+        } else {
+            System.out.println("========== Car nie jets nullem w CarService ==============!");
+            System.out.println("=============== Rejestracja carInDB   " + carInDB.getRegPlate());
+            if (carInDB.getRegPlate().equals(car.getRegPlate())) {
+                System.out.println("================= Blachy sa rowne, nie mozna dodac!!!");
+                return true;
+            } else {
+                System.out.println("B;achu sa rozne ");
+                return false;
+            }
+        }
+    }
 }
+
+
+
+
+
 
 
 

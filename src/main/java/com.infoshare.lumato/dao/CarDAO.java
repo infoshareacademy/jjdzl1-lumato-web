@@ -26,7 +26,6 @@ public class CarDAO {
 
     private List<Car> cars = new ArrayList<>();
 
-
     public List<Car> getAllCarsByUser() {
         try {
             String sql = "SELECT cars.idcars, cars.brand, cars.model, cars.year, cars.fuelType, cars.regplate " +
@@ -85,5 +84,32 @@ public class CarDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Car findCarByRegistrationPlate(String regPlate) {
+        Car carInDB = new Car();
+        try {
+            String sql = "SELECT * FROM cars WHERE regplate = ?";
+            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
+            statement.setString(1, regPlate);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.isBeforeFirst()) {
+                carInDB = null;
+                System.out.println("========== Car jest nulem w CarDAO ==============!");
+            } else {
+                resultSet.next();
+                carInDB.setCarId(resultSet.getInt("idcars"));
+                carInDB.setIdUserInCars(resultSet.getInt("iduser"));
+                carInDB.setBrand(resultSet.getString("brand"));
+                carInDB.setModel(resultSet.getString("model"));
+                carInDB.setFuelType(resultSet.getString("fueltype"));
+                carInDB.setRegPlate(resultSet.getString("regplate"));
+                carInDB.setProductionYear(resultSet.getInt("year"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("========== Zwracanie car w CarDAO ==============!");
+        return carInDB;
     }
 }

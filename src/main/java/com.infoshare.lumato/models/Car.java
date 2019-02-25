@@ -75,4 +75,12 @@ public class Car implements Serializable {
     public void setCarId(int carId) {
         this.carId = carId;
     }
+
+    public int getIdUserInCars() {
+        return idUserInCars;
+    }
+
+    public void setIdUserInCars(int idUserInCars) {
+        this.idUserInCars = idUserInCars;
+    }
 }
