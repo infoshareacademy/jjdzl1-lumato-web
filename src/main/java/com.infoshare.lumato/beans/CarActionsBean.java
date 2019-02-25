@@ -70,13 +70,14 @@ public class CarActionsBean implements Serializable {
     }
 
     public void attemptToAddCar() {
+
         addNewCar();
     }
 
     public void attemptToDeleteCar(Car theCar) {
         setCar(theCar);
         deleteCar();
-        HttpUtils.redirect("/app/cars-input.xhtml");
+        //HttpUtils.redirect("/app/cars-input.xhtml");
 
     }
 }
