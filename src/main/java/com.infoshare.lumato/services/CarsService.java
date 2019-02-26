@@ -15,10 +15,11 @@ public class CarsService {
     @Inject
     CarDAO carDAO;
 
+    private Car car = new Car();
+
     public void addCar(Car car) {
         carDAO.addCar(car);
     }
-
 
     public void deleteCar(Car car) {
         carDAO.deleteCar(car);
@@ -32,6 +33,10 @@ public class CarsService {
         Car carInDB = carDAO.findCarByRegistrationPlate(car.getRegPlate());
         if (carInDB == null) return false;
         return carInDB.getRegPlate().equals(car.getRegPlate());
+    }
+
+    public void editCar(Car car) {
+        carDAO.editCar(car);
     }
 }
 

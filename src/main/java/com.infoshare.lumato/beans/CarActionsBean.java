@@ -70,14 +70,8 @@ public class CarActionsBean implements Serializable {
     public void attemptToAddNewCar() {
         if (carsService.doesCarExist(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
-
             redirectToCarPage();
         } else addNewCar();
-    }
-
-    public void attemptToDeleteCar(Car theCar) {
-        setCar(theCar);
-        deleteCar();
     }
 
     private void deleteCar() {
@@ -85,8 +79,17 @@ public class CarActionsBean implements Serializable {
         redirectToCarPage();
     }
 
+    public void attemptToDeleteCar(Car theCar) {
+        setCar(theCar);
+        deleteCar();
+    }
+
     private void redirectToCarPage() {
         HttpUtils.redirect("/app/cars-input.xhtml");
+    }
+
+    public void redirectToUpdateCarPage() {
+        HttpUtils.redirect("/app/cars-edit.xhtml");
     }
 }
 

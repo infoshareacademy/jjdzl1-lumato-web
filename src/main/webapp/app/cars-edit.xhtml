@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui">
+
+
+<ui:composition template="/templates/maintemplate.xhtml">
+
+    <ui:define name="content">
+
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <!--<h:selectOneMenu value="#{carBean.car}"
+                                 styleClass="btn btn-primary btn-lg dropdown-toggle"
+                                 style="width: 50%; text-align: center">
+                    <f:selectItems value="#{carBean.cars}"
+                                   var="car"
+                                   itemValue="#{car.brand}"
+                                   itemLabel="#{car.brand} #{car.model} #{car.productionYear}"/>
+                </h:selectOneMenu>-->
+
+                <div class="col-6">
+                    <div class="form-group row">
+                        <label for="newCarBrand" class="col-sm-4 col-form-label">New brand</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="#{editCar.newBrand}"
+                                         class="form-control form-control-user"
+                                         id="newCarBrand"
+                                         value="#{editCar.newBrand}">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="newCarModel" class="col-sm-4 col-form-label">New model</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="Model"
+                                         class="form-control form-control-user"
+                                         id="newCarModel"
+                                         value="#{editCar.newModel}">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="newCarProductionYear"
+                               class="col-sm-4 col-form-label">New Production Year</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="Production Year"
+                                         class="form-control form-control-user"
+                                         id="newCarProductionYear"
+                                         value="#{editCar.newProductionYear}">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="newRegPlate"
+                               class="col-sm-4 col-form-label">New Registration Plate</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="Registration Plate"
+                                         class="form-control form-control-user"
+                                         id="newRegPlate"
+                                         value="#{editCar.newRegPlate}">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Type of fuel</label>
+                        <div class="col-sm-8 col align-self-center">
+
+                            <h:selectOneMenu value="#{editCar.car.fuelType}"
+                                             styleClass="btn btn-secondary btn-lg dropdown-toggle"
+                                             style="width: 100%; text-align: center">
+
+                                <f:selectItem itemLabel="#{editCar.fuelTypes[0].name}"
+                                              itemValue="#{editCar.fuelTypes[0].name}"/>
+                                <f:selectItem itemLabel="#{editCar.fuelTypes[1].name}"
+                                              itemValue="#{editCar.fuelTypes[1].name}"/>
+                                <f:selectItem itemLabel="#{editCar.fuelTypes[2].name}"
+                                              itemValue="#{editCar.fuelTypes[2].name}"/>
+                            </h:selectOneMenu>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <h:commandButton value="Apply changes"
+                                         styleClass="btn btn-primary"
+                                         style="border-radius:15px; width: 100%"
+                                         var="car"
+                                         action="#{editCar.updateCar(car)}"/>
+                    </div>
+                    <div class="errorMessage">
+                        #{messageBean.getMessageValue("wrongCredentialsMessage")}
+                    </div>
+                </div>
+                <div class="col-1"></div>
+
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
+
+
+
+

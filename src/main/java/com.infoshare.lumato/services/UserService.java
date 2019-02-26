@@ -40,7 +40,7 @@ public class UserService {
         return false;
     }
 
-    public void fillUserData(User userToFill, User fullUserFiller) {
+    private void fillUserData(User userToFill, User fullUserFiller) {
         if (userToFill.getFirstName() == null) userToFill.setFirstName(fullUserFiller.getFirstName());
         if (userToFill.getLastName() == null) userToFill.setLastName(fullUserFiller.getLastName());
         if (userToFill.getEmail() == null) userToFill.setEmail(fullUserFiller.getEmail());

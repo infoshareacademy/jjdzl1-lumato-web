@@ -4,7 +4,6 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.persistence.DBConnection;
 import com.infoshare.lumato.utils.HttpUtils;
-import com.sun.tracing.dtrace.ModuleName;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -95,21 +94,61 @@ public class CarDAO {
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.isBeforeFirst()) {
                 carInDB = null;
-                System.out.println("========== Car jest nulem w CarDAO ==============!");
             } else {
                 resultSet.next();
-                carInDB.setCarId(resultSet.getInt("idcars"));
-                carInDB.setIdUserInCars(resultSet.getInt("iduser"));
-                carInDB.setBrand(resultSet.getString("brand"));
-                carInDB.setModel(resultSet.getString("model"));
-                carInDB.setFuelType(resultSet.getString("fueltype"));
-                carInDB.setRegPlate(resultSet.getString("regplate"));
-                carInDB.setProductionYear(resultSet.getInt("year"));
+                fillCarData(carInDB, resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("========== Zwracanie car w CarDAO ==============!");
         return carInDB;
     }
+
+    public void editCar(Car theCar) {
+        try {
+            String sql = "update cars set model=?, brand=?, year=?, fueltype=?, regplate=?";
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+
+            myStmt.setString(1, theCar.getModel());
+            myStmt.setString(2, theCar.getBrand());
+            myStmt.setInt(3, theCar.getProductionYear());
+            myStmt.setString(4, theCar.getFuelType());
+            myStmt.setString(5, theCar.getRegPlate());
+            myStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public Car loadCarById(int carId) {
+        Car carInDB = new Car();
+
+        try {
+            String sql = "select * from cars where idcars=?";
+
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, carId);
+            ResultSet resultSet = myStmt.executeQuery();
+
+            while (resultSet.next()) {
+                fillCarData(carInDB, resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carInDB;
+    }
+
+    private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
+        theCar.setCarId(resultSet.getInt("idcars"));
+        theCar.setIdUserInCars(resultSet.getInt("iduser"));
+        theCar.setBrand(resultSet.getString("brand"));
+        theCar.setModel(resultSet.getString("model"));
+        theCar.setFuelType(resultSet.getString("fueltype"));
+        theCar.setRegPlate(resultSet.getString("regplate"));
+        theCar.setProductionYear(resultSet.getInt("year"));
+    }
+
+
 }
