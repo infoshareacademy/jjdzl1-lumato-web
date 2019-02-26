@@ -7,6 +7,7 @@
 
 <ui:composition template="/templates/maintemplate.xhtml">
     <ui:define name="content">
+        <ui:include src="/templates/user-management-templates/change-user-data-errors.xhtml"/>
         <p:tabView style="border: 0; font-size: 1em;">
             <p:tab title="Edit account">
                 <ui:include src = "/templates/user-management-templates/user-info-table.xhtml" />

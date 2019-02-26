@@ -42,7 +42,7 @@ public class DeleteUserBean {
             userService.deleteUser(HttpUtils.getCurrentUserFromSession());
             HttpUtils.redirect("/login.xhtml");
         } else {
-            messageService.addMessageCookie("wrongPassWhileDelete", "Wrong password!");
+            messageService.addMessageCookie("wrongPassword", "Wrong password!");
             user = null;
             HttpUtils.redirect("/app/user-management.xhtml");
         }
