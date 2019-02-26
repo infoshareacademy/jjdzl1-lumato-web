@@ -11,30 +11,32 @@
     <div id="container-fluid" style="margin-left: 0px">
 
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-12 col-sm-8 col-md-12 col-lg-7">
                 <h4 class="card-title">Delete account</h4>
             </div>
         </div>
 
         <div class="row justify-content-center">
-            <div class="errorMessage col-6">
-                #{messageBean.getMessageValue("wrongPassWhileDelete")}
+            <div class="col-12 col-sm-8 col-md-12 col-lg-7">
+                <div class="errorMessage">
+                    #{messageBean.getMessageValue("wrongPassWhileDelete")}
+                </div>
             </div>
         </div>
 
         <h:form>
             <div class="row justify-content-center">
-                <div class="col-2">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-lg-2">
                     <h:outputLabel value="Password:"/>
                 </div>
-                <div class="col-2">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
                     <h:inputSecret styleClass="form-control"
                                  value="#{deleteUser.user.password}"
                                  id="email"/>
                 </div>
-                <div class="col-2">
+                <div class="col-xs-12 col-sm-8 col-md-4 col-lg-2">
                     <h:commandButton value="Delete account"
-                                     styleClass="btn btn-danger"
+                                     styleClass="btn btn-block btn-danger"
                                      action="#{deleteUser.deleteUser()}"/>
                 </div>
             </div>
