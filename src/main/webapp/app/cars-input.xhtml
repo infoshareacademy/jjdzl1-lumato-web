@@ -136,10 +136,10 @@
                     <b:dataTableColumn value="#{car.regPlate}" width="60px" label="Registration Plate"/>
                     <b:dataTableColumn width="15%" label="Edit car">
                         <h:form>
-                            <h:commandButton value="EDIT "
+                            <h:commandLink value="EDIT "
                                              styleClass="btn btn-dark"
                                              style="width: 75%"
-                                             action="#{editCar.attemptToUpdateCar}"/>
+                                             action="#{carBean.attemptToUpdateCar(car)}"/>
                         </h:form>
                     </b:dataTableColumn>
 

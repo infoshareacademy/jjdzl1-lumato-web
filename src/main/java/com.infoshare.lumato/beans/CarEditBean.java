@@ -23,7 +23,6 @@ public class CarEditBean {
 
     private FuelType[] fuelTypes;
 
-
     public String getNewBrand() {
         return newBrand;
     }
@@ -86,12 +85,9 @@ public class CarEditBean {
         this.car = car;
     }
 
-    public void attemptToUpdateCar() {
-        HttpUtils.redirect("/app/cars-edit.xhtml");
-    }
-
     public void updateCar(Car theCar) {
         carsService.editCar(theCar);
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
+
 }

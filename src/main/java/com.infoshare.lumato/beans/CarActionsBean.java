@@ -9,11 +9,14 @@ import net.bootsfaces.C;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 @RequestScoped
 @Named("carBean")
@@ -88,8 +91,10 @@ public class CarActionsBean implements Serializable {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
-    public void redirectToUpdateCarPage() {
-        HttpUtils.redirect("/app/cars-edit.xhtml");
+    public String attemptToUpdateCar (Car theCar) {
+        setCar(theCar);
+        carsService.loadCarById(theCar.getCarId());
+        return"/app/cars-edit.xhtml";
     }
 }
 

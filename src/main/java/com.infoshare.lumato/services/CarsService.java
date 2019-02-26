@@ -2,11 +2,15 @@ package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.models.Car;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestScoped
 public class CarsService {
@@ -37,6 +41,14 @@ public class CarsService {
 
     public void editCar(Car car) {
         carDAO.editCar(car);
+    }
+
+    public void loadCarById(int carId) {
+        car = carDAO.loadCarById(carId);
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> requestMap = externalContext.getRequestMap();
+        requestMap.put("theCar", car);
+
     }
 }
 
