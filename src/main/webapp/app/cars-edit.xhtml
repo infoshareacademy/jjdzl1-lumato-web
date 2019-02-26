@@ -11,35 +11,56 @@
 
         <div class="row">
             <div class="col-1"></div>
-            <div class="col-10">
 
-                <div class="col-6">
-                    <div class="form-group row">
-                        <label for="newCarBrand" class="col-sm-4 col-form-label">New brand</label>
-                        <div class="col-sm-8 col align-self-center">
-                            <h:inputText a:placeholder="#{carBean.car.model}"
-                                         class="form-control form-control-user"
-                                         id="newCarBrand"
-                                         value="#{editCar.car.model}">
-                            </h:inputText>
-                        </div>
-                    </div>
+            <h3>Update Student</h3>
+
+            <h:messages globalOnly="true" />
+
+            <h:form style="margin-top: 10px">
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel>Brand</h:outputLabel> <h:inputText value="#{carBean.car.brand}"/>
+                    <h:outputLabel>Model</h:outputLabel> <h:inputText value="#{carBean.car.model}"/>
+                    <h:outputLabel>Model</h:outputLabel> <h:inputText value="#{carBean.car.fuelType}"/>
+                    <h:outputLabel>Model</h:outputLabel> <h:inputText value="#{carBean.car.productionYear}"/>
+                    <h:outputLabel>Model</h:outputLabel> <h:inputText value="#{carBean.car.regPlate}"/>
+                    <h:inputHidden value="#{carBean.car.idUserInCars}"/>
+                    <h:inputHidden value="#{carBean.car.carId}"/>
+
+                    <h:commandButton value="Save" styleClass="btn-primary" action="#{carBean.updateCar(carBean.car)}"/>
+                </h:panelGrid>
+            </h:form>
+
+            <!--  <div class="col-10">
+
+                  <div class="col-6">
+                      <div class="form-group row">
+                          <label for="newCarBrand" class="col-sm-4 col-form-label">New brand</label>
+                          <div class="col-sm-8 col align-self-center">
+                              <h:inputText a:placeholder="#{carBean.car.model}"
+                                           class="form-control form-control-user"
+                                           id="newCarBrand"
+                                           var="car"
+                                           value="#{carBean.car.model}">
+                              </h:inputText>
+                          </div>
+                      </div>
 
 
 
 
 
-                    <div class="form-group">
-                        <h:commandLink value="Apply changes"
-                                         styleClass="btn btn-primary"
-                                         style="border-radius:15px; width: 100%"
-                                         var="car"
-                                         action="#{editCar.updateCar(car)}"/>
-                    </div>
-                </div>
-                <div class="col-1"></div>
+                      <div class="form-group">
+                          <h:commandLink value="Apply changes"
+                                           styleClass="btn btn-primary"
+                                           style="border-radius:15px; width: 100%"
+                                           var="car"
+                                           action="#{editCar.updateCar(car)}"/>
+                      </div>
+                  </div>
+                  <div class="col-1"></div>
 
-            </div>
+              </div>-->
         </div>
     </ui:define>
 </ui:composition>

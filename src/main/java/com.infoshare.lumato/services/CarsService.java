@@ -19,7 +19,6 @@ public class CarsService {
     @Inject
     CarDAO carDAO;
 
-    private Car car = new Car();
 
     public void addCar(Car car) {
         carDAO.addCar(car);
@@ -39,15 +38,17 @@ public class CarsService {
         return carInDB.getRegPlate().equals(car.getRegPlate());
     }
 
-    public void editCar(Car car) {
-        carDAO.editCar(car);
+    public void updateCar(Car car) {
+        carDAO.updateCar(car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
+
     }
 
     public void loadCarById(int carId) {
-        car = carDAO.loadCarById(carId);
+        Car theCar = carDAO.loadCarById(carId);
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> requestMap = externalContext.getRequestMap();
-        requestMap.put("theCar", car);
+        requestMap.put("theCar", theCar);
 
     }
 }

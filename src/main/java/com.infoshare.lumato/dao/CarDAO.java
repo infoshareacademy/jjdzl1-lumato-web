@@ -104,17 +104,19 @@ public class CarDAO {
         return carInDB;
     }
 
-    public void editCar(Car theCar) {
+    public void updateCar(Car carInDB) {
+
         try {
-            String sql = "update cars set model=?, brand=?, year=?, fueltype=?, regplate=?";
+            String sql = "update cars set model=?, brand=?, year=?, fueltype=?, regplate=? where idcars=?";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
-            myStmt.setString(1, theCar.getModel());
-            myStmt.setString(2, theCar.getBrand());
-            myStmt.setInt(3, theCar.getProductionYear());
-            myStmt.setString(4, theCar.getFuelType());
-            myStmt.setString(5, theCar.getRegPlate());
-            myStmt.executeUpdate();
+            myStmt.setString(1, carInDB.getModel());
+            myStmt.setString(2, carInDB.getBrand());
+            myStmt.setInt(3, carInDB.getProductionYear());
+            myStmt.setString(4, carInDB.getFuelType());
+            myStmt.setString(5, carInDB.getRegPlate());
+            myStmt.setInt(6, carInDB.getCarId());
+            myStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,6 +151,4 @@ public class CarDAO {
         theCar.setRegPlate(resultSet.getString("regplate"));
         theCar.setProductionYear(resultSet.getInt("year"));
     }
-
-
 }

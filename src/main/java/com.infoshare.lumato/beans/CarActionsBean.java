@@ -93,8 +93,14 @@ public class CarActionsBean implements Serializable {
 
     public String attemptToUpdateCar (Car theCar) {
         setCar(theCar);
-        carsService.loadCarById(theCar.getCarId());
+        //carsService.loadCarById(theCar.getCarId());
         return"/app/cars-edit.xhtml";
+    }
+
+    public void updateCar(Car car){
+        //setCar(car);
+        car = this.car;
+        carsService.updateCar(car);
     }
 }
 
