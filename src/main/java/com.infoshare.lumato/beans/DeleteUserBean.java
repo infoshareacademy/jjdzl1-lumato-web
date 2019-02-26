@@ -20,6 +20,8 @@ public class DeleteUserBean {
     @Inject
     private MessageService messageService;
 
+
+
     private User user;
 
     public User getUser() {
@@ -37,7 +39,7 @@ public class DeleteUserBean {
 
     public void deleteUser() {
         if (userService.passwordIsOk(user)) {
-            userService.deleteUser(HttpUtils.getCurrentUserFromSession().getUserId());
+            userService.deleteUser(HttpUtils.getCurrentUserFromSession());
             HttpUtils.redirect("/login.xhtml");
         } else {
             messageService.addMessageCookie("wrongPassWhileDelete", "Wrong password!");

@@ -10,35 +10,6 @@
 
 <ui:composition template="templates/login-register-template.xhtml">
     <ui:define name="content">
-        <div class="jumbotron" style="padding:15px;">
-            <div class="preview-bar bg-white fixed-top py-2  border-bottom border-danger ">
-                <div class="container-fluid h-100">
-                    <div class="row align-items-center justify-content-between h-100">
-                        <div class="col">
-                            <i class="fab fa-github text-github small"></i>
-                            <a class="small"
-                               href="https://github.com/BlackrockDigital/startbootstrap-sb-admin-2">View on GitHub</a>
-                        </div>
-                        <div class="col d-none d-lg-block">
-                            <ul class="nav responsive-toggler justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active show" id="desktopToggle" data-toggle="tab" href="#"
-                                       role="tab" aria-selected="tr`ue">
-                                        <i class="fal fa-desktop"></i>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link show" id="mobileToggle" data-toggle="tab" href="#" role="tab"
-                                       aria-selected="false">
-                                        <i class="fal fa-mobile"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="container-fluid"
              style="background-color: #ffff;max-width: 700px; margin: auto; padding: 100px 0px; border-radius:5px">
@@ -57,22 +28,19 @@
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <h:inputText a:placeholder="First Name"
-                                             styleClass="form-control form-control-user"
-                                             style="border-radius:15px"
+                                             class="form-control form-control-user"
                                              value="#{registerBean.user.firstName}"
-                                             id="firstName">
-                                    <f:validateLength minimum="1"/>
+                                             id="firstName"
+                                             validatorMessage="All fields are required ">
+                                    <f:validateLength minimum="3"/>
                                 </h:inputText>
-                                <h:message for="firstName"/>
                             </div>
-
                             <div class="col-sm-6">
                                 <h:inputText a:placeholder="Last Name"
                                              styleClass="form-control form-control-user"
-                                             style="border-radius:15px"
                                              value="#{registerBean.user.lastName}"
                                              id="lastName">
-                                    <f:validateLength minimum="1"/>
+                                    <f:validateLength minimum="3"/>
                                 </h:inputText>
                             </div>
                         </div>
@@ -80,30 +48,25 @@
                         <div class="form-group">
                             <h:inputText a:placeholder="Email"
                                          styleClass="form-control form-control-user"
-                                         style="border-radius:15px"
                                          value="#{registerBean.user.email}"
                                          id="email">
                                 <f:validateLength minimum="5"/>
                             </h:inputText>
-
                         </div>
 
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <h:inputSecret a:placeholder="Password" styleClass="form-control form-control-user"
                                                value="#{registerBean.user.password}"
-                                               style="border-radius:15px"
                                                id="password">
                                     <f:validateLength minimum="3"/>
                                 </h:inputSecret>
-
                             </div>
 
                             <div class="col-sm-6">
                                 <h:inputSecret a:placeholder="Confirm Password"
                                                value="#{registerBean.user.confirmPassword}"
                                                styleClass="form-control form-control-user"
-                                               style="border-radius:15px"
                                                id="confirmPassword"/>
                             </div>
                             <o:validateEqual components="password confirmPassword"
@@ -111,19 +74,27 @@
                                              showMessageFor="confirmPassword"/>
                         </div>
 
+                        <div class="errorMessage">
+                            <h:message for="firstName"/>
+                            <h:message for="confirmPassword"/>
+                        </div>
+
+
                         <div class="form-group">
-                            <h:commandButton value="Register" styleClass="btn btn-primary btn-block"
-                                             style="border-radius:15px" action="#{registerBean.attemptToRegister}"/>
+                            <h:commandButton value="Register" styleClass="btn btn-primary btn-block" type="submit"
+                                             action="#{registerBean.attemptToRegister}"/>
                         </div>
 
 
                     </h:form>
 
                     <div class="form-group">
-                        <a href="login.xhtml" class="btn btn btn-secondary btn-block"
-                           style="border-radius:15px">Sign in</a>
+                        <a href="login.xhtml" class="btn btn-secondary btn-block"
+                           style="border-radius: 10px">
+                           Sign in</a>
                         <a class="float-right" href="#">Forgot password?</a>
                     </div>
+
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
             </div>

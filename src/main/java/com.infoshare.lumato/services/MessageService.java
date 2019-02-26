@@ -12,7 +12,7 @@ public class MessageService {
 
     public void addMessageCookie(String key, String value) {
         Cookie kookey = new Cookie(key, value);
-        kookey.setMaxAge(5);
+        kookey.setMaxAge(2);
         HttpUtils.getResponse().addCookie(kookey);
     }
 

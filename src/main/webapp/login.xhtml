@@ -9,38 +9,10 @@
 
 <ui:composition template="templates/login-register-template.xhtml">
     <ui:define name="content">
-        <div class="jumbotron" style="padding:15px;">
-            <div class="preview-bar bg-white fixed-top py-2  border-bottom border-danger ">
-                <div class="container-fluid h-100">
-                    <div class="row align-items-center justify-content-between h-100">
-                        <div class="col">
-                            <i class="fab fa-github text-github small"></i>
-                            <a class="small"
-                               href="https://github.com/BlackrockDigital/startbootstrap-sb-admin-2">View on GitHub</a>
-                        </div>
-                        <div class="col d-none d-lg-block">
-                            <ul class="nav responsive-toggler justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active show" id="desktopToggle" data-toggle="tab" href="#"
-                                       role="tab" aria-selected="true">
-                                        <i class="fal fa-desktop"></i>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link show" id="mobileToggle" data-toggle="tab" href="#" role="tab"
-                                       aria-selected="false">
-                                        <i class="fal fa-mobile"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="container-fluid"
-             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 100px 0px; border-radius:5px">
+             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 100px 0px">
             <div class="row">
                 <div class="col-md-4 col-sm-3 col-xs-2"></div>
                 <div class="col-md-4 col-sm-6 col-xs-8">
@@ -55,13 +27,13 @@
                         <div class="form-group">
                             <label>Your email</label>
                             <h:inputText a:placeholder="Email" styleClass="form-control form-control-user"
-                                         style="border-radius:15px" value="#{loginBean.user.email}" id="email"/>
+                                         value="#{loginBean.user.email}" id="email"/>
                             <h:message for="email" style="color: red;"></h:message>
                         </div>
 
                         <div class="form-group">
                             <h:inputSecret a:placeholder="Password" styleClass="form-control form-control-user"
-                                         style="border-radius:15px" value="#{loginBean.user.password}" id="password"/>
+                                         value="#{loginBean.user.password}" id="password"/>
                             <h:message for="password" style="color: red;"></h:message>
                         </div>
 
@@ -72,7 +44,7 @@
                         </div>
                         <div class="form-group">
                             <h:commandButton value="Log In" styleClass="btn btn-primary btn-block"
-                                             style="border-radius:15px" action="#{loginBean.attemptToLogIn()}"/>
+                                             action="#{loginBean.attemptToLogIn()}"/>
                         </div>
 
                     </h:form>

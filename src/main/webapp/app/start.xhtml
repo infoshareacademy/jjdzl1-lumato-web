@@ -95,12 +95,12 @@
 
 
         <h2>TEST</h2>
-        <h3>User list</h3>
+        <h3>Cars list</h3>
         <div>
             <ul>
-                <ui:repeat var="tempStudent" value="#{userController.users}">
+                   <ui:repeat var="tempCar" value="#{carBean.cars}">
                     <li>
-                        #{tempStudent.firstName} #{tempStudent.lastName} #{tempStudent.email}
+                        #{tempCar.brand} #{tempCar.model}
                     </li>
                 </ui:repeat>
             </ul>

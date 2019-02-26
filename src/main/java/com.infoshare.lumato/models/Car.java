@@ -1,18 +1,31 @@
 package com.infoshare.lumato.models;
 
-public class Car {
+import java.io.Serializable;
+
+
+public class Car implements Serializable {
+
+    private static final long serialVersionUID = 8242396670252535134L;
+    private int carId;
+    private int idUserInCars;
     private String brand;
     private String model;
-    private String productionYear;
+    private int productionYear;
+    private String fuelType;
+    private String regPlate;
 
     public Car(){
 
     }
 
-    public Car(String brand, String model, String productionYear) {
+    public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String regPlate) {
+        this.carId = carId;
+        this.idUserInCars = idUserInCars;
         this.brand = brand;
         this.model = model;
         this.productionYear = productionYear;
+        this.regPlate = regPlate;
+        this.fuelType = fuelType;
     }
 
     public String getBrand() {
@@ -31,11 +44,43 @@ public class Car {
         this.model = model;
     }
 
-    public String getProductionYear() {
+    public int getProductionYear() {
         return productionYear;
     }
 
-    public void setProductionYear(String productionYear) {
+    public void setProductionYear(int productionYear) {
         this.productionYear = productionYear;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public void setFuelType(String fuelType) {
+        this.fuelType = fuelType;
+    }
+
+    public String getRegPlate() {
+        return regPlate;
+    }
+
+    public void setRegPlate(String regPlate) {
+        this.regPlate = regPlate;
+    }
+
+    public int getCarId() {
+        return carId;
+    }
+
+    public void setCarId(int carId) {
+        this.carId = carId;
+    }
+
+    public int getIdUserInCars() {
+        return idUserInCars;
+    }
+
+    public void setIdUserInCars(int idUserInCars) {
+        this.idUserInCars = idUserInCars;
     }
 }

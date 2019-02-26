@@ -22,9 +22,8 @@ public class HttpUtils {
     }
 
     public static HttpServletResponse getResponse() {
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance()
+        return (HttpServletResponse) FacesContext.getCurrentInstance()
                 .getExternalContext().getResponse();
-        return response;
     }
 
 

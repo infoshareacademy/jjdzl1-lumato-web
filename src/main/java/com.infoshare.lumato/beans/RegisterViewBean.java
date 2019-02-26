@@ -1,5 +1,6 @@
 package com.infoshare.lumato.beans;
 
+import com.infoshare.lumato.dao.UserDAO;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
@@ -14,9 +15,11 @@ import javax.inject.Named;
 @Named("registerBean")
 public class RegisterViewBean {
 
-
     @Inject
     private UserService userService;
+
+    @Inject
+    UserDAO userDAO;
 
     @Inject
     private MessageService messageService;
@@ -36,20 +39,14 @@ public class RegisterViewBean {
         user = new User();
     }
 
-
     public void attemptToRegister() {
         if (userService.doesUserExist(user)) {
             messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
             HttpUtils.redirect("/register.xhtml");
-        } else addUser();
+        } else {
+            userService.addUser(user);
+            HttpUtils.redirect("/app/start.xhtml");
+        }
+
     }
-
-    private void addUser() {
-        userService.addUser(user);
-        User justCreatedUser = userService.findUserInDatabaseByEmail(user.getEmail());
-        userService.storeInSession(justCreatedUser);
-        HttpUtils.redirect("/app/start.xhtml");
-    }
-
-
 }
