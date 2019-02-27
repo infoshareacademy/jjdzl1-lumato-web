@@ -5,18 +5,13 @@ import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelType;
 import com.infoshare.lumato.utils.HttpUtils;
-import net.bootsfaces.C;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 @RequestScoped
 @Named("carBean")
@@ -71,6 +66,14 @@ public class CarActionsBean implements Serializable {
     }
 
     public void attemptToAddNewCar() {
+        if (carsService.isFieldEmpty(car)) {
+            messageService.addMessageCookie("wrongCredentialsMessage", "All fields must be filled!");
+            redirectToCarPage();
+        }
+        if (!carsService.isCarProductionYearValid(car)) {
+            messageService.addMessageCookie("wrongCredentialsMessage", "Invalid production year!");
+            redirectToCarPage();
+        }
         if (carsService.doesCarExist(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
             redirectToCarPage();
@@ -93,10 +96,10 @@ public class CarActionsBean implements Serializable {
 
     public String redirectToCarEdit(Car theCar) {
         setCar(theCar);
-        return"/app/cars-edit.xhtml";
+        return "/app/cars-edit.xhtml";
     }
 
-    public void updateCar(Car car){
+    public void updateCar(Car car) {
         this.car = car;
         carsService.updateCar(car);
     }

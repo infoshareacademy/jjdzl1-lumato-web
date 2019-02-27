@@ -5,12 +5,9 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import java.util.List;
-import java.util.Map;
 
 @RequestScoped
 public class CarsService {
@@ -18,7 +15,6 @@ public class CarsService {
 
     @Inject
     CarDAO carDAO;
-
 
     public void addCar(Car car) {
         carDAO.addCar(car);
@@ -41,7 +37,14 @@ public class CarsService {
     public void updateCar(Car car) {
         carDAO.updateCar(car);
         HttpUtils.redirect("/app/cars-input.xhtml");
+    }
 
+    public boolean isFieldEmpty(Car car) {
+        return (car.getBrand().isEmpty() | car.getModel().isEmpty() | car.getRegPlate().isEmpty() | car.getFuelType().isEmpty());
+    }
+
+    public boolean isCarProductionYearValid(Car car) {
+        return (car.getProductionYear() >= 1908 && car.getProductionYear() <= 2019);
     }
 }
 
