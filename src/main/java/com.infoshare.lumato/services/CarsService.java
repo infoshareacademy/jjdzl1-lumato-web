@@ -43,14 +43,6 @@ public class CarsService {
         HttpUtils.redirect("/app/cars-input.xhtml");
 
     }
-
-    public void loadCarById(int carId) {
-        Car theCar = carDAO.loadCarById(carId);
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Map<String, Object> requestMap = externalContext.getRequestMap();
-        requestMap.put("theCar", theCar);
-
-    }
 }
 
 

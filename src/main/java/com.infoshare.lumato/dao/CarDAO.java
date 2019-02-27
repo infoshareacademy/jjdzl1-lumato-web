@@ -123,6 +123,7 @@ public class CarDAO {
 
     }
 
+/*
     public Car loadCarById(int carId) {
         Car carInDB = new Car();
 
@@ -141,6 +142,7 @@ public class CarDAO {
         }
         return carInDB;
     }
+*/
 
     private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
         theCar.setCarId(resultSet.getInt("idcars"));

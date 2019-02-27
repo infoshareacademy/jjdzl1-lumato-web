@@ -59,8 +59,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="regPlate"
-                                       class="col-sm-4 col-form-label">Registration Plate</label>
+                                <label for="regPlate" class="col-sm-4 col-form-label">Registration Number</label>
                                 <div class="col-sm-8 col align-self-center">
                                     <h:inputText a:placeholder="Registration Plate"
                                                  class="form-control form-control-user"
@@ -91,7 +90,6 @@
                                     <p:spacer/>
                                 </div>
                             </div>
-
 
                             <div class="form-group">
                                 <h:commandButton value="Add a car"
@@ -125,7 +123,7 @@
             </p:tab>
 
 
-            <p:tab title="Delete a car">
+            <p:tab title="Delete/ Edit your car">
 
                 <b:dataTable value="#{carBean.cars}"
                              var="car">
@@ -139,7 +137,7 @@
                             <h:commandButton value="EDIT "
                                              styleClass="btn btn-dark"
                                              style="width: 75%"
-                                             action="#{carBean.attemptToUpdateCar(car)}"/>
+                                             action="#{carBean.redirectToCarEdit(car)}"/>
                         </h:form>
                     </b:dataTableColumn>
 
