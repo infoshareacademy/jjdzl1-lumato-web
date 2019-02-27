@@ -5,33 +5,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="../templates/maintemplate.xhtml">
+<ui:composition template="/templates/maintemplate.xhtml">
     <ui:define name="content">
 
         <ui:include src="/templates/start-page-templates/top-cards.xhtml" />
         <!-- include last actions list -->
         <!-- include chart or charts -->
-
-        <div class="row">
-            <div class="col-xl-6 col-md-6"></div>
-            <div class="col-xl-5 col-md-5">
-                <div id="chartContainer" style="position: relative; width:100%;"></div>
-            </div>
-            <div class="col-xl-1 col-md-1"></div>
-        </div>
-
-
-        <h2>TEST</h2>
-        <h3>Cars list</h3>
-        <div>
-            <ul>
-                   <ui:repeat var="tempCar" value="#{carBean.cars}">
-                    <li>
-                        #{tempCar.brand} #{tempCar.model}
-                    </li>
-                </ui:repeat>
-            </ul>
-        </div>
 
 
 
