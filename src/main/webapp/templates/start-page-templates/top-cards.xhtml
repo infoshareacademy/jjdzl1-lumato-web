@@ -16,13 +16,13 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            <div class="h5 font-weight-bold text-primary text-uppercase text-center mb-1">
                                 All users
                             </div>
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                 Cars registered: #{startBean.countAllCars()}
                             </div>
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
                                 Users registered: #{startBean.countAllUsers()}
                             </div>
 
@@ -38,17 +38,11 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Average fuel costs
+                            <div class="text-xs font-weight-bold text-success text-uppercase text-center mb-1">
+                                Average diesel cost
                             </div>
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                Diesel: #{startBean.calculateAverageFuelCost("Diesel")}
-                            </div>
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                Petrol: #{startBean.calculateAverageFuelCost("Petrol")}
-                            </div>
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                P+LPG: #{startBean.calculateAverageFuelCost("P+LPG")}
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 text-center">
+                                #{startBean.calculateAverageFuelCost("Diesel")} PLN
                             </div>
                         </div>
                     </div>
@@ -56,49 +50,42 @@
             </div>
         </div>
 
-        <!-- Earnings (Monthly) Card Example -->
+        <!-- Average fuel costs -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info border-primary shadow h-100 py-2">
+            <div class="card shadow h-100 py-2 border-primary mb-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%"
-                                             aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase text-center mb-1">
+                                Average petrol cost
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 text-center">
+                                #{startBean.calculateAverageFuelCost("Petrol")} PLN
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Pending Requests Card Example -->
+        <!-- Average fuel costs -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-warning border-primary shadow h-100 py-2">
+            <div class="card shadow h-100 py-2 border-primary mb-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <div class="text-xs font-weight-bold text-success text-uppercase text-center mb-1">
+                                Average P+LPG cost
+                            </div>
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 text-center">
+                                #{startBean.calculateAverageFuelCost("P+LPG")} PLN
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </ui:composition>
 </html>
