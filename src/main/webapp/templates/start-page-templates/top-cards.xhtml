@@ -16,9 +16,13 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">App stats</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Cars registered: 523</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Users registered: 155</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">All users</div>
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                Cars registered: #{startBean.countAllCars()}
+                            </div>
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                Users registered: #{startBean.countAllUsers()}
+                            </div>
 
                         </div>
                     </div>

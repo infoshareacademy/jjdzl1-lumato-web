@@ -1,14 +1,10 @@
 package com.infoshare.lumato.dao;
 
-import com.infoshare.lumato.persistence.DBConnection;
-
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import javax.inject.Named;
 
+@Named
 @RequestScoped
-public class FuelCostsDAO {
-
-    @Inject
-    DBConnection myConn;
+public class FuelCostsDAO extends CommonDAO {
 
 }
