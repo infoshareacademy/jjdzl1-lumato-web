@@ -17,7 +17,7 @@ public class FuelCostsDAO extends CommonDAO {
             myStmt.setString(1, fuelType);
             ResultSet resultSet = myStmt.executeQuery();
             resultSet.next();
-            averageFuelCost = resultSet.getInt("averageFuelCost");
+            averageFuelCost = resultSet.getDouble("averageFuelCost");
         } catch (Exception exc) {
             System.out.println("Cannot count average fuel cost!");
             exc.printStackTrace();

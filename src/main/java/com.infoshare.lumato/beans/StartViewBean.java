@@ -3,10 +3,12 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.dao.FuelCostsDAO;
 import com.infoshare.lumato.dao.UserDAO;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.math.RoundingMode;
 
 @RequestScoped
 @Named("startBean")
@@ -30,7 +32,8 @@ public class StartViewBean {
     }
 
     public double calculateAverageFuelCost(String fuelType){
-        return fuelCostsDAO.calculateAverageFuelCost(fuelType);
+        double averageFuelCost = fuelCostsDAO.calculateAverageFuelCost(fuelType);
+        return NumberUtils.toScaledBigDecimal(averageFuelCost, 2, RoundingMode.HALF_UP).doubleValue();
     }
 
 }
