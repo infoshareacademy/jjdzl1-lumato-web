@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<ui:composition template="/templates/maintemplate.xhtml">
+
+    <ui:define name="content">
+
+        <div class="row">
+            <div class="col-2"></div>
+
+            <div class="col-8">
+
+                <h3>Update Your Cars</h3>
+
+                <h:messages globalOnly="true"/>
+
+                <h:form>
+                    <div class="row">
+                        <div class="col-2"></div>
+
+                        <div class="col-8">
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Update Brand</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText styleClass="form-control" value="#{carBean.car.brand}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Update Model</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText styleClass="form-control" value="#{carBean.car.model}"/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Update Production Year</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText styleClass="form-control" value="#{carBean.car.productionYear}"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Update Registration Number</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText styleClass="form-control" value="#{carBean.car.regPlate}"/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Update Fuel type</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:selectOneMenu value="#{carBean.car.fuelType}"
+                                                     styleClass="btn btn-secondary btn-lg dropdown-toggle"
+                                                     style="width: 100%; text-align: center">
+
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
+                                                      itemValue="#{carBean.fuelTypes[0].name}"/>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
+                                                      itemValue="#{carBean.fuelTypes[1].name}"/>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
+                                                      itemValue="#{carBean.fuelTypes[2].name}"/>
+                                    </h:selectOneMenu></div>
+                            </div>
+
+
+                            <h:inputHidden value="#{carBean.car.idUserInCars}"/>
+
+                            <h:inputHidden value="#{carBean.car.carId}"/>
+
+                            <div class="form-group">
+                                <h:commandButton value="Save"
+                                                 styleClass="btn btn-primary"
+                                                 style="border-radius:15px; width: 100%"
+                                                 action="#{carBean.updateCar(carBean.car)}"/>
+                            </div>
+
+                            <div class="col-2"></div>
+
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
+
+
+
+
