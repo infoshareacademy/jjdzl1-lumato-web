@@ -5,6 +5,7 @@ import com.infoshare.lumato.persistence.DBConnection;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,12 +13,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Named
 @RequestScoped
-public class UserDAO {
-
-    @Inject
-    DBConnection myConn;
+public class UserDAO extends CommonDAO {
 
     private List<User> users = new ArrayList<>();
 

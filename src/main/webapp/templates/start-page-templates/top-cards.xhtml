@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition>
+    <div class="row">
+
+        <!-- All users and cars counter -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 py-2 border-primary mb-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="h5 font-weight-bold text-primary text-uppercase text-center mb-1">
+                                All users
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                Cars registered: #{startBean.countAllCars()}
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                Users registered: #{startBean.countAllUsers()}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average fuel costs -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 py-2 border-primary mb-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase text-center mb-1">
+                                Average diesel cost
+                            </div>
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 text-center">
+                                #{startBean.calculateAverageFuelCost("Diesel")} PLN
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average fuel costs -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 py-2 border-primary mb-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase text-center mb-1">
+                                Average petrol cost
+                            </div>
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 text-center">
+                                #{startBean.calculateAverageFuelCost("Petrol")} PLN
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Average fuel costs -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100 py-2 border-primary mb-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase text-center mb-1">
+                                Average P+LPG cost
+                            </div>
+                            <div class="h4 mb-0 font-weight-bold text-gray-800 text-center">
+                                #{startBean.calculateAverageFuelCost("P+LPG")} PLN
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ui:composition>
+</html>
+
+
