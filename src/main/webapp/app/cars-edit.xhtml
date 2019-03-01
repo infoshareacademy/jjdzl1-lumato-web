@@ -8,8 +8,8 @@
 <ui:composition template="/templates/maintemplate.xhtml">
 
     <ui:define name="content">
-
         <div class="row">
+
             <div class="col-2"></div>
 
             <div class="col-8">
@@ -23,7 +23,6 @@
                         <div class="col-2"></div>
 
                         <div class="col-8">
-
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Update Brand</label>
                                 <div class="col-sm-7 col align-self-center">
@@ -53,7 +52,6 @@
                                 </div>
                             </div>
 
-
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Update Fuel type</label>
                                 <div class="col-sm-7 col align-self-center">
@@ -70,10 +68,10 @@
                                     </h:selectOneMenu></div>
                             </div>
 
-
                             <h:inputHidden value="#{carBean.car.idUserInCars}"/>
-
                             <h:inputHidden value="#{carBean.car.carId}"/>
+
+                            <br/>
 
                             <div class="form-group">
                                 <h:commandButton value="Save"
@@ -81,14 +79,11 @@
                                                  style="border-radius:15px; width: 100%"
                                                  action="#{carBean.updateCar(carBean.car)}"/>
                             </div>
-
                             <div class="col-2"></div>
-
                         </div>
                     </div>
                 </h:form>
             </div>
-
         </div>
     </ui:define>
 </ui:composition>

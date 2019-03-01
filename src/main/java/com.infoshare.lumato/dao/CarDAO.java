@@ -122,28 +122,7 @@ public class CarDAO extends CommonDAO {
         }
 
     }
-
-/*
-    public Car loadCarById(int carId) {
-        Car carInDB = new Car();
-
-        try {
-            String sql = "select * from cars where idcars=?";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, carId);
-            ResultSet resultSet = myStmt.executeQuery();
-
-            while (resultSet.next()) {
-                fillCarData(carInDB, resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return carInDB;
-    }
-*/
-
+    
     private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
         theCar.setCarId(resultSet.getInt("idcars"));
         theCar.setIdUserInCars(resultSet.getInt("iduser"));
