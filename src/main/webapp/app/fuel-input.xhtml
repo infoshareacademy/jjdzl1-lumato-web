@@ -24,23 +24,21 @@
                             <label class="col-sm-4 col-form-label">Select a car</label>
                             <div class="col-sm-8 col align-self-center">
 
-                                <h:selectOneMenu value="#{fuelInputBean.car}"
+                                <h:selectOneMenu value="#{fuelInputBean.car.regPlate}"
                                                  styleClass="btn btn-secondary btn-lg dropdown-toggle"
                                                  style="width: 100%; text-align: center">
 
                                     <f:selectItems value="#{fuelInputBean.cars}"
                                                    var="car"
-                                                   itemValue="#{car.carId}"
+                                                   itemValue="#{car.regPlate}"
                                                    itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}"/>
                                 </h:selectOneMenu>
-
-                                <p:spacer/>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Price of fuel</label>
+                        <label class="col-sm-4 col-form-label">Price of fuel/1L</label>
                         <div class="col-sm-8 col align-self-center">
                             <h:inputText a:placeholder="Price"
                                          class="form-control form-control-user"
@@ -49,8 +47,32 @@
                         </div>
                     </div>
 
-                    <div class="errorMessage">
-                        #{messageBean.getMessageValue("wrongCredentialsMessage")}
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Amount of Fuel</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="Price"
+                                         class="form-control form-control-user"
+                                         value="#{fuelInputBean.fuelCost.amountOfFuel}">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Current mileage</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="Price"
+                                         class="form-control form-control-user"
+                                         value="#{fuelInputBean.fuelCost.currentMileage}">
+                            </h:inputText>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <h:commandButton value="Save"
+                                         styleClass="btn btn-primary"
+                                         style="border-radius:15px; width: 100%"
+                                         action="#{fuelInputBean.attemptToAddFuelCost}"/>
                     </div>
                 </div>
 

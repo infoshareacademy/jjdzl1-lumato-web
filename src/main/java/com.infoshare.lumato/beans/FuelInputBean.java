@@ -5,31 +5,32 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.List;
 
 @RequestScoped
 @Named("fuelInputBean")
-public class FuelInputBean {
+public class FuelInputBean implements Serializable {
 
     @Inject
     private FuelsCostsService fuelsCostsService;
 
     @Inject
-    CarDAO carDAO;
+    private CarsService carsService;
 
-    private FuelCosts fuelCost;
+    private FuelCosts fuelCost = new FuelCosts();
 
     private Car car = new Car();
 
     private List<Car> carList;
-    private CarsService carsService;
 
-    public void setFuelCost(FuelCosts fuelCost){
+    public void setFuelCost(FuelCosts fuelCost) {
         this.fuelCost = fuelCost;
     }
 
@@ -58,9 +59,15 @@ public class FuelInputBean {
         carList = fuelsCostsService.getAllCarsByUser();
     }
 
-    public void addFuelCost(FuelCosts fuelCosts) {
-        setCar(car);
-        fuelsCostsService.addFuelCost(fuelCosts, car);
+    public void attemptToAddFuelCost() {
+        addFuelCost();
+    }
+
+    private void addFuelCost() {
+        car = carsService.getCarByRegPLate(car.getRegPlate());
+        fuelsCostsService.addFuelCost(fuelCost, car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
+
     }
 
 

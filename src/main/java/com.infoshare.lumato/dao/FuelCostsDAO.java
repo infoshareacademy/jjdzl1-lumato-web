@@ -28,15 +28,18 @@ public class FuelCostsDAO extends CommonDAO {
         }
         return averageFuelCost;
     }
-    public void addFuelCostByCarId(FuelCosts fuelCosts, Car car) {
+
+    public void addFuelCostByCarId(FuelCosts fuelCosts, Car tempCar) {
         try {
-            String sql = "INSERT into fuelcosts (priceperliter, amountoffuel, currentmileage, typeoffuel, idcar,) values (?,?,?,?,?)";
+            String sql = "INSERT into fuelcosts (date,priceperliter,amountoffuel,currentmileage,typeoffuel,idcar) values (?,?,?,?,?,?)";
+
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setDouble(1, fuelCosts.getPricePerLiter());
-            myStmt.setDouble(2, fuelCosts.getAmountOfFuel());
-            myStmt.setInt(3, fuelCosts.getCurrentMileage());
-            myStmt.setString(4, car.getFuelType());
-            myStmt.setInt(5,car.getCarId());
+            myStmt.setString(1, null);
+            myStmt.setDouble(2, fuelCosts.getPricePerLiter());
+            myStmt.setDouble(3, fuelCosts.getAmountOfFuel());
+            myStmt.setInt(4, fuelCosts.getCurrentMileage());
+            myStmt.setString(5, tempCar.getFuelType());
+            myStmt.setInt(6, tempCar.getCarId());
 
             myStmt.execute();
 

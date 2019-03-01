@@ -46,6 +46,10 @@ public class CarsService {
     public boolean isCarProductionYearValid(Car car) {
         return (car.getProductionYear() >= 1908 && car.getProductionYear() <= 2019);
     }
+
+    public Car getCarByRegPLate (String regPlate) {
+        return carDAO.findCarByRegistrationPlate(regPlate);
+    }
 }
 
 
