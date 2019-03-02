@@ -26,6 +26,8 @@ public class FuelInputBean implements Serializable {
 
     private FuelCosts fuelCost = new FuelCosts();
 
+    private List<FuelCosts> fuelCostsList;
+
     private Car car = new Car();
 
     private List<Car> carList;
@@ -46,13 +48,26 @@ public class FuelInputBean implements Serializable {
         return car;
     }
 
+    public void setFuelCostsList(List<FuelCosts> fuelCostsList) {
+        this.fuelCostsList = fuelCostsList;
+    }
+
+    public List<FuelCosts> getFuelCostsList(){
+        return fuelCostsList;
+    }
+
     public List<Car> getCars() {
         return carList;
     }
 
     @PostConstruct
     public void construct() {
+        loadFuelCostList();
         loadCars();
+    }
+
+    private void loadFuelCostList(){
+        fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
     }
 
     private void loadCars() {
@@ -66,7 +81,7 @@ public class FuelInputBean implements Serializable {
     private void addFuelCost() {
         car = carsService.getCarByRegPLate(car.getRegPlate());
         fuelsCostsService.addFuelCost(fuelCost, car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
+        HttpUtils.redirect("/app/fuel-input.xhtml");
 
     }
 

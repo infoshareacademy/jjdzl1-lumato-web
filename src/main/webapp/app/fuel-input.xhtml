@@ -4,8 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:b="http://bootsfaces.net/ui">
 
 
 <ui:composition template="/templates/maintemplate.xhtml">
@@ -18,22 +17,18 @@
                 <div class="col-1"></div>
 
                 <div class="col-4">
+
                     <div class="form-group row">
-
-                        <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">Select a car</label>
-                            <div class="col-sm-8 col align-self-center">
-
-                                <h:selectOneMenu value="#{fuelInputBean.car.regPlate}"
-                                                 styleClass="btn btn-secondary btn-lg dropdown-toggle"
-                                                 style="width: 100%; text-align: center">
-
-                                    <f:selectItems value="#{fuelInputBean.cars}"
-                                                   var="car"
-                                                   itemValue="#{car.regPlate}"
-                                                   itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}"/>
-                                </h:selectOneMenu>
-                            </div>
+                        <label class="col-sm-4 col-form-label">Select a car</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:selectOneMenu value="#{fuelInputBean.car.regPlate}"
+                                             styleClass="btn btn-secondary btn-sm dropdown-toggle"
+                                             style="width: 100%; text-align: center">
+                                <f:selectItems value="#{fuelInputBean.cars}"
+                                               var="car"
+                                               itemValue="#{car.regPlate}"
+                                               itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}"/>
+                            </h:selectOneMenu>
                         </div>
                     </div>
 
@@ -77,6 +72,19 @@
                 </div>
 
                 <div class="col-1"></div>
+
+                <div class="col-5">
+                    <b:dataTable value="#{fuelInputBean.fuelCostsList}"
+                                 var="tempfuelCost">
+                        <b:dataTableColumn value="#{tempfuelCost.fuelType}" width="25px" label="Year" order="asc"/>
+                        <b:dataTableColumn value="#{tempfuelCost.pricePerLiter}" width="40px"/>
+                        <b:dataTableColumn value="#{tempfuelCost.amountOfFuel}" width="40px"/>
+                        <b:dataTableColumn value="#{tempfuelCost.currentMileage}" width="40px"/>
+                    </b:dataTable>
+                </div>
+
+                <div class="col-1"></div>
+
 
             </div>
         </h:form>

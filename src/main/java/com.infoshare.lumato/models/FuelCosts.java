@@ -10,7 +10,8 @@ public class FuelCosts {
     private double amountOfFuel;
     private int currentMileage;
     private String fuelType;
-    private int carId;
+    private int idCar;
+
 
     public FuelCosts() {
     }
@@ -63,12 +64,12 @@ public class FuelCosts {
         this.fuelType = fuelType;
     }
 
-    public int getCarId() {
-        return carId;
+    public int getIdCar() {
+        return idCar;
     }
 
-    public void setCarId(int carId) {
-        this.carId = carId;
+    public void setIdCar(int idCar) {
+        this.idCar = idCar;
     }
 
     @Override
@@ -80,7 +81,6 @@ public class FuelCosts {
                 ", amountOfFuel=" + amountOfFuel +
                 ", currentMileage=" + currentMileage +
                 ", fuelType='" + fuelType + '\'' +
-                ", carId=" + carId +
                 '}';
     }
 }

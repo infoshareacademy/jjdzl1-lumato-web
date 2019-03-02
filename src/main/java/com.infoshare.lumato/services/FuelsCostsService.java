@@ -28,4 +28,7 @@ public class FuelsCostsService {
     }
 
 
+    public List<FuelCosts> getAllFuelCostsByUser() {
+        return fuelCostsDAO.getAllFuelCostByUser();
+    }
 }

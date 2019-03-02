@@ -2,16 +2,27 @@ package com.infoshare.lumato.dao;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
+import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 @Named
 @RequestScoped
 public class FuelCostsDAO extends CommonDAO {
+
+    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+
+
+    private List<FuelCosts> fuelCostList = new ArrayList<>();
+
 
     public double calculateAverageFuelCost(String fuelType) {
         double averageFuelCost = 0;
@@ -46,6 +57,40 @@ public class FuelCostsDAO extends CommonDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    public List<FuelCosts> getAllFuelCostByUser() {
+        GregorianCalendar myCal = new GregorianCalendar();
+
+
+        try {
+            String sql = "select fuelcosts.idfuelcost, fuelcosts.date , fuelcosts.priceperliter, fuelcosts.amountoffuel, fuelcosts.currentmileage, fuelcosts.typeoffuel, fuelcosts.idcar\n" +
+                    "from fuelcosts, cars, users \n" +
+                    "where users.iduser=cars.iduser \n" +
+                    "and cars.idcars=fuelcosts.idcar \n" +
+                    "and users.iduser=(?)";
+
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, currentUser.getUserId());
+            ResultSet resultSet = myStmt.executeQuery();
+
+            while (resultSet.next()) {
+                FuelCosts tempFuelCost = new FuelCosts();
+                tempFuelCost.setId(resultSet.getInt("idfuelcost"));
+                tempFuelCost.setPricePerLiter(resultSet.getDouble("priceperliter"));
+                tempFuelCost.setAmountOfFuel(resultSet.getDouble("amountoffuel"));
+                tempFuelCost.setCurrentMileage(resultSet.getInt("currentmileage"));
+                tempFuelCost.setFuelType(resultSet.getString("typeoffuel"));
+                tempFuelCost.setIdCar(resultSet.getInt("idcar"));
+
+                myCal.setGregorianChange(resultSet.getDate("date"));
+                tempFuelCost.setDate(myCal);
+
+                fuelCostList.add(tempFuelCost);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fuelCostList;
     }
 }
