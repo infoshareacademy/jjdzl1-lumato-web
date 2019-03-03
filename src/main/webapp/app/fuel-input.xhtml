@@ -11,7 +11,6 @@
 
     <ui:define name="content">
 
-
         <h:form>
             <div class="row">
                 <div class="col-1"></div>
@@ -62,6 +61,15 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Current mileage</label>
+                        <div class="col-sm-8 col align-self-center">
+                            <h:inputText a:placeholder="Price"
+                                         class="form-control form-control-user"
+                                         value="#{fuelInputBean.fuelCost.date}">
+                            </h:inputText>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <h:commandButton value="Save"
@@ -76,16 +84,16 @@
                 <div class="col-5">
                     <b:dataTable value="#{fuelInputBean.fuelCostsList}"
                                  var="tempfuelCost">
-                        <b:dataTableColumn value="#{tempfuelCost.fuelType}" width="25px" label="Year" order="asc"/>
-                        <b:dataTableColumn value="#{tempfuelCost.pricePerLiter}" width="40px"/>
-                        <b:dataTableColumn value="#{tempfuelCost.amountOfFuel}" width="40px"/>
-                        <b:dataTableColumn value="#{tempfuelCost.currentMileage}" width="40px"/>
+                        <b:dataTableColumn value="#{tempfuelCost.fuelType}" label="Type of Fuel" width="25px"
+                                           order="asc"/>
+                        <b:dataTableColumn value="#{tempfuelCost.pricePerLiter}" label="Price per 1l" width="40px"/>
+                        <b:dataTableColumn value="#{tempfuelCost.amountOfFuel}" label="Amount of fuel [l]"
+                                           width="40px"/>
+                        <b:dataTableColumn value="#{tempfuelCost.currentMileage}" label="Current Mileage" width="40px"/>
                     </b:dataTable>
                 </div>
 
                 <div class="col-1"></div>
-
-
             </div>
         </h:form>
     </ui:define>

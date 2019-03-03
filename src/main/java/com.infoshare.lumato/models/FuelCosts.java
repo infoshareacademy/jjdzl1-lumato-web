@@ -1,11 +1,13 @@
 package com.infoshare.lumato.models;
 
+//import com.infoshare.lumato.services.CalendarService;
+
 import java.util.Calendar;
 
 public class FuelCosts {
 
     private int id;
-    private Calendar date;
+    private Ca date;
     private double pricePerLiter;
     private double amountOfFuel;
     private int currentMileage;
@@ -72,15 +74,4 @@ public class FuelCosts {
         this.idCar = idCar;
     }
 
-    @Override
-    public String toString() {
-        return "FuelCosts{" +
-                "id=" + id +
-                ", date=" + date +
-                ", pricePerLiter=" + pricePerLiter +
-                ", amountOfFuel=" + amountOfFuel +
-                ", currentMileage=" + currentMileage +
-                ", fuelType='" + fuelType + '\'' +
-                '}';
-    }
 }

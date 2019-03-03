@@ -1,6 +1,5 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.services.CarsService;
@@ -81,9 +80,11 @@ public class FuelInputBean implements Serializable {
     private void addFuelCost() {
         car = carsService.getCarByRegPLate(car.getRegPlate());
         fuelsCostsService.addFuelCost(fuelCost, car);
+        redirectToFuelInputPage();
+    }
+
+    private void redirectToFuelInputPage() {
         HttpUtils.redirect("/app/fuel-input.xhtml");
 
     }
-
-
 }
