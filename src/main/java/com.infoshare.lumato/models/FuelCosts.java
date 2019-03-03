@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class FuelCosts {
 
     private int id;
-    private Ca date;
+    private Calendar date;
     private double pricePerLiter;
     private double amountOfFuel;
     private int currentMileage;

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -20,9 +21,7 @@ public class FuelCostsDAO extends CommonDAO {
 
     private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-
     private List<FuelCosts> fuelCostList = new ArrayList<>();
-
 
     public double calculateAverageFuelCost(String fuelType) {
         double averageFuelCost = 0;
@@ -44,8 +43,11 @@ public class FuelCostsDAO extends CommonDAO {
         try {
             String sql = "INSERT into fuelcosts (date,priceperliter,amountoffuel,currentmileage,typeoffuel,idcar) values (?,?,?,?,?,?)";
 
+            Calendar calendar = fuelCosts.getDate();
+            java.sql.Date sqlDate = new java.sql.Date(calendar.getTimeInMillis());
+
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setString(1, null);
+            myStmt.setDate(1, sqlDate);
             myStmt.setDouble(2, fuelCosts.getPricePerLiter());
             myStmt.setDouble(3, fuelCosts.getAmountOfFuel());
             myStmt.setInt(4, fuelCosts.getCurrentMileage());
@@ -61,7 +63,6 @@ public class FuelCostsDAO extends CommonDAO {
 
     public List<FuelCosts> getAllFuelCostByUser() {
         GregorianCalendar myCal = new GregorianCalendar();
-
 
         try {
             String sql = "select fuelcosts.idfuelcost, fuelcosts.date , fuelcosts.priceperliter, fuelcosts.amountoffuel, fuelcosts.currentmileage, fuelcosts.typeoffuel, fuelcosts.idcar\n" +

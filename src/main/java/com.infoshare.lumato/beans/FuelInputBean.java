@@ -2,6 +2,7 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
+import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.utils.HttpUtils;
@@ -11,6 +12,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @RequestScoped
@@ -22,6 +25,18 @@ public class FuelInputBean implements Serializable {
 
     @Inject
     private CarsService carsService;
+
+    public String getDateAsString() {
+        return dateAsString;
+    }
+
+    public void setDateAsString(String dateAsString) {
+        this.dateAsString = dateAsString;
+    }
+
+    Calendar calendar = new GregorianCalendar();
+
+    private String dateAsString;
 
     private FuelCosts fuelCost = new FuelCosts();
 
@@ -51,7 +66,7 @@ public class FuelInputBean implements Serializable {
         this.fuelCostsList = fuelCostsList;
     }
 
-    public List<FuelCosts> getFuelCostsList(){
+    public List<FuelCosts> getFuelCostsList() {
         return fuelCostsList;
     }
 
@@ -65,7 +80,7 @@ public class FuelInputBean implements Serializable {
         loadCars();
     }
 
-    private void loadFuelCostList(){
+    private void loadFuelCostList() {
         fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
     }
 
@@ -74,7 +89,14 @@ public class FuelInputBean implements Serializable {
     }
 
     public void attemptToAddFuelCost() {
-        addFuelCost();
+        calendar = new GregorianCalendar();
+        calendar = CalendarService.returnCalendarDate(dateAsString);
+        if (calendar != null) {
+            this.fuelCost.setDate(calendar);
+            addFuelCost();
+        } else {
+            redirectToFuelInputPage();
+        }
     }
 
     private void addFuelCost() {
