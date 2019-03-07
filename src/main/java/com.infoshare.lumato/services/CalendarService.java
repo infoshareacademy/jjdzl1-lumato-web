@@ -1,5 +1,6 @@
 package com.infoshare.lumato.services;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -21,8 +22,10 @@ public class CalendarService {
             calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dateArray[0]));
             return calendar;
         } else {
-            System.out.println("======== WRONG INPUT! =========");
             return null;
         }
     }
+
+    String pattern = "yyyy-MM-dd";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 }

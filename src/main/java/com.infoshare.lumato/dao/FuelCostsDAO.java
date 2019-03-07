@@ -7,6 +7,7 @@ import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,7 +63,7 @@ public class FuelCostsDAO extends CommonDAO {
     }
 
     public List<FuelCosts> getAllFuelCostByUser() {
-        GregorianCalendar myCal = new GregorianCalendar();
+
 
         try {
             String sql = "select fuelcosts.idfuelcost, fuelcosts.date , fuelcosts.priceperliter, fuelcosts.amountoffuel, fuelcosts.currentmileage, fuelcosts.typeoffuel, fuelcosts.idcar\n" +
@@ -76,6 +77,7 @@ public class FuelCostsDAO extends CommonDAO {
             ResultSet resultSet = myStmt.executeQuery();
 
             while (resultSet.next()) {
+                GregorianCalendar myCal = new GregorianCalendar();
                 FuelCosts tempFuelCost = new FuelCosts();
                 tempFuelCost.setId(resultSet.getInt("idfuelcost"));
                 tempFuelCost.setPricePerLiter(resultSet.getDouble("priceperliter"));
@@ -84,7 +86,9 @@ public class FuelCostsDAO extends CommonDAO {
                 tempFuelCost.setFuelType(resultSet.getString("typeoffuel"));
                 tempFuelCost.setIdCar(resultSet.getInt("idcar"));
 
-                myCal.setGregorianChange(resultSet.getDate("date"));
+                Date date = resultSet.getDate("date");
+                myCal.setTime(date);
+
                 tempFuelCost.setDate(myCal);
 
                 fuelCostList.add(tempFuelCost);

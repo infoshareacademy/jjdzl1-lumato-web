@@ -84,8 +84,10 @@
                 <div class="col-6">
                     <b:dataTable value="#{fuelInputBean.fuelCostsList}"
                                  var="tempfuelCost">
-                        <b:dataTableColumn value="#{tempfuelCost.fuelType}" label="Type of Fuel" width="25px"
-                                           order="asc"/>
+
+                        <b:dataTableColumn value="#{tempfuelCost.date.time}" label="Date" width="25px"/>
+
+                        <b:dataTableColumn value="#{tempfuelCost.fuelType}" label="Type of Fuel" width="25px"/>
                         <b:dataTableColumn value="#{tempfuelCost.pricePerLiter}" label="Price per 1l" width="40px"/>
                         <b:dataTableColumn value="#{tempfuelCost.amountOfFuel}" label="Amount of fuel [l]"
                                            width="40px"/>

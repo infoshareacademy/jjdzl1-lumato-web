@@ -1,7 +1,5 @@
 package com.infoshare.lumato.models;
 
-//import com.infoshare.lumato.services.CalendarService;
-
 import java.util.Calendar;
 
 public class FuelCosts {

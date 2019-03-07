@@ -7,7 +7,6 @@ import com.infoshare.lumato.models.FuelCosts;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.util.Calendar;
 import java.util.List;
 
 @RequestScoped

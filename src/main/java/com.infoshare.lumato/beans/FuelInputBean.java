@@ -33,8 +33,6 @@ public class FuelInputBean implements Serializable {
 
     private FuelCosts fuelCost = new FuelCosts();
 
-    private CalendarService calendar;
-
     private List<FuelCosts> fuelCostsList;
 
     private Car car = new Car();
@@ -112,5 +110,9 @@ public class FuelInputBean implements Serializable {
 
     private void redirectToFuelInputPage() {
         HttpUtils.redirect("/app/fuel-input.xhtml");
+    }
+
+    public String calToString(FuelCosts fuelCosts){
+        return fuelCosts.getDate().getTime().toString();
     }
 }
