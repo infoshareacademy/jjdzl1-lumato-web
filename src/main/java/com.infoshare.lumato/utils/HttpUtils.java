@@ -11,6 +11,11 @@ import java.io.IOException;
 
 public class HttpUtils {
 
+    public static User getCurrentUserObjectFromSession(){
+        User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+        return currentUser;
+    }
+
     public static HttpSession getSession() {
         return (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(false);
