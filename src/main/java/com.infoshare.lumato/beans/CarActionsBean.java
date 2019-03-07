@@ -43,14 +43,6 @@ public class CarActionsBean implements Serializable {
         loadCars();
     }
 
-    public FuelType[] getFuelTypes() {
-        return fuelTypes;
-    }
-
-    public List<Car> getCars() {
-        return carList;
-    }
-
     private void loadCars() {
         try {
             carList = carsService.getAllCarsByUser();
@@ -58,6 +50,14 @@ public class CarActionsBean implements Serializable {
             System.out.println("Cannot load users!");
             e.printStackTrace();
         }
+    }
+
+    public FuelType[] getFuelTypes() {
+        return fuelTypes;
+    }
+
+    public List<Car> getCars() {
+        return carList;
     }
 
     private void addNewCar() {
@@ -94,6 +94,11 @@ public class CarActionsBean implements Serializable {
         deleteCar();
     }
 
+    public void updateCar(Car car) {
+        this.car = car;
+        carsService.updateCar(car);
+    }
+
     private void redirectToCarPage() {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
@@ -103,8 +108,7 @@ public class CarActionsBean implements Serializable {
         return "/app/cars-edit.xhtml";
     }
 
-    public void updateCar(Car car) {
-        this.car = car;
-        carsService.updateCar(car);
+    public Car getCarById(int id) {
+        return carsService.getCarById(id);
     }
 }

@@ -52,6 +52,10 @@ public class CarsService {
     public Car getCarByRegPLate (String regPlate) {
         return carDAO.findCarByRegistrationPlate(regPlate);
     }
+
+    public Car getCarById (int id) {
+        return carDAO.findCarById(id);
+    }
 }
 
 

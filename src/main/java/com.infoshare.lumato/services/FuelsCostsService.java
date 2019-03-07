@@ -7,6 +7,7 @@ import com.infoshare.lumato.models.FuelCosts;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.util.Calendar;
 import java.util.List;
 
 @RequestScoped
@@ -18,16 +19,27 @@ public class FuelsCostsService {
     @Inject
     CarDAO carDAO;
 
+    private String dateAsString;
 
     public void addFuelCost(FuelCosts fuelCosts, Car car) {
         fuelCostsDAO.addFuelCostByCarId(fuelCosts, car);
     }
 
-    public List<Car> getAllCarsByUser(){
+    public List<Car> getAllCarsByUser() {
         return carDAO.getAllCarsByUser();
     }
 
     public List<FuelCosts> getAllFuelCostsByUser() {
         return fuelCostsDAO.getAllFuelCostByUser();
     }
+
+    public boolean isFuelAmountAndPriceNotEmpty(FuelCosts fuelCosts) {
+        return (fuelCosts.getAmountOfFuel() > 0 & fuelCosts.getPricePerLiter() > 0);
+    }
+
+
+
+
+
+
 }

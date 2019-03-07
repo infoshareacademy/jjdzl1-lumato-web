@@ -5,6 +5,7 @@ import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
+import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @RequestScoped
@@ -26,6 +26,21 @@ public class FuelInputBean implements Serializable {
     @Inject
     private CarsService carsService;
 
+    @Inject
+    private MessageService messageService;
+
+    private String dateAsString;
+
+    private FuelCosts fuelCost = new FuelCosts();
+
+    private CalendarService calendar;
+
+    private List<FuelCosts> fuelCostsList;
+
+    private Car car = new Car();
+
+    private List<Car> carList;
+
     public String getDateAsString() {
         return dateAsString;
     }
@@ -33,16 +48,6 @@ public class FuelInputBean implements Serializable {
     public void setDateAsString(String dateAsString) {
         this.dateAsString = dateAsString;
     }
-
-    private String dateAsString;
-
-    private FuelCosts fuelCost = new FuelCosts();
-
-    private List<FuelCosts> fuelCostsList;
-
-    private Car car = new Car();
-
-    private List<Car> carList;
 
     public void setFuelCost(FuelCosts fuelCost) {
         this.fuelCost = fuelCost;
@@ -86,25 +91,26 @@ public class FuelInputBean implements Serializable {
         carList = fuelsCostsService.getAllCarsByUser();
     }
 
-    public void attemptToAddFuelCost() {
-        Calendar calendar = new GregorianCalendar();
-        calendar = CalendarService.returnCalendarDate(dateAsString);
-        if (calendar != null) {
-            this.fuelCost.setDate(calendar);
-            addFuelCost();
-        } else {
-            redirectToFuelInputPage();
-        }
-    }
-
     private void addFuelCost() {
         car = carsService.getCarByRegPLate(car.getRegPlate());
         fuelsCostsService.addFuelCost(fuelCost, car);
         redirectToFuelInputPage();
     }
 
+    public void attemptToAddFuelCost() {
+        Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
+
+        if (calendar != null & fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost)) {
+            this.fuelCost.setDate(calendar);
+            addFuelCost();
+        } else {
+            messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect data input! Please try again!");
+            fuelCost = null;
+            redirectToFuelInputPage();
+        }
+    }
+
     private void redirectToFuelInputPage() {
         HttpUtils.redirect("/app/fuel-input.xhtml");
-
     }
 }

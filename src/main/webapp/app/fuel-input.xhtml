@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:b="http://bootsfaces.net/ui">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui">
 
 
 <ui:composition template="/templates/maintemplate.xhtml">
@@ -12,9 +13,9 @@
     <ui:define name="content">
 
         <h:form>
-            <div class="row justify-content-center">
+            <div class="row justify-content-around">
 
-                <div class="col-4">
+                <div class="col-3">
 
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Select a car</label>
@@ -33,9 +34,9 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Price of fuel/1L</label>
                         <div class="col-sm-8 col align-self-center">
-                            <h:inputText a:placeholder="Price"
-                                         class="form-control form-control-user"
-                                         value="#{fuelInputBean.fuelCost.pricePerLiter}">
+                            <h:inputText class="form-control form-control-user"
+                                         value="#{fuelInputBean.fuelCost.pricePerLiter}"
+                                         maxlength="4">
                             </h:inputText>
                         </div>
                     </div>
@@ -43,9 +44,9 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Amount of Fuel</label>
                         <div class="col-sm-8 col align-self-center">
-                            <h:inputText a:placeholder="Price"
-                                         class="form-control form-control-user"
-                                         value="#{fuelInputBean.fuelCost.amountOfFuel}">
+                            <h:inputText class="form-control form-control-user"
+                                         value="#{fuelInputBean.fuelCost.amountOfFuel}"
+                                         maxlength="3">
                             </h:inputText>
                         </div>
                     </div>
@@ -53,8 +54,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Current mileage</label>
                         <div class="col-sm-8 col align-self-center">
-                            <h:inputText a:placeholder="Price"
-                                         class="form-control form-control-user"
+                            <h:inputText class="form-control form-control-user"
                                          value="#{fuelInputBean.fuelCost.currentMileage}">
                             </h:inputText>
                         </div>
@@ -63,7 +63,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">Date of fueling</label>
                         <div class="col-sm-8 col align-self-center">
-                            <h:inputText a:placeholder="YYYY-MM-DD"
+                            <h:inputText a:placeholder="DD-MM-YYYY"
                                          class="form-control form-control-user"
                                          value="#{fuelInputBean.dateAsString}">
                             </h:inputText>
@@ -76,6 +76,9 @@
                                          style="border-radius:15px; width: 100%"
                                          action="#{fuelInputBean.attemptToAddFuelCost}"/>
                     </div>
+                    <div class="errorMessage">
+                        #{messageBean.getMessageValue("wrongCredentialsMessage")}
+                    </div>
                 </div>
 
                 <div class="col-6">
@@ -87,6 +90,9 @@
                         <b:dataTableColumn value="#{tempfuelCost.amountOfFuel}" label="Amount of fuel [l]"
                                            width="40px"/>
                         <b:dataTableColumn value="#{tempfuelCost.currentMileage}" label="Current Mileage" width="40px"/>
+                        <b:dataTableColumn value="#{carBean.getCarById(tempfuelCost.idCar).brand}
+                                                  #{carBean.getCarById(tempfuelCost.idCar).model}
+                                                  #{carBean.getCarById(tempfuelCost.idCar).regPlate}" label="Car" width="40px"/>
                     </b:dataTable>
                 </div>
 
