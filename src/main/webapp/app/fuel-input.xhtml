@@ -12,8 +12,7 @@
     <ui:define name="content">
 
         <h:form>
-            <div class="row">
-                <div class="col-1"></div>
+            <div class="row justify-content-center">
 
                 <div class="col-4">
 
@@ -26,7 +25,7 @@
                                 <f:selectItems value="#{fuelInputBean.cars}"
                                                var="car"
                                                itemValue="#{car.regPlate}"
-                                               itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}"/>
+                                               itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate} #{car.fuelType}"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
@@ -79,9 +78,7 @@
                     </div>
                 </div>
 
-                <div class="col-1"></div>
-
-                <div class="col-5">
+                <div class="col-6">
                     <b:dataTable value="#{fuelInputBean.fuelCostsList}"
                                  var="tempfuelCost">
                         <b:dataTableColumn value="#{tempfuelCost.fuelType}" label="Type of Fuel" width="25px"
@@ -93,7 +90,6 @@
                     </b:dataTable>
                 </div>
 
-                <div class="col-1"></div>
             </div>
         </h:form>
     </ui:define>

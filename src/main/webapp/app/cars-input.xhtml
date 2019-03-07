@@ -16,8 +16,7 @@
 
             <p:tab title="Add a car">
                 <h:form>
-                    <div class="row">
-                        <div class="col-1"></div>
+                    <div class="row justify-content-center">
 
                         <div class="col-4">
                             <div class="form-group row">
@@ -91,9 +90,7 @@
                             </div>
                         </div>
 
-                        <div class="col-1"></div>
-
-                        <div class="col-5">
+                        <div class="col-6">
                             <b:dataTable value="#{carBean.cars}"
                                          var="car">
                                 <b:dataTableColumn value="#{car.productionYear}" width="25px" label="Year" order="asc"/>
@@ -104,16 +101,13 @@
                             </b:dataTable>
                         </div>
 
-                        <div class="col-1"></div>
-
                     </div>
                 </h:form>
             </p:tab>
 
 
-            <p:tab title="Delete/ Edit your car">
-                <div class="row">
-                    <div class="col-2"></div>
+            <p:tab title="Edit or Delete your car">
+                <div class="row justify-content-center">
 
                     <div class="col-8">
                         <b:dataTable value="#{carBean.cars}"
@@ -142,7 +136,6 @@
                                 </h:form>
                             </b:dataTableColumn>
                         </b:dataTable>
-                        <div class="col-2"></div>
                     </div>
                 </div>
 
@@ -152,29 +145,3 @@
     </ui:define>
 </ui:composition>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
