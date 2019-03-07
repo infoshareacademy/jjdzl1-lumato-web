@@ -1,0 +1,11 @@
+﻿moze mozna wrzucic do jednego srednia cene paliwa i diesla (ze wszystkich userów)
+
+można by teżw sumie podać daną: ilość łącznie zarejestrowanych na portalu użytkowników i obok ilość zarejestrowanych aut
+
+mozna wrzucic laczny koszt paliwa i pod spodem laczny koszt wydatkwo
+
+mozna wrzucic sredni miesieczny koszt poliwa i wydatkow
+
+albo zamiast tego ostatniego wykres taki jak jest na stronie glownej z wydatkami / miesiac
+
+data ostatniego tankowania?

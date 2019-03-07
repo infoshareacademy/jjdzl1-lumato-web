@@ -59,8 +59,7 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="regPlate"
-                                       class="col-sm-4 col-form-label">Registration Plate</label>
+                                <label for="regPlate" class="col-sm-4 col-form-label">Registration Number</label>
                                 <div class="col-sm-8 col align-self-center">
                                     <h:inputText a:placeholder="Registration Plate"
                                                  class="form-control form-control-user"
@@ -91,7 +90,6 @@
                                     <p:spacer/>
                                 </div>
                             </div>
-
 
                             <div class="form-group">
                                 <h:commandButton value="Add a car"
@@ -125,33 +123,40 @@
             </p:tab>
 
 
-            <p:tab title="Edit a car">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <p:graphicImage name="demo/images/godfather/godfather2.jpg"/>
-                    <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-                In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-                killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."/>
-                </h:panelGrid>
-            </p:tab>
+            <p:tab title="Delete/ Edit your car">
+                <div class="row">
+                    <div class="col-2"></div>
 
-            <p:tab title="Delete a car">
+                    <div class="col-8">
+                        <b:dataTable value="#{carBean.cars}"
+                                     var="car"
+                                     width="100vw">
+                            <b:dataTableColumn value="#{car.productionYear}" width="10%" label="Year" order="asc"/>
+                            <b:dataTableColumn value="#{car.brand}" width="10%"/>
+                            <b:dataTableColumn value="#{car.model}" width="10%"/>
+                            <b:dataTableColumn value="#{car.fuelType}" width="10%" label="Type of Fuel"/>
+                            <b:dataTableColumn value="#{car.regPlate}" width="10%" label="Registration Plate"/>
+                            <b:dataTableColumn width="25%" label="Update Your Car">
+                                <h:form>
+                                    <h:commandButton value="UPDATE "
+                                                     styleClass="btn btn-info"
+                                                     style="width: 100%"
+                                                     action="#{carBean.redirectToCarEdit(car)}"/>
+                                </h:form>
+                            </b:dataTableColumn>
 
-                <b:dataTable value="#{carBean.cars}"
-                             var="car">
-                    <b:dataTableColumn value="#{car.productionYear}" width="25px" label="Year" order="asc"/>
-                    <b:dataTableColumn value="#{car.brand}" width="40px"/>
-                    <b:dataTableColumn value="#{car.model}" width="40px"/>
-                    <b:dataTableColumn value="#{car.fuelType}" width="20px"/>
-                    <b:dataTableColumn value="#{car.regPlate}" width="60px" label="Registration Plate"/>
-                    <b:dataTableColumn width="15%">
-                        <h:form>
-                            <h:commandButton value="DELETE "
-                                             styleClass="btn btn-danger"
-                                             style="width: 100%"
-                                             action="#{carBean.attemptToDeleteCar(car)}"/>
-                        </h:form>
-                    </b:dataTableColumn>
-                </b:dataTable>
+                            <b:dataTableColumn width="25%" label="Delete Your Car">
+                                <h:form>
+                                    <h:commandButton value="DELEETE"
+                                                     styleClass="btn btn-danger"
+                                                     style="width: 100%"
+                                                     action="#{carBean.attemptToDeleteCar(car)}"/>
+                                </h:form>
+                            </b:dataTableColumn>
+                        </b:dataTable>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
 
             </p:tab>
         </p:tabView>
@@ -159,3 +164,29 @@
     </ui:define>
 </ui:composition>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

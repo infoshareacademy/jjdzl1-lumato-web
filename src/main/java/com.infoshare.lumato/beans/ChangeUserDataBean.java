@@ -56,27 +56,30 @@ public class ChangeUserDataBean {
 
     public void updateUserFirstName(){
         userService.updateUser(user);
+        messageService.addMessageCookie("successfulAction", "First name changed with success!");
         HttpUtils.redirect("/app/user-management.xhtml");
     }
 
     public void updateUserLastName(){
         userService.updateUser(user);
+        messageService.addMessageCookie("successfulAction", "Last name changed with success!");
         HttpUtils.redirect("/app/user-management.xhtml");
     }
 
     public void updateUserEmail(){
         if (userService.doesUserExist(user)){
-            messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
+            messageService.addMessageCookie("userExists", "Such user already exists!");
             HttpUtils.redirect("/app/user-management.xhtml");
         } else {
             userService.updateUser(user);
+            messageService.addMessageCookie("successfulAction", "Email changed with success!");
             HttpUtils.redirect("/app/user-management.xhtml");
         }
     }
 
     public void updateUserPassword(){
         if (!userService.passwordIsOk(user)){
-            messageService.addMessageCookie("wrongPasswordMessageWhileEdit", "Wrong password!");
+            messageService.addMessageCookie("wrongPassword", "Wrong password!");
             HttpUtils.redirect("/app/user-management.xhtml");
             return;
         }
@@ -86,6 +89,7 @@ public class ChangeUserDataBean {
             return;
         }
         user.setPassword(newPasswordFirst);
+        messageService.addMessageCookie("successfulAction", "Password changed with success!");
         userService.updateUser(user);
         HttpUtils.redirect("/app/user-management.xhtml");
     }

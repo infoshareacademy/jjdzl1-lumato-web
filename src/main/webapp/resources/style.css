@@ -181,6 +181,11 @@ body {
     font-size: 20px;
 }
 
+.successMessage{
+    color: limegreen;
+    font-size: 20px;
+}
+
 input[type="submit"] {
     border-radius: 10px !important;
 }
@@ -189,39 +194,6 @@ input[type="text"], input[type="password"] {
     border-radius: 10px !important;
 }
 
-
-.ui-tabs-header.ui-state-default.ui-corner-top.ui-tabs-selected.ui-state-active {
-
-    border: 1px solid #a8a8a8;
-    background: white;
-    font-weight: bold;
-    color: #4f4f4f;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-
 .value {
     font-weight: bold;
-}
-
-.ui-datatable {
-    margin-bottom: 25px
-}
-
-.ui-datatable .ui-datatable-footer {
-    text-align: left;
-}
-
-.ui-datalist ul {
-    padding: 0 0 0 10px;
-    margin: 5px 0;
-}
-
-.ui-datatable.ui-button-icon-only {
-    padding: 0;
-    line-height: 1.2;
-}
-
-.ui-button-text-only.ui-button-text {
-    padding: 5px !important;
-    background-color: #4e73df;
 }
