@@ -1,28 +1,18 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.dao.UserDAO;
-import com.infoshare.lumato.persistence.DBConnection;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequestScoped
 public class UserService {
 
     @Inject
-    DBConnection myConn;
-
-    @Inject
     UserDAO userDAO;
-
-
-    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     public void addUser(User user) {
         userDAO.addUser(user);
@@ -60,16 +50,18 @@ public class UserService {
     }
 
     public void updateUser(User user) {
-        fillUserData(user, this.currentUser);
+        User currentUser = HttpUtils.getCurrentUserFromSession();
+        fillUserData(user, currentUser);
         userDAO.sendUpdateUserQuery(user);
-        this.currentUser.setFirstName(user.getFirstName());
-        this.currentUser.setLastName(user.getLastName());
-        this.currentUser.setEmail(user.getEmail());
-        this.currentUser.setPassword(user.getPassword());
+        currentUser.setFirstName(user.getFirstName());
+        currentUser.setLastName(user.getLastName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPassword(user.getPassword());
     }
 
     public boolean passwordIsOk(User user) {
-        return user.getPassword().equals(this.currentUser.getPassword());
+        User currentUser = HttpUtils.getCurrentUserFromSession();
+        return user.getPassword().equals(currentUser.getPassword());
     }
 
     public void deleteUser(User user){
