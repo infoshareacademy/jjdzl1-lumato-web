@@ -34,8 +34,6 @@ public class FuelInputBean implements Serializable {
         this.dateAsString = dateAsString;
     }
 
-    Calendar calendar = new GregorianCalendar();
-
     private String dateAsString;
 
     private FuelCosts fuelCost = new FuelCosts();
@@ -89,7 +87,7 @@ public class FuelInputBean implements Serializable {
     }
 
     public void attemptToAddFuelCost() {
-        calendar = new GregorianCalendar();
+        Calendar calendar = new GregorianCalendar();
         calendar = CalendarService.returnCalendarDate(dateAsString);
         if (calendar != null) {
             this.fuelCost.setDate(calendar);

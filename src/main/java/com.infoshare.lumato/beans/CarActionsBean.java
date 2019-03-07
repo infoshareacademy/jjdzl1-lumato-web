@@ -33,7 +33,7 @@ public class CarActionsBean implements Serializable {
         return car;
     }
 
-    public void setCar(Car car) {
+    private void setCar(Car car) {
         this.car = car;
     }
 
@@ -65,17 +65,21 @@ public class CarActionsBean implements Serializable {
         redirectToCarPage();
     }
 
+    // TODO: 03.03.2019 put call==null in methods
     public void attemptToAddNewCar() {
         if (carsService.isFieldEmpty(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "All fields must be filled!");
+            car = null;
             redirectToCarPage();
         }
         if (!carsService.isCarProductionYearValid(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "Invalid production year!");
+            car = null;
             redirectToCarPage();
         }
         if (carsService.doesCarExist(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
+            car = null;
             redirectToCarPage();
         } else addNewCar();
     }
@@ -104,31 +108,3 @@ public class CarActionsBean implements Serializable {
         carsService.updateCar(car);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

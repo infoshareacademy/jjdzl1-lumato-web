@@ -10,10 +10,9 @@ import java.io.IOException;
 
 @WebFilter
 public class RestrictPageFilter implements Filter {
-    FilterConfig fc;
 
     public void init(FilterConfig filterConfig) {
-        fc = filterConfig;
+        FilterConfig fc = filterConfig;
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

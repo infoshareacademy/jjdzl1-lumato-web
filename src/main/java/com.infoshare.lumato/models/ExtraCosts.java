@@ -2,7 +2,7 @@ package com.infoshare.lumato.models;
 
 import java.util.Calendar;
 
-public class ExtraCosts {
+class ExtraCosts {
 
     private int id;
     private double cost;

@@ -30,7 +30,9 @@ public class CarsService {
 
     public boolean doesCarExist(Car car) {
         Car carInDB = carDAO.findCarByRegistrationPlate(car.getRegPlate());
-        if (carInDB == null) return false;
+        if (carInDB == null) {
+            return false;
+        }
         return carInDB.getRegPlate().equals(car.getRegPlate());
     }
 

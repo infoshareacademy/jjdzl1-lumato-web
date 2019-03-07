@@ -44,9 +44,9 @@ public class HttpUtils {
         if (kookeys == null) {
             return "";
         }
-        for (int i = 0; i < kookeys.length; i++) {
-            if (kookeys[i].getName().equals(cookieKey)) {
-                return kookeys[i].getValue();
+        for (Cookie kookey : kookeys) {
+            if (kookey.getName().equals(cookieKey)) {
+                return kookey.getValue();
             }
         }
         return "";

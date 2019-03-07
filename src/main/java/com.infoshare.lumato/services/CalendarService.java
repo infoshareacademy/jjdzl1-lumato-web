@@ -14,7 +14,7 @@ public class CalendarService {
 
         String regex = "\\d{4}-\\d{2}-\\d{2}";
         if (input.matches(regex)) {
-            String[] dateArray = input.split("/");
+            String[] dateArray = input.split("-");
 
             calendar.set(Calendar.YEAR, Integer.valueOf(dateArray[0]));
             calendar.set(Calendar.MONTH, Integer.valueOf(dateArray[1]));

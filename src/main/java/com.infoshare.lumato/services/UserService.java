@@ -22,7 +22,7 @@ public class UserService {
     UserDAO userDAO;
 
 
-    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     public void addUser(User user) {
         userDAO.addUser(user);
