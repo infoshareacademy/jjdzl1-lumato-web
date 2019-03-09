@@ -26,6 +26,4 @@ public class CalendarService {
         }
     }
 
-    String pattern = "yyyy-MM-dd";
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 }

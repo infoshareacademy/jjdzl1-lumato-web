@@ -13,6 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -110,9 +111,5 @@ public class FuelInputBean implements Serializable {
 
     private void redirectToFuelInputPage() {
         HttpUtils.redirect("/app/fuel-input.xhtml");
-    }
-
-    public String calToString(FuelCosts fuelCosts){
-        return fuelCosts.getDate().getTime().toString();
     }
 }
