@@ -12,66 +12,55 @@
 
     <ui:define name="content">
 
-
         <p:tabView style="border: 0; font-size: 1em;">
-            <!--border-right: 1px solid #ddd;border-left: 1px solid #ddd;border-bottom: 1px solid #ddd;padding:10px"-->
-            <p:tab title="Add a car" style="background-color: #4e73df">
-                <h:panelGrid columns="2" cellpadding="10">
-                </h:panelGrid>
 
+            <p:tab title="Add a car">
                 <h:form>
-                    <div class="row">
-                        <div class="col-1"></div>
+                    <div class="row justify-content-around">
 
                         <div class="col-4">
                             <div class="form-group row">
-                                <label for="carBrand" class="col-sm-4 col-form-label">Your cars' brand</label>
+                                <label class="col-sm-4 col-form-label">Your cars' brand</label>
                                 <div class="col-sm-8 col align-self-center">
                                     <h:inputText a:placeholder="Brand"
                                                  class="form-control form-control-user"
-                                                 id="carBrand"
                                                  value="#{carBean.car.brand}">
                                     </h:inputText>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="carModel" class="col-sm-4 col-form-label">Your cars' model</label>
+                                <label class="col-sm-4 col-form-label">Your cars' model</label>
                                 <div class="col-sm-8 col align-self-center">
                                     <h:inputText a:placeholder="Model"
                                                  class="form-control form-control-user"
-                                                 id="carModel"
                                                  value="#{carBean.car.model}">
                                     </h:inputText>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="carProductionYear"
-                                       class="col-sm-4 col-form-label">Production Year</label>
+                                <label class="col-sm-4 col-form-label">Production Year</label>
                                 <div class="col-sm-8 col align-self-center">
                                     <h:inputText a:placeholder="Production Year"
                                                  class="form-control form-control-user"
-                                                 id="carProductionYear"
                                                  value="#{carBean.car.productionYear}">
                                     </h:inputText>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="regPlate" class="col-sm-4 col-form-label">Registration Number</label>
+                                <label class="col-sm-4 col-form-label">Registration Number</label>
                                 <div class="col-sm-8 col align-self-center">
                                     <h:inputText a:placeholder="Registration Plate"
                                                  class="form-control form-control-user"
-                                                 id="regPlate"
                                                  value="#{carBean.car.regPlate}">
                                     </h:inputText>
                                 </div>
                             </div>
 
-
                             <div class="form-group row">
-                                <label for="carModel" class="col-sm-4 col-form-label">Type of fuel</label>
+                                <label class="col-sm-4 col-form-label">Type of fuel</label>
                                 <div class="col-sm-8 col align-self-center">
 
                                     <h:selectOneMenu value="#{carBean.car.fuelType}"
@@ -86,7 +75,6 @@
                                                       itemValue="#{carBean.fuelTypes[2].name}"/>
                                     </h:selectOneMenu>
 
-
                                     <p:spacer/>
                                 </div>
                             </div>
@@ -96,16 +84,13 @@
                                                  styleClass="btn btn-primary"
                                                  style="border-radius:15px; width: 100%"
                                                  action="#{carBean.attemptToAddNewCar}"/>
-                                <!--     process="@all" update="@all" to ma isc nad action w buttonie-->
                             </div>
                             <div class="errorMessage">
                                 #{messageBean.getMessageValue("wrongCredentialsMessage")}
                             </div>
                         </div>
 
-                        <div class="col-1"></div>
-
-                        <div class="col-5">
+                        <div class="col-6">
                             <b:dataTable value="#{carBean.cars}"
                                          var="car">
                                 <b:dataTableColumn value="#{car.productionYear}" width="25px" label="Year" order="asc"/>
@@ -116,22 +101,19 @@
                             </b:dataTable>
                         </div>
 
-                        <div class="col-1"></div>
-
                     </div>
                 </h:form>
             </p:tab>
 
 
-            <p:tab title="Delete/ Edit your car">
-                <div class="row">
-                    <div class="col-2"></div>
+            <p:tab title="Edit or Delete your car">
+                <div class="row justify-content-center">
 
                     <div class="col-8">
                         <b:dataTable value="#{carBean.cars}"
                                      var="car"
                                      width="100vw">
-                            <b:dataTableColumn value="#{car.productionYear}" width="10%" label="Year" order="asc"/>
+                            <b:dataTableColumn value="#{car.productionYear}" width="10%" label="Year"/>
                             <b:dataTableColumn value="#{car.brand}" width="10%"/>
                             <b:dataTableColumn value="#{car.model}" width="10%"/>
                             <b:dataTableColumn value="#{car.fuelType}" width="10%" label="Type of Fuel"/>
@@ -147,14 +129,13 @@
 
                             <b:dataTableColumn width="25%" label="Delete Your Car">
                                 <h:form>
-                                    <h:commandButton value="DELEETE"
+                                    <h:commandButton value="DELETE"
                                                      styleClass="btn btn-danger"
                                                      style="width: 100%"
                                                      action="#{carBean.attemptToDeleteCar(car)}"/>
                                 </h:form>
                             </b:dataTableColumn>
                         </b:dataTable>
-                        <div class="col-2"></div>
                     </div>
                 </div>
 
@@ -164,29 +145,3 @@
     </ui:define>
 </ui:composition>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

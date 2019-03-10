@@ -14,6 +14,7 @@ public class UserService {
     @Inject
     UserDAO userDAO;
 
+
     public void addUser(User user) {
         userDAO.addUser(user);
         User justCreatedUser = userDAO.findUserInDatabaseByEmail(user.getEmail());

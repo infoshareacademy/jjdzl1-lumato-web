@@ -19,7 +19,7 @@ public class DataBaseProp {
 //    private String password = "root";
 //    private String user = "root";
 
-    public Properties getProperties(){
+    private Properties getProperties(){
         ServletContext context = HttpUtils.getRequest().getServletContext();
         String fullPath = context.getRealPath("/config/db.properties");
         Properties properties = new Properties();

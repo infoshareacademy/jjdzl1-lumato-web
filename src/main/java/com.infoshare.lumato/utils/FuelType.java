@@ -6,7 +6,7 @@ public enum FuelType {
 
     private String name;
 
-    private FuelType(String name) {
+    FuelType(String name) {
         this.name = name;
     }
 

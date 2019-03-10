@@ -30,7 +30,9 @@ public class CarsService {
 
     public boolean doesCarExist(Car car) {
         Car carInDB = carDAO.findCarByRegistrationPlate(car.getRegPlate());
-        if (carInDB == null) return false;
+        if (carInDB == null) {
+            return false;
+        }
         return carInDB.getRegPlate().equals(car.getRegPlate());
     }
 
@@ -45,6 +47,14 @@ public class CarsService {
 
     public boolean isCarProductionYearValid(Car car) {
         return (car.getProductionYear() >= 1908 && car.getProductionYear() <= 2019);
+    }
+
+    public Car getCarByRegPLate (String regPlate) {
+        return carDAO.findCarByRegistrationPlate(regPlate);
+    }
+
+    public Car getCarById (int id) {
+        return carDAO.findCarById(id);
     }
 }
 

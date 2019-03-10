@@ -33,7 +33,7 @@ public class CarActionsBean implements Serializable {
         return car;
     }
 
-    public void setCar(Car car) {
+    private void setCar(Car car) {
         this.car = car;
     }
 
@@ -41,14 +41,6 @@ public class CarActionsBean implements Serializable {
     public void construct() {
         fuelTypes = FuelType.values();
         loadCars();
-    }
-
-    public FuelType[] getFuelTypes() {
-        return fuelTypes;
-    }
-
-    public List<Car> getCars() {
-        return carList;
     }
 
     private void loadCars() {
@@ -60,22 +52,34 @@ public class CarActionsBean implements Serializable {
         }
     }
 
+    public FuelType[] getFuelTypes() {
+        return fuelTypes;
+    }
+
+    public List<Car> getCars() {
+        return carList;
+    }
+
     private void addNewCar() {
         carsService.addCar(car);
         redirectToCarPage();
     }
 
+    // TODO: 03.03.2019 put call==null in methods
     public void attemptToAddNewCar() {
         if (carsService.isFieldEmpty(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "All fields must be filled!");
+            car = null;
             redirectToCarPage();
         }
         if (!carsService.isCarProductionYearValid(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "Invalid production year!");
+            car = null;
             redirectToCarPage();
         }
         if (carsService.doesCarExist(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
+            car = null;
             redirectToCarPage();
         } else addNewCar();
     }
@@ -90,6 +94,11 @@ public class CarActionsBean implements Serializable {
         deleteCar();
     }
 
+    public void updateCar(Car car) {
+        this.car = car;
+        carsService.updateCar(car);
+    }
+
     private void redirectToCarPage() {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
@@ -99,36 +108,7 @@ public class CarActionsBean implements Serializable {
         return "/app/cars-edit.xhtml";
     }
 
-    public void updateCar(Car car) {
-        this.car = car;
-        carsService.updateCar(car);
+    public Car getCarById(int id) {
+        return carsService.getCarById(id);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

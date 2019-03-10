@@ -19,8 +19,6 @@ import java.util.List;
 @Named
 public class CarDAO extends CommonDAO {
 
-
-
     private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     private List<Car> cars = new ArrayList<>();
@@ -104,6 +102,25 @@ public class CarDAO extends CommonDAO {
         return carInDB;
     }
 
+    public Car findCarById(int id) {
+        Car carInDB = new Car();
+        try {
+            String sql = "SELECT * FROM cars WHERE idcars = ?";
+            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (!resultSet.isBeforeFirst()) {
+                carInDB = null;
+            } else {
+                resultSet.next();
+                fillCarData(carInDB, resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carInDB;
+    }
+
     public void updateCar(Car carInDB) {
 
         try {
@@ -122,28 +139,7 @@ public class CarDAO extends CommonDAO {
         }
 
     }
-
-/*
-    public Car loadCarById(int carId) {
-        Car carInDB = new Car();
-
-        try {
-            String sql = "select * from cars where idcars=?";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, carId);
-            ResultSet resultSet = myStmt.executeQuery();
-
-            while (resultSet.next()) {
-                fillCarData(carInDB, resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return carInDB;
-    }
-*/
-
+    
     private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
         theCar.setCarId(resultSet.getInt("idcars"));
         theCar.setIdUserInCars(resultSet.getInt("iduser"));
@@ -153,4 +149,6 @@ public class CarDAO extends CommonDAO {
         theCar.setRegPlate(resultSet.getString("regplate"));
         theCar.setProductionYear(resultSet.getInt("year"));
     }
+
+
 }
