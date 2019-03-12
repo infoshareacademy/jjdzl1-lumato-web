@@ -6,7 +6,6 @@ import com.infoshare.lumato.dao.FuelCostsDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
-import com.infoshare.lumato.utils.FuelCostComparatorByMileage;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
