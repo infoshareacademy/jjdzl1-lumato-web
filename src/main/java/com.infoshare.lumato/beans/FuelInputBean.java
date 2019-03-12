@@ -74,9 +74,8 @@ public class FuelInputBean implements Serializable {
         return carList;
     }
 
-    public List<FuelCosts> loadFuelCostList() {
+    private void loadFuelCostList() {
         fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
-        return fuelCostsList;
     }
 
     private void loadCars() {
@@ -98,8 +97,8 @@ public class FuelInputBean implements Serializable {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
         car = carsService.getCarByRegPLate(car.getRegPlate());
 
-        fuelsCostsService.buildFuelCostListByCarId();
-        if (calendar != null & fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost)) {
+
+        if (calendar != null & fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost) & fuelsCostsService.isMileageCorrect(fuelCost)) {
             this.fuelCost.setDate(calendar);
             addFuelCost(car);
         } else {

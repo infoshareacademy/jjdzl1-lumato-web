@@ -40,11 +40,11 @@ public class FuelsCostsService {
         return (fuelCosts.getAmountOfFuel() > 0 & fuelCosts.getPricePerLiter() > 0);
     }
 
-    public List<FuelCosts> buildFuelCostListByCarId() {
+    private List<FuelCosts> getFuelCostListByCarId() {
 
         List<FuelCosts> tempFuelCostList = new ArrayList<>();
-
-        for (FuelCosts fuelCosts : fuelInputBean.loadFuelCostList()) {
+        List<FuelCosts> list = fuelInputBean.getFuelCostsList();
+        for (FuelCosts fuelCosts : list) {
             if (fuelCosts.getIdCar() == fuelInputBean.getCar().getCarId()) {
                 tempFuelCostList.add(fuelCosts);
             }
@@ -52,5 +52,11 @@ public class FuelsCostsService {
         return tempFuelCostList;
     }
 
+    public boolean isMileageCorrect(FuelCosts fuelCosts){
+        List<FuelCosts> fuelCostListByCarId = getFuelCostListByCarId();
+        Collections.sort(fuelCostListByCarId);
+        FuelCosts lastFuelCost = fuelCostListByCarId.get(fuelCostListByCarId.size()-1);
+        return fuelCosts.getCurrentMileage() > lastFuelCost.getCurrentMileage();
 
+    }
 }

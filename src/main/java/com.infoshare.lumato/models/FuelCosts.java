@@ -1,9 +1,10 @@
 package com.infoshare.lumato.models;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Objects;
 
-public class FuelCosts {
+public class FuelCosts implements Comparable<FuelCosts> {
 
     private int id;
     private Calendar date;
@@ -87,5 +88,14 @@ public class FuelCosts {
     @Override
     public int hashCode() {
         return Objects.hash(id, date, currentMileage);
+    }
+
+    @Override
+    public int compareTo(FuelCosts fuelCosts) {
+        int firstMileage = currentMileage;
+        int secondMileage = fuelCosts.currentMileage;
+        if (firstMileage > secondMileage) return 1;
+        else if(firstMileage < secondMileage) return -1;
+        return 0;
     }
 }
