@@ -5,11 +5,13 @@ import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.dao.FuelCostsDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
+import com.infoshare.lumato.utils.FuelCostComparatorByDate;
+import com.infoshare.lumato.utils.FuelCostComparatorByMileage;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Calendar;
 import java.util.List;
 
 @RequestScoped
@@ -41,22 +43,26 @@ public class FuelsCostsService {
     }
 
     private List<FuelCosts> getFuelCostListByCarId() {
-
-        List<FuelCosts> tempFuelCostList = new ArrayList<>();
-        List<FuelCosts> list = fuelInputBean.getFuelCostsList();
-        for (FuelCosts fuelCosts : list) {
+        List<FuelCosts> fuelCostListByCarId = new ArrayList<>();
+        for (FuelCosts fuelCosts : fuelInputBean.getFuelCostsList()) {
             if (fuelCosts.getIdCar() == fuelInputBean.getCar().getCarId()) {
-                tempFuelCostList.add(fuelCosts);
+                fuelCostListByCarId.add(fuelCosts);
             }
         }
-        return tempFuelCostList;
+        return fuelCostListByCarId;
     }
 
-    public boolean isMileageCorrect(FuelCosts fuelCosts){
-        List<FuelCosts> fuelCostListByCarId = getFuelCostListByCarId();
-        Collections.sort(fuelCostListByCarId);
-        FuelCosts lastFuelCost = fuelCostListByCarId.get(fuelCostListByCarId.size()-1);
-        return fuelCosts.getCurrentMileage() > lastFuelCost.getCurrentMileage();
+    public boolean isMileageCorrect(FuelCosts fuelCosts, Calendar calendar) {
 
+        fuelCosts.setDate(calendar);
+        List<FuelCosts> fuelCostListByCarId = getFuelCostListByCarId();
+        fuelCostListByCarId.add(fuelCosts);
+        fuelCostListByCarId.sort(new FuelCostComparatorByDate());
+
+        for (int i = 1; i < fuelCostListByCarId.size() - 2; i++) {
+            if (fuelCostListByCarId.get(i).getCurrentMileage() > fuelCostListByCarId.get(i + 1).getCurrentMileage())
+                return false;
+        }
+        return true;
     }
 }

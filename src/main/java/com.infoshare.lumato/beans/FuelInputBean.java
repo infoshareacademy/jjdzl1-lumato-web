@@ -97,8 +97,7 @@ public class FuelInputBean implements Serializable {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
         car = carsService.getCarByRegPLate(car.getRegPlate());
 
-
-        if (calendar != null & fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost) & fuelsCostsService.isMileageCorrect(fuelCost)) {
+        if (calendar != null && fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost) & fuelsCostsService.isMileageCorrect(fuelCost, calendar)) {
             this.fuelCost.setDate(calendar);
             addFuelCost(car);
         } else {
@@ -112,28 +111,3 @@ public class FuelInputBean implements Serializable {
         HttpUtils.redirect("/app/fuel-input.xhtml");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
