@@ -13,9 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @RequestScoped
 @Named("fuelInputBean")
@@ -76,32 +74,34 @@ public class FuelInputBean implements Serializable {
         return carList;
     }
 
-    @PostConstruct
-    public void construct() {
-        loadFuelCostList();
-        loadCars();
-    }
-
-    private void loadFuelCostList() {
+    public List<FuelCosts> loadFuelCostList() {
         fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
+        return fuelCostsList;
     }
 
     private void loadCars() {
         carList = fuelsCostsService.getAllCarsByUser();
     }
 
-    private void addFuelCost() {
-        car = carsService.getCarByRegPLate(car.getRegPlate());
+    @PostConstruct
+    public void construct() {
+        loadFuelCostList();
+        loadCars();
+    }
+
+    private void addFuelCost(Car car) {
         fuelsCostsService.addFuelCost(fuelCost, car);
         redirectToFuelInputPage();
     }
 
     public void attemptToAddFuelCost() {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
+        car = carsService.getCarByRegPLate(car.getRegPlate());
 
+        fuelsCostsService.buildFuelCostListByCarId();
         if (calendar != null & fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost)) {
             this.fuelCost.setDate(calendar);
-            addFuelCost();
+            addFuelCost(car);
         } else {
             messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect data input! Please try again!");
             fuelCost = null;
@@ -113,3 +113,28 @@ public class FuelInputBean implements Serializable {
         HttpUtils.redirect("/app/fuel-input.xhtml");
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

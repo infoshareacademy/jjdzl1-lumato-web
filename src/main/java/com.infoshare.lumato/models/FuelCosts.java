@@ -1,6 +1,7 @@
 package com.infoshare.lumato.models;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class FuelCosts {
 
@@ -72,4 +73,19 @@ public class FuelCosts {
         this.idCar = idCar;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FuelCosts fuelCosts = (FuelCosts) o;
+        return id == fuelCosts.id &&
+                currentMileage == fuelCosts.currentMileage &&
+                date.equals(fuelCosts.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, currentMileage);
+    }
 }
