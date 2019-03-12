@@ -3,9 +3,7 @@
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 
 <ui:composition template="/templates/maintemplate.xhtml">
@@ -16,7 +14,6 @@
             <div class="row justify-content-around">
 
                 <div class="col-4">
-
                     <div class="card shadow">
                         <div class="card-header">
                             <h5 class="h5 mb-1 text-gray-800">Add Cost of Fuel</h5>
@@ -27,12 +24,12 @@
                                 <label class="col-sm-5 col-form-label">Select a car</label>
                                 <div class="col-sm-7 col align-self-center">
                                     <h:selectOneMenu value="#{fuelInputBean.car.regPlate}"
-                                                     styleClass="btn btn-secondary btn-sm dropdown-toggle"
+                                                     styleClass="btn btn-secondary btn-md dropdown-toggle"
                                                      style="width: 100%; text-align: center">
                                         <f:selectItems value="#{fuelInputBean.cars}"
                                                        var="car"
                                                        itemValue="#{car.regPlate}"
-                                                       itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}"/>
+                                                       itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}  #{car.fuelType}"/>
                                     </h:selectOneMenu>
                                 </div>
                             </div>
@@ -91,7 +88,6 @@
 
 
                 <div class="col-8">
-
                     <div class="card shadow">
                         <div class="card-header">
                             <h5 class="h5 mb-1 text-gray-800">Last Transactions</h5>
