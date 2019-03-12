@@ -12,7 +12,6 @@ import java.io.IOException;
 public class RestrictPageFilter implements Filter {
 
     public void init(FilterConfig filterConfig) {
-        FilterConfig fc = filterConfig;
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

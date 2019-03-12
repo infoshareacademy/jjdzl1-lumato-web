@@ -7,9 +7,6 @@ import java.util.GregorianCalendar;
 public class CalendarService {
 
 
-    public CalendarService() {
-    }
-
     public static Calendar returnCalendarDateFromInputString(String input) {
         Calendar calendar = new GregorianCalendar();
 
@@ -18,12 +15,11 @@ public class CalendarService {
             String[] dateArray = input.split("-");
 
             calendar.set(Calendar.YEAR, Integer.valueOf(dateArray[2]));
-            calendar.set(Calendar.MONTH, Integer.valueOf(dateArray[1]));
+            calendar.set(Calendar.MONTH, Integer.valueOf(dateArray[1]) - 1);
             calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dateArray[0]));
             return calendar;
         } else {
             return null;
         }
     }
-
 }

@@ -20,8 +20,8 @@ import java.util.Locale;
 @Named("globalAppBean")
 public class StartViewBean implements Serializable {
 
-    int amountOfUsers;
-    int amountOfCars;
+    private int amountOfUsers;
+    private int amountOfCars;
 
     @Inject
     UserDAO userDAO;
