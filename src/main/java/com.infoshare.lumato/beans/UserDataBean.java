@@ -7,7 +7,7 @@ import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@RequestScoped
+@ViewScoped
 @Named("userDataBean")
 public class UserDataBean implements Serializable {
 
@@ -53,10 +53,14 @@ public class UserDataBean implements Serializable {
     public void construct() {
         loadFuelCostList();
         loadCars();
-        sortByDate();
+        sortById();
     }
 
     public void sortByDate(){
         Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getIdCar).thenComparing(FuelCosts::getDate));
+    }
+
+    public void sortById() {
+        Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getId));
     }
 }

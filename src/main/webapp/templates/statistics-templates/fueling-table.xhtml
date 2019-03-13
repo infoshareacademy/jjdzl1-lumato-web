@@ -14,7 +14,7 @@
 
             <h:column>
                 <f:facet name="header">
-                    <h:commandLink action="#{fueling.sortByDate}">Date</h:commandLink>
+                    <h:commandLink action="#{userDataBean.sortByDate()}">Date</h:commandLink>
                 </f:facet>
                 #{fueling.dateAsString}
             </h:column>
