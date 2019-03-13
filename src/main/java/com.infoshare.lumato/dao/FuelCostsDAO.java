@@ -98,4 +98,16 @@ public class FuelCostsDAO extends CommonDAO {
         }
         return fuelCostList;
     }
+
+    public void deleteFuelCost(FuelCosts fuelCosts) {
+        try {
+            String sql = "DELETE FROM fuelCosts WHERE idfuelcost=?";
+
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, fuelCosts.getId());
+            myStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

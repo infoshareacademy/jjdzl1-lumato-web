@@ -43,7 +43,7 @@ public class FuelsCostsService {
 
     private List<FuelCosts> getFuelCostListByCarId() {
         List<FuelCosts> fuelCostListByCarId = new ArrayList<>();
-        for (FuelCosts fuelCosts : fuelInputBean.getFuelCostsList()) {
+        for (FuelCosts fuelCosts : fuelInputBean.getCompleteFuelCostsList()) {
             if (fuelCosts.getIdCar() == fuelInputBean.getCar().getCarId()) {
                 fuelCostListByCarId.add(fuelCosts);
             }
@@ -63,5 +63,9 @@ public class FuelsCostsService {
                 return false;
         }
         return true;
+    }
+
+    public void deleteFuelCost(FuelCosts fuelCosts) {
+        fuelCostsDAO.deleteFuelCost(fuelCosts);
     }
 }

@@ -86,7 +86,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-8">
                     <div class="card shadow">
                         <div class="card-header">
@@ -95,43 +94,53 @@
 
                         <div class="card-body">
                             <div class="col">
-                                <h:dataTable value="#{fuelInputBean.fuelCostsList}"
-                                             var="tempfuelCost"
+                                <h:dataTable value="#{fuelInputBean.completeFuelCostsList}"
+                                             var="tempFuelCost"
                                              styleClass=" table-hover table"
                                              style="margin-bottom: 1.75rem">
 
                                     <h:column>
                                         <f:facet name="header">Date</f:facet>
-                                        <h:outputText value="#{tempfuelCost.date.time}">
+                                        <h:outputText value="#{tempFuelCost.date.time}">
                                             <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
                                         </h:outputText>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Type of Fuel</f:facet>
-                                        <h:outputText value="#{tempfuelCost.fuelType}"/>
+                                        <h:outputText value="#{tempFuelCost.fuelType}"/>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Price per 1l</f:facet>
-                                        <h:outputText value="#{tempfuelCost.pricePerLiter} PLN"/>
+                                        <h:outputText value="#{tempFuelCost.pricePerLiter}">
+                                            <f:convertNumber pattern="#0.00"/>
+                                        </h:outputText>
+                                        <h:outputText value="&nbsp;PLN"/>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Amount of fuel</f:facet>
-                                        <h:outputText value="#{tempfuelCost.amountOfFuel} l"/>
+                                        <h:outputText value="#{tempFuelCost.amountOfFuel} l"/>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">At Mileage</f:facet>
-                                        <h:outputText value="#{tempfuelCost.currentMileage} km"/>
+                                        <h:outputText value="#{tempFuelCost.currentMileage} km"/>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Car</f:facet>
-                                        <h:outputText value="#{carBean.getCarById(tempfuelCost.idCar).brand}
-                                                  #{carBean.getCarById(tempfuelCost.idCar).model}
-                                                  #{carBean.getCarById(tempfuelCost.idCar).regPlate}"/>
+                                        <h:outputText value="#{carBean.getCarById(tempFuelCost.idCar).brand}
+                                                  #{carBean.getCarById(tempFuelCost.idCar).model}
+                                                  #{carBean.getCarById(tempFuelCost.idCar).regPlate}"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <h:commandButton value="DELETE"
+                                                         styleClass="btn btn-outline-danger"
+                                                         style="width: 100%"
+                                                         action="#{fuelInputBean.attemptToDeleteFuelCost(tempFuelCost)}"/>
                                     </h:column>
                                 </h:dataTable>
                             </div>

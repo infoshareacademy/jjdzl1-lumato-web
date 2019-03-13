@@ -1,5 +1,6 @@
 package com.infoshare.lumato.dao;
 
+import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.persistence.DBConnection;
 
 import javax.inject.Inject;
@@ -28,4 +29,5 @@ public abstract class CommonDAO {
         }
         return amountOfUsers;
     }
+
 }
