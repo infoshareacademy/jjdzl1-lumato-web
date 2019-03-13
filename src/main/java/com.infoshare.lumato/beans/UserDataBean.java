@@ -63,14 +63,6 @@ public class UserDataBean implements Serializable {
         Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getDate).reversed());
     }
 
-    public void sortByCarIdAndThenByDate(){
-        Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getIdCar).thenComparing(FuelCosts::getDate));
-    }
-
-    public void sortById() {
-        Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getId));
-    }
-
     public String getGetCarAsString(Integer idOfCar) {
         Car car = carList.stream()
                         .filter(c -> c.getCarId() == idOfCar)
