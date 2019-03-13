@@ -8,7 +8,39 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition>
-    TEST
+    <h:form>
+        <h:dataTable value="#{userDataBean.fuelCostsList}" var="fueling"
+                     styleClass="table-bordered">
+
+            <h:column>
+                <f:facet name="header">
+                    <h:commandLink action="#{fueling.sortByDate}">Date</h:commandLink>
+                </f:facet>
+                #{fueling.dateAsString}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Car ID</f:facet>
+                #{fueling.idCar}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Fuel type</f:facet>
+                #{fueling.fuelType}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Amount of fuel</f:facet>
+                #{fueling.amountOfFuel}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Price per liter</f:facet>
+                #{fueling.pricePerLiter}
+            </h:column>
+
+        </h:dataTable>
+    </h:form>
 </ui:composition>
 </html>
 

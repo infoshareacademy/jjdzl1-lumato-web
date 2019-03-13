@@ -6,6 +6,7 @@ import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.services.MessageService;
+import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
@@ -86,6 +87,7 @@ public class FuelInputBean implements Serializable {
     public void construct() {
         loadFuelCostList();
         loadCars();
+        Collections.sort(this.fuelCostsList, new FuelCostComparatorByDate());
     }
 
     private void addFuelCost(Car car) {
