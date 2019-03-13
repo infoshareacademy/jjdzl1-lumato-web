@@ -41,9 +41,14 @@
                     </h:column>
 
                     <h:column>
+                        <f:facet name="header">Mileage</f:facet>
+                        #{fueling.currentMileage}
+                    </h:column>
+
+                    <h:column>
                         <f:facet name="header">Amount of fuel</f:facet>
                         <h:outputText value="#{fueling.amountOfFuel}">
-                            <f:convertNumber pattern="#0.00"/>
+                            <f:convertNumber pattern="#0.0"/>
                         </h:outputText>
                         <h:outputText value="&nbsp;L"/>
                     </h:column>
