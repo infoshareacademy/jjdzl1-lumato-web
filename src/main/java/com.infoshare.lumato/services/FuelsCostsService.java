@@ -6,7 +6,6 @@ import com.infoshare.lumato.dao.FuelCostsDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
-import com.infoshare.lumato.utils.FuelCostComparatorByMileage;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -44,7 +43,7 @@ public class FuelsCostsService {
 
     private List<FuelCosts> getFuelCostListByCarId() {
         List<FuelCosts> fuelCostListByCarId = new ArrayList<>();
-        for (FuelCosts fuelCosts : fuelInputBean.getFuelCostsList()) {
+        for (FuelCosts fuelCosts : fuelInputBean.getCompleteFuelCostsList()) {
             if (fuelCosts.getIdCar() == fuelInputBean.getCar().getCarId()) {
                 fuelCostListByCarId.add(fuelCosts);
             }
@@ -64,5 +63,9 @@ public class FuelsCostsService {
                 return false;
         }
         return true;
+    }
+
+    public void deleteFuelCost(FuelCosts fuelCosts) {
+        fuelCostsDAO.deleteFuelCost(fuelCosts);
     }
 }
