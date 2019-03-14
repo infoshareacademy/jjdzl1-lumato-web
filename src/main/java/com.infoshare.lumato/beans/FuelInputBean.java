@@ -63,11 +63,8 @@ public class FuelInputBean implements Serializable {
         return car;
     }
 
-    public void setFuelCostsList(List<FuelCosts> fuelCostsList) {
-        this.fuelCostsList = fuelCostsList;
-    }
-
-    public List<FuelCosts> getFuelCostsList() {
+    public List<FuelCosts> getCompleteFuelCostsList() {
+        fuelCostsList.sort(new FuelCostComparatorByDate());
         return fuelCostsList;
     }
 
@@ -107,6 +104,16 @@ public class FuelInputBean implements Serializable {
             fuelCost = null;
             redirectToFuelInputPage();
         }
+    }
+
+    public void attemptToDeleteFuelCost(FuelCosts theFuelCost) {
+        setFuelCost(theFuelCost);
+        deleteFuelCost();
+    }
+
+    private void deleteFuelCost() {
+        fuelsCostsService.deleteFuelCost(fuelCost);
+        redirectToFuelInputPage();
     }
 
     private void redirectToFuelInputPage() {
