@@ -90,7 +90,7 @@ public class UserDataBean implements Serializable {
     }
 
     public void sortList(){
-        if (sort.equals(Sort.DESC)) {
+        if (sort.equals(Sort.ASC)) {
             Collections.sort(this.fuelCostsListFiltered, Comparator.comparing(FuelCosts::getDate));
         } else {
             Collections.sort(this.fuelCostsListFiltered, Comparator.comparing(FuelCosts::getDate).reversed());
