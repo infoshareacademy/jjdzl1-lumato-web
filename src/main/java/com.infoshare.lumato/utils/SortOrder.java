@@ -1,6 +1,6 @@
 package com.infoshare.lumato.utils;
 
-public enum Sort {
+public enum SortOrder {
 
     ASC, DESC
 
