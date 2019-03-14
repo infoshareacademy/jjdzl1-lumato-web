@@ -11,16 +11,17 @@
     <div class="container-fluid align-content-center ">
         <h:form>
 
-            <div class="row card align-items-center m-1">
-                <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                               action="#{userDataBean.showAllCars()}"
-                               value="All cars" />
-                <ui:repeat value="#{userDataBean.cars}" var="car">
-                    <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                   action="#{userDataBean.showOnlyOneCar(car.carId)}"
-                                   value="Only #{car.brand} #{car.model}" />
-                </ui:repeat>
-
+            <div class="row card align-items-center p-1">
+                <div class="btn-group d-inline-flex">
+                    <h:commandLink styleClass="btn btn-outline-primary btn-sm"
+                                   action="#{userDataBean.showAllCars()}"
+                                   value="All" />
+                    <ui:repeat value="#{userDataBean.cars}" var="car">
+                        <h:commandLink styleClass="btn btn-outline-primary btn-sm"
+                                       action="#{userDataBean.showOnlyOneCar(car.carId)}"
+                                       value="#{car.brand} #{car.model}" />
+                    </ui:repeat>
+                </div>
             </div>
 
             <div class="row card align-items-center m-1">
