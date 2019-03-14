@@ -8,7 +8,7 @@ import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 import com.infoshare.lumato.utils.Sort;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestScoped
+@ViewScoped
 @Named("userDataBean")
 public class UserDataBean implements Serializable {
 
