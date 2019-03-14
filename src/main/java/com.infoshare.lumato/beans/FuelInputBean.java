@@ -6,6 +6,7 @@ import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.services.MessageService;
+import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
@@ -62,11 +63,8 @@ public class FuelInputBean implements Serializable {
         return car;
     }
 
-    public void setFuelCostsList(List<FuelCosts> fuelCostsList) {
-        this.fuelCostsList = fuelCostsList;
-    }
-
-    public List<FuelCosts> getFuelCostsList() {
+    public List<FuelCosts> getCompleteFuelCostsList() {
+        fuelCostsList.sort(new FuelCostComparatorByDate());
         return fuelCostsList;
     }
 
@@ -105,6 +103,16 @@ public class FuelInputBean implements Serializable {
             fuelCost = null;
             redirectToFuelInputPage();
         }
+    }
+
+    public void attemptToDeleteFuelCost(FuelCosts theFuelCost) {
+        setFuelCost(theFuelCost);
+        deleteFuelCost();
+    }
+
+    private void deleteFuelCost() {
+        fuelsCostsService.deleteFuelCost(fuelCost);
+        redirectToFuelInputPage();
     }
 
     private void redirectToFuelInputPage() {
