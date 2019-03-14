@@ -12,31 +12,34 @@
         <h:form>
 
             <div class="row card align-items-center p-1">
+                <div class="card-title">
+                    Filter by car
+                </div>
                 <div class="btn-group d-inline-flex">
                     <h:commandLink styleClass="btn btn-outline-primary btn-sm"
-                                   action="#{userDataBean.showAllCars()}"
+                                   action="#{fuelTableBean.showAllCars()}"
                                    value="All" />
-                    <ui:repeat value="#{userDataBean.cars}" var="car">
+                    <ui:repeat value="#{fuelTableBean.cars}" var="car">
                         <h:commandLink styleClass="btn btn-outline-primary btn-sm"
-                                       action="#{userDataBean.showOnlyOneCar(car.carId)}"
+                                       action="#{fuelTableBean.showOnlyOneCar(car.carId)}"
                                        value="#{car.brand} #{car.model}" />
                     </ui:repeat>
                 </div>
             </div>
 
             <div class="row card align-items-center m-1">
-                <h:dataTable value="#{userDataBean.fuelCostsListFiltered}" var="fueling"
-                             styleClass="table table-sm text-nowrap">
+                <h:dataTable value="#{fuelTableBean.fuelCostsListFiltered}" var="fueling"
+                             styleClass="table-responsive table-sm text-nowrap">
 
                     <h:column>
                         <f:facet name="header">
                             Date
                             <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                             action="#{userDataBean.setSortAscending()}">
+                                             action="#{fuelTableBean.setSortAscending()}">
                                 <i class='fa fa-arrow-up' />
                             </h:commandLink>
                             <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                             action="#{userDataBean.setSortDescending()}">
+                                             action="#{fuelTableBean.setSortDescending()}">
                                 <i class='fa fa-arrow-down' />
                             </h:commandLink>
                         </f:facet>
@@ -45,7 +48,7 @@
 
                     <h:column>
                         <f:facet name="header">Car</f:facet>
-                        #{userDataBean.getGetCarAsString(fueling.idCar)}
+                        #{fuelTableBean.getGetCarAsString(fueling.idCar)}
                     </h:column>
 
                     <h:column>

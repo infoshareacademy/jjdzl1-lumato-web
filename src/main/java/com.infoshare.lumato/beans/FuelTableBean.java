@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ViewScoped
-@Named("userDataBean")
-public class UserDataBean implements Serializable {
+@Named("fuelTableBean")
+public class FuelTableBean implements Serializable {
 
     @Inject
     private FuelsCostsService fuelsCostsService;
