@@ -4,6 +4,8 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
+import com.infoshare.lumato.utils.FuelCostComparatorByDate;
+import com.infoshare.lumato.utils.Sort;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -13,6 +15,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestScoped
 @Named("userDataBean")
@@ -26,7 +29,21 @@ public class UserDataBean implements Serializable {
 
     private List<FuelCosts> fuelCostsList;
 
+    private List<FuelCosts> fuelCostsListFiltered;
+
     private List<Car> carList;
+
+    private Sort sort;
+    private int idOfCarFilter;
+
+    public List<FuelCosts> getFuelCostsListFiltered() {
+        filterAndSortList();
+        return fuelCostsListFiltered;
+    }
+
+    public void setFuelCostsListFiltered(List<FuelCosts> fuelCostsListFiltered) {
+        this.fuelCostsListFiltered = fuelCostsListFiltered;
+    }
 
     public void setFuelCostsList(List<FuelCosts> fuelCostsList) {
         this.fuelCostsList = fuelCostsList;
@@ -40,8 +57,22 @@ public class UserDataBean implements Serializable {
         return carList;
     }
 
+    public void setSortAscending(){
+        this.sort = Sort.ASC;
+    }
+
+    public void setSortDescending(){
+        this.sort = Sort.DESC;
+    }
+
     private void loadFuelCostList() {
         fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
+    }
+
+    private void initializeFuelCostListFiltered(){
+        fuelCostsListFiltered = fuelCostsList.stream()
+                .sorted(new FuelCostComparatorByDate())
+                .collect(Collectors.toList());
     }
 
     private void loadCars() {
@@ -52,15 +83,33 @@ public class UserDataBean implements Serializable {
     public void construct() {
         loadFuelCostList();
         loadCars();
-        sortByDate();
+        this.sort = Sort.DESC;
+        this.idOfCarFilter = -1;
+        initializeFuelCostListFiltered();
+        filterAndSortList();
     }
 
-    public void sortByDate(){
-        Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getDate));
+    public void sortList(){
+        if (sort.equals(Sort.DESC)) {
+            Collections.sort(this.fuelCostsListFiltered, Comparator.comparing(FuelCosts::getDate));
+        } else {
+            Collections.sort(this.fuelCostsListFiltered, Comparator.comparing(FuelCosts::getDate).reversed());
+        }
     }
 
-    public void sortByDateReversed(){
-        Collections.sort(this.fuelCostsList, Comparator.comparing(FuelCosts::getDate).reversed());
+    public void filterList(){
+        if (idOfCarFilter<0) {
+            initializeFuelCostListFiltered();
+        } else {
+            fuelCostsListFiltered = fuelCostsList.stream()
+                    .filter(record -> record.getIdCar() == idOfCarFilter)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    public void filterAndSortList(){
+        filterList();
+        sortList();
     }
 
     public String getGetCarAsString(Integer idOfCar) {
@@ -69,5 +118,13 @@ public class UserDataBean implements Serializable {
                         .findFirst()
                         .get();
         return car.getBrand() + " " + car.getModel() + " [" + car.getRegPlate() + "]";
+    }
+
+    public void showAllCars() {
+        this.idOfCarFilter = -1;
+    }
+
+    public void showOnlyOneCar(int id) {
+        this.idOfCarFilter = id;
     }
 }

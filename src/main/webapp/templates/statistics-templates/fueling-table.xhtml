@@ -12,18 +12,30 @@
         <h:form>
 
             <div class="row card align-items-center m-1">
-                <h:dataTable value="#{userDataBean.fuelCostsList}" var="fueling"
+                <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
+                               action="#{userDataBean.showAllCars()}"
+                               value="All cars" />
+                <ui:repeat value="#{userDataBean.cars}" var="car">
+                    <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
+                                   action="#{userDataBean.showOnlyOneCar(car.carId)}"
+                                   value="Only #{car.brand} #{car.model}" />
+                </ui:repeat>
+
+            </div>
+
+            <div class="row card align-items-center m-1">
+                <h:dataTable value="#{userDataBean.fuelCostsListFiltered}" var="fueling"
                              styleClass="table table-sm text-nowrap">
 
                     <h:column>
                         <f:facet name="header">
                             Date
                             <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                             action="#{userDataBean.sortByDate()}">
+                                             action="#{userDataBean.setSortAscending()}">
                                 <i class='fa fa-arrow-up' />
                             </h:commandLink>
                             <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                             action="#{userDataBean.sortByDateReversed()}">
+                                             action="#{userDataBean.setSortDescending()}">
                                 <i class='fa fa-arrow-down' />
                             </h:commandLink>
                         </f:facet>
