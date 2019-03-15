@@ -76,4 +76,16 @@ public class ExtraCostDao extends CommonDAO {
         }
         return extraCostsList;
     }
+
+    public void deleteExtraCost(ExtraCosts extraCosts) {
+        try {
+            String sql = "DELETE FROM extracosts WHERE idextracosts=?";
+
+            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+            myStmt.setInt(1, extraCosts.getId());
+            myStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

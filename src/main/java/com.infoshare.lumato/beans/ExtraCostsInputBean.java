@@ -16,7 +16,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @RequestScoped
-@Named("costInputBean")
+@Named("extraCostInputBean")
 public class ExtraCostsInputBean implements Serializable {
 
     @Inject
@@ -92,6 +92,16 @@ public class ExtraCostsInputBean implements Serializable {
 
     private void redirectToExtraCostInputPage() {
         HttpUtils.redirect("/app/cost-input.xhtml");
+    }
+
+    public void attemptToDeleteExtraCost(ExtraCosts theExtraCosts) {
+        setExtraCost(theExtraCosts);
+        deleteExtraCost();
+    }
+
+    private void deleteExtraCost() {
+        extraCostService.deleteExtraCost(extraCost);
+        redirectToExtraCostInputPage();
     }
 
     public void setDateAsString(String dateAsString) {

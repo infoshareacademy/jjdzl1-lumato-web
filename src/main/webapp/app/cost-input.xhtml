@@ -23,10 +23,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Select a car</label>
                                 <div class="col-sm-7 col align-self-center">
-                                    <h:selectOneMenu value="#{costInputBean.car.regPlate}"
+                                    <h:selectOneMenu value="#{extraCostInputBean.car.regPlate}"
                                                      styleClass="btn btn-secondary btn-md dropdown-toggle"
                                                      style="width: 100%; text-align: center">
-                                        <f:selectItems value="#{costInputBean.carList}"
+                                        <f:selectItems value="#{extraCostInputBean.carList}"
                                                        var="car"
                                                        itemValue="#{car.regPlate}"
                                                        itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}  #{car.fuelType}"/>
@@ -38,7 +38,7 @@
                                 <label class="col-sm-5 col-form-label">Cost</label>
                                 <div class="col-sm-7 col align-self-center">
                                     <h:inputText class="form-control form-control-user"
-                                                 value="#{costInputBean.extraCost.cost}">
+                                                 value="#{extraCostInputBean.extraCost.cost}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                                 <label class="col-sm-5 col-form-label">Description</label>
                                 <div class="col-sm-7 col align-self-center">
                                     <h:inputText class="form-control form-control-user"
-                                                 value="#{costInputBean.extraCost.description}">
+                                                 value="#{extraCostInputBean.extraCost.description}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 <div class="col-sm-7 col align-self-center">
                                     <h:inputText a:placeholder="DD-MM-YYYY"
                                                  class="form-control form-control-user"
-                                                 value="#{costInputBean.dateAsString}">
+                                                 value="#{extraCostInputBean.dateAsString}">
                                     </h:inputText>
                                 </div>
                             </div>
@@ -67,11 +67,8 @@
                                 <h:commandButton value="Save"
                                                  styleClass="btn btn-primary"
                                                  style="border-radius:15px; width: 100%"
-                                                 action="#{costInputBean.attemptToAddExtraCost}"/>
+                                                 action="#{extraCostInputBean.attemptToAddExtraCost}"/>
                             </div>
-                           <!-- <div class="errorMessage">
-                                #{messageBean.getMessageValue("wrongCredentialsMessage")}
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -84,7 +81,7 @@
 
                         <div class="card-body">
                             <div class="col">
-                                <h:dataTable value="#{costInputBean.completeExtraCostList}"
+                                <h:dataTable value="#{extraCostInputBean.completeExtraCostList}"
                                              var="tempExtraCost"
                                              styleClass=" table-hover table"
                                              style="margin-bottom: 1.75rem">
@@ -116,12 +113,12 @@
                                                   #{carBean.getCarById(tempExtraCost.carId).regPlate}"/>
                                     </h:column>
 
-                                    <!--<h:column>
+                                    <h:column>
                                         <h:commandButton value="DELETE"
                                                          styleClass="btn btn-outline-danger"
                                                          style="width: 100%"
-                                                         action="#{fuelInputBean.attemptToDeleteFuelCost(tempFuelCost)}"/>
-                                    </h:column>-->
+                                                         action="#{extraCostInputBean.attemptToDeleteExtraCost(tempExtraCost)}"/>
+                                    </h:column>
                                 </h:dataTable>
                             </div>
                         </div>

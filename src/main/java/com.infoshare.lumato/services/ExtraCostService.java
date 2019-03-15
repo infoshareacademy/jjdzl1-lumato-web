@@ -37,4 +37,8 @@ public class ExtraCostService {
         }
         return extraCostsList;
     }
+
+    public void deleteExtraCost(ExtraCosts extraCosts) {
+        extraCostDao.deleteExtraCost(extraCosts);
+    }
 }
