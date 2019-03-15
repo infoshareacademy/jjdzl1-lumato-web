@@ -1,9 +1,8 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.dao.FuelCostsTableDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
-import com.infoshare.lumato.services.FuelsCostsService;
+import com.infoshare.lumato.services.FuelTableService;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 import com.infoshare.lumato.utils.SortOrder;
 
@@ -25,7 +24,7 @@ public class FuelTableBean implements Serializable {
     private static final long serialVersionUID = 1709172815224096384L;
 
     @Inject
-    FuelCostsTableDAO repository;
+    FuelTableService fuelTableService;
 
     private List<FuelCosts> fuelCostsListFiltered;
 
@@ -42,11 +41,11 @@ public class FuelTableBean implements Serializable {
     }
 
     public List<Car> getCarList(){
-        return this.repository.getCarList();
+        return fuelTableService.getCarList();
     }
 
     private void initializeFuelCostListFiltered(){
-        fuelCostsListFiltered = repository.getFuelCostsList().stream()
+        fuelCostsListFiltered = fuelTableService.getFuelCostsList().stream()
                 .sorted(new FuelCostComparatorByDate())
                 .collect(Collectors.toList());
     }
@@ -73,14 +72,14 @@ public class FuelTableBean implements Serializable {
         if (!idOfCarFilter.isPresent()) {
             initializeFuelCostListFiltered();
         } else {
-            fuelCostsListFiltered = repository.getFuelCostsList().stream()
+            fuelCostsListFiltered = fuelTableService.getFuelCostsList().stream()
                     .filter(record -> record.getIdCar() == idOfCarFilter.get())
                     .collect(Collectors.toList());
         }
     }
 
     public String getGetCarAsString(Integer idOfCar) {
-        Car car = repository.getCarList().stream()
+        Car car = fuelTableService.getCarList().stream()
                         .filter(c -> c.getCarId() == idOfCar)
                         .findFirst()
                         .get();
