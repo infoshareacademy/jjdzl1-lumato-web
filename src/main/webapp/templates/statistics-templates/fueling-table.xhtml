@@ -19,7 +19,7 @@
                     <h:commandLink styleClass="btn btn-outline-primary btn-sm"
                                    action="#{fuelTableBean.setAllCarsFilter()}"
                                    value="All" />
-                    <ui:repeat value="#{fuelTableBean.cars}" var="car">
+                    <ui:repeat value="#{fuelTableBean.getCarList()}" var="car">
                         <h:commandLink styleClass="btn btn-outline-primary btn-sm"
                                        action="#{fuelTableBean.setSingleCarFilter(car.carId)}"
                                        value="#{car.brand} #{car.model}" />

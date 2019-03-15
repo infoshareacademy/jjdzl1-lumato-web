@@ -1,13 +1,11 @@
 package com.infoshare.lumato.beans;
 
+import com.infoshare.lumato.dao.FuelCostsTableDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
-import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 import com.infoshare.lumato.utils.SortOrder;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -24,15 +22,12 @@ import java.util.stream.Collectors;
 @Named("fuelTableBean")
 public class FuelTableBean implements Serializable {
 
-    @Inject
-    private FuelsCostsService fuelsCostsService;
+    private static final long serialVersionUID = 1709172815224096384L;
 
-    private List<FuelCosts> fuelCostsList;
+    @Inject
+    FuelCostsTableDAO repository;
 
     private List<FuelCosts> fuelCostsListFiltered;
-
-    @Getter
-    private List<Car> cars;
 
     private SortOrder sortOrder;
 
@@ -40,24 +35,18 @@ public class FuelTableBean implements Serializable {
 
     @PostConstruct
     public void construct() {
-        loadFuelCostList();
-        loadCars();
         this.sortOrder = SortOrder.DESC;
         this.idOfCarFilter = Optional.empty();
         initializeFuelCostListFiltered();
         filterAndSortList();
     }
 
-    private void loadFuelCostList() {
-        fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
-    }
-
-    private void loadCars() {
-        cars = fuelsCostsService.getAllCarsByUser();
+    public List<Car> getCarList(){
+        return this.repository.getCarList();
     }
 
     private void initializeFuelCostListFiltered(){
-        fuelCostsListFiltered = fuelCostsList.stream()
+        fuelCostsListFiltered = repository.getFuelCostsList().stream()
                 .sorted(new FuelCostComparatorByDate())
                 .collect(Collectors.toList());
     }
@@ -84,14 +73,14 @@ public class FuelTableBean implements Serializable {
         if (!idOfCarFilter.isPresent()) {
             initializeFuelCostListFiltered();
         } else {
-            fuelCostsListFiltered = fuelCostsList.stream()
+            fuelCostsListFiltered = repository.getFuelCostsList().stream()
                     .filter(record -> record.getIdCar() == idOfCarFilter.get())
                     .collect(Collectors.toList());
         }
     }
 
     public String getGetCarAsString(Integer idOfCar) {
-        Car car = cars.stream()
+        Car car = repository.getCarList().stream()
                         .filter(c -> c.getCarId() == idOfCar)
                         .findFirst()
                         .get();
