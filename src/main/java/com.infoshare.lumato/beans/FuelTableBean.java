@@ -57,16 +57,10 @@ public class FuelTableBean implements Serializable {
 
     public void filterAndSortList(){
         filterListByCar();
-        sortListByOrder();
+        fuelTableService.sortListByOrder(fuelCostsListFiltered, sortOrder);
     }
 
-    public void sortListByOrder(){
-        if (sortOrder.equals(SortOrder.ASC)) {
-            Collections.sort(this.fuelCostsListFiltered, Comparator.comparing(FuelCosts::getDate));
-        } else {
-            Collections.sort(this.fuelCostsListFiltered, Comparator.comparing(FuelCosts::getDate).reversed());
-        }
-    }
+
 
     public void filterListByCar(){
         if (!idOfCarFilter.isPresent()) {
