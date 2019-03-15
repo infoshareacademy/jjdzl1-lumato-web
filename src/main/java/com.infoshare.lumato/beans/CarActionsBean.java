@@ -78,7 +78,7 @@ public class CarActionsBean implements Serializable {
             redirectToCarPage();
         }
         if (carsService.doesCarExist(car)) {
-            messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
+            messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exists!");
             car = null;
             redirectToCarPage();
         } else addNewCar();

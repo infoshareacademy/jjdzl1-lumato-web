@@ -85,11 +85,11 @@ public class ExtraCostsInputBean implements Serializable {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
         car = carsService.getCarByRegPLate(car.getRegPlate());
 
-        if (calendar != null ) {
+        if (calendar != null ) {extraCost.setDescription("");
             this.extraCost.setDate(calendar);
             addExtraCost(car);
         } else {
-            messageService.addMessageCookie("wrongCredentialsMessage", "Date cannot be empty! Please try again!");
+            messageService.addMessageCookie("wrongCredentialsMessage", "Date field cannot be empty! Please try again!");
             extraCost = null;
             redirectToExtraCostInputPage();
         }

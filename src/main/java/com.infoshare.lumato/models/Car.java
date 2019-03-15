@@ -33,7 +33,7 @@ public class Car implements Serializable {
     }
 
     public void setBrand(String brand) {
-        this.brand = brand;
+        this.brand = brand.toUpperCase();
     }
 
     public String getModel() {
@@ -41,7 +41,7 @@ public class Car implements Serializable {
     }
 
     public void setModel(String model) {
-        this.model = model;
+        this.model = model.toUpperCase();
     }
 
     public int getProductionYear() {
@@ -65,7 +65,7 @@ public class Car implements Serializable {
     }
 
     public void setRegPlate(String regPlate) {
-        this.regPlate = regPlate;
+        this.regPlate = regPlate.toUpperCase().replace(" ","");
     }
 
     public int getCarId() {

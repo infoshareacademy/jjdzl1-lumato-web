@@ -22,6 +22,7 @@ public class FuelTableService implements Serializable {
     @Inject
     FuelCostsTableDAO repository;
 
+    // TODO: 15.03.2019 zamienic na car.getCarList
     public List<Car> getCarList(){
         return this.repository.getCarList();
     }
