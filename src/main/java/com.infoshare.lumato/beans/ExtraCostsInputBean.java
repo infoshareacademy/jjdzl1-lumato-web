@@ -5,6 +5,7 @@ import com.infoshare.lumato.models.ExtraCosts;
 import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.ExtraCostService;
+import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +25,9 @@ public class ExtraCostsInputBean implements Serializable {
 
     @Inject
     private CarsService carsService;
+
+    @Inject
+    private MessageService messageService;
 
     private ExtraCosts extraCost = new ExtraCosts();
 
@@ -80,9 +84,15 @@ public class ExtraCostsInputBean implements Serializable {
     public void attemptToAddExtraCost() {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
         car = carsService.getCarByRegPLate(car.getRegPlate());
-        // TODO: 13.03.2019 add validation
-        this.extraCost.setDate(calendar);
-        addExtraCost(car);
+
+        if (calendar != null ) {
+            this.extraCost.setDate(calendar);
+            addExtraCost(car);
+        } else {
+            messageService.addMessageCookie("wrongCredentialsMessage", "Date cannot be empty! Please try again!");
+            extraCost = null;
+            redirectToExtraCostInputPage();
+        }
     }
 
     private void addExtraCost(Car car) {
