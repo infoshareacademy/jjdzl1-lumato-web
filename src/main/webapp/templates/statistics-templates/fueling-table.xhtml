@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition>
+    <div class="container-fluid align-content-center ">
+        <h:form>
+
+            <div class="row card align-items-center m-1 p-1">
+                <div class="card-title">
+                    Filter by car
+                </div>
+                <div class="btn-group d-inline-flex">
+                    <h:commandLink styleClass="btn btn-outline-primary btn-sm"
+                                   action="#{fuelTableBean.setAllCarsFilter()}"
+                                   value="All" />
+                    <ui:repeat value="#{fuelTableBean.getCarList()}" var="car">
+                        <h:commandLink styleClass="btn btn-outline-primary btn-sm"
+                                       action="#{fuelTableBean.setSingleCarFilter(car.carId)}"
+                                       value="#{car.brand} #{car.model}" />
+                    </ui:repeat>
+                </div>
+            </div>
+
+            <div class="row card align-items-center m-1 p-1">
+                <div class="card-body">
+                    <h:dataTable value="#{fuelTableBean.fuelCostsListFiltered}" var="fueling"
+                                 styleClass="table-responsive table-bordered table-sm text-nowrap">
+
+                        <h:column>
+                            <f:facet name="header">
+                                Date
+                                <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
+                                                 action="#{fuelTableBean.setSortAscending()}">
+                                    <i class='fa fa-arrow-up' />
+                                </h:commandLink>
+                                <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
+                                                 action="#{fuelTableBean.setSortDescending()}">
+                                    <i class='fa fa-arrow-down' />
+                                </h:commandLink>
+                            </f:facet>
+                            #{fueling.dateAsString}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Car</f:facet>
+                            #{fuelTableBean.getCarAsString(fueling.idCar)}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Fuel type</f:facet>
+                            #{fueling.fuelType}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Mileage</f:facet>
+                            #{fueling.currentMileage}
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Amount of fuel</f:facet>
+                            <h:outputText value="#{fueling.amountOfFuel}">
+                                <f:convertNumber pattern="#0.0"/>
+                            </h:outputText>
+                            <h:outputText value="&nbsp;L"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Price per liter</f:facet>
+                            <h:outputText value="#{fueling.pricePerLiter}">
+                                <f:convertNumber pattern="#0.00"/>
+                            </h:outputText>
+                            <h:outputText value="&nbsp;PLN"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </div>
+</ui:composition>
+</html>
+
+

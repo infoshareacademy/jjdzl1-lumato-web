@@ -84,6 +84,7 @@ public class FuelInputBean implements Serializable {
     public void construct() {
         loadFuelCostList();
         loadCars();
+        Collections.sort(this.fuelCostsList, new FuelCostComparatorByDate());
     }
 
     private void addFuelCost(Car car) {

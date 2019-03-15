@@ -1,5 +1,6 @@
 package com.infoshare.lumato.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Objects;
@@ -28,6 +29,12 @@ public class FuelCosts {
 
     public Calendar getDate() {
         return date;
+    }
+
+    public String getDateAsString() {
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAsString = format1.format(this.date.getTime());
+        return dateAsString;
     }
 
     public void setDate(Calendar date) {
