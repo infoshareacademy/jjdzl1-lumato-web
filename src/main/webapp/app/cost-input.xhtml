@@ -16,17 +16,17 @@
                 <div class="col-4">
                     <div class="card shadow">
                         <div class="card-header">
-                            <h5 class="h5 mb-1 text-gray-800">Add Cost of Fuel</h5>
+                            <h5 class="h5 mb-1 text-gray-800">Add Extra Costs</h5>
                         </div>
 
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Select a car</label>
                                 <div class="col-sm-7 col align-self-center">
-                                    <h:selectOneMenu value="#{fuelInputBean.car.regPlate}"
+                                    <h:selectOneMenu value="#{costInputBean.car.regPlate}"
                                                      styleClass="btn btn-secondary btn-md dropdown-toggle"
                                                      style="width: 100%; text-align: center">
-                                        <f:selectItems value="#{fuelInputBean.cars}"
+                                        <f:selectItems value="#{costInputBean.carList}"
                                                        var="car"
                                                        itemValue="#{car.regPlate}"
                                                        itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}  #{car.fuelType}"/>
@@ -35,53 +35,43 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Price of fuel/1L</label>
+                                <label class="col-sm-5 col-form-label">Cost</label>
                                 <div class="col-sm-7 col align-self-center">
                                     <h:inputText class="form-control form-control-user"
-                                                 value="#{fuelInputBean.fuelCost.pricePerLiter}"
-                                                 maxlength="4">
+                                                 value="#{costInputBean.extraCost.cost}">
                                     </h:inputText>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Amount of Fuel</label>
+                                <label class="col-sm-5 col-form-label">Description</label>
                                 <div class="col-sm-7 col align-self-center">
                                     <h:inputText class="form-control form-control-user"
-                                                 value="#{fuelInputBean.fuelCost.amountOfFuel}"
-                                                 maxlength="3">
+                                                 value="#{costInputBean.extraCost.description}">
                                     </h:inputText>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Current mileage</label>
-                                <div class="col-sm-7 col align-self-center">
-                                    <h:inputText class="form-control form-control-user"
-                                                 value="#{fuelInputBean.fuelCost.currentMileage}">
-                                    </h:inputText>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Date of fueling</label>
+                                <label class="col-sm-5 col-form-label">Date</label>
                                 <div class="col-sm-7 col align-self-center">
                                     <h:inputText a:placeholder="DD-MM-YYYY"
                                                  class="form-control form-control-user"
-                                                 value="#{fuelInputBean.dateAsString}">
+                                                 value="#{costInputBean.dateAsString}">
                                     </h:inputText>
                                 </div>
                             </div>
+
 
                             <div class="form-group">
                                 <h:commandButton value="Save"
                                                  styleClass="btn btn-primary"
                                                  style="border-radius:15px; width: 100%"
-                                                 action="#{fuelInputBean.attemptToAddFuelCost}"/>
+                                                 action="#{costInputBean.attemptToAddExtraCost}"/>
                             </div>
-                            <div class="errorMessage">
+                           <!-- <div class="errorMessage">
                                 #{messageBean.getMessageValue("wrongCredentialsMessage")}
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -94,54 +84,44 @@
 
                         <div class="card-body">
                             <div class="col">
-                                <h:dataTable value="#{fuelInputBean.completeFuelCostsList}"
-                                             var="tempFuelCost"
+                                <h:dataTable value="#{costInputBean.completeExtraCostList}"
+                                             var="tempExtraCost"
                                              styleClass=" table-hover table"
                                              style="margin-bottom: 1.75rem">
 
                                     <h:column>
                                         <f:facet name="header">Date</f:facet>
-                                        <h:outputText value="#{tempFuelCost.date.time}">
+                                        <h:outputText value="#{tempExtraCost.date.time}">
                                             <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
                                         </h:outputText>
                                     </h:column>
 
                                     <h:column>
-                                        <f:facet name="header">Type of Fuel</f:facet>
-                                        <h:outputText value="#{tempFuelCost.fuelType}"/>
-                                    </h:column>
-
-                                    <h:column>
-                                        <f:facet name="header">Price per 1l</f:facet>
-                                        <h:outputText value="#{tempFuelCost.pricePerLiter}">
+                                        <f:facet name="header">Cost</f:facet>
+                                        <h:outputText value="#{tempExtraCost.cost}">
                                             <f:convertNumber pattern="#0.00"/>
                                         </h:outputText>
                                         <h:outputText value="&nbsp;PLN"/>
                                     </h:column>
 
                                     <h:column>
-                                        <f:facet name="header">Amount of fuel</f:facet>
-                                        <h:outputText value="#{tempFuelCost.amountOfFuel} l"/>
-                                    </h:column>
-
-                                    <h:column>
-                                        <f:facet name="header">At Mileage</f:facet>
-                                        <h:outputText value="#{tempFuelCost.currentMileage} km"/>
+                                        <f:facet name="header">Description</f:facet>
+                                        <h:outputText value="#{tempExtraCost.description}"/>
                                     </h:column>
 
                                     <h:column>
                                         <f:facet name="header">Car</f:facet>
-                                        <h:outputText value="#{carBean.getCarById(tempFuelCost.idCar).brand}
-                                                  #{carBean.getCarById(tempFuelCost.idCar).model}
-                                                  #{carBean.getCarById(tempFuelCost.idCar).regPlate}"/>
+                                        <h:outputText value="#{carBean.getCarById(tempExtraCost.carId).brand}
+                                                  #{carBean.getCarById(tempExtraCost.carId).model}
+                                                  #{carBean.getCarById(tempExtraCost.carId).regPlate}"/>
                                     </h:column>
 
-                                    <h:column>
+                                    <!--<h:column>
                                         <h:commandButton value="DELETE"
                                                          styleClass="btn btn-outline-danger"
                                                          style="width: 100%"
                                                          action="#{fuelInputBean.attemptToDeleteFuelCost(tempFuelCost)}"/>
-                                    </h:column>
+                                    </h:column>-->
                                 </h:dataTable>
                             </div>
                         </div>
