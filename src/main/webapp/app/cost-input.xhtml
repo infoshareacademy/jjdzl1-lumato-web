@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+
+<ui:composition template="/templates/maintemplate.xhtml">
+
+    <ui:define name="content">
+
+        <h:form>
+            <div class="row justify-content-around">
+
+                <div class="col-4">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h5 class="h5 mb-1 text-gray-800">Add Extra Costs</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Select a car</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:selectOneMenu value="#{extraCostInputBean.car.regPlate}"
+                                                     styleClass="btn btn-secondary btn-md dropdown-toggle"
+                                                     style="width: 100%; text-align: center">
+                                        <f:selectItems value="#{extraCostInputBean.carList}"
+                                                       var="car"
+                                                       itemValue="#{car.regPlate}"
+                                                       itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}  #{car.fuelType}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Cost</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText class="form-control form-control-user"
+                                                 value="#{extraCostInputBean.extraCost.cost}">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Description</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText class="form-control form-control-user"
+                                                 value="#{extraCostInputBean.extraCost.description}">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Date</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText a:placeholder="DD-MM-YYYY"
+                                                 class="form-control form-control-user"
+                                                 value="#{extraCostInputBean.dateAsString}">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <h:commandButton value="Save"
+                                                 styleClass="btn btn-primary"
+                                                 style="border-radius:15px; width: 100%"
+                                                 action="#{extraCostInputBean.attemptToAddExtraCost}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <h5 class="h5 mb-1 text-gray-800">Last Transactions</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="col">
+                                <h:dataTable value="#{extraCostInputBean.completeExtraCostList}"
+                                             var="tempExtraCost"
+                                             styleClass=" table-hover table"
+                                             style="margin-bottom: 1.75rem">
+
+                                    <h:column>
+                                        <f:facet name="header">Date</f:facet>
+                                        <h:outputText value="#{tempExtraCost.date.time}">
+                                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                                        </h:outputText>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Cost</f:facet>
+                                        <h:outputText value="#{tempExtraCost.cost}">
+                                            <f:convertNumber pattern="#0.00"/>
+                                        </h:outputText>
+                                        <h:outputText value="&nbsp;PLN"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Description</f:facet>
+                                        <h:outputText value="#{tempExtraCost.description}"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <f:facet name="header">Car</f:facet>
+                                        <h:outputText value="#{carBean.getCarById(tempExtraCost.carId).brand}
+                                                  #{carBean.getCarById(tempExtraCost.carId).model}
+                                                  #{carBean.getCarById(tempExtraCost.carId).regPlate}"/>
+                                    </h:column>
+
+                                    <h:column>
+                                        <h:commandButton value="DELETE"
+                                                         styleClass="btn btn-outline-danger"
+                                                         style="width: 100%"
+                                                         action="#{extraCostInputBean.attemptToDeleteExtraCost(tempExtraCost)}"/>
+                                    </h:column>
+                                </h:dataTable>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

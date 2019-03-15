@@ -1,7 +1,6 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.beans.FuelInputBean;
-import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.dao.FuelCostsDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
@@ -20,17 +19,10 @@ public class FuelsCostsService {
     FuelCostsDAO fuelCostsDAO;
 
     @Inject
-    CarDAO carDAO;
-
-    @Inject
     FuelInputBean fuelInputBean;
 
     public void addFuelCost(FuelCosts fuelCosts, Car car) {
         fuelCostsDAO.addFuelCostByCarId(fuelCosts, car);
-    }
-
-    public List<Car> getAllCarsByUser() {
-        return carDAO.getAllCarsByUser();
     }
 
     public List<FuelCosts> getAllFuelCostsByUser() {

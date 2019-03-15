@@ -29,8 +29,6 @@ public class FuelInputBean implements Serializable {
     @Inject
     private MessageService messageService;
 
-    private String dateAsString;
-
     private FuelCosts fuelCost = new FuelCosts();
 
     private List<FuelCosts> fuelCostsList;
@@ -39,28 +37,26 @@ public class FuelInputBean implements Serializable {
 
     private List<Car> carList;
 
-    public String getDateAsString() {
-        return dateAsString;
-    }
+    private String dateAsString;
 
-    public void setDateAsString(String dateAsString) {
-        this.dateAsString = dateAsString;
+    public FuelCosts getFuelCost() {
+        return fuelCost;
     }
 
     public void setFuelCost(FuelCosts fuelCost) {
         this.fuelCost = fuelCost;
     }
 
-    public FuelCosts getFuelCost() {
-        return fuelCost;
+    public Car getCar() {
+        return car;
     }
 
     public void setCar(Car car) {
         this.car = car;
     }
 
-    public Car getCar() {
-        return car;
+    public List<Car> getCars() {
+        return carList;
     }
 
     public List<FuelCosts> getCompleteFuelCostsList() {
@@ -68,16 +64,12 @@ public class FuelInputBean implements Serializable {
         return fuelCostsList;
     }
 
-    public List<Car> getCars() {
-        return carList;
-    }
-
     private void loadFuelCostList() {
         fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
     }
 
     private void loadCars() {
-        carList = fuelsCostsService.getAllCarsByUser();
+        carList = carsService.getAllCarsByUser();
     }
 
     @PostConstruct
@@ -90,6 +82,7 @@ public class FuelInputBean implements Serializable {
     private void addFuelCost(Car car) {
         fuelsCostsService.addFuelCost(fuelCost, car);
         redirectToFuelInputPage();
+
     }
 
     public void attemptToAddFuelCost() {
@@ -118,5 +111,13 @@ public class FuelInputBean implements Serializable {
 
     private void redirectToFuelInputPage() {
         HttpUtils.redirect("/app/fuel-input.xhtml");
+    }
+
+    public void setDateAsString(String dateAsString) {
+        this.dateAsString = dateAsString;
+    }
+
+    public String getDateAsString() {
+        return dateAsString;
     }
 }
