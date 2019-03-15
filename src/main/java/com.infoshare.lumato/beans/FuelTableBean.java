@@ -11,8 +11,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,8 +58,6 @@ public class FuelTableBean implements Serializable {
         fuelTableService.sortListByOrder(fuelCostsListFiltered, sortOrder);
     }
 
-
-
     public void filterListByCar(){
         if (!idOfCarFilter.isPresent()) {
             initializeFuelCostListFiltered();
@@ -72,12 +68,8 @@ public class FuelTableBean implements Serializable {
         }
     }
 
-    public String getGetCarAsString(Integer idOfCar) {
-        Car car = fuelTableService.getCarList().stream()
-                        .filter(c -> c.getCarId() == idOfCar)
-                        .findFirst()
-                        .get();
-        return car.getBrand() + " " + car.getModel() + " [" + car.getRegPlate() + "]";
+    public String getCarAsString(Integer idOfCar){
+        return fuelTableService.getCarAsString(idOfCar);
     }
 
     public void setSortAscending(){

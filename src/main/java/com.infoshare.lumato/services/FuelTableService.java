@@ -38,4 +38,12 @@ public class FuelTableService implements Serializable {
         }
     }
 
+    public String getCarAsString(Integer idOfCar) {
+        Car car = getCarList().stream()
+                .filter(c -> c.getCarId() == idOfCar)
+                .findFirst()
+                .get();
+        return car.getBrand() + " " + car.getModel() + " [" + car.getRegPlate() + "]";
+    }
+
 }
