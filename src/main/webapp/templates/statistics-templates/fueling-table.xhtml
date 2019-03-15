@@ -11,7 +11,7 @@
     <div class="container-fluid align-content-center ">
         <h:form>
 
-            <div class="row card align-items-center p-1">
+            <div class="row card align-items-center m-1 p-1">
                 <div class="card-title">
                     Filter by car
                 </div>
@@ -27,57 +27,58 @@
                 </div>
             </div>
 
-            <div class="row card align-items-center m-1">
-                <h:dataTable value="#{fuelTableBean.fuelCostsListFiltered}" var="fueling"
-                             styleClass="table-responsive table-sm text-nowrap">
+            <div class="row card align-items-center m-1 p-1">
+                <div class="card-body">
+                    <h:dataTable value="#{fuelTableBean.fuelCostsListFiltered}" var="fueling"
+                                 styleClass="table-responsive table-bordered table-sm text-nowrap">
 
-                    <h:column>
-                        <f:facet name="header">
-                            Date
-                            <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                             action="#{fuelTableBean.setSortAscending()}">
-                                <i class='fa fa-arrow-up' />
-                            </h:commandLink>
-                            <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                             action="#{fuelTableBean.setSortDescending()}">
-                                <i class='fa fa-arrow-down' />
-                            </h:commandLink>
-                        </f:facet>
-                        #{fueling.dateAsString}
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Date
+                                <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
+                                                 action="#{fuelTableBean.setSortAscending()}">
+                                    <i class='fa fa-arrow-up' />
+                                </h:commandLink>
+                                <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
+                                                 action="#{fuelTableBean.setSortDescending()}">
+                                    <i class='fa fa-arrow-down' />
+                                </h:commandLink>
+                            </f:facet>
+                            #{fueling.dateAsString}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Car</f:facet>
-                        #{fuelTableBean.getCarAsString(fueling.idCar)}
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">Car</f:facet>
+                            #{fuelTableBean.getCarAsString(fueling.idCar)}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Fuel type</f:facet>
-                        #{fueling.fuelType}
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">Fuel type</f:facet>
+                            #{fueling.fuelType}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Mileage</f:facet>
-                        #{fueling.currentMileage}
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">Mileage</f:facet>
+                            #{fueling.currentMileage}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Amount of fuel</f:facet>
-                        <h:outputText value="#{fueling.amountOfFuel}">
-                            <f:convertNumber pattern="#0.0"/>
-                        </h:outputText>
-                        <h:outputText value="&nbsp;L"/>
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">Amount of fuel</f:facet>
+                            <h:outputText value="#{fueling.amountOfFuel}">
+                                <f:convertNumber pattern="#0.0"/>
+                            </h:outputText>
+                            <h:outputText value="&nbsp;L"/>
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">Price per liter</f:facet>
-                        <h:outputText value="#{fueling.pricePerLiter}">
-                            <f:convertNumber pattern="#0.00"/>
-                        </h:outputText>
-                        <h:outputText value="&nbsp;PLN"/>
-                    </h:column>
-
-                </h:dataTable>
+                        <h:column>
+                            <f:facet name="header">Price per liter</f:facet>
+                            <h:outputText value="#{fueling.pricePerLiter}">
+                                <f:convertNumber pattern="#0.00"/>
+                            </h:outputText>
+                            <h:outputText value="&nbsp;PLN"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
             </div>
         </h:form>
     </div>
