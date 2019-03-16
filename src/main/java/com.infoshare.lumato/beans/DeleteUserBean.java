@@ -20,8 +20,6 @@ public class DeleteUserBean {
     @Inject
     private MessageService messageService;
 
-
-
     private User user;
 
     public User getUser() {
