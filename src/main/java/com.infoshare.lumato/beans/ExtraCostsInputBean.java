@@ -85,7 +85,7 @@ public class ExtraCostsInputBean implements Serializable {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
         car = carsService.getCarByRegPLate(car.getRegPlate());
 
-        if (calendar != null ) {extraCost.setDescription("");
+        if (calendar != null ) {
             this.extraCost.setDate(calendar);
             addExtraCost(car);
         } else {
