@@ -4,7 +4,6 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.ExtraCosts;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
-import com.sun.xml.internal.bind.v2.TODO;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

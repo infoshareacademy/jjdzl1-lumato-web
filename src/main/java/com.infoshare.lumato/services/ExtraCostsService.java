@@ -27,14 +27,14 @@ public class ExtraCostsService {
     ExtraCostsBean extraCostsBean;
 
     public void addExtraCosts(ExtraCosts extraCosts, Car car) {
-        extraCostsDAO.addExtraCostsByCarId(ExtraCosts, car);
+        extraCostsDAO.addExtraCostsByCarId(extraCosts, car);
     }
 
     public List<Car> getAllCarsByUser() {
         return carDAO.getAllCarsByUser();
     }
 
-    public List<FuelCosts> getAllExtraCostsByUser() {
+    public List<ExtraCosts> getAllExtraCostsByUser() {
         return extraCostsDAO.getAllExtraCostsByUser();
     }
 
@@ -44,14 +44,15 @@ public class ExtraCostsService {
 
     private List<ExtraCosts> getExtraCostsListByCarId() {
         List<ExtraCosts> extraCostListByCarId = new ArrayList<>();
-        for (ExtraCosts extraCosts : ExtraCostsBean.getCompleteExtraCostsList()) {
-            if (extraCosts.getIdCar() == ExtraCostsBean.getCar().getCarId()) {
-                extraCostsListByCarId.add(extraCosts);
+        for (ExtraCosts extraCosts : extraCostsBean.getCompleteExtraCostsList()) {
+            if (extraCosts.getCarId() == extraCostsBean.getCar().getCarId()) {
+                extraCostListByCarId.add(extraCosts);
             }
         }
-        return getExtraCostsListByCarId;
+        return extraCostListByCarId;
     }
-    public void deleteExtraCost(ExtraCosts extraCosts) {ExtraCostsDAO.deleteExtraCosts(extraCosts);
+    public void deleteExtraCost(ExtraCosts extraCosts) {
+        extraCostsDAO.deleteExtraCosts(extraCosts);
     }
 
 }

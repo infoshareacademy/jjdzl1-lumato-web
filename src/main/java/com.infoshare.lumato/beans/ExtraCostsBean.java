@@ -53,7 +53,7 @@ public class ExtraCostsBean {
         this.extraCosts = extraCosts;
     }
 
-    public FuelCosts getExtraCosts() {
+    public ExtraCosts getExtraCosts() {
         return extraCosts;
     }
 
@@ -73,9 +73,9 @@ public class ExtraCostsBean {
         return carList;
     }
 
-//    private void loadExtraCostsList() {
-//        extraCostsService = extraCostsService.getAllCarsByUser()
-//    }
+    private void loadExtraCostsList() {
+        extraCostsList=extraCostsService.getAllExtraCostsByUser();
+   }
 
     private void loadCars() {
         carList = extraCostsService.getAllCarsByUser();
