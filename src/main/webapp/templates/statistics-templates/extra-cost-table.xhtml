@@ -22,11 +22,11 @@
                     </div>
                     <div class="btn-group d-inline-flex">
                         <h:commandLink styleClass="btn btn-outline-primary btn-sm"
-                                       action="#{fuelTableBean.setAllCarsFilter()}"
+                                       action="#{extraCostsTableBean.setAllCarsFilter()}"
                                        value="All"/>
-                        <ui:repeat value="#{fuelTableBean.getCarList()}" var="car">
+                        <ui:repeat value="#{extraCostsTableBean.getCarList()}" var="car">
                             <h:commandLink styleClass="btn btn-outline-primary btn-sm"
-                                           action="#{fuelTableBean.setSingleCarFilter(car.carId)}"
+                                           action="#{extraCostsTableBean.setSingleCarFilter(car.carId)}"
                                            value="#{car.brand} #{car.model}"/>
                         </ui:repeat>
                     </div>
@@ -34,18 +34,18 @@
 
                 <div class="row card align-items-center m-1 p-1">
                     <div class="card-body table-responsive">
-                        <h:dataTable value="#{fuelTableBean.fuelCostsListFiltered}" var="extracost"
+                        <h:dataTable value="#{extraCostsTableBean.extraCostsListFiltered}" var="extracost"
                                      styleClass="table table-bordered table-sm text-nowrap">
 
                             <h:column>
                                 <f:facet name="header">
                                     Date
                                     <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                                   action="#{fuelTableBean.setSortAscending()}">
+                                                   action="#{extraCostsTableBean.setSortAscending()}">
                                         <i class='fa fa-arrow-up'/>
                                     </h:commandLink>
                                     <h:commandLink styleClass="btn btn-outline-primary btn-sm mr-1"
-                                                   action="#{fuelTableBean.setSortDescending()}">
+                                                   action="#{extraCostsTableBean.setSortDescending()}">
                                         <i class='fa fa-arrow-down'/>
                                     </h:commandLink>
                                 </f:facet>
@@ -54,31 +54,18 @@
 
                             <h:column>
                                 <f:facet name="header">Car</f:facet>
-                                #{fuelTableBean.getCarAsString(extracost.idCar)}
+                                #{extraCostsTableBean.getCarAsString(extracost.carId)}
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Fuel type</f:facet>
-                                #{extracost.fuelType}
+                                <f:facet name="header">Description</f:facet>
+                                #{extracost.description}
                             </h:column>
 
                             <h:column>
-                                <f:facet name="header">Mileage</f:facet>
-                                #{extracost.currentMileage}
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Amount of fuel</f:facet>
-                                <h:outputText value="#{extracost.amountOfFuel}">
+                                <f:facet name="header">Cost</f:facet>
+                                <h:outputText value="#{extracost.cost}">
                                     <f:convertNumber pattern="#0.0"/>
-                                </h:outputText>
-                                <h:outputText value="&nbsp;L"/>
-                            </h:column>
-
-                            <h:column>
-                                <f:facet name="header">Price per liter</f:facet>
-                                <h:outputText value="#{extracost.pricePerLiter}">
-                                    <f:convertNumber pattern="#0.00"/>
                                 </h:outputText>
                                 <h:outputText value="&nbsp;PLN"/>
                             </h:column>

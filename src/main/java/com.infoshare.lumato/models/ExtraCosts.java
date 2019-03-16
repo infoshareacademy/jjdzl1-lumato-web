@@ -1,5 +1,6 @@
 package com.infoshare.lumato.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ExtraCosts {
@@ -11,6 +12,12 @@ public class ExtraCosts {
     private Calendar date;
 
     public ExtraCosts() {
+    }
+
+    public String getDateAsString() {
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAsString = format1.format(this.date.getTime());
+        return dateAsString;
     }
 
     public int getId() {

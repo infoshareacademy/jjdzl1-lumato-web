@@ -6,6 +6,7 @@ import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
+@Named
 @RequestScoped
 public class ExtraCostDao extends CommonDAO {
 
