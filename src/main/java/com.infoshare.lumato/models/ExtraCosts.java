@@ -1,16 +1,29 @@
 package com.infoshare.lumato.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
-class ExtraCosts {
+public class ExtraCosts {
 
     private int id;
-    private double cost;
+    private double costs;
     private String description;
     private int carId;
+    private int currentMileage;
     private Calendar date;
 
     public ExtraCosts() {
+    }
+
+    public ExtraCosts(int id, double costs, String description, int carId, int currentMileage, Calendar date) {
+        this.id = id;
+        this.costs = costs;
+        this.description = description;
+        this.carId = carId;
+        this.currentMileage = currentMileage;
+        this.date = date;
+
     }
 
     public int getId() {
@@ -21,12 +34,12 @@ class ExtraCosts {
         this.id = id;
     }
 
-    public double getCost() {
-        return cost;
+    public double getCosts() {
+        return costs;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setCosts(double costs) {
+        this.costs = costs;
     }
 
     public String getDescription() {
@@ -45,6 +58,20 @@ class ExtraCosts {
         this.carId = carId;
     }
 
+    public int getCurrentMileage() {
+        return currentMileage;
+    }
+
+    public void setCurrentMileage(int currentMileage) {
+        this.currentMileage = currentMileage;
+    }
+
+    public String getDateAsString() {
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+        String dateAsString = format1.format(this.date.getTime());
+        return dateAsString;
+    }
+
     public Calendar getDate() {
         return date;
     }
@@ -54,13 +81,16 @@ class ExtraCosts {
     }
 
     @Override
-    public String toString() {
-        return "ExtraCosts{" +
-                "id=" + id +
-                ", cost=" + cost +
-                ", description='" + description + '\'' +
-                ", carId=" + carId +
-                ", date=" + date +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExtraCosts extraCosts = (ExtraCosts) o;
+        return id == extraCosts.id &&
+                currentMileage == extraCosts.currentMileage &&
+                date.equals(extraCosts.date);
     }
+
+    @Override
+    public int hashCode() {return Objects.hash(id,date,currentMileage);}
+
 }
