@@ -73,9 +73,9 @@ public class ExtraCostsBean {
         return carList;
     }
 
-    private void loadExtraCostsList() {
-        extraCostsService = extraCostsService.getAllCarsByUser()
-    }
+//    private void loadExtraCostsList() {
+//        extraCostsService = extraCostsService.getAllCarsByUser()
+//    }
 
     private void loadCars() {
         carList = extraCostsService.getAllCarsByUser();
