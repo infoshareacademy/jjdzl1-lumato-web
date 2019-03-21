@@ -60,11 +60,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">Date of fueling</label>
+                        <label class="col-sm-4 col-form-label">Date</label>
                         <div class="col-sm-8 col align-self-center">
                             <h:inputText a:placeholder="DD-MM-YYYY"
                                          class="form-control form-control-user"
-                                         value="#{fuelInputBean.dateAsString}">
+                                         value="#{ExtraCostsBean.dateAsString}">
                             </h:inputText>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <h:commandButton value="Save"
                                          styleClass="btn btn-primary"
                                          style="border-radius:15px; width: 100%"
-                                         action="#{fuelInputBean.attemptToAddFuelCost}"/>
+                                         action="#{extraCostBean.attemptToAddExtraCosts}"/>
                     </div>
                     <div class="errorMessage">
                         #{messageBean.getMessageValue("wrongCredentialsMessage")}
@@ -81,16 +81,16 @@
                 </div>
 
                 <div class="col-7">
-                    <b:dataTable value="#{fuelInputBean.fuelCostsList}"
-                                 var="tempfuelCost">
+                    <b:dataTable value="#{fuelInputBean.extraCostsList}"
+                                 var="tempExtraCosts">
 
-                        <b:dataTableColumn label=" Date of refueling" width="25px">
-                            <h:outputText value="#{tempfuelCost.date.time}">
+                        <b:dataTableColumn label=" Date of extra cost" width="25px">
+                            <h:outputText value="#{tempExtraCosts   .date.time}">
                                 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
                             </h:outputText>
                         </b:dataTableColumn>
 
-                        <b:dataTableColumn value="#{tempfuelCost.fuelType}" label="Type of Fuel" width="25px"/>
+                        <b:dataTableColumn value="#{tempExtraCosts.}" label="Type of Fuel" width="25px"/>
                         <b:dataTableColumn value="#{tempfuelCost.pricePerLiter}" label="Price per 1l" width="40px"/>
                         <b:dataTableColumn value="#{tempfuelCost.amountOfFuel}" label="Amount of fuel [l]"
                                            width="40px"/>
