@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 @RequestScoped
-@Named("extraCostBeans")
+@Named("extraCostBean")
 public class ExtraCostsBean {
     @Inject
     private ExtraCostsService extraCostsService;
