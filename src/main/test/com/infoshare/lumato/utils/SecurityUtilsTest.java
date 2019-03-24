@@ -18,7 +18,7 @@ class SecurityUtilsTest {
 
     @Test
     void passwordHashCannotBeNull() {
-        assertFalse(passwordHashed == null);
+        assertNotNull(passwordHashed);
     }
 
     @Test

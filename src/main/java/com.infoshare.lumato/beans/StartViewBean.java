@@ -3,12 +3,9 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.dao.FuelCostsDAO;
 import com.infoshare.lumato.dao.UserDAO;
-import com.infoshare.lumato.models.User;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

@@ -23,9 +23,9 @@ public class SecurityUtils {
             byte[] hash = skf.generateSecret(spec).getEncoded();
             hashedPassword = iterations + ":" + toHex(salt) + ":" + toHex(hash);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            System.out.println("No such algorith while trying to generate password hash");
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            System.out.println("Invalid key spec while trying to generate password hash");
         }
         return hashedPassword;
     }
@@ -68,13 +68,14 @@ public class SecurityUtils {
             }
             return diff == 0;
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            System.out.println("No such algorith while trying to validate hashed password");
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            System.out.println("Invalid key spec while trying to validate hashed password");
         }
         return false;
     }
-    private static byte[] fromHex(String hex) throws NoSuchAlgorithmException
+
+    private static byte[] fromHex(String hex)
     {
         byte[] bytes = new byte[hex.length() / 2];
         for(int i = 0; i<bytes.length ;i++)
