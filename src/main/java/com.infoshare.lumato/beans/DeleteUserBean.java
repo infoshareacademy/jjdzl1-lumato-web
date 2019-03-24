@@ -36,7 +36,7 @@ public class DeleteUserBean {
     }
 
     public void deleteUser() {
-        if (userService.passwordIsOk(user)) {
+        if (userService.passwordMatchesUserInSessionPassword(user)) {
             userService.deleteUser(HttpUtils.getCurrentUserFromSession());
             HttpUtils.redirect("/login.xhtml");
         } else {

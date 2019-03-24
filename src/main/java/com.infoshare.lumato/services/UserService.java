@@ -64,9 +64,12 @@ public class UserService {
         currentUser.setPassword(user.getPassword());
     }
 
-    public boolean passwordIsOk(User user) {
+    public boolean passwordMatchesUserInSessionPassword(User user) {
         User currentUser = HttpUtils.getCurrentUserFromSession();
-        return user.getPassword().equals(currentUser.getPassword());
+        String attemptedPassword = user.getPassword();
+        String storedPassword = currentUser.getPassword();
+        boolean passwordMatches = SecurityUtils.validatePassword(attemptedPassword, storedPassword);
+        return passwordMatches;
     }
 
     public void deleteUser(User user){
