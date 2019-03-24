@@ -1,6 +1,5 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.dao.UserDAO;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
@@ -17,9 +16,6 @@ public class RegisterViewBean {
 
     @Inject
     private UserService userService;
-
-    @Inject
-    UserDAO userDAO;
 
     @Inject
     private MessageService messageService;
