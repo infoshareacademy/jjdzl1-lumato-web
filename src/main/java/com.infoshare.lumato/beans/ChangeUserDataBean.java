@@ -4,6 +4,7 @@ import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
 import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.utils.SecurityUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -78,7 +79,7 @@ public class ChangeUserDataBean {
     }
 
     public void updateUserPassword(){
-        if (!userService.passwordIsOk(user)){
+        if (!userService.passwordMatchesUserInSessionPassword(user)){
             messageService.addMessageCookie("wrongPassword", "Wrong password!");
             HttpUtils.redirect("/app/user-management.xhtml");
             return;
@@ -88,7 +89,8 @@ public class ChangeUserDataBean {
             HttpUtils.redirect("/app/user-management.xhtml");
             return;
         }
-        user.setPassword(newPasswordFirst);
+        String newPasswordHashed = SecurityUtils.generatePasswordHash(newPasswordFirst);
+        user.setPassword(newPasswordHashed);
         messageService.addMessageCookie("successfulAction", "Password changed with success!");
         userService.updateUser(user);
         HttpUtils.redirect("/app/user-management.xhtml");

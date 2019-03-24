@@ -110,7 +110,7 @@ public class CarDAO extends CommonDAO {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.isBeforeFirst()) {
-                carInDB = null;
+                return null;
             } else {
                 resultSet.next();
                 fillCarData(carInDB, resultSet);

@@ -4,6 +4,7 @@ import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
 import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.utils.SecurityUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -39,6 +40,9 @@ public class LoginViewBean {
 
     public void attemptToLogIn() {
         if (userService.verifyLoginAttempt(user)) {
+            String rawPassword = user.getPassword();
+            String passwordHashed = SecurityUtils.generatePasswordHash(rawPassword);
+            user.setPassword(passwordHashed);
             userService.storeInSession(user);
             HttpUtils.redirect("/app/start.xhtml");
         } else {

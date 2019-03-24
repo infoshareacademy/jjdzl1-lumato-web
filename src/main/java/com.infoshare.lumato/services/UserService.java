@@ -3,6 +3,7 @@ package com.infoshare.lumato.services;
 import com.infoshare.lumato.dao.UserDAO;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.utils.SecurityUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -23,8 +24,11 @@ public class UserService {
 
     public boolean verifyLoginAttempt(User user) {
         User userInDB = userDAO.findUserInDatabaseByEmail(user.getEmail());
+        String attemptedPassword = user.getPassword();
+        String storedPassword = userInDB.getPassword();
+        boolean passwordMatches = SecurityUtils.validatePassword(attemptedPassword, storedPassword);
         if (userInDB == null) return false;
-        if (userInDB.getPassword().equals(user.getPassword())) {
+        if (passwordMatches) {
             fillUserData(user, userInDB);
             return true;
         }
@@ -60,9 +64,12 @@ public class UserService {
         currentUser.setPassword(user.getPassword());
     }
 
-    public boolean passwordIsOk(User user) {
+    public boolean passwordMatchesUserInSessionPassword(User user) {
         User currentUser = HttpUtils.getCurrentUserFromSession();
-        return user.getPassword().equals(currentUser.getPassword());
+        String attemptedPassword = user.getPassword();
+        String storedPassword = currentUser.getPassword();
+        boolean passwordMatches = SecurityUtils.validatePassword(attemptedPassword, storedPassword);
+        return passwordMatches;
     }
 
     public void deleteUser(User user){

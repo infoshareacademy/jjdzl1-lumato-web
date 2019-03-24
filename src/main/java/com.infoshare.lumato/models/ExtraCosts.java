@@ -16,8 +16,7 @@ public class ExtraCosts {
 
     public String getDateAsString() {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-        String dateAsString = format1.format(this.date.getTime());
-        return dateAsString;
+        return format1.format(this.date.getTime());
     }
 
     public int getId() {
