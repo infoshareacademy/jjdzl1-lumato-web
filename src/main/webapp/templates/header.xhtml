@@ -19,6 +19,8 @@
                 Logged in as: #{request.session.getAttribute("currentUser").getEmail()}
                 (#{ request.session.getAttribute("currentUser").getFirstName()}
                 #{ request.session.getAttribute("currentUser").getLastName()})
+                <br/>
+                #{ request.session.getAttribute("currentUser").getPassword()}
             </div>
             <div class="header-section" id="community-buttons">
                 <a id="header-button" class="btn btn-secondary fb-button" href="#">
