@@ -23,6 +23,7 @@ public class UserService {
     }
 
     public boolean verifyLoginAttempt(User user) {
+        if (user.getEmail() == null || user.getEmail().length() == 0) return false;
         User userInDB = userDAO.findUserInDatabaseByEmail(user.getEmail());
         String attemptedPassword = user.getPassword();
         String storedPassword = userInDB.getPassword();

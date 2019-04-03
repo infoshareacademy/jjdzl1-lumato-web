@@ -82,7 +82,6 @@ public class FuelInputBean implements Serializable {
     private void addFuelCost(Car car) {
         fuelsCostsService.addFuelCost(fuelCost, car);
         redirectToFuelInputPage();
-
     }
 
     public void attemptToAddFuelCost() {
