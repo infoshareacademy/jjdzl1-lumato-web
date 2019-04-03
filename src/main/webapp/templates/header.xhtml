@@ -7,17 +7,17 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition>
-    <nav class="navbar navbar-expand topbar mb-4 static-top shadow navbar-dark">
+    <nav class="navbar navbar-expand topbar mb-4 static-top navbar-dark bg-dark">
         <div class="header mb-0">
 
             <div class="header-section" id="slide-button">
-                <a id="header-button" class="btn btn-secondary" onclick="toggleNav()">
+                <a onclick="toggleNav()">
                     <i id="open-close-icon" class="fa fa-angle-double-left"></i>
                 </a>
             </div>
 
-            <div class="header-section" id="community-buttons">
-                <a id="header-button" class="btn btn-secondary fb-button" href="https://www.facebook.com/infoshareacademy/">
+            <div class="header-section text-right">
+                <a href="https://www.facebook.com/infoshareacademy/">
                     <i id="fb-icon" class="fa fa-facebook"></i>
                 </a>
                 #{ request.session.getAttribute("currentUser").getFirstName()}

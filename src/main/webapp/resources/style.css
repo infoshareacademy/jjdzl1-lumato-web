@@ -2,7 +2,8 @@
 
 body {
     overflow-x: hidden;
-    background-image: url("/resources/img/image_b.jpg");
+    /*background-image: url("/resources/img/image_b.jpg");*/
+    background-color: rgb(13, 14, 17);
     z-index: -1;
     background-size: cover;
     background-repeat: no-repeat;
@@ -30,7 +31,7 @@ body {
     z-index: 100;
     margin-bottom: 10px;
     font-size: 22px;
-
+    color: white;
 }
 
 .header-section {
@@ -43,6 +44,9 @@ body {
 .header i{
     color: white;
     font-size: 35px
+}
+.header a{
+    text-decoration: none;
 }
 
 
@@ -145,7 +149,7 @@ body {
 }
 
 hr{
-border-color: lightgray;
+border-color: rgb(13, 14, 17);
 }
 
 #product-logo {

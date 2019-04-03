@@ -19,7 +19,7 @@
 
                         <div class="col-8">
 
-                            <div class="card shadow">
+                            <div class="card shadow bg-dark text-white">
                                 <div class="card-header">
                                     <h5 class="h5 mb-1 text-gray-800">Update Your Cars</h5>
                                 </div>
@@ -59,7 +59,7 @@
                                         <label class="col-sm-5 col-form-label">Update Fuel type</label>
                                         <div class="col-sm-7 col align-self-center">
                                             <h:selectOneMenu value="#{carBean.car.fuelType}"
-                                                             styleClass="btn btn-secondary btn-md dropdown-toggle"
+                                                             styleClass="btn btn-outline-primary btn-md dropdown-toggle"
                                                              style="width: 100%; text-align: center">
 
                                                 <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
@@ -78,7 +78,7 @@
 
                                     <div class="form-group">
                                         <h:commandButton value="Apply Changes"
-                                                         styleClass="btn btn-primary"
+                                                         styleClass="btn btn-outline-primary"
                                                          style="border-radius:15px; width: 100%"
                                                          action="#{carBean.updateCar(carBean.car)}"/>
                                     </div>
