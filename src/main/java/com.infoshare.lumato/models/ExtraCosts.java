@@ -5,26 +5,26 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-@Entity
-@Table(name = "extracost")
+//@Entity
+//@Table(name = "extracosts")
 public class ExtraCosts {
 
 
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "idextracosts")
+//    @Id
+//    @GeneratedValue (strategy = GenerationType.IDENTITY)
+//    @Column(name = "idextracosts")
     private int id;
 
-    @Column(name = "cost")
+    //@Column(name = "cost")
     private double cost;
 
-    @Column(name = "description")
+    //@Column(name = "description")
     private String description;
 
-    @Column(name = "idcars")
+    //@Column(name = "idcars")
     private int carId;
 
-    @Column(name = "costdate")
+    //@Column(name = "costdate")
     private Calendar date;
 
     public ExtraCosts() {

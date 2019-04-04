@@ -5,19 +5,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 
-@Entity
-@Table(name = "users")
+/*@Entity
+@Table(name = "users")*/
 public class User implements Serializable {
 
-    @Id
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "iduser")
+    @Column(name = "iduser")*/
     private int userId;
 
-    @Column(name = "firstname")
+   // @Column(name = "firstname")
     private String firstName;
 
-    @Column(name = "lastname")
+    //@Column(name = "lastname")
     private String lastName;
 
     private String email;
