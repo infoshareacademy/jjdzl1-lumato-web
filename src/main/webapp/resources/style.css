@@ -8,7 +8,6 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-
 }
 
 #container-fluid {
@@ -188,11 +187,11 @@ border-color: rgb(13, 14, 17);
 }
 
 input[type="submit"] {
-    border-radius: 10px !important;
+    border-radius: 1px !important;
 }
 
 input[type="text"], input[type="password"] {
-    border-radius: 10px !important;
+    border-radius: 1px !important;
 }
 
 .value {
