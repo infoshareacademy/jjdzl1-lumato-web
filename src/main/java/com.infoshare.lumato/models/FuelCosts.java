@@ -1,17 +1,36 @@
 package com.infoshare.lumato.models;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+
+@Entity
+@Table(name = "fuelcosts")
 public class FuelCosts {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idfuelcost")
     private int id;
+
     private Calendar date;
+
+    @Column(name = "priceperliter")
     private double pricePerLiter;
+
+    @Column(name = "amountoffuel")
     private double amountOfFuel;
+
+    @Column(name = "currentmileage")
     private int currentMileage;
+
+    @Column(name = "typeoffuel")
     private String fuelType;
+
+    @Column(name = "idcar")
     private int idCar;
 
 

@@ -1,16 +1,29 @@
 package com.infoshare.lumato.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "iduser")
     private int userId;
+
+    @Column(name = "firstname")
     private String firstName;
+
+    @Column(name = "lastname")
     private String lastName;
+
     private String email;
+
     private String password;
+
     private String confirmPassword;
 
     public User() {

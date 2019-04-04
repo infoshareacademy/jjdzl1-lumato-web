@@ -1,18 +1,37 @@
 package com.infoshare.lumato.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
+@Entity
+@Table(name = "cars")
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 8242396670252535134L;
+
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @Column(name = "idcars")
     private int carId;
-    private int idUserInCars;
-    private String brand;
+
+    @Column(name = "model")
     private String model;
+
+    @Column(name = "brand")
+    private String brand;
+
+    @Column(name = "year")
     private int productionYear;
+
+    @Column(name = "iduser")
+    private int idUserInCars;
+
+    @Column(name = "fueltype")
     private String fuelType;
+
+    @Column(name = "regplate")
     private String regPlate;
+
 
     public Car(){
 
@@ -84,3 +103,4 @@ public class Car implements Serializable {
         this.idUserInCars = idUserInCars;
     }
 }
+

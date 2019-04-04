@@ -1,14 +1,30 @@
 package com.infoshare.lumato.models;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+
+@Entity
+@Table(name = "extracost")
 public class ExtraCosts {
 
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "idextracosts")
     private int id;
+
+    @Column(name = "cost")
     private double cost;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "idcars")
     private int carId;
+
+    @Column(name = "costdate")
     private Calendar date;
 
     public ExtraCosts() {
