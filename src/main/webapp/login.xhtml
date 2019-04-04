@@ -26,16 +26,16 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Your email</label>
-                            <h:inputText a:placeholder="Email" styleClass="form-control form-control-user"
-                                         value="#{loginBean.user.email}" id="email"/>
-                            <h:message for="email" style="color: red;"></h:message>
+                            <h:inputText a:placeholder="Email"
+                                         styleClass="form-control form-control-user"
+                                         value="#{loginBean.user.email}"
+                                         id="email"/>
                         </div>
 
                         <div class="form-group">
-                            <h:inputSecret a:placeholder="Password" styleClass="form-control form-control-user"
-                                         value="#{loginBean.user.password}" id="password"/>
-                            <h:message for="password" style="color: red;"></h:message>
+                            <h:inputSecret a:placeholder="Password"
+                                           styleClass="form-control form-control-user"
+                                           value="#{loginBean.user.password}" id="password"/>
                         </div>
 
                         <div class="form-group">
@@ -43,6 +43,7 @@
                                 <label> <input type="checkbox"/> Remember me </label>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <h:commandButton value="Log In" styleClass="btn btn-primary btn-block"
                                              action="#{loginBean.attemptToLogIn()}"/>

@@ -176,8 +176,8 @@ border-color: rgb(13, 14, 17);
 
 
 .errorMessage {
-    color: red;
-    font-size: 20px;
+    color: #ff5456;
+    font-size: 17px;
     text-align: center;
 }
 
