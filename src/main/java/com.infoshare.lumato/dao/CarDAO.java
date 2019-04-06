@@ -24,7 +24,8 @@ import java.util.List;
 @Named
 public class CarDAO extends CommonDAO {
 
-    public CarDAO(){}
+    public CarDAO() {
+    }
 
     private final SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
 
@@ -34,12 +35,8 @@ public class CarDAO extends CommonDAO {
 
     int userId = currentUser.getUserId();
 
-
-
     public List<Car> getAllCarsByUser() {
-        System.out.println("\n\n\n\n\n\n ++++++++++++++++++ USER ID:: " + userId);
-
-        Session currentSession  = sessionFactory.openSession();
+        Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
 
         String hQuery = "FROM Car C WHERE C.idUserInCars=:userId";
@@ -48,7 +45,6 @@ public class CarDAO extends CommonDAO {
 
         List<Car> cars = query.getResultList();
 
-
         currentSession.getTransaction().commit();
         currentSession.close();
 
@@ -56,8 +52,8 @@ public class CarDAO extends CommonDAO {
     }
 
     public void addCar(Car theCar) {
-        /*try {
-            String sql = "insert into cars (brand, model, year, fuelType, regplate, iduser) values (?,?,?,?,?,?)";
+       /* try {
+            String sql = "insert into car (brand, model, production_year, fuel_type, reg_plate, user_id) values (?,?,?,?,?,?)";
 
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
@@ -72,15 +68,15 @@ public class CarDAO extends CommonDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
+*/
 
-        Session currentSession  = sessionFactory.openSession();
+        Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
 
         User tempUser = currentSession.get(User.class, userId);
 
-        Car tempCat = theCar;
-        tempUser.addCar(tempCat);
+        tempUser.addCar(theCar);
 
         currentSession.save(theCar);
 
@@ -103,6 +99,7 @@ public class CarDAO extends CommonDAO {
         }
     }
 
+    // TODO: 06.04.2019  
     public Car findCarByRegistrationPlate(String regPlate) {
         /*Car carInDB = new Car();
         try {
@@ -121,25 +118,19 @@ public class CarDAO extends CommonDAO {
         }*/
 
         Car carInDB = null;
-        Session currentSession  = sessionFactory.openSession();
+        Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
-
-
 
         try {
             String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
-
             Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate);
-
             carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
         } catch (NoResultException e) {
             System.out.println("\n\n\n\n **************************** W NoResultException w TRY");
         }
 
-
         currentSession.getTransaction().commit();
         currentSession.close();
-
 
         return carInDB;
     }
@@ -181,7 +172,7 @@ public class CarDAO extends CommonDAO {
         }
 
     }
-    
+
     private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
         theCar.setCarId(resultSet.getInt("idcars"));
         theCar.setIdUserInCars(resultSet.getInt("iduser"));

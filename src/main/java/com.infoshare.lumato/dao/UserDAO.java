@@ -94,9 +94,9 @@ public class UserDAO extends CommonDAO {
     }
 
     public User findUserInDatabaseByEmail(String email) {
-        /*User userInDB = new User();
+        User userInDB = new User();
         try {
-            String sql = "SELECT * FROM users WHERE email = ?";
+            String sql = "SELECT * FROM user WHERE email = ?";
             PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
@@ -106,15 +106,16 @@ public class UserDAO extends CommonDAO {
                 resultSet.next();
                 userInDB.setEmail(resultSet.getString("email"));
                 userInDB.setPassword(resultSet.getString("password"));
-                userInDB.setFirstName(resultSet.getString("firstname"));
-                userInDB.setLastName(resultSet.getString("lastname"));
-                userInDB.setUserId(resultSet.getInt("iduser"));
+                userInDB.setFirstName(resultSet.getString("first_name"));
+                userInDB.setLastName(resultSet.getString("last_name"));
+                userInDB.setUserId(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
+        return userInDB;
 
-        User userInDB = null;
+        /*User userInDB = null;
 
         Session currentSession = sessionFactory.openSession();
 
@@ -130,7 +131,7 @@ public class UserDAO extends CommonDAO {
 
         currentSession.getTransaction().commit();
         currentSession.close();
-        return userInDB;
+        return userInDB;*/
     }
 
     public void deleteUser(int userId) {

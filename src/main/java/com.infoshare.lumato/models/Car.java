@@ -11,7 +11,7 @@ public class Car implements Serializable {
     private static final long serialVersionUID = 8242396670252535134L;
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int carId;
 
@@ -24,7 +24,7 @@ public class Car implements Serializable {
     @Column(name = "production_year")
     private int productionYear;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", insertable = false, updatable = false)
     private int idUserInCars;
 
     @Column(name = "fuel_type")
@@ -37,7 +37,7 @@ public class Car implements Serializable {
     @JoinColumn(name="user_id")
     private User theUser;
 
-    public Car(){
+    public Car() {
     }
 
 
@@ -88,7 +88,7 @@ public class Car implements Serializable {
     }
 
     public void setRegPlate(String regPlate) {
-        this.regPlate = regPlate.toUpperCase().replace(" ","");
+        this.regPlate = regPlate.toUpperCase().replace(" ", "");
     }
 
     public int getCarId() {
@@ -115,4 +115,3 @@ public class Car implements Serializable {
         this.theUser = user;
     }
 }
-
