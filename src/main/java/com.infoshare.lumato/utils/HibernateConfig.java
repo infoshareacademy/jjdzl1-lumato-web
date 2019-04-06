@@ -61,11 +61,8 @@ public class HibernateConfig {
             } catch (Exception e) {
 
                 e.printStackTrace();
-
             }
-
         }
-
         return sessionFactory;
     }
 }

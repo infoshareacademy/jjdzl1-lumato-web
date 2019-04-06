@@ -2,16 +2,17 @@ package com.infoshare.lumato.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "cars")
+@Table(name = "car")
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 8242396670252535134L;
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    @Column(name = "idcars")
+    @Column(name = "id")
     private int carId;
 
     @Column(name = "model")
@@ -20,22 +21,25 @@ public class Car implements Serializable {
     @Column(name = "brand")
     private String brand;
 
-    @Column(name = "year")
+    @Column(name = "production_year")
     private int productionYear;
 
-    @Column(name = "iduser")
+    @Column(name = "user_id")
     private int idUserInCars;
 
-    @Column(name = "fueltype")
+    @Column(name = "fuel_type")
     private String fuelType;
 
-    @Column(name = "regplate")
+    @Column(name = "reg_plate")
     private String regPlate;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User theUser;
 
     public Car(){
-
     }
+
 
     public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String regPlate) {
         this.carId = carId;
@@ -101,6 +105,14 @@ public class Car implements Serializable {
 
     public void setIdUserInCars(int idUserInCars) {
         this.idUserInCars = idUserInCars;
+    }
+
+    public User getUser() {
+        return theUser;
+    }
+
+    public void setUser(User user) {
+        this.theUser = user;
     }
 }
 

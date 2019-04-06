@@ -18,16 +18,16 @@ public class FuelCosts {
 
     private Calendar date;
 
-   // @Column(name = "priceperliter")
+   // @Column(name = "price_per_liter")
     private double pricePerLiter;
 
-    //@Column(name = "amountoffuel")
+    //@Column(name = "amount_off_uel")
     private double amountOfFuel;
 
-    //@Column(name = "currentmileage")
+    //@Column(name = "current_mileage")
     private int currentMileage;
 
-    //@Column(name = "typeoffuel")
+    //@Column(name = "type_off_uel")
     private String fuelType;
 
     //@Column(name = "idcar")

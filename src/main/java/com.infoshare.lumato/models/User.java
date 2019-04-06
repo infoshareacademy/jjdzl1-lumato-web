@@ -2,29 +2,39 @@ package com.infoshare.lumato.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
-/*@Entity
-@Table(name = "users")*/
+@Entity
+@Table(name = "user")
 public class User implements Serializable {
 
-/*    @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "iduser")*/
+    @Column(name = "id")
     private int userId;
 
-   // @Column(name = "firstname")
+    @Column(name = "first_name")
     private String firstName;
 
-    //@Column(name = "lastname")
+    @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "confirm_password")
     private String confirmPassword;
+
+
+    @OneToMany(mappedBy = "theUser",
+            cascade = CascadeType.ALL)
+    private List<Car> cars;
 
     public User() {
 
@@ -85,6 +95,14 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
     @Override
     public String toString() {
         return "UserBean{" +
@@ -110,6 +128,14 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(userId, firstName, lastName, email, password, confirmPassword);
+    }
+
+    public void addCar(Car tempCar){
+        if(cars == null) {
+            cars = new ArrayList<>();
+        }
+        cars.add(tempCar);
+        tempCar.setUser(this);
     }
 }
 

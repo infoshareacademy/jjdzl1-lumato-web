@@ -1,11 +1,18 @@
 package com.infoshare.lumato.dao;
 
+import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.persistence.DBConnection;
+import com.infoshare.lumato.utils.HibernateConfig;
+import org.hibernate.HibernateError;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,10 +24,12 @@ import java.util.List;
 @RequestScoped
 public class UserDAO extends CommonDAO {
 
+    private final SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+
     private List<User> users = new ArrayList<>();
 
     public List<User> getAllUsers() {
-        try {
+        /*try {
             Statement myStatement = myConn.getConnection().createStatement();
             ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
 
@@ -37,12 +46,28 @@ public class UserDAO extends CommonDAO {
             System.out.println("Failed to create a connection");
             e.printStackTrace();
         }
-        System.out.println("Driver not found.");
+        System.out.println("Driver not found.");*/
+
+
+        Session currentSession = sessionFactory.openSession();
+        currentSession.beginTransaction();
+
+        Query<User> query =
+                currentSession.createQuery("FROM User", User.class);
+        System.out.println("\n\n\n\n ++++++++++++++ getAllUsers Query  ");
+
+        users = query.getResultList();
+        System.out.println("\n\n\n\n ++++++++++++++ getAllUsers ResultList  ");
+        System.out.println(users);
+
+
+        currentSession.getTransaction().commit();
+        currentSession.close();
         return users;
     }
 
-    public void addUser(User theUser) {
-        try {
+    public void addOrUpdateUser(User theUser) {
+        /*try {
             String sql = "insert into users (firstname, lastname, email, password) values (?, ?, ?, ?)";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
 
@@ -56,27 +81,20 @@ public class UserDAO extends CommonDAO {
         } catch (Exception ecx) {
             ecx.printStackTrace();
             System.out.println("Failed to Add new User!");
-        }
-    }
+        }*/
 
-    public void sendUpdateUserQuery(User user) {
-        try {
-            String sql = "update users set firstname=?, lastname=?, email=?, password=? where iduser=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setString(1, user.getFirstName());
-            myStmt.setString(2, user.getLastName());
-            myStmt.setString(3, user.getEmail());
-            myStmt.setString(4, user.getPassword());
-            myStmt.setInt(5, user.getUserId());
-            myStmt.executeUpdate();
-        } catch (Exception exc) {
-            System.out.println("Cannot update an user!");
-            exc.printStackTrace();
-        }
+        Session currentSession = sessionFactory.openSession();
+
+        currentSession.beginTransaction();
+
+        currentSession.saveOrUpdate(theUser);
+
+        currentSession.getTransaction().commit();
+        currentSession.close();
     }
 
     public User findUserInDatabaseByEmail(String email) {
-        User userInDB = new User();
+        /*User userInDB = new User();
         try {
             String sql = "SELECT * FROM users WHERE email = ?";
             PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
@@ -94,11 +112,30 @@ public class UserDAO extends CommonDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }*/
+
+        User userInDB = null;
+
+        Session currentSession = sessionFactory.openSession();
+
+        currentSession.beginTransaction();
+
+        try {
+            String hQuery = "FROM User U WHERE U.email=:theEmail";
+            System.out.println("\n\n\n\n **************************** QuERY ");
+            userInDB = currentSession.createQuery(hQuery, User.class).setParameter("theEmail", email).getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("\n\n\n\n **************************** W NoResultException w TRY");
         }
+
+        currentSession.getTransaction().commit();
+        currentSession.close();
         return userInDB;
     }
 
     public void deleteUser(int userId) {
+
+        /*
         try {
             String sql = "DELETE FROM users WHERE iduser=?";
             PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
@@ -107,6 +144,18 @@ public class UserDAO extends CommonDAO {
         } catch (Exception exc) {
             System.out.println("Cannot update an user!");
             exc.printStackTrace();
-        }
+        }*/
+
+
+        Session currentSession = sessionFactory.openSession();
+        currentSession.beginTransaction();
+
+        Query query =
+                currentSession.createQuery("DELETE from User where id=:userId");
+
+        query.setParameter("userId", userId).executeUpdate();
+
+        currentSession.getTransaction().commit();
+        currentSession.close();
     }
 }

@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,16 +28,16 @@ public class CarDAO extends CommonDAO {
 
     private final SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
 
-
-
     private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     private List<Car> cars = new ArrayList<>();
+
     int userId = currentUser.getUserId();
 
 
 
     public List<Car> getAllCarsByUser() {
+        System.out.println("\n\n\n\n\n\n ++++++++++++++++++ USER ID:: " + userId);
 
         Session currentSession  = sessionFactory.openSession();
         currentSession.beginTransaction();
@@ -76,14 +77,15 @@ public class CarDAO extends CommonDAO {
         Session currentSession  = sessionFactory.openSession();
         currentSession.beginTransaction();
 
+        User tempUser = currentSession.get(User.class, userId);
 
-        currentSession.saveOrUpdate(theCar);
+        Car tempCat = theCar;
+        tempUser.addCar(tempCat);
 
+        currentSession.save(theCar);
 
         currentSession.getTransaction().commit();
         currentSession.close();
-
-
 
     }
 
@@ -102,7 +104,7 @@ public class CarDAO extends CommonDAO {
     }
 
     public Car findCarByRegistrationPlate(String regPlate) {
-        Car carInDB = new Car();
+        /*Car carInDB = new Car();
         try {
             String sql = "SELECT * FROM cars WHERE regplate = ?";
             PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
@@ -116,7 +118,29 @@ public class CarDAO extends CommonDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }*/
+
+        Car carInDB = null;
+        Session currentSession  = sessionFactory.openSession();
+        currentSession.beginTransaction();
+
+
+
+        try {
+            String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
+
+            Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate);
+
+            carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("\n\n\n\n **************************** W NoResultException w TRY");
         }
+
+
+        currentSession.getTransaction().commit();
+        currentSession.close();
+
+
         return carInDB;
     }
 

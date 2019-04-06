@@ -17,7 +17,7 @@ public class UserService {
 
 
     public void addUser(User user) {
-        userDAO.addUser(user);
+        userDAO.addOrUpdateUser(user);
         User justCreatedUser = userDAO.findUserInDatabaseByEmail(user.getEmail());
         storeInSession(justCreatedUser);
     }
@@ -57,7 +57,7 @@ public class UserService {
     public void updateUser(User user) {
         User currentUser = HttpUtils.getCurrentUserFromSession();
         fillUserData(user, currentUser);
-        userDAO.sendUpdateUserQuery(user);
+        userDAO.addOrUpdateUser(user);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
         currentUser.setEmail(user.getEmail());
