@@ -24,31 +24,17 @@ public class Car implements Serializable {
     @Column(name = "production_year")
     private int productionYear;
 
-    @Column(name = "user_id", insertable = false, updatable = false)
-    private int idUserInCars;
-
     @Column(name = "fuel_type")
     private String fuelType;
 
     @Column(name = "reg_plate")
     private String regPlate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
     private User theUser;
 
     public Car() {
-    }
-
-
-    public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String regPlate) {
-        this.carId = carId;
-        this.idUserInCars = idUserInCars;
-        this.brand = brand;
-        this.model = model;
-        this.productionYear = productionYear;
-        this.regPlate = regPlate;
-        this.fuelType = fuelType;
     }
 
     public String getBrand() {
@@ -99,13 +85,6 @@ public class Car implements Serializable {
         this.carId = carId;
     }
 
-    public int getIdUserInCars() {
-        return idUserInCars;
-    }
-
-    public void setIdUserInCars(int idUserInCars) {
-        this.idUserInCars = idUserInCars;
-    }
 
     public User getUser() {
         return theUser;
