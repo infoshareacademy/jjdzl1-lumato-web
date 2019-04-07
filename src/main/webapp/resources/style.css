@@ -2,6 +2,12 @@
 
 body {
     overflow-x: hidden;
+    /*background-image: url("/resources/img/image_b.jpg");*/
+    background-color: rgb(13, 14, 17);
+    z-index: -1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 #container-fluid {
@@ -10,7 +16,6 @@ body {
     margin-left: 250px;
     transition: all 0.3s linear;
 }
-
 
 /** HEADER STYLES */
 
@@ -22,10 +27,10 @@ body {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #ffffff;
     z-index: 100;
     margin-bottom: 10px;
     font-size: 22px;
+    color: white;
 }
 
 .header-section {
@@ -35,6 +40,15 @@ body {
     display: table-cell;
 }
 
+.header i{
+    color: white;
+    font-size: 35px
+}
+.header a{
+    text-decoration: none;
+}
+
+
 #slide-button {
     width: 1px;
 }
@@ -43,7 +57,8 @@ body {
     padding: 0 6px;
     margin: 0;
     font-size: inherit;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
+    opacity: 0.5;
     border: none;
     color: inherit;
     box-shadow: inherit;
@@ -70,7 +85,8 @@ body {
 
 /** SIDE MENU */
 .sideMenu {
-    background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+    /*background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);*/
+    background-image: linear-gradient(180deg, rgb(50, 56, 62) 10%, #2e2f30 100%);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -131,6 +147,10 @@ body {
     color: white; /* navigation options text color */
 }
 
+hr{
+border-color: rgb(13, 14, 17);
+}
+
 #product-logo {
     margin-left: 20px;
 }
@@ -156,8 +176,8 @@ body {
 
 
 .errorMessage {
-    color: red;
-    font-size: 20px;
+    color: #ff5456;
+    font-size: 17px;
     text-align: center;
 }
 
@@ -167,11 +187,11 @@ body {
 }
 
 input[type="submit"] {
-    border-radius: 10px !important;
+    border-radius: 1px !important;
 }
 
 input[type="text"], input[type="password"] {
-    border-radius: 10px !important;
+    border-radius: 1px !important;
 }
 
 .value {

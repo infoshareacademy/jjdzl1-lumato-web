@@ -1,15 +1,10 @@
 package com.infoshare.lumato.dao;
 
 import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.persistence.DBConnection;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
