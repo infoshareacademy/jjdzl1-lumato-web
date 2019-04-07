@@ -33,12 +33,8 @@ public class UserDAO extends CommonDAO {
 
         Query<User> query =
                 currentSession.createQuery("FROM User", User.class);
-        System.out.println("\n\n\n\n ++++++++++++++ getAllUsers Query  ");
 
         List<User> users = query.getResultList();
-        System.out.println("\n\n\n\n ++++++++++++++ getAllUsers ResultList  ");
-        System.out.println(users);
-
 
         currentSession.getTransaction().commit();
         currentSession.close();
@@ -57,28 +53,8 @@ public class UserDAO extends CommonDAO {
         currentSession.close();
     }
 
+    // TODO: 07.04.2019 optional?
     public User findUserInDatabaseByEmail(String email) {
-       /* User userInDB = new User();
-        try {
-            String sql = "SELECT * FROM user WHERE email = ?";
-            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                userInDB = null;
-            } else {
-                resultSet.next();
-                userInDB.setEmail(resultSet.getString("email"));
-                userInDB.setPassword(resultSet.getString("password"));
-                userInDB.setFirstName(resultSet.getString("first_name"));
-                userInDB.setLastName(resultSet.getString("last_name"));
-                userInDB.setUserId(resultSet.getInt("id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userInDB;*/
-
         User userInDB = null;
 
         Session currentSession = sessionFactory.openSession();
@@ -89,7 +65,7 @@ public class UserDAO extends CommonDAO {
             String hQuery = "FROM User U WHERE U.email=:theEmail";
             userInDB = currentSession.createQuery(hQuery, User.class).setParameter("theEmail", email).getSingleResult();
         } catch (NoResultException e) {
-            System.out.println("\n\n\n\n **************************** W NoResultException w TRY");
+            System.out.println("No user in DataBAse!@");
         }
 
         currentSession.getTransaction().commit();

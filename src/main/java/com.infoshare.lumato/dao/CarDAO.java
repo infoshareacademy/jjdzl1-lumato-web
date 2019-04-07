@@ -37,12 +37,11 @@ public class CarDAO extends CommonDAO {
         Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
 
-        String hQuery = "FROM Car C WHERE C.idUserInCars=:userId";
+        String hQuery = "FROM Car C WHERE C.theUser.id=:userId";
 
         Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("userId", userId);
 
         List<Car> cars = query.getResultList();
-
         currentSession.getTransaction().commit();
         currentSession.close();
 
@@ -66,17 +65,24 @@ public class CarDAO extends CommonDAO {
     }
 
     public void deleteCar(Car theCar) {
-        try {
-            String sql = "DELETE FROM cars WHERE idcars=?";
+//        try {
+//            String sql = "DELETE FROM cars WHERE idcars=?";
+//
+//            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
+//            myStmt.setInt(1, theCar.getCarId());
+//
+//            myStmt.execute();
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+        Session currentSession = sessionFactory.openSession();
+        currentSession.beginTransaction();
 
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, theCar.getCarId());
+        currentSession.delete(theCar);
 
-            myStmt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        currentSession.getTransaction().commit();
+        currentSession.close();
     }
 
     // TODO: 06.04.2019  
@@ -131,6 +137,9 @@ public class CarDAO extends CommonDAO {
             e.printStackTrace();
         }
         return carInDB;
+
+
+
     }
 
     public void updateCar(Car carInDB) {
