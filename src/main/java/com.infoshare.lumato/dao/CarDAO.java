@@ -2,7 +2,6 @@ package com.infoshare.lumato.dao;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.persistence.DBConnection;
 import com.infoshare.lumato.utils.HibernateConfig;
 import com.infoshare.lumato.utils.HttpUtils;
 import org.hibernate.Session;
@@ -10,13 +9,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +30,10 @@ public class CarDAO extends CommonDAO {
 
     private List<Car> cars = new ArrayList<>();
 
-    int userId = currentUser.getUserId();
+    private int userId = currentUser.getUserId();
 
     public List<Car> getAllCarsByUser() {
+
         Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
 
@@ -52,24 +50,6 @@ public class CarDAO extends CommonDAO {
     }
 
     public void addCar(Car theCar) {
-       /* try {
-            String sql = "insert into car (brand, model, production_year, fuel_type, reg_plate, user_id) values (?,?,?,?,?,?)";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, theCar.getBrand());
-            myStmt.setString(2, theCar.getModel());
-            myStmt.setInt(3, theCar.getProductionYear());
-            myStmt.setString(4, theCar.getFuelType());
-            myStmt.setString(5, theCar.getRegPlate());
-            myStmt.setInt(6, currentUser.getUserId());
-
-            myStmt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-*/
 
         Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
@@ -125,8 +105,7 @@ public class CarDAO extends CommonDAO {
             String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
             Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate);
             carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
-        } catch (NoResultException e) {
-            System.out.println("\n\n\n\n **************************** W NoResultException w TRY");
+        } catch (NoResultException ignored) {
         }
 
         currentSession.getTransaction().commit();
@@ -182,6 +161,5 @@ public class CarDAO extends CommonDAO {
         theCar.setRegPlate(resultSet.getString("regplate"));
         theCar.setProductionYear(resultSet.getInt("year"));
     }
-
 
 }
