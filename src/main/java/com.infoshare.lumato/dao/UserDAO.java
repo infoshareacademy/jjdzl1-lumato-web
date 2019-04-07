@@ -97,16 +97,15 @@ public class UserDAO extends CommonDAO {
         return userInDB;
     }
 
-    public void deleteUser(int userId) {
+    public void deleteCurrentUser(User theUser) {
 
         Session currentSession = sessionFactory.openSession();
         currentSession.beginTransaction();
 
-        Query query =
-                currentSession.createQuery("DELETE from User where id=:userId");
-        currentSession.delete(userId);
+        User tempUser = currentSession.get(User.class, theUser.getUserId());
 
-        query.setParameter("userId", userId).executeUpdate();
+        currentSession.delete(tempUser);
+
 
         currentSession.getTransaction().commit();
         currentSession.close();

@@ -33,7 +33,7 @@ public class User implements Serializable {
 
 
     @OneToMany(mappedBy = "theUser",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+            cascade = {CascadeType.ALL})
     private List<Car> cars;
 
     public User() {

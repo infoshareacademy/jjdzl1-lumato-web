@@ -69,11 +69,10 @@ public class UserService {
         User currentUser = HttpUtils.getCurrentUserFromSession();
         String attemptedPassword = user.getPassword();
         String storedPassword = currentUser.getPassword();
-        boolean passwordMatches = SecurityUtils.validatePassword(attemptedPassword, storedPassword);
-        return passwordMatches;
+        return SecurityUtils.validatePassword(attemptedPassword, storedPassword);
     }
 
-    public void deleteUser(User user){
-        userDAO.deleteUser(user.getUserId());
+    public void deleteCurrentUser(){
+        userDAO.deleteCurrentUser(HttpUtils.getCurrentUserFromSession());
     }
 }

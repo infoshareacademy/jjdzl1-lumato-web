@@ -154,7 +154,7 @@ public class CarDAO extends CommonDAO {
 
     private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
         theCar.setCarId(resultSet.getInt("idcars"));
-        theCar.setIdUserInCars(resultSet.getInt("iduser"));
+        theCar.getUser().setUserId(resultSet.getInt("iduser"));
         theCar.setBrand(resultSet.getString("brand"));
         theCar.setModel(resultSet.getString("model"));
         theCar.setFuelType(resultSet.getString("fueltype"));
