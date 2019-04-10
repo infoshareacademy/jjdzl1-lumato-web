@@ -14,7 +14,6 @@ import javax.persistence.NoResultException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequestScoped
@@ -28,84 +27,57 @@ public class CarDAO extends CommonDAO {
 
     private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    private List<Car> cars = new ArrayList<>();
-
     private int userId = currentUser.getUserId();
+
+
+    private Session getSession() {
+        Session currentSession = sessionFactory.openSession();
+        currentSession.beginTransaction();
+        return currentSession;
+    }
+
+    private void executeAndCloseTransaction(Session currentSession) {
+        currentSession.getTransaction().commit();
+        currentSession.close();
+    }
 
     public List<Car> getAllCarsByUser() {
 
-        Session currentSession = sessionFactory.openSession();
-        currentSession.beginTransaction();
+        Session currentSession = getSession();
 
         String hQuery = "FROM Car C WHERE C.theUser.id=:userId";
-
         Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("userId", userId);
-
         List<Car> cars = query.getResultList();
-        currentSession.getTransaction().commit();
-        currentSession.close();
+
+        executeAndCloseTransaction(currentSession);
 
         return cars;
     }
 
-    public void addCar(Car theCar) {
+    public void addOrUpdateCar(Car theCar) {
 
-        Session currentSession = sessionFactory.openSession();
-        currentSession.beginTransaction();
+        Session currentSession = getSession();
 
         User tempUser = currentSession.get(User.class, userId);
-
         tempUser.addCar(theCar);
+        currentSession.saveOrUpdate(theCar);
 
-        currentSession.save(theCar);
-
-        currentSession.getTransaction().commit();
-        currentSession.close();
-
+        executeAndCloseTransaction(currentSession);
     }
 
     public void deleteCar(Car theCar) {
-//        try {
-//            String sql = "DELETE FROM cars WHERE idcars=?";
-//
-//            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-//            myStmt.setInt(1, theCar.getCarId());
-//
-//            myStmt.execute();
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-        Session currentSession = sessionFactory.openSession();
-        currentSession.beginTransaction();
+
+        Session currentSession = getSession();
 
         currentSession.delete(theCar);
 
-        currentSession.getTransaction().commit();
-        currentSession.close();
+        executeAndCloseTransaction(currentSession);
     }
+    // TODO: 06.04.2019
 
-    // TODO: 06.04.2019  
     public Car findCarByRegistrationPlate(String regPlate) {
-        /*Car carInDB = new Car();
-        try {
-            String sql = "SELECT * FROM cars WHERE regplate = ?";
-            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
-            statement.setString(1, regPlate);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                carInDB = null;
-            } else {
-                resultSet.next();
-                fillCarData(carInDB, resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
         Car carInDB = null;
-        Session currentSession = sessionFactory.openSession();
-        currentSession.beginTransaction();
+        Session currentSession = getSession();
 
         try {
             String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
@@ -114,8 +86,7 @@ public class CarDAO extends CommonDAO {
         } catch (NoResultException ignored) {
         }
 
-        currentSession.getTransaction().commit();
-        currentSession.close();
+        executeAndCloseTransaction(currentSession);
 
         return carInDB;
     }
@@ -137,28 +108,6 @@ public class CarDAO extends CommonDAO {
             e.printStackTrace();
         }
         return carInDB;
-
-
-
-    }
-
-    public void updateCar(Car carInDB) {
-
-        try {
-            String sql = "update cars set model=?, brand=?, year=?, fueltype=?, regplate=? where idcars=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, carInDB.getModel());
-            myStmt.setString(2, carInDB.getBrand());
-            myStmt.setInt(3, carInDB.getProductionYear());
-            myStmt.setString(4, carInDB.getFuelType());
-            myStmt.setString(5, carInDB.getRegPlate());
-            myStmt.setInt(6, carInDB.getCarId());
-            myStmt.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {

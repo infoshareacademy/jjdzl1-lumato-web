@@ -17,7 +17,7 @@ public class CarsService {
     CarDAO carDAO;
 
     public void addCar(Car car) {
-        carDAO.addCar(car);
+        carDAO.addOrUpdateCar(car);
     }
 
     public void deleteCar(Car car) {
@@ -37,7 +37,7 @@ public class CarsService {
     }
 
     public void updateCar(Car car) {
-        carDAO.updateCar(car);
+        carDAO.addOrUpdateCar(car);
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
