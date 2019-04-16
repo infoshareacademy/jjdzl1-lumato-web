@@ -21,7 +21,7 @@ public class ExtraCosts {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "car_id")
+    @Column(name = "car_id", insertable = false, updatable = false)
     private int carId;
 
     @Column(name = "cost_date")
@@ -30,6 +30,13 @@ public class ExtraCosts {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "car_id")
     private Car car;
+
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+    private User theUser;
+
+
 
     public ExtraCosts() {
     }
@@ -85,6 +92,15 @@ public class ExtraCosts {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+
+    public User getTheUser() {
+        return theUser;
+    }
+
+    public void setTheUser(User theUser) {
+        this.theUser = theUser;
     }
 
     @Override

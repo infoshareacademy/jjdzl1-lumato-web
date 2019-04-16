@@ -1,10 +1,15 @@
 package com.infoshare.lumato.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "car")
 public class Car implements Serializable {
@@ -42,68 +47,12 @@ public class Car implements Serializable {
     public Car() {
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand.toUpperCase();
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model.toUpperCase();
-    }
-
-    public int getProductionYear() {
-        return productionYear;
-    }
-
-    public void setProductionYear(int productionYear) {
-        this.productionYear = productionYear;
-    }
-
-    public String getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public String getRegPlate() {
-        return regPlate;
-    }
-
-    public void setRegPlate(String regPlate) {
-        this.regPlate = regPlate.toUpperCase().replace(" ", "");
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
-
     public User getUser() {
         return theUser;
     }
 
     public void setUser(User user) {
         this.theUser = user;
-    }
-
-    public User getTheUser() {
-        return theUser;
-    }
-
-    public void setTheUser(User theUser) {
-        this.theUser = theUser;
     }
 
     public void addExtraCost(ExtraCosts extraCost){

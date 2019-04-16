@@ -1,5 +1,8 @@
 package com.infoshare.lumato.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,6 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 
+@Setter
+@Getter
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -36,6 +41,10 @@ public class User implements Serializable {
             cascade = {CascadeType.ALL})
     private List<Car> cars;
 
+    @OneToMany(mappedBy = "theUser",
+            cascade = {CascadeType.ALL})
+    private List<ExtraCosts> extraCostsList;
+
     public User() {
     }
 
@@ -44,71 +53,6 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public List<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(List<Car> cars) {
-        this.cars = cars;
-    }
-
-    @Override
-    public String toString() {
-        return "UserBean{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
     }
 
     @Override
@@ -135,6 +79,15 @@ public class User implements Serializable {
         }
         cars.add(tempCar);
         tempCar.setUser(this);
+    }
+
+
+    public void addExtraCost(ExtraCosts extraCosts){
+        if(extraCostsList == null) {
+            extraCostsList = new ArrayList<>();
+        }
+        extraCostsList.add(extraCosts);
+        extraCosts.setTheUser(this);
     }
 }
 
