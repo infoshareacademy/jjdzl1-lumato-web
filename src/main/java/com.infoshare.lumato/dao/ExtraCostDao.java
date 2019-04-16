@@ -5,18 +5,10 @@ import com.infoshare.lumato.models.ExtraCosts;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Named
@@ -27,32 +19,12 @@ public class ExtraCostDao extends CommonDAO {
 
     private int userId = currentUser.getUserId();
 
-    private List<ExtraCosts> extraCostsList = new ArrayList<>();
-
     public void addExtraCostByCarId(ExtraCosts extraCosts, Car car) {
-        /*try {
-            String sql = "INSERT into extracosts (cost, description, idcars, costdate) values (?,?,?,?)";
-
-            Calendar calendar = extraCosts.getDate();
-            java.sql.Date sqlDate = new java.sql.Date(calendar.getTimeInMillis());
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setDouble(1, extraCosts.getCost());
-            myStmt.setString(2, extraCosts.getDescription());
-            myStmt.setInt(3, car.getCarId());
-            myStmt.setDate(4, sqlDate);
-
-            myStmt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
-
-
         Session currentSession = getSession();
         User tempUser = currentSession.get(User.class, userId);
+        Car tempCar = currentSession.get(Car.class, car.getCarId());
         tempUser.addExtraCost(extraCosts);
-        car.addExtraCost(extraCosts);
+        tempCar.addExtraCost(extraCosts);
         executeAndCloseTransaction(currentSession);
 
     }
