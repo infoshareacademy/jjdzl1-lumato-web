@@ -5,27 +5,31 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
-//@Entity
-//@Table(name = "extracosts")
+@Entity
+@Table(name = "extracost")
 public class ExtraCosts {
 
 
-//    @Id
-//    @GeneratedValue (strategy = GenerationType.IDENTITY)
-//    @Column(name = "idextracosts")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    //@Column(name = "cost")
+    @Column(name = "cost")
     private double cost;
 
-    //@Column(name = "description")
+    @Column(name = "description")
     private String description;
 
-    //@Column(name = "idcars")
+    @Column(name = "car_id")
     private int carId;
 
-    //@Column(name = "costdate")
+    @Column(name = "cost_date")
     private Calendar date;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "car_id")
+    private Car car;
 
     public ExtraCosts() {
     }
@@ -75,6 +79,14 @@ public class ExtraCosts {
         this.date = date;
     }
 
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
     @Override
     public String toString() {
         return "ExtraCosts{" +
@@ -85,4 +97,6 @@ public class ExtraCosts {
                 ", date=" + date +
                 '}';
     }
+
+
 }

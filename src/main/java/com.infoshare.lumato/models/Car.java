@@ -2,6 +2,7 @@ package com.infoshare.lumato.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,10 @@ public class Car implements Serializable {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "user_id")
     private User theUser;
+
+    @OneToMany(mappedBy = "car",
+            cascade = CascadeType.ALL)
+    private List<ExtraCosts> extraCostsList;
 
     public Car() {
     }
@@ -85,7 +90,6 @@ public class Car implements Serializable {
         this.carId = carId;
     }
 
-
     public User getUser() {
         return theUser;
     }
@@ -93,4 +97,21 @@ public class Car implements Serializable {
     public void setUser(User user) {
         this.theUser = user;
     }
+
+    public User getTheUser() {
+        return theUser;
+    }
+
+    public void setTheUser(User theUser) {
+        this.theUser = theUser;
+    }
+
+    public void addExtraCost(ExtraCosts extraCost){
+        if(extraCostsList == null) {
+            extraCostsList = new ArrayList<>();
+        }
+        extraCostsList.add(extraCost);
+        extraCost.setCar(this);
+    }
+
 }
