@@ -1,10 +1,15 @@
 package com.infoshare.lumato.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
+@Setter
+@Getter
 @Entity
 @Table(name = "extracost")
 public class ExtraCosts {
@@ -36,8 +41,6 @@ public class ExtraCosts {
     @JoinColumn(name = "user_id")
     private User theUser;
 
-
-
     public ExtraCosts() {
     }
 
@@ -45,74 +48,4 @@ public class ExtraCosts {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         return format1.format(this.date.getTime());
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
-
-    public Calendar getDate() {
-        return date;
-    }
-
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-
-    public User getTheUser() {
-        return theUser;
-    }
-
-    public void setTheUser(User theUser) {
-        this.theUser = theUser;
-    }
-
-    @Override
-    public String toString() {
-        return "ExtraCosts{" +
-                "id=" + id +
-                ", cost=" + cost +
-                ", description='" + description + '\'' +
-                ", carId=" + carId +
-                ", date=" + date +
-                '}';
-    }
-
-
 }

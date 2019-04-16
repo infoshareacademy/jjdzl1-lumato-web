@@ -36,7 +36,6 @@ public class User implements Serializable {
     @Column(name = "confirm_password")
     private String confirmPassword;
 
-
     @OneToMany(mappedBy = "theUser",
             cascade = {CascadeType.ALL})
     private List<Car> cars;
@@ -44,6 +43,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "theUser",
             cascade = {CascadeType.ALL})
     private List<ExtraCosts> extraCostsList;
+
+    @OneToMany(mappedBy = "theUser",
+            cascade = {CascadeType.ALL})
+    private List<FuelCosts> fuelCostsList;
 
     public User() {
     }
@@ -81,13 +84,20 @@ public class User implements Serializable {
         tempCar.setUser(this);
     }
 
-
     public void addExtraCost(ExtraCosts extraCosts){
         if(extraCostsList == null) {
             extraCostsList = new ArrayList<>();
         }
         extraCostsList.add(extraCosts);
         extraCosts.setTheUser(this);
+    }
+
+    public void addFuelCost(FuelCosts fuelCosts){
+        if(fuelCostsList == null) {
+            fuelCostsList = new ArrayList<>();
+        }
+        fuelCostsList.add(fuelCosts);
+        fuelCosts.setTheUser(this);
     }
 }
 

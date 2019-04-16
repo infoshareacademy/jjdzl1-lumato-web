@@ -44,6 +44,11 @@ public class Car implements Serializable {
             cascade = CascadeType.ALL)
     private List<ExtraCosts> extraCostsList;
 
+
+    @OneToMany(mappedBy = "car",
+            cascade = CascadeType.ALL)
+    private List<FuelCosts> fuelCostsList;
+
     public Car() {
     }
 
@@ -63,4 +68,11 @@ public class Car implements Serializable {
         extraCost.setCar(this);
     }
 
+    public void addFuelCost(FuelCosts fuelCosts){
+        if(fuelCostsList == null) {
+            fuelCostsList = new ArrayList<>();
+        }
+        fuelCostsList.add(fuelCosts);
+        fuelCosts.setCar(this);
+    }
 }
