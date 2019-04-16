@@ -25,7 +25,7 @@ public class FuelCosts {
     @Column(name = "price_per_liter")
     private double pricePerLiter;
 
-    @Column(name = "amount_off_uel")
+    @Column(name = "amount_of_fuel")
     private double amountOfFuel;
 
     @Column(name = "current_mileage")

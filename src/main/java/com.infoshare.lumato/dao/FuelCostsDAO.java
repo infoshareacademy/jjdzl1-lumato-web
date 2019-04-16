@@ -4,110 +4,62 @@ import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @Named
 @RequestScoped
 public class FuelCostsDAO extends CommonDAO {
 
-    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    private List<FuelCosts> fuelCostList = new ArrayList<>();
+    private final int userId = currentUser.getUserId();
 
-    public double calculateAverageFuelCost(String fuelType) {
-        double averageFuelCost = 0;
-        try {
-            String sql = "SELECT AVG(priceperliter) AS averageFuelCost FROM fuelcosts WHERE typeoffuel=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setString(1, fuelType);
-            ResultSet resultSet = myStmt.executeQuery();
-            resultSet.next();
-            averageFuelCost = resultSet.getDouble("averageFuelCost");
-        } catch (Exception exc) {
-            System.out.println("Cannot count average fuel cost!");
-            exc.printStackTrace();
+
+    public Double calculateAverageFuelCost(String fuelType) {
+        double singleResult = 0;
+
+        Session currentSession = getSession();
+        String hQuery =
+                "SELECT AVG(F.pricePerLiter) FROM FuelCosts F WHERE F.fuelType=:theFuelType";
+        Query query =
+                currentSession.createQuery(hQuery, Double.class).setParameter("theFuelType", fuelType);
+        List list = query.getResultList();
+        executeAndCloseTransaction(currentSession);
+
+        if (list.get(0) == null) {
+            return singleResult;
+        } else {
+            return (double) list.get(0);
         }
-        return averageFuelCost;
     }
 
     public void addFuelCostByCarId(FuelCosts fuelCosts, Car tempCar) {
-        try {
-            String sql = "INSERT into fuelcosts (date,priceperliter,amountoffuel,currentmileage,typeoffuel,idcar) values (?,?,?,?,?,?)";
-
-            Calendar calendar = fuelCosts.getDate();
-            java.sql.Date sqlDate = new java.sql.Date(calendar.getTimeInMillis());
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setDate(1, sqlDate);
-            myStmt.setDouble(2, fuelCosts.getPricePerLiter());
-            myStmt.setDouble(3, fuelCosts.getAmountOfFuel());
-            myStmt.setInt(4, fuelCosts.getCurrentMileage());
-            myStmt.setString(5, tempCar.getFuelType());
-            myStmt.setInt(6, tempCar.getCarId());
-
-            myStmt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        fuelCosts.setFuelType(tempCar.getFuelType());
+        Session currentSession = getSession();
+        User tempUser = currentSession.get(User.class, userId);
+        Car car = currentSession.get(Car.class, tempCar.getCarId());
+        tempUser.addFuelCost(fuelCosts);
+        car.addFuelCost(fuelCosts);
+        executeAndCloseTransaction(currentSession);
     }
 
     public List<FuelCosts> getAllFuelCostByUser() {
-
-
-        try {
-            String sql = "select fuelcosts.idfuelcost, fuelcosts.date , fuelcosts.priceperliter, fuelcosts.amountoffuel, fuelcosts.currentmileage, fuelcosts.typeoffuel, fuelcosts.idcar\n" +
-                    "from fuelcosts, cars, users \n" +
-                    "where users.iduser=cars.iduser \n" +
-                    "and cars.idcars=fuelcosts.idcar \n" +
-                    "and users.iduser=(?)";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, currentUser.getUserId());
-            ResultSet resultSet = myStmt.executeQuery();
-
-            while (resultSet.next()) {
-                GregorianCalendar myCal = new GregorianCalendar();
-                FuelCosts tempFuelCost = new FuelCosts();
-                tempFuelCost.setId(resultSet.getInt("idfuelcost"));
-                tempFuelCost.setPricePerLiter(resultSet.getDouble("priceperliter"));
-                tempFuelCost.setAmountOfFuel(resultSet.getDouble("amountoffuel"));
-                tempFuelCost.setCurrentMileage(resultSet.getInt("currentmileage"));
-                tempFuelCost.setFuelType(resultSet.getString("typeoffuel"));
-                tempFuelCost.setIdCar(resultSet.getInt("idcar"));
-
-                Date date = resultSet.getDate("date");
-                myCal.setTime(date);
-
-                tempFuelCost.setDate(myCal);
-
-                fuelCostList.add(tempFuelCost);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return fuelCostList;
+        Session currentSession = getSession();
+        String hQuery = "FROM FuelCosts F WHERE F.theUser.id=:userId";
+        Query<FuelCosts> query = currentSession.createQuery(hQuery, FuelCosts.class).setParameter("userId", userId);
+        List<FuelCosts> fuelCostsList = query.getResultList();
+        executeAndCloseTransaction(currentSession);
+        return fuelCostsList;
     }
 
     public void deleteFuelCost(FuelCosts fuelCosts) {
-        try {
-            String sql = "DELETE FROM fuelCosts WHERE idfuelcost=?";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, fuelCosts.getId());
-            myStmt.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Session currentSession = getSession();
+        currentSession.delete(fuelCosts);
+        executeAndCloseTransaction(currentSession);
     }
 }

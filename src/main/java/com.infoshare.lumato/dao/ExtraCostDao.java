@@ -26,7 +26,6 @@ public class ExtraCostDao extends CommonDAO {
         tempUser.addExtraCost(extraCosts);
         tempCar.addExtraCost(extraCosts);
         executeAndCloseTransaction(currentSession);
-
     }
 
     public List<ExtraCosts> getAllExtraCostsByUser() {

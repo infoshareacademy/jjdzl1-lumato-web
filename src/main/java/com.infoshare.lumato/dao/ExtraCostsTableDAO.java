@@ -2,7 +2,6 @@ package com.infoshare.lumato.dao;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.ExtraCosts;
-import com.infoshare.lumato.models.FuelCosts;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

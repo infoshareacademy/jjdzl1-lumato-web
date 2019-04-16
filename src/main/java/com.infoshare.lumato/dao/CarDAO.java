@@ -15,13 +15,9 @@ import java.util.List;
 @Named
 public class CarDAO extends CommonDAO {
 
-    public CarDAO() {
-    }
+    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
-
-    private int userId = currentUser.getUserId();
-
+    private final int userId = currentUser.getUserId();
 
     public List<Car> getAllCarsByUser() {
         Session currentSession = this.getSession();
