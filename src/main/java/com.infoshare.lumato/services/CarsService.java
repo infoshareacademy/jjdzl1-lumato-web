@@ -7,6 +7,7 @@ import com.infoshare.lumato.utils.HttpUtils;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
+import java.util.Calendar;
 import java.util.List;
 
 @RequestScoped
@@ -46,14 +47,15 @@ public class CarsService {
     }
 
     public boolean isCarProductionYearValid(Car car) {
-        return (car.getProductionYear() >= 1908 && car.getProductionYear() <= 2019);
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        return (car.getProductionYear() >= 1908 && car.getProductionYear() <= currentYear);
     }
 
-    public Car getCarByRegPLate (String regPlate) {
+    public Car getCarByRegPLate(String regPlate) {
         return carDAO.findCarByRegistrationPlate(regPlate);
     }
 
-    public Car getCarById (int id) {
+    public Car getCarById(int id) {
         return carDAO.findCarById(id);
     }
 }

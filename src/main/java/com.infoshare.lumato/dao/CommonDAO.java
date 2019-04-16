@@ -1,12 +1,12 @@
 package com.infoshare.lumato.dao;
 
-import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.persistence.DBConnection;
+import com.infoshare.lumato.utils.HibernateConfig;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 
@@ -14,6 +14,19 @@ public abstract class CommonDAO {
 
     @Inject
     DBConnection myConn;
+
+    private final SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+
+    Session getSession() {
+        Session currentSession = sessionFactory.openSession();
+        currentSession.beginTransaction();
+        return currentSession;
+    }
+
+    void executeAndCloseTransaction(Session currentSession) {
+        currentSession.getTransaction().commit();
+        currentSession.close();
+    }
 
     public int countAllRecords(String tableName) {
         int amountOfUsers = 0;
