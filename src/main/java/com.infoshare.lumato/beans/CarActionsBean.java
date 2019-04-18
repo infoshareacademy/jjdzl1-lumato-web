@@ -8,13 +8,9 @@ import com.infoshare.lumato.utils.HttpUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.omg.CORBA.INTERNAL;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -38,23 +34,15 @@ public class CarActionsBean implements Serializable {
 
     private List carList;
 
+
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
-        loadCars();
     }
 
-    private void loadCars() {
-        try {
-            carList = carsService.getCurrentPage();/*getAllCarsByUser()
-                    .subList(0, 4 > carsService.getAllCarsByUser().size() ? carsService.getAllCarsByUser().size() : 4)*/;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public List<Car> getCars() {
-        return carList;
+    public List getCars() {
+        return carList = carsService.getCurrentPage();
     }
 
     private void addNewCar() {

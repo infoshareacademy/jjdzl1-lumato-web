@@ -4,8 +4,6 @@ import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.utils.HttpUtils;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
@@ -18,7 +16,7 @@ public class CarsService implements Serializable {
 
     private int page = 1;
 
-    private int carsOnPage = 4;
+    private final int carsOnPage = 4;
 
     @Inject
     CarDAO carDAO;
@@ -35,7 +33,7 @@ public class CarsService implements Serializable {
         return carDAO.getAllCarsByUser();
     }
 
-    public List<Car> getCurrentPage() {
+    public List getCurrentPage() {
         System.out.println("\nCurrent page is: " + page);
         return carDAO.getCarsPerPage(page, carsOnPage);
     }
@@ -72,18 +70,13 @@ public class CarsService implements Serializable {
 
     public void nextPage() {
         int lastPage = carDAO.getNumberOfPages(carsOnPage);
-//        if (page < 1) page = 1;
         if (page == lastPage) page = lastPage - 1;
         page++;
-//        return carDAO.getCarsPerPage(++page, carsOnPage);
     }
 
     public void previousPage() {
         if (page <= 1) {
             page = 1;
-//            return carDAO.getCarsPerPage(page, carsOnPage);
-        }
-        page--;
-//        return carDAO.getCarsPerPage(--page, carsOnPage);
+        } else page--;
     }
 }
