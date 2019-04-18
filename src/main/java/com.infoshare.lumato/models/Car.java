@@ -2,6 +2,7 @@ package com.infoshare.lumato.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -48,6 +49,18 @@ public class Car implements Serializable {
     @OneToMany(mappedBy = "car",
             cascade = CascadeType.ALL)
     private List<FuelCosts> fuelCostsList;
+
+    public void setModel(String model) {
+        this.model = model.toUpperCase();
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand.toUpperCase();
+    }
+
+    public void setRegPlate(String regPlate) {
+        this.regPlate = regPlate.toUpperCase();
+    }
 
     public Car() {
     }

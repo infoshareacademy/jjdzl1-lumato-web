@@ -5,14 +5,23 @@ import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelType;
 import com.infoshare.lumato.utils.HttpUtils;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import org.omg.CORBA.INTERNAL;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
+@Setter(AccessLevel.PRIVATE)
+@Getter
 @RequestScoped
 @Named("carBean")
 public class CarActionsBean implements Serializable {
@@ -27,15 +36,7 @@ public class CarActionsBean implements Serializable {
 
     private FuelType[] fuelTypes;
 
-    private List<Car> carList;
-
-    public Car getCar() {
-        return car;
-    }
-
-    private void setCar(Car car) {
-        this.car = car;
-    }
+    private List carList;
 
     @PostConstruct
     public void construct() {
@@ -45,15 +46,11 @@ public class CarActionsBean implements Serializable {
 
     private void loadCars() {
         try {
-            carList = carsService.getAllCarsByUser();
+            carList = carsService.getCurrentPage();/*getAllCarsByUser()
+                    .subList(0, 4 > carsService.getAllCarsByUser().size() ? carsService.getAllCarsByUser().size() : 4)*/;
         } catch (Exception e) {
-            System.out.println("Cannot load users!");
             e.printStackTrace();
         }
-    }
-
-    public FuelType[] getFuelTypes() {
-        return fuelTypes;
     }
 
     public List<Car> getCars() {
@@ -99,7 +96,16 @@ public class CarActionsBean implements Serializable {
         carsService.updateCar(car);
     }
 
-    private void redirectToCarPage() {
+    public void nextPage() {
+        carsService.nextPage();
+    }
+
+    public void previousPage() {
+        carsService.previousPage();
+    }
+
+    public void redirectToCarPage() {
+        this.car = null;
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 

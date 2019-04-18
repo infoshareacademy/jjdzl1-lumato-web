@@ -19,7 +19,6 @@ public class FuelCostsDAO extends CommonDAO {
 
     private final int userId = currentUser.getUserId();
 
-
     public Double calculateAverageFuelCost(String fuelType) {
         double singleResult = 0;
 

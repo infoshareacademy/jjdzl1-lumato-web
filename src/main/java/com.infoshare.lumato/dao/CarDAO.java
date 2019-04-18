@@ -20,8 +20,7 @@ public class CarDAO extends CommonDAO {
     private final int userId = currentUser.getUserId();
 
     public List<Car> getAllCarsByUser() {
-        Session currentSession = this.getSession();
-
+        Session currentSession = getSession();
         String hQuery = "FROM Car C WHERE C.theUser.id=:userId";
         Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("userId", userId);
         List<Car> cars = query.getResultList();
@@ -51,7 +50,6 @@ public class CarDAO extends CommonDAO {
             carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
         } catch (NoResultException ignored) {
         }
-
         executeAndCloseTransaction(currentSession);
         return carInDB;
     }
@@ -65,7 +63,35 @@ public class CarDAO extends CommonDAO {
         } catch (NoResultException ignored) {
         }
         executeAndCloseTransaction(currentSession);
-
         return carInDB;
     }
+
+    public List getCarsPerPage(int pageNumber, int pageSize) {
+        Session currentSession = getSession();
+        Query selectQuery =
+                currentSession.createQuery("FROM Car C where C.theUser.id=:userId").setParameter("userId", userId);
+        selectQuery.setFirstResult((pageNumber - 1) * pageSize);
+        selectQuery.setMaxResults(pageSize);
+        List carList = selectQuery.getResultList();
+        executeAndCloseTransaction(currentSession);
+        return carList;
+    }
+
+    private Long countCarsByUser() {
+        Session currentSession = getSession();
+        String countQ =
+                "select count (C.id) from Car C where C.theUser.id=:userId";
+        Query countQuery =
+                currentSession.createQuery(countQ).setParameter("userId", userId);
+        Long numberOfCars = (Long) countQuery.uniqueResult();
+        executeAndCloseTransaction(currentSession);
+        return numberOfCars;
+    }
+
+    public int getNumberOfPages(int pageSize) {
+        double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
+        return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
+    }
+
+
 }
