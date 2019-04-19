@@ -31,7 +31,6 @@ public class HttpUtils {
                 .getExternalContext().getResponse();
     }
 
-
     public static void redirect(String address) {
         try {
             getResponse().sendRedirect(address);

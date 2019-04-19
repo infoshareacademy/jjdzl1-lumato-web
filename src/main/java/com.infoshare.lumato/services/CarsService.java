@@ -4,24 +4,39 @@ import com.infoshare.lumato.dao.CarDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.utils.HttpUtils;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
+import java.io.Serializable;
+import java.util.Calendar;
 import java.util.List;
 
-@RequestScoped
-public class CarsService {
+@ViewScoped
+public class CarsService implements Serializable {
 
+    private int page = 1;
+
+    private final int carsOnPage = 4;
 
     @Inject
     CarDAO carDAO;
 
     public void addCar(Car car) {
-        carDAO.addCar(car);
+        carDAO.addOrUpdateCar(car);
     }
 
     public void deleteCar(Car car) {
         carDAO.deleteCar(car);
+    }
+
+    public void updateCar(Car car) {
+        carDAO.addOrUpdateCar(car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
+    }
+
+    public List getCurrentPage() {
+        System.out.println("\nCurrent page is: " + page);
+        return carDAO.getCarsPerPage(page, carsOnPage);
     }
 
     public List<Car> getAllCarsByUser() {
@@ -36,70 +51,32 @@ public class CarsService {
         return carInDB.getRegPlate().equals(car.getRegPlate());
     }
 
-    public void updateCar(Car car) {
-        carDAO.updateCar(car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
-    }
-
     public boolean isFieldEmpty(Car car) {
         return (car.getBrand().isEmpty() | car.getModel().isEmpty() | car.getRegPlate().isEmpty() | car.getFuelType().isEmpty());
     }
 
     public boolean isCarProductionYearValid(Car car) {
-        return (car.getProductionYear() >= 1908 && car.getProductionYear() <= 2019);
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        return (car.getProductionYear() >= 1908 && car.getProductionYear() <= currentYear);
     }
 
-    public Car getCarByRegPLate (String regPlate) {
+    public Car getCarByRegPLate(String regPlate) {
         return carDAO.findCarByRegistrationPlate(regPlate);
     }
 
-    public Car getCarById (int id) {
+    public Car getCarById(int id) {
         return carDAO.findCarById(id);
     }
+
+    public void nextPage() {
+        int lastPage = carDAO.getNumberOfPages(carsOnPage);
+        if (page == lastPage) page = lastPage - 1;
+        page++;
+    }
+
+    public void previousPage() {
+        if (page <= 1) {
+            page = 1;
+        } else page--;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

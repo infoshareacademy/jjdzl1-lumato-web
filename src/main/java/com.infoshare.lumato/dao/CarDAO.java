@@ -2,152 +2,95 @@ package com.infoshare.lumato.dao;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.persistence.DBConnection;
 import com.infoshare.lumato.utils.HttpUtils;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @RequestScoped
 @Named
 public class CarDAO extends CommonDAO {
 
-    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    private List<Car> cars = new ArrayList<>();
+    private final int userId = currentUser.getUserId();
 
     public List<Car> getAllCarsByUser() {
-        try {
-            String sql = "SELECT cars.idcars, cars.brand, cars.model, cars.year, cars.fuelType, cars.regplate " +
-                    "FROM lumato.cars, lumato.users WHERE users.iduser=cars.iduser " +
-                    "AND users.iduser=" + currentUser.getUserId();
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            ResultSet myResults = myStmt.executeQuery(sql);
-
-            while (myResults.next()) {
-                int carId = myResults.getInt("idcars");
-                String brand = myResults.getString("brand");
-                String model = myResults.getString("model");
-                int year = myResults.getInt("year");
-                String fuelType = myResults.getString("fuelType");
-                String regPlate = myResults.getString("regplate");
-
-                Car tempCar = new Car(carId, currentUser.getUserId(), brand, model, year, fuelType, regPlate);
-                cars.add(tempCar);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Session currentSession = getSession();
+        String hQuery = "FROM Car C WHERE C.theUser.id=:userId";
+        Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("userId", userId);
+        List<Car> cars = query.getResultList();
+        executeAndCloseTransaction(currentSession);
         return cars;
     }
 
-    public void addCar(Car theCar) {
-        try {
-            String sql = "insert into cars (brand, model, year, fuelType, regplate, iduser) values (?,?,?,?,?,?)";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, theCar.getBrand());
-            myStmt.setString(2, theCar.getModel());
-            myStmt.setInt(3, theCar.getProductionYear());
-            myStmt.setString(4, theCar.getFuelType());
-            myStmt.setString(5, theCar.getRegPlate());
-            myStmt.setInt(6, currentUser.getUserId());
-
-            myStmt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public void addOrUpdateCar(Car theCar) {
+        Session currentSession = getSession();
+        User tempUser = currentSession.get(User.class, userId);
+        tempUser.addCar(theCar);
+        currentSession.saveOrUpdate(theCar);
+        executeAndCloseTransaction(currentSession);
     }
 
     public void deleteCar(Car theCar) {
-        try {
-            String sql = "DELETE FROM cars WHERE idcars=?";
-
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, theCar.getCarId());
-
-            myStmt.execute();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Session currentSession = getSession();
+        currentSession.delete(theCar);
+        executeAndCloseTransaction(currentSession);
     }
 
     public Car findCarByRegistrationPlate(String regPlate) {
-        Car carInDB = new Car();
+        Car carInDB = null;
+        Session currentSession = getSession();
         try {
-            String sql = "SELECT * FROM cars WHERE regplate = ?";
-            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
-            statement.setString(1, regPlate);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                carInDB = null;
-            } else {
-                resultSet.next();
-                fillCarData(carInDB, resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
+            carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
+        } catch (NoResultException ignored) {
         }
+        executeAndCloseTransaction(currentSession);
         return carInDB;
     }
 
     public Car findCarById(int id) {
-        Car carInDB = new Car();
+        Car carInDB = null;
+        Session currentSession = getSession();
         try {
-            String sql = "SELECT * FROM cars WHERE idcars = ?";
-            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
-            statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                return null;
-            } else {
-                resultSet.next();
-                fillCarData(carInDB, resultSet);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String hQuery = "FROM Car C WHERE C.id=:id";
+            carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("id", id).getSingleResult();
+        } catch (NoResultException ignored) {
         }
+        executeAndCloseTransaction(currentSession);
         return carInDB;
     }
 
-    public void updateCar(Car carInDB) {
-
-        try {
-            String sql = "update cars set model=?, brand=?, year=?, fueltype=?, regplate=? where idcars=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, carInDB.getModel());
-            myStmt.setString(2, carInDB.getBrand());
-            myStmt.setInt(3, carInDB.getProductionYear());
-            myStmt.setString(4, carInDB.getFuelType());
-            myStmt.setString(5, carInDB.getRegPlate());
-            myStmt.setInt(6, carInDB.getCarId());
-            myStmt.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+    public List getCarsPerPage(int pageNumber, int pageSize) {
+        Session currentSession = getSession();
+        Query selectQuery =
+                currentSession.createQuery("FROM Car C where C.theUser.id=:userId").setParameter("userId", userId);
+        selectQuery.setFirstResult((pageNumber - 1) * pageSize);
+        selectQuery.setMaxResults(pageSize);
+        List carList = selectQuery.getResultList();
+        executeAndCloseTransaction(currentSession);
+        return carList;
     }
-    
-    private void fillCarData(Car theCar, ResultSet resultSet) throws SQLException {
-        theCar.setCarId(resultSet.getInt("idcars"));
-        theCar.setIdUserInCars(resultSet.getInt("iduser"));
-        theCar.setBrand(resultSet.getString("brand"));
-        theCar.setModel(resultSet.getString("model"));
-        theCar.setFuelType(resultSet.getString("fueltype"));
-        theCar.setRegPlate(resultSet.getString("regplate"));
-        theCar.setProductionYear(resultSet.getInt("year"));
+
+    private Long countCarsByUser() {
+        Session currentSession = getSession();
+        String countQ =
+                "select count (C.id) from Car C where C.theUser.id=:userId";
+        Query countQuery =
+                currentSession.createQuery(countQ).setParameter("userId", userId);
+        Long numberOfCars = (Long) countQuery.uniqueResult();
+        executeAndCloseTransaction(currentSession);
+        return numberOfCars;
+    }
+
+    public int getNumberOfPages(int pageSize) {
+        double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
+        return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
     }
 
 

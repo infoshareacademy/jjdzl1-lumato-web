@@ -5,6 +5,9 @@ import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelType;
 import com.infoshare.lumato.utils.HttpUtils;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -13,6 +16,8 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
+@Setter(AccessLevel.PRIVATE)
+@Getter
 @RequestScoped
 @Named("carBean")
 public class CarActionsBean implements Serializable {
@@ -27,37 +32,11 @@ public class CarActionsBean implements Serializable {
 
     private FuelType[] fuelTypes;
 
-    private List<Car> carList;
-
-    public Car getCar() {
-        return car;
-    }
-
-    private void setCar(Car car) {
-        this.car = car;
-    }
+    private List carList;
 
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
-        loadCars();
-    }
-
-    private void loadCars() {
-        try {
-            carList = carsService.getAllCarsByUser();
-        } catch (Exception e) {
-            System.out.println("Cannot load users!");
-            e.printStackTrace();
-        }
-    }
-
-    public FuelType[] getFuelTypes() {
-        return fuelTypes;
-    }
-
-    public List<Car> getCars() {
-        return carList;
     }
 
     private void addNewCar() {
@@ -65,7 +44,15 @@ public class CarActionsBean implements Serializable {
         redirectToCarPage();
     }
 
-    // TODO: 03.03.2019 put call==null in methods
+    private void deleteCar() {
+        carsService.deleteCar(car);
+        redirectToCarPage();
+    }
+
+    public List getCars() {
+        return carList = carsService.getCurrentPage();
+    }
+
     public void attemptToAddNewCar() {
         if (carsService.isFieldEmpty(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "All fields must be filled!");
@@ -84,11 +71,6 @@ public class CarActionsBean implements Serializable {
         } else addNewCar();
     }
 
-    private void deleteCar() {
-        carsService.deleteCar(car);
-        redirectToCarPage();
-    }
-
     public void attemptToDeleteCar(Car theCar) {
         setCar(theCar);
         deleteCar();
@@ -99,7 +81,16 @@ public class CarActionsBean implements Serializable {
         carsService.updateCar(car);
     }
 
-    private void redirectToCarPage() {
+    public void nextPage() {
+        carsService.nextPage();
+    }
+
+    public void previousPage() {
+        carsService.previousPage();
+    }
+
+    public void redirectToCarPage() {
+        this.car = null;
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 

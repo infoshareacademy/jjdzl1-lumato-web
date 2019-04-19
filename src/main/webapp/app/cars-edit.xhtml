@@ -44,6 +44,7 @@
                                         </div>
                                     </div>
 
+                                    <!--TODO replace js method - Update Production Year - for numbers starting from 19 or 20-->
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Update Production Year</label>
                                         <div class="col-sm-7 col align-self-center">
@@ -78,7 +79,7 @@
                                             </h:selectOneMenu></div>
                                     </div>
 
-                                    <h:inputHidden value="#{carBean.car.idUserInCars}"/>
+                                    <!--<h:inputHidden value="#{carBean.car.user}"/>-->
                                     <h:inputHidden value="#{carBean.car.carId}"/>
 
                                     <br/>
@@ -93,7 +94,7 @@
                                         <h:commandButton value="Go Back"
                                                          styleClass="btn btn-outline-secondary"
                                                          style="border-radius:15px; width: 100%"
-                                                         action="/app/cars-input.xhtml"/>
+                                                         action="#{carBean.redirectToCarPage}"/>
                                     </div>
                                 </div>
                             </div>

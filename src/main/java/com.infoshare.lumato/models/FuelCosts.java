@@ -1,82 +1,58 @@
 package com.infoshare.lumato.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
+@Setter
+@Getter
+@Entity
+@Table(name = "fuelcost")
 public class FuelCosts {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+
     private Calendar date;
+
+    @Column(name = "price_per_liter")
     private double pricePerLiter;
+
+    @Column(name = "amount_of_fuel")
     private double amountOfFuel;
+
+    @Column(name = "current_mileage")
     private int currentMileage;
+
+    @Column(name = "type_of_fuel")
     private String fuelType;
+
+    @Column(name = "car_id", insertable = false, updatable = false)
     private int idCar;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+    private User theUser;
+
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "car_id")
+    private Car car;
 
 
     public FuelCosts() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Calendar getDate() {
-        return date;
-    }
-
     public String getDateAsString() {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         return format1.format(this.date.getTime());
-    }
-
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
-
-    public double getPricePerLiter() {
-        return pricePerLiter;
-    }
-
-    public void setPricePerLiter(double pricePerLiter) {
-        this.pricePerLiter = pricePerLiter;
-    }
-
-    public double getAmountOfFuel() {
-        return amountOfFuel;
-    }
-
-    public void setAmountOfFuel(double amountOfFuel) {
-        this.amountOfFuel = amountOfFuel;
-    }
-
-    public int getCurrentMileage() {
-        return currentMileage;
-    }
-
-    public void setCurrentMileage(int currentMileage) {
-        this.currentMileage = currentMileage;
-    }
-
-    public String getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public int getIdCar() {
-        return idCar;
-    }
-
-    public void setIdCar(int idCar) {
-        this.idCar = idCar;
     }
 
 

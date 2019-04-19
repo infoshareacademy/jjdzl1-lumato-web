@@ -1,107 +1,44 @@
 package com.infoshare.lumato.dao;
 
 import com.infoshare.lumato.models.User;
+import org.hibernate.Session;
+
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.NoResultException;
 
 @Named
 @RequestScoped
 public class UserDAO extends CommonDAO {
 
-    private List<User> users = new ArrayList<>();
 
-    public List<User> getAllUsers() {
-        try {
-            Statement myStatement = myConn.getConnection().createStatement();
-            ResultSet resultSet = myStatement.executeQuery("SELECT * FROM users");
-
-            while (resultSet.next()) {
-                int iduser = resultSet.getInt("iduser");
-                String firstName = resultSet.getString("firstname");
-                String lastName = resultSet.getString("lastname");
-                String email = resultSet.getString("email");
-                User tempUser = new User(iduser, firstName, lastName, email);
-
-                users.add(tempUser);
-            }
-        } catch (SQLException e) {
-            System.out.println("Failed to create a connection");
-            e.printStackTrace();
-        }
-        System.out.println("Driver not found.");
-        return users;
+    public void addOrUpdateUser(User theUser) {
+        Session currentSession = this.getSession();
+        currentSession.saveOrUpdate(theUser);
+        executeAndCloseTransaction(currentSession);
     }
 
-    public void addUser(User theUser) {
-        try {
-            String sql = "insert into users (firstname, lastname, email, password) values (?, ?, ?, ?)";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-
-            myStmt.setString(1, theUser.getFirstName());
-            myStmt.setString(2, theUser.getLastName());
-            myStmt.setString(3, theUser.getEmail());
-            myStmt.setString(4, theUser.getPassword());
-
-            myStmt.execute();
-
-        } catch (Exception ecx) {
-            ecx.printStackTrace();
-            System.out.println("Failed to Add new User!");
-        }
-    }
-
-    public void sendUpdateUserQuery(User user) {
-        try {
-            String sql = "update users set firstname=?, lastname=?, email=?, password=? where iduser=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setString(1, user.getFirstName());
-            myStmt.setString(2, user.getLastName());
-            myStmt.setString(3, user.getEmail());
-            myStmt.setString(4, user.getPassword());
-            myStmt.setInt(5, user.getUserId());
-            myStmt.executeUpdate();
-        } catch (Exception exc) {
-            System.out.println("Cannot update an user!");
-            exc.printStackTrace();
-        }
-    }
-
+    // TODO: 07.04.2019 optional?
     public User findUserInDatabaseByEmail(String email) {
-        User userInDB = new User();
+        User userInDB = null;
+        Session currentSession = this.getSession();
+
         try {
-            String sql = "SELECT * FROM users WHERE email = ?";
-            PreparedStatement statement = myConn.getConnection().prepareStatement(sql);
-            statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                userInDB = null;
-            } else {
-                resultSet.next();
-                userInDB.setEmail(resultSet.getString("email"));
-                userInDB.setPassword(resultSet.getString("password"));
-                userInDB.setFirstName(resultSet.getString("firstname"));
-                userInDB.setLastName(resultSet.getString("lastname"));
-                userInDB.setUserId(resultSet.getInt("iduser"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String hQuery = "FROM User U WHERE U.email=:theEmail";
+            userInDB = currentSession.createQuery(hQuery, User.class).setParameter("theEmail", email).getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println("No user in DataBAse!@");
         }
+
+        executeAndCloseTransaction(currentSession);
         return userInDB;
     }
 
-    public void deleteUser(int userId) {
-        try {
-            String sql = "DELETE FROM users WHERE iduser=?";
-            PreparedStatement myStmt = myConn.getConnection().prepareStatement(sql);
-            myStmt.setInt(1, userId);
-            myStmt.executeUpdate();
-        } catch (Exception exc) {
-            System.out.println("Cannot update an user!");
-            exc.printStackTrace();
-        }
+    public void deleteCurrentUser(User theUser) {
+        Session currentSession = this.getSession();
+        User tempUser = currentSession.get(User.class, theUser.getUserId());
+        currentSession.delete(tempUser);
+        executeAndCloseTransaction(currentSession);
     }
 }

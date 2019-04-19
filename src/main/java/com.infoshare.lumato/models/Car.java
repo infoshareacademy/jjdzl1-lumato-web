@@ -1,86 +1,91 @@
 package com.infoshare.lumato.models;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.omg.CORBA.PUBLIC_MEMBER;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-
+@Setter
+@Getter
+@Entity
+@Table(name = "car")
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 8242396670252535134L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int carId;
-    private int idUserInCars;
-    private String brand;
+
+    @Column(name = "model")
     private String model;
+
+    @Column(name = "brand")
+    private String brand;
+
+    @Column(name = "production_year")
     private int productionYear;
+
+    @Column(name = "fuel_type")
     private String fuelType;
+
+    @Column(name = "reg_plate")
     private String regPlate;
 
-    public Car(){
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+    private User theUser;
 
-    }
+    @OneToMany(mappedBy = "car",
+            cascade = CascadeType.ALL)
+    private List<ExtraCosts> extraCostsList;
 
-    public Car(int carId, int idUserInCars, String brand, String model, int productionYear, String fuelType, String regPlate) {
-        this.carId = carId;
-        this.idUserInCars = idUserInCars;
-        this.brand = brand;
-        this.model = model;
-        this.productionYear = productionYear;
-        this.regPlate = regPlate;
-        this.fuelType = fuelType;
-    }
 
-    public String getBrand() {
-        return brand;
+    @OneToMany(mappedBy = "car",
+            cascade = CascadeType.ALL)
+    private List<FuelCosts> fuelCostsList;
+
+    public void setModel(String model) {
+        this.model = model.toUpperCase();
     }
 
     public void setBrand(String brand) {
         this.brand = brand.toUpperCase();
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model.toUpperCase();
-    }
-
-    public int getProductionYear() {
-        return productionYear;
-    }
-
-    public void setProductionYear(int productionYear) {
-        this.productionYear = productionYear;
-    }
-
-    public String getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
-
-    public String getRegPlate() {
-        return regPlate;
-    }
-
     public void setRegPlate(String regPlate) {
-        this.regPlate = regPlate.toUpperCase().replace(" ","");
+        this.regPlate = regPlate.toUpperCase();
     }
 
-    public int getCarId() {
-        return carId;
+    public Car() {
     }
 
-    public void setCarId(int carId) {
-        this.carId = carId;
+    public User getUser() {
+        return theUser;
     }
 
-    public int getIdUserInCars() {
-        return idUserInCars;
+    public void setUser(User user) {
+        this.theUser = user;
     }
 
-    public void setIdUserInCars(int idUserInCars) {
-        this.idUserInCars = idUserInCars;
+    public void addExtraCost(ExtraCosts extraCost){
+        if(extraCostsList == null) {
+            extraCostsList = new ArrayList<>();
+        }
+        extraCostsList.add(extraCost);
+        extraCost.setCar(this);
+    }
+
+    public void addFuelCost(FuelCosts fuelCosts){
+        if(fuelCostsList == null) {
+            fuelCostsList = new ArrayList<>();
+        }
+        fuelCostsList.add(fuelCosts);
+        fuelCosts.setCar(this);
     }
 }
