@@ -29,13 +29,18 @@ public class CarsService implements Serializable {
         carDAO.deleteCar(car);
     }
 
-    public List<Car> getAllCarsByUser() {
-        return carDAO.getAllCarsByUser();
+    public void updateCar(Car car) {
+        carDAO.addOrUpdateCar(car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
     public List getCurrentPage() {
         System.out.println("\nCurrent page is: " + page);
         return carDAO.getCarsPerPage(page, carsOnPage);
+    }
+
+    public List<Car> getAllCarsByUser() {
+        return carDAO.getAllCarsByUser();
     }
 
     public boolean doesCarExist(Car car) {
@@ -44,11 +49,6 @@ public class CarsService implements Serializable {
             return false;
         }
         return carInDB.getRegPlate().equals(car.getRegPlate());
-    }
-
-    public void updateCar(Car car) {
-        carDAO.addOrUpdateCar(car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
     public boolean isFieldEmpty(Car car) {

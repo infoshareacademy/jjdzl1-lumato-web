@@ -34,15 +34,9 @@ public class CarActionsBean implements Serializable {
 
     private List carList;
 
-
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
-    }
-
-
-    public List getCars() {
-        return carList = carsService.getCurrentPage();
     }
 
     private void addNewCar() {
@@ -50,7 +44,15 @@ public class CarActionsBean implements Serializable {
         redirectToCarPage();
     }
 
-    // TODO: 03.03.2019 put call==null in methods
+    private void deleteCar() {
+        carsService.deleteCar(car);
+        redirectToCarPage();
+    }
+
+    public List getCars() {
+        return carList = carsService.getCurrentPage();
+    }
+
     public void attemptToAddNewCar() {
         if (carsService.isFieldEmpty(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "All fields must be filled!");
@@ -67,11 +69,6 @@ public class CarActionsBean implements Serializable {
             car = null;
             redirectToCarPage();
         } else addNewCar();
-    }
-
-    private void deleteCar() {
-        carsService.deleteCar(car);
-        redirectToCarPage();
     }
 
     public void attemptToDeleteCar(Car theCar) {
