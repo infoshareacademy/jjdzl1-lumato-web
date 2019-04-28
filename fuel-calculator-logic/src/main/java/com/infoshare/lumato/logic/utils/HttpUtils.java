@@ -1,6 +1,6 @@
-package com.infoshare.lumato.utils;
+package com.infoshare.lumato.logic.utils;
 
-import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.logic.model.User;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;

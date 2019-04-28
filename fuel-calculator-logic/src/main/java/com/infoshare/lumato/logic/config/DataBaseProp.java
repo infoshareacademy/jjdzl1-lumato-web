@@ -1,6 +1,7 @@
 package com.infoshare.lumato.logic.config;
 
-import com.infoshare.lumato.utils.HttpUtils;
+
+import com.infoshare.lumato.logic.utils.HttpUtils;
 
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;

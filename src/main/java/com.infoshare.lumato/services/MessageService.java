@@ -1,6 +1,6 @@
 package com.infoshare.lumato.services;
 
-import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

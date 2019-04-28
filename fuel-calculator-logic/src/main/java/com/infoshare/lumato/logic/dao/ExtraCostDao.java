@@ -1,9 +1,10 @@
 package com.infoshare.lumato.logic.dao;
 
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.ExtraCosts;
-import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.utils.HttpUtils;
+
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.ExtraCosts;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 

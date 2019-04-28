@@ -1,9 +1,9 @@
 package com.infoshare.lumato.logic.dao;
 
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.FuelCosts;
-import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.FuelCosts;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -33,7 +33,7 @@ public class FuelCostsDAO extends CommonDAO {
         if (list.get(0) == null) {
             return singleResult;
         } else {
-            return (double) list.get(0);
+            return (Double) list.get(0);
         }
     }
 
@@ -47,6 +47,7 @@ public class FuelCostsDAO extends CommonDAO {
         executeAndCloseTransaction(currentSession);
     }
 
+    @SuppressWarnings("SyntaxError")
     public List<FuelCosts> getAllFuelCostByUser() {
         Session currentSession = getSession();
         String hQuery = "FROM FuelCosts F WHERE F.theUser.id=:userId";

@@ -1,8 +1,15 @@
 package com.infoshare.lumato.logic.dao;
 
 
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.utils.HttpUtils;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @RequestScoped

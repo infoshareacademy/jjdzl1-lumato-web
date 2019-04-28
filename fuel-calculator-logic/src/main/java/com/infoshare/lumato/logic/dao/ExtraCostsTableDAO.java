@@ -1,7 +1,8 @@
 package com.infoshare.lumato.logic.dao;
 
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.ExtraCosts;
+
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.ExtraCosts;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

@@ -1,8 +1,8 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.logic.dao.CarDAO;
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

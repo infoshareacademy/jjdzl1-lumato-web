@@ -1,8 +1,8 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.logic.dao.UserDAO;
-import com.infoshare.lumato.models.User;
-import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.utils.SecurityUtils;
 
 import javax.enterprise.context.RequestScoped;
