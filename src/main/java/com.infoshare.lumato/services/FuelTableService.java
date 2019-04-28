@@ -1,6 +1,6 @@
 package com.infoshare.lumato.services;
 
-import com.infoshare.lumato.dao.FuelCostsTableDAO;
+import com.infoshare.lumato.logic.dao.FuelCostsTableDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.utils.SortOrder;

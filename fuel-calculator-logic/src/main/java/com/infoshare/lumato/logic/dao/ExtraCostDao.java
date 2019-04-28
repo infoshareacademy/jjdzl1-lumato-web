@@ -1,4 +1,4 @@
-package com.infoshare.lumato.dao;
+package com.infoshare.lumato.logic.dao;
 
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.ExtraCosts;

@@ -1,4 +1,4 @@
-package com.infoshare.lumato.models;
+package com.infoshare.lumato.logic.model;
 
 import lombok.Getter;
 import lombok.Setter;

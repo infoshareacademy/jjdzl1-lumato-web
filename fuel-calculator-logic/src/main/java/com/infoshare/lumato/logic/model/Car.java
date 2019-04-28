@@ -1,8 +1,8 @@
-package com.infoshare.lumato.models;
+package com.infoshare.lumato.logic.model;
+
 
 import lombok.Getter;
 import lombok.Setter;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import javax.persistence.*;
 import java.io.Serializable;

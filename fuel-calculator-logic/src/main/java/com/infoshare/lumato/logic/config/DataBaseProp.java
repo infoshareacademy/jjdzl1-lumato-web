@@ -1,4 +1,4 @@
-package com.infoshare.lumato.config;
+package com.infoshare.lumato.logic.config;
 
 import com.infoshare.lumato.utils.HttpUtils;
 

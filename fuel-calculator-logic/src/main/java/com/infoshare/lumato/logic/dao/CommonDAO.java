@@ -1,9 +1,7 @@
-package com.infoshare.lumato.dao;
+package com.infoshare.lumato.logic.dao;
 
-import com.infoshare.lumato.persistence.DBConnection;
-import com.infoshare.lumato.utils.HibernateConfig;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+
+import com.infoshare.lumato.logic.persistence.DBConnection;
 
 import javax.inject.Inject;
 import java.sql.ResultSet;

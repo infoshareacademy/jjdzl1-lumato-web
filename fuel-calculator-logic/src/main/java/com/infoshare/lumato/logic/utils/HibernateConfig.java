@@ -1,15 +1,6 @@
-package com.infoshare.lumato.utils;
+package com.infoshare.lumato.logic.utils;
 
 
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.ExtraCosts;
-import com.infoshare.lumato.models.FuelCosts;
-import com.infoshare.lumato.models.User;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.cfg.Environment;
-import org.hibernate.service.ServiceRegistry;
 
 import java.util.Properties;
 

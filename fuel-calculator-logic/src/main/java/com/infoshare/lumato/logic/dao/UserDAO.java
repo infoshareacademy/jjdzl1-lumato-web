@@ -1,8 +1,7 @@
-package com.infoshare.lumato.dao;
+package com.infoshare.lumato.logic.dao;
 
 import com.infoshare.lumato.models.User;
 import org.hibernate.Session;
-
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

@@ -1,7 +1,7 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.beans.ExtraCostsInputBean;
-import com.infoshare.lumato.dao.ExtraCostDao;
+import com.infoshare.lumato.logic.dao.ExtraCostDao;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.ExtraCosts;
 

@@ -1,7 +1,7 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.beans.FuelInputBean;
-import com.infoshare.lumato.dao.FuelCostsDAO;
+import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.models.Car;
 import com.infoshare.lumato.models.FuelCosts;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;

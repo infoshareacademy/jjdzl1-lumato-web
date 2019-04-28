@@ -1,6 +1,6 @@
 package com.infoshare.lumato.services;
 
-import com.infoshare.lumato.dao.UserDAO;
+import com.infoshare.lumato.logic.dao.UserDAO;
 import com.infoshare.lumato.models.User;
 import com.infoshare.lumato.utils.HttpUtils;
 import com.infoshare.lumato.utils.SecurityUtils;

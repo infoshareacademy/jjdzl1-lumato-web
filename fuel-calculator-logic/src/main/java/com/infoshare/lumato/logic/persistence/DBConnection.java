@@ -1,7 +1,6 @@
-package com.infoshare.lumato.persistence;
+package com.infoshare.lumato.logic.persistence;
 
-
-import com.infoshare.lumato.config.DataBaseProp;
+import com.infoshare.lumato.logic.config.DataBaseProp;
 
 import javax.ejb.Stateless;
 import java.sql.Connection;
