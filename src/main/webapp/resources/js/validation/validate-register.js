@@ -1,47 +1,95 @@
-var submitButton = document.getElementById("registration-form:submit-registration-form");
-var emailInput = document.getElementById("registration-form:email");
-var firstNameInput = document.getElementById("registration-form:firstName");
-var lastNameInput = document.getElementById("registration-form:lastName");
-var passwordInput = document.getElementById("registration-form:password");
-var confirmPasswordInput = document.getElementById("registration-form:confirmPassword");
-var isSubmitDisabled;
-var emailRegex = /\S+@\S+\.\S+/;
-var firstNameRegex = /.+/;
-var lastNameRegex = /.+/;
-var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-
-disableSubmit();
-
-function disableSubmit() {
-    submitButton.disabled = true;
-    isSubmitDisabled = true;
-}
-
-function switchStateIfNeeded() {
-    if (submitRequiresStateSwitch()) {
-        isSubmitDisabled = !isSubmitDisabled;
-        submitButton.disabled = isSubmitDisabled;
+let form = {
+    submit: {
+        input: false,
+        element: document.getElementById("registration-form:submit-registration-form"),
+        color: "",
+        active: false,
+    },
+    email: {
+        input: true,
+        element: document.getElementById("registration-form:email"),
+        color: "",
+        ok: false,
+        regex: /\S+@\S+\.\S+/
+    },
+    firstName: {
+        input: true,
+        element: document.getElementById("registration-form:firstName"),
+        color: "",
+        ok: false,
+        regex: /.+/
+    },
+    lastName: {
+        input: true,
+        element: document.getElementById("registration-form:lastName"),
+        color: "",
+        ok: false,
+        regex: /.+/
+    },
+    password: {
+        input: true,
+        element: document.getElementById("registration-form:password"),
+        color: "",
+        ok: false,
+        regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+    },
+    confirmPassword: {
+        input: true,
+        element: document.getElementById("registration-form:confirmPassword"),
+        color: "",
+        ok: false
     }
 }
 
-function submitRequiresStateSwitch() {
-    if (allFieldsFilledProperly() && isSubmitDisabled) return true;
-    if (!allFieldsFilledProperly() && !isSubmitDisabled) return true;
-    return false;
+let borderColors = {
+    okData: "green",
+    wrongData: "red"
 }
 
-function allFieldsFilledProperly() {
-    if (!emailInput.value.match(emailRegex)) return false;
-    if (!firstNameInput.value.match(firstNameRegex)) return false;
-    if (!lastNameInput.value.match(lastNameRegex)) return false;
-    if (!passwordInput.value.match(passwordRegex)) return false;
-    if (passwordInput.value != confirmPasswordInput.value) return false;
-    return true;
+initialize();
+
+function initialize() {
+    for (var index in form) {
+        if (form[index].input) {
+            form[index].element.addEventListener("input", update);
+            form[index].element.addEventListener("change", update);
+        }
+    }
+
+    form.submit.element.disabled = true;
+    updateColors();
 }
 
-emailInput.addEventListener("change", switchStateIfNeeded);
-firstNameInput.addEventListener("change", switchStateIfNeeded);
-lastNameInput.addEventListener("change", switchStateIfNeeded);
-passwordInput.addEventListener("change", switchStateIfNeeded);
-confirmPasswordInput.addEventListener("change", switchStateIfNeeded);
-confirmPasswordInput.addEventListener("change", switchStateIfNeeded);
+function update() {
+    updateState();
+    updateColors();
+}
+
+function updateColors() {
+    for(var index in form) {
+        if (form[index].input) {
+            if (form[index].ok && form[index].color !== borderColors.okData) {
+                form[index].color = borderColors.okData;
+                form[index].element.style.borderColor = form[index].color;
+            }
+            if (!form[index].ok && form[index].color !== borderColors.wrongData) {
+                form[index].color = borderColors.wrongData;
+                form[index].element.style.borderColor = form[index].color;
+            }
+        }
+    }
+}
+
+function updateState() {
+    /* update all inputs that have regex */
+    for (var index in form) {
+        if (form[index].regex) {
+            form[index].ok = form[index].element.value.match(form[index].regex);
+        }
+    }
+    /* update inputs with other requirements */
+    form.confirmPassword.ok = form.password.element.value === form.confirmPassword.element.value;
+    /* enable/disable submit button */
+    form.submit.active = form.email.ok && form.firstName.ok && form.lastName.ok && form.password.ok && form.confirmPassword.ok;
+    form.submit.element.disabled = !form.submit.active;
+}
