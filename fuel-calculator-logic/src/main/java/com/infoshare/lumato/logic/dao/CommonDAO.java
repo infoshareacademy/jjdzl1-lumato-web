@@ -4,10 +4,12 @@ package com.infoshare.lumato.logic.dao;
 import com.infoshare.lumato.logic.persistence.DBConnection;
 import com.infoshare.lumato.logic.persistence.HibernateConfig;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.inject.Inject;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Iterator;
 
 
 public abstract class CommonDAO {
@@ -29,19 +31,14 @@ public abstract class CommonDAO {
         currentSession.close();
     }
 
-    public int countAllRecords(String tableName) {
-        int amountOfUsers = 0;
-        try {
-            String sql = "SELECT COUNT(*) AS carsAmount FROM " + tableName;
-            Statement myStmt = myConn.getConnection().prepareStatement(sql);
-            ResultSet resultSet = myStmt.executeQuery(sql);
-            resultSet.next();
-            amountOfUsers = resultSet.getInt("carsAmount");
-        } catch (Exception exc) {
-            System.out.println("Cannot count records!");
-            exc.printStackTrace();
-        }
-        return amountOfUsers;
+    public int countAllRecords(Class entityClass) {
+        int amountOfRecords = 0;
+        Session currentSession = getSession();
+        String tableName = entityClass.getSimpleName();
+        String SQL_QUERY = "SELECT COUNT(*) FROM " + tableName;
+        amountOfRecords = ((Long)getSession().createQuery(SQL_QUERY).uniqueResult()).intValue();
+        executeAndCloseTransaction(currentSession);
+        return amountOfRecords;
     }
 
 }

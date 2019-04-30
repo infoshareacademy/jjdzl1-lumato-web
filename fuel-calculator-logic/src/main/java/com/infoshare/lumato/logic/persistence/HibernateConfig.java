@@ -39,7 +39,7 @@ public class HibernateConfig {
             Configuration configuration = new Configuration();
             // Hibernate settings equivalent to hibernate.cfg.xml's properties
             Properties settings = new Properties();
-            settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
+            settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
             settings.put(Environment.URL, url);
             settings.put(Environment.USER, user);
             settings.put(Environment.PASS, password);
