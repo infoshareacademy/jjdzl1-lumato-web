@@ -4,7 +4,6 @@ package com.infoshare.lumato.logic.dao;
 import com.infoshare.lumato.logic.persistence.DBConnection;
 import com.infoshare.lumato.logic.persistence.HibernateConfig;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
 import java.sql.ResultSet;
@@ -16,10 +15,11 @@ public abstract class CommonDAO {
     @Inject
     DBConnection myConn;
 
-    private final SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+    @Inject
+    HibernateConfig hibernateConfig;
 
     Session getSession() {
-        Session currentSession = sessionFactory.openSession();
+        Session currentSession = hibernateConfig.getSessionFactory().openSession();
         currentSession.beginTransaction();
         return currentSession;
     }
