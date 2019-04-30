@@ -14,6 +14,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import java.io.File;
 import java.util.Properties;
 
 @ApplicationScoped
@@ -27,6 +28,10 @@ public class HibernateConfig {
 
     @PostConstruct
     private void initializeHibernateConfig() {
+        File file = new File("");
+        File file2 = new File("/");
+        System.out.println("FILE TEST with nothing: " + file.getAbsolutePath() +
+                "\nFILE TEST with slash: " + file2.getAbsolutePath());
         url = "jdbc:mysql://192.168.99.102:9001/lumato";
         user = "root";
         password = "root";
