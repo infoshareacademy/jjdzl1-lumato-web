@@ -11,9 +11,8 @@
     <ui:define name="content">
 
 
-        <div class="container-fluid"
-             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 70px 0px 100px 0px">
-            <div class="text-center h2 pb-5 pt-0">Long title ahahahaahha</div>
+        <div class="container-fluid bg-dark text-light" id="login-register-form-container">
+            <div class="text-center h2 pb-5 pt-0">Fuel Management Application</div>
             <div class="row">
                 <div class="col-md-4 col-sm-3 col-xs-2"></div>
                 <div class="col-md-4 col-sm-6 col-xs-8">
@@ -45,7 +44,7 @@
                         </div>
 
                         <div class="form-group">
-                            <h:commandButton value="Log In" styleClass="btn btn-primary btn-block"
+                            <h:commandButton value="Log In" styleClass="btn btn-outline-primary btn-block"
                                              action="#{loginBean.attemptToLogIn()}"/>
                         </div>
 

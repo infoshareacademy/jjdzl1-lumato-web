@@ -11,9 +11,8 @@
 <ui:composition template="templates/login-register-template.xhtml">
     <ui:define name="content">
 
-        <div class="container-fluid"
-             style="background-color: #ffff;max-width: 700px; margin: auto; padding: 70px 0px 100px 0px; border-radius:5px">
-            <div class="text-center h2 pb-5 pt-0">Long title ahahahaahha</div>
+        <div class="container-fluid bg-dark text-light" id="login-register-form-container">
+            <div class="text-center h2 pb-5 pt-0">Fuel Management Application</div>
             <div class="row">
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
                 <div class="col-md-8 col-sm-8 col-xs-8">
@@ -92,25 +91,16 @@
 
                     </h:form>
 
-                    <div class="form-group">
-                        <a href="login.xhtml" class="btn btn-secondary btn-block"
-                           style="border-radius: 10px">
-                            Sign in</a>
-                        <a class="float-right" href="#">Forgot password?</a>
+                    <div class="text-right">
+                        <a href="/login.xhtml">Sign in!</a>
+                        &nbsp;|&nbsp;
+                        <a href="/login.xhtml">Forgot password?</a>
                     </div>
-
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
             </div>
         </div>
 
-
-        <!--<script>-->
-            <!--$(document).ready(function(){-->
-                <!--$("input")-->
-                    <!--.popover({content: "First name must be at least 1-character long.", trigger: "focus"});-->
-            <!--});-->
-        <!--</script>-->
         <script src="resources/js/validation/validate-register.js" type="text/javascript"></script>
         <script src="resources/js/validation/validate.js" type="text/javascript"></script>
 
