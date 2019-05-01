@@ -10,7 +10,7 @@ let form = {
         element: document.getElementById("registration-form:email"),
         color: "",
         ok: false,
-		popoverMsg: "Email should match pattern: something@something.something",
+        popoverMsg: "Email should match pattern: something@something.something",
         regex: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     },
     firstName: {
@@ -18,7 +18,7 @@ let form = {
         element: document.getElementById("registration-form:firstName"),
         color: "",
         ok: false,
-		popoverMsg: "First name must have at least 1 character",
+        popoverMsg: "First name must have at least 1 character",
         regex: /.+/
     },
     lastName: {
@@ -26,7 +26,7 @@ let form = {
         element: document.getElementById("registration-form:lastName"),
         color: "",
         ok: false,
-		popoverMsg: "First name must have at least 1 character",
+        popoverMsg: "First name must have at least 1 character",
         regex: /.+/
     },
     password: {
@@ -34,7 +34,7 @@ let form = {
         element: document.getElementById("registration-form:password"),
         color: "",
         ok: false,
-		popoverMsg: "Password must be at least 8-character-long and containt: 1 small letter, 1 large letter, 1 digit, 1 special character.",
+        popoverMsg: "Password must be at least 8-character-long and containt: 1 small letter, 1 large letter, 1 digit, 1 special character.",
         regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
     },
     confirmPassword: {
@@ -42,7 +42,7 @@ let form = {
         element: document.getElementById("registration-form:confirmPassword"),
         color: "",
         ok: false,
-		popoverMsg: "Passwords must match!"
+        popoverMsg: "Passwords must match!"
     }
 }
 
@@ -71,8 +71,6 @@ function update() {
 }
 
 $(document).ready(function(){
-	// $("input")
-	// 	.popover({content: "First name must be at least 1-character long.", trigger: "focus"});
 	for (var index in form) {
 		if (form[index].popoverMsg){
 		    let data = {
@@ -101,15 +99,21 @@ function updateColors() {
 }
 
 function updateState() {
-    /* update all inputs that have regex */
 	for (var index in form) {
         if (form[index].regex) {
             form[index].ok = form[index].element.value.match(form[index].regex);
         }
     }
-    /* update inputs with other requirements */
     form.confirmPassword.ok = form.password.element.value === form.confirmPassword.element.value;
-    /* enable/disable submit button */
-    form.submit.active = form.email.ok && form.firstName.ok && form.lastName.ok && form.password.ok && form.confirmPassword.ok;
+    form.submit.active = shouldButtonBeActive();
     form.submit.element.disabled = !form.submit.active;
+}
+
+function shouldButtonBeActive() {
+    for (var index in form) {
+        if ('ok' in form[index]) {
+            if (!form[index].ok) return false;
+        }
+    }
+    return true;
 }
