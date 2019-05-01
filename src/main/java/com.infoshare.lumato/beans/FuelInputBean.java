@@ -2,19 +2,21 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.FuelCosts;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
-import com.infoshare.lumato.logic.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 @RequestScoped
 @Named("fuelInputBean")

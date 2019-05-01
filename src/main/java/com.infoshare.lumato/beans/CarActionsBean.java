@@ -47,7 +47,6 @@ public class CarActionsBean implements Serializable {
 
     public List getCars() {
         getCurrentPage();
-        System.out.println("\nPAGE" + page);
         return carList = carsService.getCurrentItemsList();
     }
 
@@ -120,7 +119,7 @@ public class CarActionsBean implements Serializable {
     }
 
     private void getCurrentPage() {
-        page = carsService.getCurrentPage();
+        page = carsService.getPage();
     }
 
     private List<Integer> getListOfPages() {

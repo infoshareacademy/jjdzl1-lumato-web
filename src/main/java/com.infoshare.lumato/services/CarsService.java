@@ -12,9 +12,8 @@ import java.util.Calendar;
 import java.util.List;
 
 @ViewScoped
-public class CarsService implements Serializable {
+public class CarsService extends PaginationService implements Serializable {
 
-    private int page = 1;
 
     private final int carsOnPage = 4;
 
@@ -32,10 +31,6 @@ public class CarsService implements Serializable {
     public void updateCar(Car car) {
         carDAO.addOrUpdateCar(car);
         HttpUtils.redirect("/app/cars-input.xhtml");
-    }
-
-    public List getCurrentItemsList() {
-        return carDAO.getCarsPerPage(page, carsOnPage);
     }
 
     public List<Car> getAllCarsByUser() {
@@ -68,34 +63,40 @@ public class CarsService implements Serializable {
     }
 
     public void firstPage() {
-        page = 1;
+        super.firstPage();
     }
 
-    public void lastPage() {
-        page = getNumberOfPages();
-    }
-
+    @Override
     public void previousPage() {
-        if (page <= 1) {
-            page = 1;
-        } else page--;
+       super.previousPage();
     }
 
+    @Override
     public void nextPage() {
-        int lastPage = getNumberOfPages();
-        if (page == lastPage) page = lastPage - 1;
-        page++;
+        super.nextPage();
     }
 
+    @Override
+    public void lastPage() {
+        super.lastPage();
+    }
+
+    @Override
     public int getNumberOfPages() {
+        int numberOfPages = carDAO.getNumberOfPages(carsOnPage);
         return carDAO.getNumberOfPages(carsOnPage);
+    }
+
+    @Override
+    public List getCurrentItemsList() {
+        return carDAO.getCarsPerPage(page, carsOnPage);
+    }
+
+    public int getPage() {
+        return page;
     }
 
     public void setPage(int page) {
         this.page = page;
-    }
-
-    public int getCurrentPage() {
-        return page;
     }
 }

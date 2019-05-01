@@ -67,7 +67,7 @@ public class CarDAO extends CommonDAO {
         return carInDB;
     }
 
-    public List getCarsPerPage(int pageNumber, int pageSize) {
+    public List<Car> getCarsPerPage(int pageNumber, int pageSize) {
         Session currentSession = getSession();
         Query selectQuery =
                 currentSession.createQuery("FROM Car C where C.theUser.id=:userId").setParameter("userId", userId);
