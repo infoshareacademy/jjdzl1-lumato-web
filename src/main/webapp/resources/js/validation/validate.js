@@ -1,4 +1,4 @@
-let borderColors = {
+let formBorderColors = {
     okData: "green",
     wrongData: "red"
 }
@@ -6,14 +6,14 @@ let borderColors = {
 initialize();
 
 function initialize() {
-    for (var index in form) {
-        if (form[index].input) {
-            form[index].element.addEventListener("input", update);
-            form[index].element.addEventListener("change", update);
+    for (var index in formToValidate) {
+        if (formToValidate[index].input) {
+            formToValidate[index].element.addEventListener("input", update);
+            formToValidate[index].element.addEventListener("change", update);
         }
     }
 
-    form.submit.element.disabled = true;
+    formToValidate.submit.element.disabled = true;
     updateColors();
 }
 
@@ -23,55 +23,58 @@ function update() {
 }
 
 $(document).ready(function(){
-    for (var index in form) {
-        if ('popoverMsg' in form[index]){
+    for (var index in formToValidate) {
+        if ('popoverMsg' in formToValidate[index]){
             let data = {
-                content: form[index].popoverMsg,
+                content: formToValidate[index].popoverMsg,
                 trigger: "focus",
-                placement: "bottom"
+                placement: "top"
             };
-            $(form[index].element).popover(data);
+            if ('popoverPosition' in formToValidate[index]) {
+                data.placement = formToValidate[index].popoverPosition;
+            }
+            $(formToValidate[index].element).popover(data);
         }
     }
 });
 
 function updateColors() {
-    for(var index in form) {
-        if (form[index].input) {
-            if (form[index].ok && form[index].color !== borderColors.okData) {
-                form[index].color = borderColors.okData;
-                form[index].element.style.borderColor = form[index].color;
+    for(var index in formToValidate) {
+        if (formToValidate[index].input) {
+            if (formToValidate[index].ok && formToValidate[index].color !== formBorderColors.okData) {
+                formToValidate[index].color = formBorderColors.okData;
+                formToValidate[index].element.style.borderColor = formToValidate[index].color;
             }
-            if (!form[index].ok && form[index].color !== borderColors.wrongData) {
-                form[index].color = borderColors.wrongData;
-                form[index].element.style.borderColor = form[index].color;
+            if (!formToValidate[index].ok && formToValidate[index].color !== formBorderColors.wrongData) {
+                formToValidate[index].color = formBorderColors.wrongData;
+                formToValidate[index].element.style.borderColor = formToValidate[index].color;
             }
         }
     }
 }
 
 function updateState() {
-    for (var index in form) {
-        if ('regex' in form[index]) {
-            form[index].ok = form[index].element.value.match(form[index].regex);
+    for (var index in formToValidate) {
+        if ('regex' in formToValidate[index]) {
+            formToValidate[index].ok = formToValidate[index].element.value.match(formToValidate[index].regex);
         }
     }
     runOtherVerifyFunctions();
-    form.submit.active = shouldButtonBeActive();
-    form.submit.element.disabled = !form.submit.active;
+    formToValidate.submit.active = shouldButtonBeActive();
+    formToValidate.submit.element.disabled = !formToValidate.submit.active;
 }
 
 function shouldButtonBeActive() {
-    for (var index in form) {
-        if ('ok' in form[index]) {
-            if (!form[index].ok) return false;
+    for (var index in formToValidate) {
+        if ('ok' in formToValidate[index]) {
+            if (!formToValidate[index].ok) return false;
         }
     }
     return true;
 }
 
 function runOtherVerifyFunctions() {
-    for (var index in form.otherVerifyFunctions) {
-        form.otherVerifyFunctions[index].call();
+    for (var index in formToValidate.otherVerifyFunctions) {
+        formToValidate.otherVerifyFunctions[index].call();
     }
 }
