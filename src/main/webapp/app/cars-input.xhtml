@@ -182,12 +182,20 @@
                                                          style="width: 100%"
                                                          action="#{carBean.firstPage}"/>
                                     </div>
+
                                     <div class="col">
                                         <h:commandButton value="PREV"
                                                          styleClass="btn btn-outline-danger"
                                                          style="width: 100%"
                                                          action="#{carBean.previousPage}"/>
                                     </div>
+
+
+
+                                    <span class="badge badge-primary">#{carBean.page}</span>
+
+
+
                                     <div class="col">
                                         <h:commandButton value="NEXT"
                                                          styleClass="btn btn-outline-info"

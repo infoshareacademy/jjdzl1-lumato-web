@@ -34,7 +34,7 @@ public class CarsService implements Serializable {
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
-    public List getCurrentPage() {
+    public List getCurrentItemsList() {
         return carDAO.getCarsPerPage(page, carsOnPage);
     }
 
@@ -67,11 +67,11 @@ public class CarsService implements Serializable {
         return carDAO.findCarById(id);
     }
 
-    public void firstPage(){
+    public void firstPage() {
         page = 1;
     }
 
-    public void lastPage(){
+    public void lastPage() {
         page = carDAO.getNumberOfPages(carsOnPage);
     }
 
@@ -85,5 +85,13 @@ public class CarsService implements Serializable {
         int lastPage = carDAO.getNumberOfPages(carsOnPage);
         if (page == lastPage) page = lastPage - 1;
         page++;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getCurrentPage() {
+        return page;
     }
 }

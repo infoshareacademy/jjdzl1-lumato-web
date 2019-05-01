@@ -34,6 +34,10 @@ public class CarActionsBean implements Serializable {
 
     private List carList;
 
+    private int page = 1;
+
+    private int[] pages = new int[]{1, 2, 3};
+
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
@@ -50,7 +54,8 @@ public class CarActionsBean implements Serializable {
     }
 
     public List getCars() {
-        return carList = carsService.getCurrentPage();
+        setCurrentPage();
+        return carList = carsService.getCurrentItemsList();
     }
 
     public void attemptToAddNewCar() {
@@ -109,5 +114,9 @@ public class CarActionsBean implements Serializable {
 
     public void firstPage() {
         carsService.firstPage();
+    }
+
+    private void setCurrentPage() {
+        page = carsService.getCurrentPage();
     }
 }
