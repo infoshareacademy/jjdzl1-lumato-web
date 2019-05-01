@@ -3,6 +3,8 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.logic.dao.CarDAO;
 import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.logic.dao.UserDAO;
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.User;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.PostConstruct;
@@ -31,8 +33,8 @@ public class StartViewBean implements Serializable {
 
     @PostConstruct
     public void construct() {
-        amountOfCars = carDAO.countAllRecords("cars");
-        amountOfUsers = userDAO.countAllRecords("users");
+        amountOfCars = carDAO.countAllRecords(Car.class);
+        amountOfUsers = userDAO.countAllRecords(User.class);
     }
 
     public int countAllUsers(){

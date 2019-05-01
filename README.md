@@ -1,6 +1,4 @@
-# jjdzl1-lumato-web
+#fuel-calculator
 
-##### To use database create "db.properties" file in "webapp/config/" directory, example properties:
-- url = jdbc:mysql://192.168.99.100:9001/lumato
-- password = root
-- user = root
+#### Database configuration:
+Database configuration is described in details in fuel-calculator-logic submodule

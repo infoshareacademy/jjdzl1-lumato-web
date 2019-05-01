@@ -3,8 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition>
     <div id="menu" class="sideMenu border-right border-danger">
@@ -20,13 +19,11 @@
                 <a href="/app/user-edit.xhtml">
                     <i class="fa fa-gear"/>&nbsp;Edit user
                 </a>
-                <hr/>
             </li>
             <li>
                 <a href="/app/user-change-password.xhtml">
                     <i class="fa fa-gear"/>&nbsp;Change password
                 </a>
-                <hr/>
             </li>
             <li>
                 <a href="/app/user-delete.xhtml">
@@ -52,16 +49,6 @@
                 <hr/>
             </li>
             <li>
-                <a href="/app/fuel-table.xhtml">
-                    <i class="fa fa-table"/>&nbsp;Fueling history
-                </a>
-            </li>
-            <li>
-                <a href="/app/extra-cost-table.xhtml">
-                    <i class="fa fa-table"/>&nbsp;Extra costs history
-                </a>
-            </li>
-            <li>
                 <a href="#">
                     <i class="fa fa-bar-chart-o"/>&nbsp;Reports/stats
                 </a>
@@ -74,7 +61,6 @@
             </li>
             <li>
                 <h:form>
-
                     <h:commandLink action="#{loginBean.logOut}">
                         <i class="fa fa-sign-out"/>&nbsp;Log out
                     </h:commandLink>
