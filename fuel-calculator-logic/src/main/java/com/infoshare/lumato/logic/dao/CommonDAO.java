@@ -1,25 +1,17 @@
 package com.infoshare.lumato.logic.dao;
 
-
-import com.infoshare.lumato.logic.persistence.DBConnection;
 import com.infoshare.lumato.logic.persistence.HibernateConfig;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javax.inject.Inject;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 
 public abstract class CommonDAO {
 
     @Inject
-    DBConnection myConn;
-
-    private final SessionFactory sessionFactory = HibernateConfig.getSessionFactory();
+    HibernateConfig hibernateConfig;
 
     Session getSession() {
-        Session currentSession = sessionFactory.openSession();
+        Session currentSession = hibernateConfig.getSessionFactory().openSession();
         currentSession.beginTransaction();
         return currentSession;
     }
@@ -29,19 +21,13 @@ public abstract class CommonDAO {
         currentSession.close();
     }
 
-    public int countAllRecords(String tableName) {
-        int amountOfUsers = 0;
-        try {
-            String sql = "SELECT COUNT(*) AS carsAmount FROM " + tableName;
-            Statement myStmt = myConn.getConnection().prepareStatement(sql);
-            ResultSet resultSet = myStmt.executeQuery(sql);
-            resultSet.next();
-            amountOfUsers = resultSet.getInt("carsAmount");
-        } catch (Exception exc) {
-            System.out.println("Cannot count records!");
-            exc.printStackTrace();
-        }
-        return amountOfUsers;
+    public int countAllRecords(Class entityClass) {
+        int amountOfRecords = 0;
+        Session currentSession = getSession();
+        String SQL_QUERY = "select count(*) from " + entityClass.getSimpleName();
+        amountOfRecords = ((Long)currentSession.createQuery(SQL_QUERY).uniqueResult()).intValue();
+        executeAndCloseTransaction(currentSession);
+        return amountOfRecords;
     }
 
 }
