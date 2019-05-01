@@ -24,9 +24,8 @@ public abstract class CommonDAO {
     public int countAllRecords(Class entityClass) {
         int amountOfRecords = 0;
         Session currentSession = getSession();
-        String tableName = entityClass.getSimpleName();
-        String SQL_QUERY = "SELECT COUNT(*) FROM " + tableName;
-        amountOfRecords = ((Long)getSession().createQuery(SQL_QUERY).uniqueResult()).intValue();
+        String SQL_QUERY = "select count(*) from " + entityClass.getSimpleName();
+        amountOfRecords = ((Long)currentSession.createQuery(SQL_QUERY).uniqueResult()).intValue();
         executeAndCloseTransaction(currentSession);
         return amountOfRecords;
     }
