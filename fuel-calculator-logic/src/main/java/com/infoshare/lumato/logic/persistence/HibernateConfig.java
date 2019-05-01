@@ -1,7 +1,5 @@
 package com.infoshare.lumato.logic.persistence;
 
-
-
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.ExtraCosts;
 import com.infoshare.lumato.logic.model.FuelCosts;
@@ -23,7 +21,6 @@ import java.util.Properties;
 public class HibernateConfig {
 
     private static SessionFactory sessionFactory;
-
     private static String  url;
     private static String user;
     private static String password;
@@ -44,7 +41,6 @@ public class HibernateConfig {
         }
         initializeSessionFactory();
     }
-
 
     private static void initializeSessionFactory() {
         try {
