@@ -10,7 +10,7 @@ let form = {
         element: document.getElementById("registration-form:email"),
         color: "",
         ok: false,
-        regex: /\S+@\S+\.\S+/
+        regex: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     },
     firstName: {
         input: true,
