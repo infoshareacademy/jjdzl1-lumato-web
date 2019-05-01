@@ -93,6 +93,4 @@ public class CarDAO extends CommonDAO {
         double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
         return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
     }
-
-
 }

@@ -3,11 +3,8 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.logic.dao.CarDAO;
 import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.logic.dao.UserDAO;
-import com.infoshare.lumato.logic.model.Car;
-import com.infoshare.lumato.logic.model.User;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,11 +28,11 @@ public class StartViewBean implements Serializable {
     @Inject
     FuelCostsDAO fuelCostsDAO;
 
-    @PostConstruct
+    /*@PostConstruct
     public void construct() {
         amountOfCars = carDAO.countAllRecords(Car.class);
         amountOfUsers = userDAO.countAllRecords(User.class);
-    }
+    }*/
 
     public int countAllUsers(){
         return amountOfUsers;
@@ -50,5 +47,4 @@ public class StartViewBean implements Serializable {
         double av =  NumberUtils.toScaledBigDecimal(averageFuelCost, 2, RoundingMode.HALF_UP).doubleValue();
         return String.format(Locale.CANADA,"%.2f", av);
     }
-
 }

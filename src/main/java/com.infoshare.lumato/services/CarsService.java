@@ -35,7 +35,6 @@ public class CarsService implements Serializable {
     }
 
     public List getCurrentPage() {
-        System.out.println("\nCurrent page is: " + page);
         return carDAO.getCarsPerPage(page, carsOnPage);
     }
 
@@ -68,15 +67,23 @@ public class CarsService implements Serializable {
         return carDAO.findCarById(id);
     }
 
-    public void nextPage() {
-        int lastPage = carDAO.getNumberOfPages(carsOnPage);
-        if (page == lastPage) page = lastPage - 1;
-        page++;
+    public void firstPage(){
+        page = 1;
+    }
+
+    public void lastPage(){
+        page = carDAO.getNumberOfPages(carsOnPage);
     }
 
     public void previousPage() {
         if (page <= 1) {
             page = 1;
         } else page--;
+    }
+
+    public void nextPage() {
+        int lastPage = carDAO.getNumberOfPages(carsOnPage);
+        if (page == lastPage) page = lastPage - 1;
+        page++;
     }
 }

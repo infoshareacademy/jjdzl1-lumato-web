@@ -1,10 +1,10 @@
 package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelType;
-import com.infoshare.lumato.logic.utils.HttpUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -81,14 +81,6 @@ public class CarActionsBean implements Serializable {
         carsService.updateCar(car);
     }
 
-    public void nextPage() {
-        carsService.nextPage();
-    }
-
-    public void previousPage() {
-        carsService.previousPage();
-    }
-
     public void redirectToCarPage() {
         this.car = null;
         HttpUtils.redirect("/app/cars-input.xhtml");
@@ -101,5 +93,21 @@ public class CarActionsBean implements Serializable {
 
     public Car getCarById(int id) {
         return carsService.getCarById(id);
+    }
+
+    public void previousPage() {
+        carsService.previousPage();
+    }
+
+    public void nextPage() {
+        carsService.nextPage();
+    }
+
+    public void lastPage() {
+        carsService.lastPage();
+    }
+
+    public void firstPage() {
+        carsService.firstPage();
     }
 }
