@@ -32,11 +32,11 @@ public class HibernateConfig {
 
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
 
-                settings.put(Environment.URL, "jdbc:mysql://127.0.0.1:3306/lumato?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+                settings.put(Environment.URL, "jdbc:mysql://192.168.99.102:9001/lumato");
 
                 settings.put(Environment.USER, "root");
 
-                settings.put(Environment.PASS, "password");
+                settings.put(Environment.PASS, "root");
 
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");
 

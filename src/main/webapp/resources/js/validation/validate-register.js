@@ -3,13 +3,14 @@ let form = {
         input: false,
         element: document.getElementById("registration-form:submit-registration-form"),
         color: "",
-        active: false,
+        active: false
     },
     email: {
         input: true,
         element: document.getElementById("registration-form:email"),
         color: "",
         ok: false,
+		popoverMsg: "Email should match pattern: something@something.something",
         regex: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/
     },
     firstName: {
@@ -17,6 +18,7 @@ let form = {
         element: document.getElementById("registration-form:firstName"),
         color: "",
         ok: false,
+		popoverMsg: "First name must have at least 1 character",
         regex: /.+/
     },
     lastName: {
@@ -24,6 +26,7 @@ let form = {
         element: document.getElementById("registration-form:lastName"),
         color: "",
         ok: false,
+		popoverMsg: "First name must have at least 1 character",
         regex: /.+/
     },
     password: {
@@ -31,13 +34,15 @@ let form = {
         element: document.getElementById("registration-form:password"),
         color: "",
         ok: false,
+		popoverMsg: "Password must be at least 8-character-long and containt: 1 small letter, 1 large letter, 1 digit, 1 special character.",
         regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
     },
     confirmPassword: {
         input: true,
         element: document.getElementById("registration-form:confirmPassword"),
         color: "",
-        ok: false
+        ok: false,
+		popoverMsg: "Passwords must match!"
     }
 }
 
@@ -65,6 +70,21 @@ function update() {
     updateColors();
 }
 
+$(document).ready(function(){
+	// $("input")
+	// 	.popover({content: "First name must be at least 1-character long.", trigger: "focus"});
+	for (var index in form) {
+		if (form[index].popoverMsg){
+		    let data = {
+                content: form[index].popoverMsg,
+                trigger: "focus",
+                placement: "bottom"
+            };
+			$(form[index].element).popover(data);
+		}
+	}
+});
+
 function updateColors() {
     for(var index in form) {
         if (form[index].input) {
@@ -82,7 +102,7 @@ function updateColors() {
 
 function updateState() {
     /* update all inputs that have regex */
-    for (var index in form) {
+	for (var index in form) {
         if (form[index].regex) {
             form[index].ok = form[index].element.value.match(form[index].regex);
         }
