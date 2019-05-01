@@ -5,7 +5,6 @@ import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.utils.FuelType;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,9 +13,11 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
-@Setter(AccessLevel.PRIVATE)
+@Setter
 @Getter
 @RequestScoped
 @Named("carBean")
@@ -34,13 +35,19 @@ public class CarActionsBean implements Serializable {
 
     private List carList;
 
-    private int page = 1;
+    private int page;
 
-    private int[] pages = new int[]{1, 2, 3};
+    List<Integer> pageList;
 
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
+        pageList = getListOfPages();
+    }
+
+    public List loadCarTable() {
+        setCurrentPage();
+        return carList = carsService.getCurrentItemsList();
     }
 
     private void addNewCar() {
@@ -51,11 +58,6 @@ public class CarActionsBean implements Serializable {
     private void deleteCar() {
         carsService.deleteCar(car);
         redirectToCarPage();
-    }
-
-    public List getCars() {
-        setCurrentPage();
-        return carList = carsService.getCurrentItemsList();
     }
 
     public void attemptToAddNewCar() {
@@ -108,15 +110,23 @@ public class CarActionsBean implements Serializable {
         carsService.nextPage();
     }
 
-    public void lastPage() {
-        carsService.lastPage();
-    }
-
     public void firstPage() {
         carsService.firstPage();
+    }
+
+    public void lastPage() {
+        carsService.lastPage();
     }
 
     private void setCurrentPage() {
         page = carsService.getCurrentPage();
     }
+
+    private List<Integer> getListOfPages() {
+        pageList = new ArrayList<>();
+        IntStream.rangeClosed(1, carsService.getNumberOfPages()).
+                forEachOrdered(i -> pageList.add(i));
+        return pageList;
+    }
+
 }

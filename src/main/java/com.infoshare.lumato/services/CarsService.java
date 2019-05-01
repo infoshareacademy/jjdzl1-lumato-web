@@ -72,7 +72,7 @@ public class CarsService implements Serializable {
     }
 
     public void lastPage() {
-        page = carDAO.getNumberOfPages(carsOnPage);
+        page = getNumberOfPages();
     }
 
     public void previousPage() {
@@ -82,9 +82,13 @@ public class CarsService implements Serializable {
     }
 
     public void nextPage() {
-        int lastPage = carDAO.getNumberOfPages(carsOnPage);
+        int lastPage = getNumberOfPages();
         if (page == lastPage) page = lastPage - 1;
         page++;
+    }
+
+    public int getNumberOfPages() {
+        return carDAO.getNumberOfPages(carsOnPage);
     }
 
     public void setPage(int page) {

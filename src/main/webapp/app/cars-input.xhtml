@@ -124,7 +124,7 @@
                         <div class="card-body table-responsive">
 
                             <div class="col">
-                                <h:dataTable value="#{carBean.cars}"
+                                <h:dataTable value="#{carBean.loadCarTable}"
                                              var="car"
                                              styleClass=" table-hover table"
                                              style="margin-bottom: 1.75rem">
@@ -191,10 +191,18 @@
                                     </div>
 
 
-
-                                    <span class="badge badge-primary">#{carBean.page}</span>
-
-
+                                    <div class="form-group row">
+                                        <h:selectOneMenu value="#{carBean.page}"
+                                                         onchange="submit()"
+                                                         immediate="true"
+                                                         styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                                         style="width: 100%; text-align: center">
+                                            <f:selectItems value="#{carBean.pageList}"
+                                                           var="page"
+                                                           itemValue="#{page}"
+                                                           itemLabel="#{page}"/>
+                                        </h:selectOneMenu>
+                                    </div>
 
                                     <div class="col">
                                         <h:commandButton value="NEXT"
