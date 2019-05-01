@@ -45,8 +45,9 @@ public class CarActionsBean implements Serializable {
         pageList = getListOfPages();
     }
 
-    public List loadCarTable() {
-        setCurrentPage();
+    public List getCars() {
+        getCurrentPage();
+        System.out.println("\nPAGE" + page);
         return carList = carsService.getCurrentItemsList();
     }
 
@@ -118,7 +119,7 @@ public class CarActionsBean implements Serializable {
         carsService.lastPage();
     }
 
-    private void setCurrentPage() {
+    private void getCurrentPage() {
         page = carsService.getCurrentPage();
     }
 
@@ -127,6 +128,11 @@ public class CarActionsBean implements Serializable {
         IntStream.rangeClosed(1, carsService.getNumberOfPages()).
                 forEachOrdered(i -> pageList.add(i));
         return pageList;
+    }
+
+    public void goToSelectedPage() {
+        carsService.setPage(page);
+        carsService.getCurrentItemsList();
     }
 
 }
