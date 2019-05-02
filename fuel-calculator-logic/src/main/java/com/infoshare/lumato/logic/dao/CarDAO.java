@@ -20,6 +20,14 @@ public class CarDAO extends CommonDAO {
 
     private final int userId = currentUser.getUserId();
 
+    public void addOrUpdateCar(Car theCar) {
+        Session currentSession = getSession();
+        User tempUser = currentSession.get(User.class, userId);
+        tempUser.addCar(theCar);
+        currentSession.saveOrUpdate(theCar);
+        executeAndCloseTransaction(currentSession);
+    }
+
     public List<Car> getAllCarsByUser() {
         Session currentSession = getSession();
         String hQuery = "FROM Car C WHERE C.theUser.id=:userId";
@@ -29,30 +37,15 @@ public class CarDAO extends CommonDAO {
         return cars;
     }
 
-    public void addOrUpdateCar(Car theCar) {
-        Session currentSession = getSession();
-        User tempUser = currentSession.get(User.class, userId);
-        tempUser.addCar(theCar);
-        currentSession.saveOrUpdate(theCar);
-        executeAndCloseTransaction(currentSession);
-    }
-
     public void deleteCar(Car theCar) {
         Session currentSession = getSession();
         currentSession.delete(theCar);
         executeAndCloseTransaction(currentSession);
     }
 
-    public Car findCarByRegistrationPlate(String regPlate) {
-        Car carInDB = null;
-        Session currentSession = getSession();
-        try {
-            String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
-            carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
-        } catch (NoResultException ignored) {
-        }
-        executeAndCloseTransaction(currentSession);
-        return carInDB;
+    public int getNumberOfPages(int pageSize) {
+        double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
+        return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
     }
 
     public Car findCarById(int id) {
@@ -67,7 +60,19 @@ public class CarDAO extends CommonDAO {
         return carInDB;
     }
 
-    public List getCarsPerPage(int pageNumber, int pageSize) {
+    public Car findCarByRegistrationPlate(String regPlate) {
+        Car carInDB = null;
+        Session currentSession = getSession();
+        try {
+            String hQuery = "FROM Car C WHERE C.regPlate=:regPlate";
+            carInDB = currentSession.createQuery(hQuery, Car.class).setParameter("regPlate", regPlate).getSingleResult();
+        } catch (NoResultException ignored) {
+        }
+        executeAndCloseTransaction(currentSession);
+        return carInDB;
+    }
+
+    public List<Car> getCarsPerPage(int pageNumber, int pageSize) {
         Session currentSession = getSession();
         Query selectQuery =
                 currentSession.createQuery("FROM Car C where C.theUser.id=:userId").setParameter("userId", userId);
@@ -88,11 +93,4 @@ public class CarDAO extends CommonDAO {
         executeAndCloseTransaction(currentSession);
         return numberOfCars;
     }
-
-    public int getNumberOfPages(int pageSize) {
-        double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
-        return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
-    }
-
-
 }

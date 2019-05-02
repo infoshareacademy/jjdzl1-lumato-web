@@ -29,5 +29,4 @@ public abstract class CommonDAO {
         executeAndCloseTransaction(currentSession);
         return amountOfRecords;
     }
-
 }
