@@ -170,29 +170,10 @@
             </div>
         </h:form>
 
-        <script src="/resources/js/validation/validate-fuel-input.js" type="text/javascript"></script>
-        <script src="/resources/js/validation/validate.js" type="text/javascript"></script>
-
         <link rel="stylesheet" href="/resources/css/bootstrap-datepicker.min.css"/>
         <script src="/resources/js/bootstrap-datepicker.js" type="text/javascript"></script>
-        <script>
-            var element = document.getElementById("fuel-input:fueling-date");
-
-            $(document).ready(function() {
-                $(element).datepicker({
-                    format: "dd-mm-yyyy",
-                    todayBtn: "linked",
-                    clearBtn: true,
-                    autoclose: true
-                });
-            });
-
-            $(element).datepicker().on('changeDate', function (ev) {
-
-                console.log('valueJustChanged');
-            });
-        </script>
-
+        <script src="/resources/js/validation/validate-fuel-input.js" type="text/javascript"></script>
+        <script src="/resources/js/validation/validate.js" type="text/javascript"></script>
 
     </ui:define>
 </ui:composition>

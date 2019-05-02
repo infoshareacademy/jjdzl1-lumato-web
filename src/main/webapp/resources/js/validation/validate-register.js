@@ -1,13 +1,13 @@
 let formToValidate = {
     submit: {
         input: false,
-        element: document.getElementById("registration-form:submit-registration-form"),
+        formElement: document.getElementById("registration-form:submit-registration-form"),
         color: "",
         active: false
     },
     email: {
         input: true,
-        element: document.getElementById("registration-form:email"),
+        formElement: document.getElementById("registration-form:email"),
         color: "",
         ok: false,
         popoverMsg: "Email should match pattern: something@something.something",
@@ -15,7 +15,7 @@ let formToValidate = {
     },
     firstName: {
         input: true,
-        element: document.getElementById("registration-form:firstName"),
+        formElement: document.getElementById("registration-form:firstName"),
         color: "",
         ok: false,
         popoverMsg: "First name must have at least 1 character",
@@ -23,7 +23,7 @@ let formToValidate = {
     },
     lastName: {
         input: true,
-        element: document.getElementById("registration-form:lastName"),
+        formElement: document.getElementById("registration-form:lastName"),
         color: "",
         ok: false,
         popoverMsg: "First name must have at least 1 character",
@@ -31,7 +31,7 @@ let formToValidate = {
     },
     password: {
         input: true,
-        element: document.getElementById("registration-form:password"),
+        formElement: document.getElementById("registration-form:password"),
         color: "",
         ok: false,
         popoverMsg: "Password must be at least 8-character-long and containt: 1 small letter, 1 large letter, 1 digit, 1 special character.",
@@ -40,7 +40,7 @@ let formToValidate = {
     },
     confirmPassword: {
         input: true,
-        element: document.getElementById("registration-form:confirmPassword"),
+        formElement: document.getElementById("registration-form:confirmPassword"),
         color: "",
         ok: false,
         popoverMsg: "Passwords must match!",
@@ -48,7 +48,7 @@ let formToValidate = {
     },
     otherVerifyFunctions: {
         checkIfPasswordsMatch: function() {
-            formToValidate.confirmPassword.ok = formToValidate.password.element.value === formToValidate.confirmPassword.element.value;
+            formToValidate.confirmPassword.ok = formToValidate.password.formElement.value === formToValidate.confirmPassword.formElement.value;
         }
     }
 }

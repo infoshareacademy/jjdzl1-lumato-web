@@ -1,14 +1,14 @@
 let formToValidate = {
     submit: {
         input: false,
-        element: document.getElementById("add-car-form:submit-new-car"),
+        formElement: document.getElementById("add-car-form:submit-new-car"),
         color: "",
         popoverMsg: "Remember to choose fuel type!",
         active: false
     },
     brand: {
         input: true,
-        element: document.getElementById("add-car-form:brand"),
+        formElement: document.getElementById("add-car-form:brand"),
         color: "",
         ok: false,
         popoverMsg: "Example: Honda, Peugeot, Ford...",
@@ -16,7 +16,7 @@ let formToValidate = {
     },
     model: {
         input: true,
-        element: document.getElementById("add-car-form:model"),
+        formElement: document.getElementById("add-car-form:model"),
         color: "",
         ok: false,
         popoverMsg: "Example: Civic, Ka, 407...",
@@ -24,7 +24,7 @@ let formToValidate = {
     },
     productionYear: {
         input: true,
-        element: document.getElementById("add-car-form:productionYear"),
+        formElement: document.getElementById("add-car-form:productionYear"),
         color: "",
         ok: false,
         popoverMsg: "Cannot be before 1900",
@@ -32,7 +32,7 @@ let formToValidate = {
     },
     registrationPlate: {
         input: true,
-        element: document.getElementById("add-car-form:registrationPlate"),
+        formElement: document.getElementById("add-car-form:registrationPlate"),
         color: "",
         ok: false,
         popoverMsg: "3 to 10 characters",
