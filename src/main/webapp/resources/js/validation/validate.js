@@ -1,3 +1,9 @@
+/*
+to enable datepicker, there need to be 2 libraries imported:
+<link rel="stylesheet" href="/resources/css/bootstrap-datepicker.min.css"/>
+<script src="/resources/js/bootstrap-datepicker.js" type="text/javascript"></script>
+ */
+
 let formBorderColors = {
     okData: "green",
     wrongData: "red"
