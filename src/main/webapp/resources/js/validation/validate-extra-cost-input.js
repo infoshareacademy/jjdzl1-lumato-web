@@ -48,6 +48,22 @@ let formToValidate = {
             } else {
                 formToValidate.extraCostPrice.ok = true;
             }
+        },
+        checkIfExtraCostDateIsNotFuture: function() {
+            var myString = formToValidate.extraCostDate.formElement.value;
+            var myRegexp = /(\d\d)-(\d\d)-(\d\d\d\d)/g;
+            var match = myRegexp.exec(myString);
+            if (match === null) {
+                formToValidate.extraCostDate.ok = false;
+                return;
+            }
+            if (match[1] === null || match[2] === null || match[3] === null){
+                formToValidate.extraCostDate.ok = false;
+                return;
+            }
+            var date = new Date(match[3], match[2]-1, match[1]);
+            var today = new Date();
+            if (today < date) formToValidate.extraCostDate.ok = false;
         }
     }
 }
