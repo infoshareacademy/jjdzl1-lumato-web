@@ -88,7 +88,7 @@ public class FuelsCostsService extends PaginationService  {
     }
 
     @Override
-    List getCurrentItemsList() {
+    public List getCurrentItemsList() {
         return fuelCostsDAO.getItemsPerPage(page, itemsOnPage);
     }
 
@@ -99,21 +99,4 @@ public class FuelsCostsService extends PaginationService  {
     public void setPage(int page) {
         this.page = page;
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

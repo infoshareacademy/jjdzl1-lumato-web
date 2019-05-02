@@ -133,5 +133,4 @@ public class CarActionsBean implements Serializable {
         carsService.setPage(page);
         carsService.getCurrentItemsList();
     }
-
 }

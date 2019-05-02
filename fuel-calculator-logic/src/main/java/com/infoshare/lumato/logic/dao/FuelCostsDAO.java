@@ -32,7 +32,8 @@ public class FuelCostsDAO extends CommonDAO {
     public List<FuelCosts> getAllFuelCostByUser() {
         Session currentSession = getSession();
         String hQuery = "FROM FuelCosts F WHERE F.theUser.id=:userId";
-        Query<FuelCosts> query = currentSession.createQuery(hQuery, FuelCosts.class).setParameter("userId", userId);
+        Query<FuelCosts> query =
+                currentSession.createQuery(hQuery, FuelCosts.class).setParameter("userId", userId);
         List<FuelCosts> fuelCostsList = query.getResultList();
         executeAndCloseTransaction(currentSession);
         return fuelCostsList;
@@ -52,7 +53,7 @@ public class FuelCostsDAO extends CommonDAO {
     private Long countFuelingByUser() {
         Session currentSession = getSession();
         String countQ =
-                "select count (F.id) from FuelCost F where F.theUser.id=:userId";
+                "select count (F.id) from FuelCosts F where F.theUser.id=:userId";
         Query countQuery =
                 currentSession.createQuery(countQ).setParameter("userId", userId);
         Long numberOfCars = (Long) countQuery.uniqueResult();
@@ -81,7 +82,7 @@ public class FuelCostsDAO extends CommonDAO {
     public List getItemsPerPage(int pageNumber, int pageSize) {
         Session currentSession = getSession();
         Query selectQuery =
-                currentSession.createQuery("FROM FuelCost F where F.theUser.id=:userId").setParameter("userId", userId);
+                currentSession.createQuery("FROM FuelCosts F where F.theUser.id=:userId").setParameter("userId", userId);
         selectQuery.setFirstResult((pageNumber - 1) * pageSize);
         selectQuery.setMaxResults(pageSize);
         List fuelList = selectQuery.getResultList();

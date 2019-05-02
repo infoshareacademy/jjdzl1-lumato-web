@@ -7,20 +7,25 @@ import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
 import com.infoshare.lumato.services.MessageService;
-import com.infoshare.lumato.utils.FuelCostComparatorByDate;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
+@Setter
+@Getter
 @RequestScoped
 @Named("fuelInputBean")
 public class FuelInputBean implements Serializable {
+
 
     @Inject
     private FuelsCostsService fuelsCostsService;
@@ -30,6 +35,10 @@ public class FuelInputBean implements Serializable {
 
     @Inject
     private MessageService messageService;
+
+    private int page;
+
+    List<Integer> pageList;
 
     private FuelCosts fuelCost = new FuelCosts();
 
@@ -41,44 +50,9 @@ public class FuelInputBean implements Serializable {
 
     private String dateAsString;
 
-    public FuelCosts getFuelCost() {
-        return fuelCost;
-    }
-
-    public void setFuelCost(FuelCosts fuelCost) {
-        this.fuelCost = fuelCost;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
 
     public List<Car> getCars() {
         return carList;
-    }
-
-    public List<FuelCosts> getCompleteFuelCostsList() {
-        fuelCostsList.sort(new FuelCostComparatorByDate());
-        return fuelCostsList;
-    }
-
-    private void loadFuelCostList() {
-        fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
-    }
-
-    private void loadCars() {
-        carList = carsService.getAllCarsByUser();
-    }
-
-    @PostConstruct
-    public void construct() {
-        loadFuelCostList();
-        loadCars();
-        Collections.sort(this.fuelCostsList, new FuelCostComparatorByDate());
     }
 
     private void addFuelCost(Car car) {
@@ -114,11 +88,54 @@ public class FuelInputBean implements Serializable {
         HttpUtils.redirect("/app/fuel-input.xhtml");
     }
 
-    public void setDateAsString(String dateAsString) {
-        this.dateAsString = dateAsString;
+    public List<FuelCosts> getCompleteFuelCostsList() {
+        return fuelCostsList;
     }
 
-    public String getDateAsString() {
-        return dateAsString;
+    private void loadCars() {
+        carList = carsService.getAllCarsByUser();
+    }
+
+    @PostConstruct
+    public void construct() {
+        loadCars();
+        pageList = getListOfPages();
+    }
+
+    public List getFuelCosts() {
+        getCurrentPage();
+        return fuelCostsList = fuelsCostsService.getCurrentItemsList();
+    }
+
+    public void previousPage() {
+        fuelsCostsService.previousPage();
+    }
+
+    public void nextPage() {
+        fuelsCostsService.nextPage();
+    }
+
+    public void firstPage() {
+        fuelsCostsService.firstPage();
+    }
+
+    public void lastPage() {
+        fuelsCostsService.lastPage();
+    }
+
+    private void getCurrentPage() {
+        page = fuelsCostsService.getPage();
+    }
+
+    private List<Integer> getListOfPages() {
+        pageList = new ArrayList<>();
+        IntStream.rangeClosed(1, fuelsCostsService.getNumberOfPages()).
+                forEachOrdered(i -> pageList.add(i));
+        return pageList;
+    }
+
+    public void goToSelectedPage() {
+        fuelsCostsService.setPage(page);
+        fuelsCostsService.getCurrentItemsList();
     }
 }
