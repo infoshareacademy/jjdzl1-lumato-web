@@ -16,9 +16,9 @@ import java.util.List;
 @RequestScoped
 public class ExtraCostDao extends CommonDAO {
 
-    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    private int userId = currentUser.getUserId();
+    private final int userId = currentUser.getUserId();
 
     public void addExtraCostByCarId(ExtraCosts extraCosts, Car car) {
         Session currentSession = getSession();

@@ -7,6 +7,8 @@ import javax.inject.Inject;
 
 public abstract class CommonDAO {
 
+
+
     @Inject
     HibernateConfig hibernateConfig;
 

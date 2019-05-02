@@ -15,8 +15,6 @@ import java.util.List;
 public class CarsService extends PaginationService implements Serializable {
 
 
-    private final int carsOnPage = 4;
-
     @Inject
     CarDAO carDAO;
 
@@ -62,6 +60,8 @@ public class CarsService extends PaginationService implements Serializable {
         return carDAO.findCarById(id);
     }
 
+
+    @Override
     public void firstPage() {
         super.firstPage();
     }
@@ -83,13 +83,12 @@ public class CarsService extends PaginationService implements Serializable {
 
     @Override
     public int getNumberOfPages() {
-        int numberOfPages = carDAO.getNumberOfPages(carsOnPage);
-        return carDAO.getNumberOfPages(carsOnPage);
+        return carDAO.getNumberOfPages(itemsOnPage);
     }
 
     @Override
-    public List getCurrentItemsList() {
-        return carDAO.getCarsPerPage(page, carsOnPage);
+    public List<Car> getCurrentItemsList() {
+        return carDAO.getCarsPerPage(page, itemsOnPage);
     }
 
     public int getPage() {

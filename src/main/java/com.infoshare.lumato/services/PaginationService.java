@@ -6,14 +6,16 @@ abstract class PaginationService {
 
     int page = 1;
 
+    int itemsOnPage = 4;
+
+
     void firstPage() {
         page = 1;
     }
 
     void previousPage() {
-        if (page <= 1) {
-            page = 1;
-        } else page--;
+        if (page <= 1) page = 1;
+        else page--;
     }
 
     void nextPage() {
@@ -31,6 +33,4 @@ abstract class PaginationService {
     abstract int getNumberOfPages();
 
     abstract List getCurrentItemsList();
-
-
 }
