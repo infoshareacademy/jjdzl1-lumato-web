@@ -50,5 +50,4 @@ public class StartViewBean implements Serializable {
         double av =  NumberUtils.toScaledBigDecimal(averageFuelCost, 2, RoundingMode.HALF_UP).doubleValue();
         return String.format(Locale.CANADA,"%.2f", av);
     }
-
 }

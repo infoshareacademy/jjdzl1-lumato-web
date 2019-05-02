@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @RequestScoped
-public class FuelsCostsService {
+public class FuelsCostsService extends PaginationService  {
 
     @Inject
     FuelCostsDAO fuelCostsDAO;
@@ -59,5 +59,44 @@ public class FuelsCostsService {
 
     public void deleteFuelCost(FuelCosts fuelCosts) {
         fuelCostsDAO.deleteFuelCost(fuelCosts);
+    }
+
+
+    @Override
+    public void firstPage() {
+        super.firstPage();
+    }
+
+    @Override
+    public void previousPage() {
+        super.previousPage();
+    }
+
+    @Override
+    public void nextPage() {
+        super.nextPage();
+    }
+
+    @Override
+    public void lastPage() {
+        super.lastPage();
+    }
+
+    @Override
+    public int getNumberOfPages() {
+        return fuelCostsDAO.getNumberOfPages(itemsOnPage);
+    }
+
+    @Override
+    public List getCurrentItemsList() {
+        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage);
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 }

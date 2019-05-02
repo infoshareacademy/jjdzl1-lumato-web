@@ -108,7 +108,7 @@
 
                         <div class="card-body table-responsive">
                             <div class="col">
-                                <h:dataTable value="#{fuelInputBean.completeFuelCostsList}"
+                                <h:dataTable value="#{fuelInputBean.fuelCosts}"
                                              var="tempFuelCost"
                                              styleClass=" table-hover table"
                                              style="margin-bottom: 1.75rem">
@@ -157,6 +157,49 @@
                                                          onclick="if(!(confirm('Do you want to delete this record?'))) return false"/>
                                     </h:column>
                                 </h:dataTable>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h:commandButton value="&laquo;"
+                                                         styleClass="btn btn-outline-danger"
+                                                         style="width: 100%"
+                                                         action="#{fuelInputBean.firstPage}"/>
+                                    </div>
+
+                                    <div class="col">
+                                        <h:commandButton value="PREV"
+                                                         styleClass="btn btn-outline-danger"
+                                                         style="width: 100%"
+                                                         action="#{fuelInputBean.previousPage}"/>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <h:selectOneMenu value="#{fuelInputBean.page}"
+
+                                                         styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                                         style="width: 100%; text-align: center">
+                                            <f:selectItems value="#{fuelInputBean.pageList}"
+                                                           var="page"
+                                                           itemValue="#{page}"
+                                                           itemLabel="#{page}"/>
+                                            <f:ajax listener="#{fuelInputBean.goToSelectedPage}" render="@all"/>
+
+                                        </h:selectOneMenu>
+                                    </div>
+
+                                    <div class="col">
+                                        <h:commandButton value="NEXT"
+                                                         styleClass="btn btn-outline-info"
+                                                         style="width: 100%"
+                                                         action="#{fuelInputBean.nextPage}"/>
+                                    </div>
+                                    <div class="col">
+                                        <h:commandButton value="&raquo;"
+                                                         styleClass="btn btn-outline-danger"
+                                                         style="width: 100%"
+                                                         action="#{fuelInputBean.lastPage}"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

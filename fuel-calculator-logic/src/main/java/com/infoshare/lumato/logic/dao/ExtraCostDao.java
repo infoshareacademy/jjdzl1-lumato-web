@@ -16,9 +16,9 @@ import java.util.List;
 @RequestScoped
 public class ExtraCostDao extends CommonDAO {
 
-    private User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    private int userId = currentUser.getUserId();
+    private final int userId = currentUser.getUserId();
 
     public void addExtraCostByCarId(ExtraCosts extraCosts, Car car) {
         Session currentSession = getSession();
@@ -43,5 +43,32 @@ public class ExtraCostDao extends CommonDAO {
         Session currentSession = getSession();
         currentSession.delete(extraCosts);
         executeAndCloseTransaction(currentSession);
+    }
+
+    public int getNumberOfPages(int pageSize) {
+        double numberOfPages = Math.ceil(countItemsByUser() / pageSize);
+        return countItemsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
+    }
+
+    private Long countItemsByUser() {
+        Session currentSession = getSession();
+        String countQ =
+                "select count (E.id) FROM ExtraCosts E where E.theUser.id=:userId";
+        Query countQuery =
+                currentSession.createQuery(countQ).setParameter("userId", userId);
+        Long numberOfCars = (Long) countQuery.uniqueResult();
+        executeAndCloseTransaction(currentSession);
+        return numberOfCars;
+    }
+
+    public List getItemsPerPage(int pageNumber, int pageSize) {
+        Session currentSession = getSession();
+        Query selectQuery =
+                currentSession.createQuery("FROM ExtraCosts E where E.theUser.id=:userId").setParameter("userId", userId);
+        selectQuery.setFirstResult((pageNumber - 1) * pageSize);
+        selectQuery.setMaxResults(pageSize);
+        List extraCostList = selectQuery.getResultList();
+        executeAndCloseTransaction(currentSession);
+        return extraCostList;
     }
 }
