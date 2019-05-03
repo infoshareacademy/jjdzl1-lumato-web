@@ -1,5 +1,7 @@
 package com.infoshare.lumato.logic.model.chart;
 
+import java.util.Objects;
+
 public class MonthCost {
 
     private Integer year;
@@ -68,5 +70,22 @@ public class MonthCost {
                 ", monthExtraCosts=" + monthExtraCosts +
                 ", monthTotalCosts=" + monthTotalCosts +
                 "}\n";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MonthCost monthCost = (MonthCost) o;
+        return Objects.equals(year, monthCost.year) &&
+                Objects.equals(month, monthCost.month) &&
+                Objects.equals(monthFuelCosts, monthCost.monthFuelCosts) &&
+                Objects.equals(monthExtraCosts, monthCost.monthExtraCosts) &&
+                Objects.equals(monthTotalCosts, monthCost.monthTotalCosts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month, monthFuelCosts, monthExtraCosts, monthTotalCosts);
     }
 }
