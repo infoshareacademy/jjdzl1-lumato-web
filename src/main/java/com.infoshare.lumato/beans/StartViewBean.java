@@ -3,8 +3,11 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.logic.dao.CarDAO;
 import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.logic.dao.UserDAO;
+import com.infoshare.lumato.logic.dao.chart.MonthlyCostsDAO;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.model.chart.MonthCost;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Locale;
 
 @SessionScoped
@@ -30,6 +34,9 @@ public class StartViewBean implements Serializable {
 
     @Inject
     FuelCostsDAO fuelCostsDAO;
+
+    @Inject
+    MonthlyCostsDAO monthlyCostsDAO;
 
     @PostConstruct
     public void construct() {
@@ -49,5 +56,11 @@ public class StartViewBean implements Serializable {
         double averageFuelCost = fuelCostsDAO.calculateAverageFuelCost(fuelType);
         double av =  NumberUtils.toScaledBigDecimal(averageFuelCost, 2, RoundingMode.HALF_UP).doubleValue();
         return String.format(Locale.CANADA,"%.2f", av);
+    }
+
+    public List<MonthCost> getMonthlyCostsList() {
+        int userId = (int) HttpUtils.getCurrentUserFromSession().getUserId();
+        List<MonthCost> monthCosts = monthlyCostsDAO.getMonthlyCostsFromTenLastMonths(userId);
+        return monthCosts;
     }
 }

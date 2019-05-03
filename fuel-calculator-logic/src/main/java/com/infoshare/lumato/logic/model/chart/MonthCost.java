@@ -4,14 +4,14 @@ public class MonthCost {
 
     private Integer year;
     private Integer month;
-    private Integer monthFuelCosts;
-    private Integer monthExtraCosts;
-    private Integer monthTotalCosts;
+    private Double monthFuelCosts;
+    private Double monthExtraCosts;
+    private Double monthTotalCosts;
 
     public MonthCost() {
     }
 
-    public MonthCost(Integer year, Integer month, Integer monthFuelCosts, Integer monthExtraCosts, Integer monthTotalCosts) {
+    public MonthCost(Integer year, Integer month, Double monthFuelCosts, Double monthExtraCosts, Double monthTotalCosts) {
         this.year = year;
         this.month = month;
         this.monthFuelCosts = monthFuelCosts;
@@ -35,27 +35,38 @@ public class MonthCost {
         this.month = month;
     }
 
-    public Integer getMonthFuelCosts() {
+    public Double getMonthFuelCosts() {
         return monthFuelCosts;
     }
 
-    public void setMonthFuelCosts(Integer monthFuelCosts) {
+    public void setMonthFuelCosts(Double monthFuelCosts) {
         this.monthFuelCosts = monthFuelCosts;
     }
 
-    public Integer getMonthExtraCosts() {
+    public Double getMonthExtraCosts() {
         return monthExtraCosts;
     }
 
-    public void setMonthExtraCosts(Integer monthExtraCosts) {
+    public void setMonthExtraCosts(Double monthExtraCosts) {
         this.monthExtraCosts = monthExtraCosts;
     }
 
-    public Integer getMonthTotalCosts() {
+    public Double getMonthTotalCosts() {
         return monthTotalCosts;
     }
 
-    public void setMonthTotalCosts(Integer monthTotalCosts) {
+    public void setMonthTotalCosts(Double monthTotalCosts) {
         this.monthTotalCosts = monthTotalCosts;
+    }
+
+    @Override
+    public String toString() {
+        return "MonthCost{" +
+                "year=" + year +
+                ", month=" + month +
+                ", monthFuelCosts=" + monthFuelCosts +
+                ", monthExtraCosts=" + monthExtraCosts +
+                ", monthTotalCosts=" + monthTotalCosts +
+                "}\n";
     }
 }
