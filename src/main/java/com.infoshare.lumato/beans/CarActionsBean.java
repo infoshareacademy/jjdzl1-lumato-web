@@ -35,7 +35,11 @@ public class CarActionsBean implements Serializable {
 
     private List carList;
 
-    private int page;
+    int page;
+
+    int itemsOnPage;
+
+    int[] itemsShowOnPage = {4, 8, 12};
 
     List<Integer> pageList;
 
@@ -131,6 +135,12 @@ public class CarActionsBean implements Serializable {
 
     public void goToSelectedPage() {
         carsService.setPage(page);
+        carsService.getCurrentItemsList();
+    }
+
+    public void setNumberOfItemsOnPage() {
+        carsService.setItemsOnPage(itemsOnPage);
+        carsService.setPage(page = 1);
         carsService.getCurrentItemsList();
     }
 }
