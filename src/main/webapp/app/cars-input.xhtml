@@ -200,25 +200,12 @@
                                             <f:selectItems value="#{carBean.pageList}"
                                                            var="page"
                                                            itemValue="#{page}"
-                                                           itemLabel="#{page}"/>
+                                                           itemLabel="Page #{page} of #{carBean.pageList.size()}"/>
                                             <f:ajax listener="#{carBean.goToSelectedPage}" render="@all"/>
 
                                         </h:selectOneMenu>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <h:selectOneMenu value="#{carBean.itemsOnPage}"
-
-                                                         styleClass="btn btn-outline-primary btn-md dropdown-toggle"
-                                                         style="width: 100%; text-align: center">
-                                            <f:selectItems value="#{carBean.itemsShowOnPage}"
-                                                           var="page"
-                                                           itemValue="#{page}"
-                                                           itemLabel="#{page}"/>
-                                            <f:ajax listener="#{carBean.setNumberOfItemsOnPage}" render="@all"/>
-
-                                        </h:selectOneMenu>
-                                    </div>
 
                                     <div class="col">
                                         <h:commandButton value="NEXT"
@@ -231,6 +218,20 @@
                                                          styleClass="btn btn-outline-danger"
                                                          style="width: 100%"
                                                          action="#{carBean.lastPage}"/>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <h:selectOneMenu value="#{carBean.itemsOnPage}"
+
+                                                         styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                                         style="width: 100%; text-align: center">
+                                            <f:selectItems value="#{carBean.itemsShowOnPage}"
+                                                           var="page"
+                                                           itemValue="#{page}"
+                                                           itemLabel="Show: #{page}"/>
+                                            <f:ajax listener="#{carBean.setNumberOfItemsOnPage}" render="@all"/>
+
+                                        </h:selectOneMenu>
                                     </div>
                                 </div>
                             </div>

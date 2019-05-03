@@ -186,7 +186,7 @@
                                             <f:selectItems value="#{fuelInputBean.pageList}"
                                                            var="page"
                                                            itemValue="#{page}"
-                                                           itemLabel="#{page}"/>
+                                                           itemLabel="Page #{page} of #{fuelInputBean.pageList.size()}"/>
                                             <f:ajax listener="#{fuelInputBean.goToSelectedPage}" render="@all"/>
 
                                         </h:selectOneMenu>
@@ -213,7 +213,7 @@
                                             <f:selectItems value="#{fuelInputBean.itemsShowOnPage}"
                                                            var="page"
                                                            itemValue="#{page}"
-                                                           itemLabel="#{page}"/>
+                                                           itemLabel="Show: #{page}"/>
                                             <f:ajax listener="#{fuelInputBean.setNumberOfItemsOnPage}" render="@all"/>
 
                                         </h:selectOneMenu>

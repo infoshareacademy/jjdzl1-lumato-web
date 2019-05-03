@@ -162,7 +162,7 @@
                                             <f:selectItems value="#{extraCostInputBean.pageList}"
                                                            var="page"
                                                            itemValue="#{page}"
-                                                           itemLabel="#{page}"/>
+                                                           itemLabel="Page #{page} of #{extraCostInputBean.pageList.size()}"/>
                                             <f:ajax listener="#{extraCostInputBean.goToSelectedPage}" render="@all"/>
 
                                         </h:selectOneMenu>
@@ -189,8 +189,9 @@
                                             <f:selectItems value="#{extraCostInputBean.itemsShowOnPage}"
                                                            var="page"
                                                            itemValue="#{page}"
-                                                           itemLabel="#{page}"/>
-                                            <f:ajax listener="#{extraCostInputBean.setNumberOfItemsOnPage}" render="@all"/>
+                                                           itemLabel="Show: #{page}"/>
+                                            <f:ajax listener="#{extraCostInputBean.setNumberOfItemsOnPage}"
+                                                    render="@all"/>
 
                                         </h:selectOneMenu>
                                     </div>
