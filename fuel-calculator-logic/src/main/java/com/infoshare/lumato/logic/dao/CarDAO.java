@@ -33,7 +33,6 @@ public class CarDAO extends CommonDAO {
         String hQuery = "FROM Car C WHERE C.theUser.id=:userId";
         Query<Car> query = currentSession.createQuery(hQuery, Car.class).setParameter("userId", userId);
         List<Car> cars = query.getResultList();
-        executeAndCloseTransaction(currentSession);
         return cars;
     }
 

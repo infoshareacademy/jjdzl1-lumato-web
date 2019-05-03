@@ -10,13 +10,13 @@ public abstract class CommonDAO {
     @Inject
     HibernateConfig hibernateConfig;
 
-    Session getSession() {
+    protected Session getSession() {
         Session currentSession = hibernateConfig.getSessionFactory().openSession();
         currentSession.beginTransaction();
         return currentSession;
     }
 
-    void executeAndCloseTransaction(Session currentSession) {
+    protected void executeAndCloseTransaction(Session currentSession) {
         currentSession.getTransaction().commit();
         currentSession.close();
     }
