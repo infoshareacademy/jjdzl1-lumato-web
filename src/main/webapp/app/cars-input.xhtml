@@ -28,6 +28,7 @@
                         <div class="card-header">
                             <h5 class="h5 mb-1 text-gray-800">Add a new Car</h5>
                         </div>
+
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Your cars' brand</label>
@@ -40,80 +41,79 @@
                                     </h:inputText>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label">Your cars' model</label>
-                            <div class="col-sm-7 col align-self-center">
-                                <h:inputText a:placeholder="Model"
-                                             id="model"
-                                             class="form-control form-control-user"
-                                             style="background-color: transparent; color: darkgray;"
-                                             value="#{carBean.car.model}">
-                                </h:inputText>
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Your cars' model</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText a:placeholder="Model"
+                                                 id="model"
+                                                 class="form-control form-control-user"
+                                                 style="background-color: transparent; color: darkgray;"
+                                                 value="#{carBean.car.model}">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <!--TODO replace js method - Production Year - for numbers starting from 19 or 20-->
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Production Year</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText a:placeholder="Production Year"
+                                                 id="productionYear"
+                                                 class="form-control form-control-user"
+                                                 style="background-color: transparent; color: darkgray;"
+
+                                                 value="#{carBean.car.productionYear}"
+                                                 maxlength="4"
+                                                 onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Registration Number</label>
+                                <div class="col-sm-7 col align-self-center">
+                                    <h:inputText a:placeholder="Registration Plate"
+                                                 id="registrationPlate"
+                                                 class="form-control form-control-user"
+                                                 style="background-color: transparent; color: darkgray;"
+
+                                                 value="#{carBean.car.regPlate}">
+                                    </h:inputText>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Type of fuel</label>
+                                <div class="col-sm-7 col align-self-center">
+
+                                    <h:selectOneMenu value="#{carBean.car.fuelType}"
+                                                     styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                                     style="width: 100%; text-align: center">
+
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
+                                                      itemValue="#{carBean.fuelTypes[0].name}"/>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
+                                                      itemValue="#{carBean.fuelTypes[1].name}"/>
+                                        <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
+                                                      itemValue="#{carBean.fuelTypes[2].name}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <h:commandButton value="Add a car"
+                                                 id="submit-new-car"
+                                                 styleClass="btn btn-primary"
+                                                 style="border-radius:15px; width: 100%;"
+                                                 action="#{carBean.attemptToAddNewCar}"/>
+                            </div>
+
+                            <div class="errorMessage">
+                                #{messageBean.getMessageValue("wrongCredentialsMessage")}
                             </div>
                         </div>
-
-                        <!--TODO replace js method - Production Year - for numbers starting from 19 or 20-->
-
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label">Production Year</label>
-                            <div class="col-sm-7 col align-self-center">
-                                <h:inputText a:placeholder="Production Year"
-                                             id="productionYear"
-                                             class="form-control form-control-user"
-                                             style="background-color: transparent; color: darkgray;"
-
-                                             value="#{carBean.car.productionYear}"
-                                             maxlength="4"
-                                             onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
-                                </h:inputText>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label">Registration Number</label>
-                            <div class="col-sm-7 col align-self-center">
-                                <h:inputText a:placeholder="Registration Plate"
-                                             id="registrationPlate"
-                                             class="form-control form-control-user"
-                                             style="background-color: transparent; color: darkgray;"
-
-                                             value="#{carBean.car.regPlate}">
-                                </h:inputText>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-5 col-form-label">Type of fuel</label>
-                            <div class="col-sm-7 col align-self-center">
-
-                                <h:selectOneMenu value="#{carBean.car.fuelType}"
-                                                 styleClass="btn btn-outline-primary btn-md dropdown-toggle"
-                                                 style="width: 100%; text-align: center">
-
-                                    <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
-                                                  itemValue="#{carBean.fuelTypes[0].name}"/>
-                                    <f:selectItem itemLabel="#{carBean.fuelTypes[1].name}"
-                                                  itemValue="#{carBean.fuelTypes[1].name}"/>
-                                    <f:selectItem itemLabel="#{carBean.fuelTypes[2].name}"
-                                                  itemValue="#{carBean.fuelTypes[2].name}"/>
-                                </h:selectOneMenu>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <h:commandButton value="Add a car"
-                                             id="submit-new-car"
-                                             styleClass="btn btn-primary"
-                                             style="border-radius:15px; width: 100%;"
-                                             action="#{carBean.attemptToAddNewCar}"/>
-                        </div>
-
-                        <div class="errorMessage">
-                            #{messageBean.getMessageValue("wrongCredentialsMessage")}
-                        </div>
-
                     </div>
                 </div>
 

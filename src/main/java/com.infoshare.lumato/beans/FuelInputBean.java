@@ -36,23 +36,37 @@ public class FuelInputBean implements Serializable {
     @Inject
     private MessageService messageService;
 
-    private int page;
+    int page;
+
+    int itemsOnPage;
+
+    int[] itemsShowOnPage = {4, 8, 12};
 
     List<Integer> pageList;
-
-    private FuelCosts fuelCost = new FuelCosts();
-
-    private List<FuelCosts> fuelCostsList;
 
     private Car car = new Car();
 
     private List<Car> carList;
 
-    private String dateAsString;
+    private FuelCosts fuelCost = new FuelCosts();
 
+    private List<FuelCosts> fuelCostsList;
 
     public List<Car> getCars() {
         return carList;
+    }
+
+    private String dateAsString;
+
+    @PostConstruct
+    public void construct() {
+        loadCars();
+    }
+
+    public List getFuelCosts() {
+        pageList = getListOfPages();
+        getCurrentPage();
+        return fuelCostsList = fuelsCostsService.getCurrentItemsList();
     }
 
     private void addFuelCost(Car car) {
@@ -96,17 +110,6 @@ public class FuelInputBean implements Serializable {
         carList = carsService.getAllCarsByUser();
     }
 
-    @PostConstruct
-    public void construct() {
-        loadCars();
-        pageList = getListOfPages();
-    }
-
-    public List getFuelCosts() {
-        getCurrentPage();
-        return fuelCostsList = fuelsCostsService.getCurrentItemsList();
-    }
-
     public void previousPage() {
         fuelsCostsService.previousPage();
     }
@@ -136,6 +139,12 @@ public class FuelInputBean implements Serializable {
 
     public void goToSelectedPage() {
         fuelsCostsService.setPage(page);
+        fuelsCostsService.getCurrentItemsList();
+    }
+
+    public void setNumberOfItemsOnPage() {
+        fuelsCostsService.setItemsOnPage(itemsOnPage);
+        fuelsCostsService.setPage(page = 1);
         fuelsCostsService.getCurrentItemsList();
     }
 }

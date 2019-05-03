@@ -35,37 +35,41 @@ public class ExtraCostsInputBean implements Serializable {
     @Inject
     private MessageService messageService;
 
-    private ExtraCosts extraCost = new ExtraCosts();
+    private int page;
 
-    private List<ExtraCosts> extraCosts;
+    int itemsOnPage;
+
+    int[] itemsShowOnPage = {4, 8, 12};
+
+    List<Integer> pageList;
 
     private Car car = new Car();
 
     private List<Car> carList;
 
+    private ExtraCosts extraCost = new ExtraCosts();
+
+    private List<ExtraCosts> extraCosts;
+
     private String dateAsString;
-
-    public List<ExtraCosts> getCompleteExtraCostList() {
-        return extraCosts;
-    }
-
-    private int page;
-
-    List<Integer> pageList;
 
     @PostConstruct
     public void construct() {
         loadCars();
-        pageList = getListOfPages();
     }
 
     public List getExtraCostList() {
+        pageList = getListOfPages();
         getCurrentPage();
         return extraCosts = extraCostService.getCurrentItemsList();
     }
 
     private void loadCars() {
         carList = carsService.getAllCarsByUser();
+    }
+
+    public List<ExtraCosts> getCompleteExtraCostList() {
+        return extraCosts;
     }
 
     public void attemptToAddExtraCost() {
@@ -87,10 +91,6 @@ public class ExtraCostsInputBean implements Serializable {
         redirectToExtraCostInputPage();
     }
 
-    private void redirectToExtraCostInputPage() {
-        HttpUtils.redirect("/app/cost-input.xhtml");
-    }
-
     public void attemptToDeleteExtraCost(ExtraCosts theExtraCosts) {
         setExtraCost(theExtraCosts);
         deleteExtraCost();
@@ -99,6 +99,10 @@ public class ExtraCostsInputBean implements Serializable {
     private void deleteExtraCost() {
         extraCostService.deleteExtraCost(extraCost);
         redirectToExtraCostInputPage();
+    }
+
+    private void redirectToExtraCostInputPage() {
+        HttpUtils.redirect("/app/cost-input.xhtml");
     }
 
     public void previousPage() {
@@ -133,4 +137,9 @@ public class ExtraCostsInputBean implements Serializable {
         extraCostService.getCurrentItemsList();
     }
 
+    public void setNumberOfItemsOnPage() {
+        extraCostService.setItemsOnPage(itemsOnPage);
+        extraCostService.setPage(page = 1);
+        extraCostService.getCurrentItemsList();
+    }
 }
