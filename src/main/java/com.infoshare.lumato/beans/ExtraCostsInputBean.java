@@ -91,6 +91,11 @@ public class ExtraCostsInputBean implements Serializable {
         redirectToExtraCostInputPage();
     }
 
+
+    private void redirectToExtraCostInputPage() {
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/cost-input.xhtml");
+    }
+
     public void attemptToDeleteExtraCost(ExtraCosts theExtraCosts) {
         setExtraCost(theExtraCosts);
         deleteExtraCost();
@@ -99,10 +104,6 @@ public class ExtraCostsInputBean implements Serializable {
     private void deleteExtraCost() {
         extraCostService.deleteExtraCost(extraCost);
         redirectToExtraCostInputPage();
-    }
-
-    private void redirectToExtraCostInputPage() {
-        HttpUtils.redirect("/app/cost-input.xhtml");
     }
 
     public void previousPage() {

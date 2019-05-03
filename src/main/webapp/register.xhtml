@@ -92,17 +92,19 @@
                     </h:form>
 
                     <div class="text-right">
-                        <a href="/login.xhtml">Sign in!</a>
+                        <a href="#{request.contextPath}login.xhtml">Sign in!</a>
                         &nbsp;|&nbsp;
-                        <a href="/login.xhtml">Forgot password?</a>
+                        <a href="#{request.contextPath}login.xhtml">Forgot password?</a>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2"></div>
             </div>
         </div>
 
-        <script src="/resources/js/validation/validate-register.js" type="text/javascript"></script>
-        <script src="/resources/js/validation/validate.js" type="text/javascript"></script>
+        <h:outputScript library="js" name="validation/validate-register.js"/>
+        <!--<script src="/resources/js/validation/validate-register.js" type="text/javascript"></script>-->
+        <h:outputScript library="js" name="validation/validate.js"/>
+        <!--<script src="/resources/js/validation/validate.js" type="text/javascript"></script>-->
 
     </ui:define>
 </ui:composition>

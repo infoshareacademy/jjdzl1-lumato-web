@@ -39,13 +39,13 @@ public class RegisterViewBean {
     public void attemptToRegister() {
         if (userService.doesUserExist(user)) {
             messageService.addMessageCookie("userAlreadyExists", "Such user already exists!");
-            HttpUtils.redirect("/register.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/register.xhtml");
         } else {
             String rawPassword = user.getPassword();
             String passwordHashed = SecurityUtils.generatePasswordHash(rawPassword);
             user.setPassword(passwordHashed);
             userService.addUser(user);
-            HttpUtils.redirect("/app/start.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/start.xhtml");
         }
 
     }

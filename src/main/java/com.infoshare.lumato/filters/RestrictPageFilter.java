@@ -1,5 +1,7 @@
 package com.infoshare.lumato.filters;
 
+import com.infoshare.lumato.logic.utils.HttpUtils;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +23,7 @@ public class RestrictPageFilter implements Filter {
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute("currentUser") == null) {
-            resp.sendRedirect("/login.xhtml");
+            resp.sendRedirect(HttpUtils.getRequest().getContextPath() + "/login.xhtml");
         } else {
             chain.doFilter(request, response);
         }

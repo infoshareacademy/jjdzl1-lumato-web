@@ -99,7 +99,7 @@ public class FuelInputBean implements Serializable {
     }
 
     private void redirectToFuelInputPage() {
-        HttpUtils.redirect("/app/fuel-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/fuel-input.xhtml");
     }
 
     public List<FuelCosts> getCompleteFuelCostsList() {

@@ -94,12 +94,12 @@ public class CarActionsBean implements Serializable {
 
     public void redirectToCarPage() {
         this.car = null;
-        HttpUtils.redirect("/app/cars-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/cars-input.xhtml");
     }
 
     public String redirectToCarEdit(Car theCar) {
         setCar(theCar);
-        return "/app/cars-edit.xhtml";
+        return HttpUtils.getRequest().getContextPath() + "/app/cars-edit.xhtml";
     }
 
     public Car getCarById(int id) {
