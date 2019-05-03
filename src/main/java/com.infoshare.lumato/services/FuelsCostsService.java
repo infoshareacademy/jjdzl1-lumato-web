@@ -1,3 +1,4 @@
+/*
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.beans.FuelInputBean;
@@ -105,4 +106,4 @@ public class FuelsCostsService extends PaginationService implements Serializable
     public void setPage(int page) {
         this.page = page;
     }
-}
+}*/

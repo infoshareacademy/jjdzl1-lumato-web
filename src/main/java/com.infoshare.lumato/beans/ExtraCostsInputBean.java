@@ -65,7 +65,7 @@ public class ExtraCostsInputBean implements Serializable {
     }
 
     private void loadCars() {
-        carList = carsService.getAllCarsByUser();
+        carList = carsService.getAllObjectsByUser();
     }
 
     public List<ExtraCosts> getCompleteExtraCostList() {

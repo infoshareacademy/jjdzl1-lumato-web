@@ -12,30 +12,29 @@ import java.util.Calendar;
 import java.util.List;
 
 @ViewScoped
-public class CarsService extends PaginationService implements Serializable {
-
+public class CarsService extends PaginationService implements Serializable, Service {
 
     @Inject
     CarDAO carDAO;
 
-    public void addCar(Car car) {
-        carDAO.addOrUpdateCar(car);
+    public void addObject(Object car) {
+        carDAO.addOrUpdateCar((Car) car);
     }
 
-    public void deleteCar(Car car) {
-        carDAO.deleteCar(car);
+    public void deleteObject(Object car) {
+        carDAO.deleteCar((Car) car);
     }
 
-    public void updateCar(Car car) {
-        carDAO.addOrUpdateCar(car);
+    public void updateObject(Object car) {
+        carDAO.addOrUpdateCar((Car) car);
         HttpUtils.redirect("/app/cars-input.xhtml");
     }
 
-    public List<Car> getAllCarsByUser() {
+    public List<Car> getAllObjectsByUser() {
         return carDAO.getAllCarsByUser();
     }
 
-    public boolean doesCarExist(Car car) {
+    public boolean doesObjectExist(Car car) {
         Car carInDB = carDAO.findCarByRegistrationPlate(car.getRegPlate());
         if (carInDB == null) {
             return false;
@@ -56,7 +55,7 @@ public class CarsService extends PaginationService implements Serializable {
         return carDAO.findCarByRegistrationPlate(regPlate);
     }
 
-    public Car getCarById(int id) {
+    public Object getObjectById(int id) {
         return carDAO.findCarById(id);
     }
 

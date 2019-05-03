@@ -1,3 +1,4 @@
+/*
 package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.logic.model.Car;
@@ -24,7 +25,7 @@ import java.util.stream.IntStream;
 @Getter
 @RequestScoped
 @Named("fuelInputBean")
-public class FuelInputBean implements Serializable {
+public class FuelInputBean extends Bean implements Serializable {
 
 
     @Inject
@@ -35,16 +36,6 @@ public class FuelInputBean implements Serializable {
 
     @Inject
     private MessageService messageService;
-
-    int page;
-
-    int itemsOnPage;
-
-    int[] itemsShowOnPage = {4, 8, 12};
-
-    List<Integer> pageList;
-
-    private Car car = new Car();
 
     private List<Car> carList;
 
@@ -107,7 +98,7 @@ public class FuelInputBean implements Serializable {
     }
 
     private void loadCars() {
-        carList = carsService.getAllCarsByUser();
+        carList = carsService.getAllObjectsByUser();
     }
 
     public void previousPage() {
@@ -147,4 +138,4 @@ public class FuelInputBean implements Serializable {
         fuelsCostsService.setPage(page = 1);
         fuelsCostsService.getCurrentItemsList();
     }
-}
+}*/
