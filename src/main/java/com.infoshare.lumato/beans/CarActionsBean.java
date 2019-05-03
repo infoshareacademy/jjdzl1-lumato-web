@@ -29,23 +29,27 @@ public class CarActionsBean implements Serializable {
     @Inject
     private MessageService messageService;
 
-    private Car car = new Car();
+    int page;
 
-    private FuelType[] fuelTypes;
+    int itemsOnPage;
+
+    int[] itemsShowOnPage = {4, 8, 12};
+
+    List<Integer> pageList;
+
+    private Car car = new Car();
 
     private List carList;
 
-    private int page;
-
-    List<Integer> pageList;
+    private FuelType[] fuelTypes;
 
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
-        pageList = getListOfPages();
     }
 
     public List getCars() {
+        pageList = getListOfPages();
         getCurrentPage();
         return carList = carsService.getCurrentItemsList();
     }
@@ -102,6 +106,13 @@ public class CarActionsBean implements Serializable {
         return carsService.getCarById(id);
     }
 
+    private List<Integer> getListOfPages() {
+        pageList = new ArrayList<>();
+        IntStream.rangeClosed(1, carsService.getNumberOfPages()).
+                forEachOrdered(i -> pageList.add(i));
+        return pageList;
+    }
+
     public void previousPage() {
         carsService.previousPage();
     }
@@ -122,15 +133,14 @@ public class CarActionsBean implements Serializable {
         page = carsService.getPage();
     }
 
-    private List<Integer> getListOfPages() {
-        pageList = new ArrayList<>();
-        IntStream.rangeClosed(1, carsService.getNumberOfPages()).
-                forEachOrdered(i -> pageList.add(i));
-        return pageList;
-    }
-
     public void goToSelectedPage() {
         carsService.setPage(page);
+        carsService.getCurrentItemsList();
+    }
+
+    public void setNumberOfItemsOnPage() {
+        carsService.setItemsOnPage(itemsOnPage);
+        carsService.setPage(page = 1);
         carsService.getCurrentItemsList();
     }
 }

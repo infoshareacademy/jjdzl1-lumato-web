@@ -30,6 +30,11 @@ abstract class PaginationService {
         } else page = getNumberOfPages();
     }
 
+    void setItemsOnPage(int itemsOnPage) {
+        this.itemsOnPage = itemsOnPage;
+
+    }
+
     abstract int getNumberOfPages();
 
     abstract List getCurrentItemsList();

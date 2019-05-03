@@ -5,14 +5,15 @@ import com.infoshare.lumato.logic.dao.ExtraCostDao;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.ExtraCosts;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@RequestScoped
-public class ExtraCostService extends PaginationService {
+@ViewScoped
+public class ExtraCostService extends PaginationService implements Serializable {
 
     @Inject
     ExtraCostDao extraCostDao;
@@ -70,6 +71,11 @@ public class ExtraCostService extends PaginationService {
     @Override
     public List getCurrentItemsList() {
         return extraCostDao.getItemsPerPage(page, itemsOnPage);
+    }
+
+    @Override
+    public void setItemsOnPage(int itemsOnPage) {
+        super.setItemsOnPage(itemsOnPage);
     }
 
     public int getPage() {
