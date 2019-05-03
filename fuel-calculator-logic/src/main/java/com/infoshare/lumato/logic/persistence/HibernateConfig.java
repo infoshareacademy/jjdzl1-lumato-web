@@ -28,7 +28,6 @@ public class HibernateConfig {
     @PostConstruct
     private void initializeHibernateConfig() {
         File file = new File("fuel-calculator-config/db.properties");
-        System.out.println("FILE TEST: " + file.getAbsolutePath());
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(file));

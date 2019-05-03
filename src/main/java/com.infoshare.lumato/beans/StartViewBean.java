@@ -35,9 +35,6 @@ public class StartViewBean implements Serializable {
     @Inject
     FuelCostsDAO fuelCostsDAO;
 
-    @Inject
-    MonthlyCostsDAO monthlyCostsDAO;
-
     @PostConstruct
     public void construct() {
         amountOfCars = carDAO.countAllRecords(Car.class);
@@ -56,11 +53,5 @@ public class StartViewBean implements Serializable {
         double averageFuelCost = fuelCostsDAO.calculateAverageFuelCost(fuelType);
         double av =  NumberUtils.toScaledBigDecimal(averageFuelCost, 2, RoundingMode.HALF_UP).doubleValue();
         return String.format(Locale.CANADA,"%.2f", av);
-    }
-
-    public List<MonthCost> getMonthlyCostsList() {
-        int userId = (int) HttpUtils.getCurrentUserFromSession().getUserId();
-        List<MonthCost> monthCosts = monthlyCostsDAO.getMonthlyCostsFromTenLastMonths(userId);
-        return monthCosts;
     }
 }
