@@ -6,14 +6,15 @@ import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.FuelCosts;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@RequestScoped
-public class FuelsCostsService extends PaginationService  {
+@ViewScoped
+public class FuelsCostsService extends PaginationService implements Serializable {
 
     @Inject
     FuelCostsDAO fuelCostsDAO;
@@ -90,6 +91,11 @@ public class FuelsCostsService extends PaginationService  {
     @Override
     public List getCurrentItemsList() {
         return fuelCostsDAO.getItemsPerPage(page, itemsOnPage);
+    }
+
+    @Override
+    public void setItemsOnPage(int itemsOnPage) {
+        super.setItemsOnPage(itemsOnPage);
     }
 
     public int getPage() {

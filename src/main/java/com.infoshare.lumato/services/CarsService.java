@@ -60,7 +60,6 @@ public class CarsService extends PaginationService implements Serializable {
         return carDAO.findCarById(id);
     }
 
-
     @Override
     public void firstPage() {
         super.firstPage();
@@ -89,6 +88,11 @@ public class CarsService extends PaginationService implements Serializable {
     @Override
     public List<Car> getCurrentItemsList() {
         return carDAO.getCarsPerPage(page, itemsOnPage);
+    }
+
+    @Override
+    public void setItemsOnPage(int itemsOnPage) {
+        super.setItemsOnPage(itemsOnPage);
     }
 
     public int getPage() {
