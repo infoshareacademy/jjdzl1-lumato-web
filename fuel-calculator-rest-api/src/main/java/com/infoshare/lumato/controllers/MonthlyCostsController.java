@@ -28,9 +28,15 @@ public class MonthlyCostsController {
     @GET
     @Path("/costs-per-month")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getMonthlyCosts(@QueryParam("user_id") int userId){
-        List<MonthCost> monthCosts = monthlyCostsDAO.getMonthlyCostsFromTenLastMonths(userId);
-        return Response.ok(monthCosts).build();
+    public Response getMonthlyCosts(@QueryParam("user_id") int userId,
+                                    @QueryParam("limit") int limit){
+        if (limit==0) limit=10;
+        List<MonthCost> monthCosts = monthlyCostsDAO.getMonthlyCostsFromTenLastMonths(userId, limit);
+        if (monthCosts == null || monthCosts.size() == 0) {
+            return Response.noContent().tag("User with user_id="+userId+" does not exist!").build();
+        } else {
+            return Response.ok(monthCosts).build();
+        }
     }
 
 }
