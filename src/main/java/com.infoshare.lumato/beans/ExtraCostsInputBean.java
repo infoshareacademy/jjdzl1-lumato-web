@@ -93,7 +93,7 @@ public class ExtraCostsInputBean implements Serializable {
 
 
     private void redirectToExtraCostInputPage() {
-        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/cost-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/cost-input.xhtml");
     }
 
     public void attemptToDeleteExtraCost(ExtraCosts theExtraCosts) {

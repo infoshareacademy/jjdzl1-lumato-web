@@ -45,10 +45,10 @@ public class LoginViewBean {
             user.setPassword(passwordHashed);
             userService.storeInSession(user);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userid", user.getUserId());
-            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/start.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/start.xhtml");
         } else {
             messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect email or password!");
-            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/login.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "login.xhtml");
         }
     }
 
@@ -56,7 +56,7 @@ public class LoginViewBean {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().invalidateSession();
         try {
-            context.getExternalContext().redirect(HttpUtils.getRequest().getContextPath() + "/login.xhtml");
+            context.getExternalContext().redirect(HttpUtils.getRequest().getContextPath() + "login.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

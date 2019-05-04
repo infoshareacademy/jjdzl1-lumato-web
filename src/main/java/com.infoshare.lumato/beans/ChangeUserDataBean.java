@@ -58,42 +58,42 @@ public class ChangeUserDataBean {
     public void updateUserFirstName(){
         userService.updateUser(user);
         messageService.addMessageCookie("successfulAction", "First name changed with success!");
-        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-edit.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-edit.xhtml");
     }
 
     public void updateUserLastName(){
         userService.updateUser(user);
         messageService.addMessageCookie("successfulAction", "Last name changed with success!");
-        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-edit.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-edit.xhtml");
     }
 
     public void updateUserEmail(){
         if (userService.doesUserExist(user)){
             messageService.addMessageCookie("userExists", "Such user already exists!");
-            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-edit.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-edit.xhtml");
         } else {
             userService.updateUser(user);
             messageService.addMessageCookie("successfulAction", "Email changed with success!");
-            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-edit.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-edit.xhtml");
         }
     }
 
     public void updateUserPassword(){
         if (!userService.passwordMatchesUserInSessionPassword(user)){
             messageService.addMessageCookie("wrongPassword", "Wrong password!");
-            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-change-password.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-change-password.xhtml");
             return;
         }
         if (!this.newPasswordFirst.equals(this.newPasswordSecond)) {
             messageService.addMessageCookie("passwordsNotMatch", "Passwords do not match!");
-            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-change-password.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-change-password.xhtml");
             return;
         }
         String newPasswordHashed = SecurityUtils.generatePasswordHash(newPasswordFirst);
         user.setPassword(newPasswordHashed);
         messageService.addMessageCookie("successfulAction", "Password changed with success!");
         userService.updateUser(user);
-        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/user-change-password.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-change-password.xhtml");
     }
 
 
