@@ -113,7 +113,7 @@
 
                         <div class="card-body table-responsive">
                             <div class="col">
-                                <h:dataTable value="#{fuelInputBean.fuelCosts}"
+                                <h:dataTable value="#{fuelInputBean.fuelCostList}"
                                              var="tempFuelCost"
                                              styleClass=" table-hover table"
                                              style="margin-bottom: 1.75rem">
@@ -149,16 +149,16 @@
 
                                     <h:column>
                                         <f:facet name="header">Car</f:facet>
-                                        <h:outputText value="#{carBean.objectById(tempFuelCost.idCar).brand}
-                                                  #{carBean.objectById(tempFuelCost.idCar).model}
-                                                  #{carBean.objectById(tempFuelCost.idCar).regPlate}"/>
+                                        <h:outputText value="#{carBean.getObjectById(tempFuelCost.idCar).brand}
+                                                  #{carBean.getObjectById(tempFuelCost.idCar).model}
+                                                  #{carBean.getObjectById(tempFuelCost.idCar).regPlate}"/>
                                     </h:column>
 
                                     <h:column>
                                         <h:commandButton value="DELETE"
                                                          styleClass="btn btn-outline-danger"
                                                          style="width: 100%"
-                                                         action="#{fuelInputBean.attemptToDeleteFuelCost(tempFuelCost)}"
+                                                         action="#{fuelInputBean.deleteFuelCost(tempFuelCost)}"
                                                          onclick="if(!(confirm('Do you want to delete this record?'))) return false"/>
                                     </h:column>
                                 </h:dataTable>

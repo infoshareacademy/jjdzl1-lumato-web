@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @Data
-public abstract class Bean {
+public class Bean {
 
     @Inject
     MessageService messageService;
@@ -26,7 +26,11 @@ public abstract class Bean {
 
     Car car = new Car();
 
+    List<Car> carList;
+
     Service service;
+
+    String dateAsString;
 
     public void previousPage() {
         service.previousPage();

@@ -23,8 +23,6 @@ public class CarActionsBean extends Bean implements Serializable {
     @Inject
     CarsService carsService = new CarsService();
 
-    private List carList;
-
     private FuelType[] fuelTypes;
 
     @PostConstruct

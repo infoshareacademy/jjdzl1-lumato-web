@@ -6,7 +6,6 @@ import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.ExtraCostService;
-import com.infoshare.lumato.services.MessageService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,16 +29,9 @@ public class ExtraCostsInputBean extends Bean implements Serializable {
     @Inject
     private CarsService carsService;
 
-    @Inject
-    private MessageService messageService;
-
-    private List<Car> carList;
-
     private ExtraCosts extraCost = new ExtraCosts();
 
     private List<ExtraCosts> extraCosts;
-
-    private String dateAsString;
 
     @PostConstruct
     public void construct() {
@@ -76,12 +68,8 @@ public class ExtraCostsInputBean extends Bean implements Serializable {
         redirectToExtraCostInputPage();
     }
 
-    public void attemptToDeleteExtraCost(ExtraCosts theExtraCosts) {
+    public void deleteExtraCost(ExtraCosts theExtraCosts) {
         setExtraCost(theExtraCosts);
-        deleteExtraCost();
-    }
-
-    private void deleteExtraCost() {
         extraCostService.deleteObject(extraCost);
         redirectToExtraCostInputPage();
     }

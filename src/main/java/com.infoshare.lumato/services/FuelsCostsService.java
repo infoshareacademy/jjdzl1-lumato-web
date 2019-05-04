@@ -1,4 +1,3 @@
-/*
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.beans.FuelInputBean;
@@ -15,7 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @ViewScoped
-public class FuelsCostsService extends PaginationService implements Serializable {
+public class FuelsCostsService extends PaginationService implements Serializable, Service {
 
     @Inject
     FuelCostsDAO fuelCostsDAO;
@@ -25,10 +24,6 @@ public class FuelsCostsService extends PaginationService implements Serializable
 
     public void addFuelCost(FuelCosts fuelCosts, Car car) {
         fuelCostsDAO.addFuelCostByCarId(fuelCosts, car);
-    }
-
-    public List<FuelCosts> getAllFuelCostsByUser() {
-        return fuelCostsDAO.getAllFuelCostByUser();
     }
 
     public boolean isFuelAmountAndPriceNotEmpty(FuelCosts fuelCosts) {
@@ -59,10 +54,35 @@ public class FuelsCostsService extends PaginationService implements Serializable
         return true;
     }
 
-    public void deleteFuelCost(FuelCosts fuelCosts) {
-        fuelCostsDAO.deleteFuelCost(fuelCosts);
+    @Override
+    public void deleteObject(Object fuelCosts) {
+        fuelCostsDAO.deleteFuelCost((FuelCosts) fuelCosts);
     }
 
+    @Override
+    public int getPage() {
+        return page;
+    }
+
+    @Override
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    @Override
+    public int getNumberOfPages() {
+        return fuelCostsDAO.getNumberOfPages(itemsOnPage);
+    }
+
+    @Override
+    public List getCurrentItemsList() {
+        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage);
+    }
+
+    @Override
+    public void setItemsOnPage(int itemsOnPage) {
+        super.setItemsOnPage(itemsOnPage);
+    }
 
     @Override
     public void firstPage() {
@@ -85,25 +105,15 @@ public class FuelsCostsService extends PaginationService implements Serializable
     }
 
     @Override
-    public int getNumberOfPages() {
-        return fuelCostsDAO.getNumberOfPages(itemsOnPage);
+    public void addObject(Object obj) {
     }
 
     @Override
-    public List getCurrentItemsList() {
-        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage);
+    public void updateObject(Object obj) {
     }
 
     @Override
-    public void setItemsOnPage(int itemsOnPage) {
-        super.setItemsOnPage(itemsOnPage);
+    public Object getObjectById(int id) {
+        return null;
     }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-}*/
+}
