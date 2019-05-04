@@ -44,6 +44,7 @@ public class LoginViewBean {
             String passwordHashed = SecurityUtils.generatePasswordHash(rawPassword);
             user.setPassword(passwordHashed);
             userService.storeInSession(user);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userid", user.getUserId());
             HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/start.xhtml");
         } else {
             messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect email or password!");

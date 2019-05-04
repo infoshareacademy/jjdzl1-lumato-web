@@ -8,7 +8,18 @@
 <ui:composition template="/templates/maintemplate.xhtml">
     <ui:define name="content">
 
-        <div id="chartContainer"></div>
+        <div class="bg-dark text-light" onclick="showMonthlyCostChart('#{sessionScope.userid}')" style="cursor: pointer;">
+            Monthly costs chart
+        </div>
+        <div class="bg-dark text-light" style="cursor: pointer;">
+            Another chart
+        </div>
+        <div class="bg-dark text-light" style="cursor: pointer;">
+            Yet another chart
+        </div>
+        <div id="chartContainer">
+        </div>
+
         <script src="#{request.contextPath}resources/js/charts/monthly-costs-chart.js" type="text/javascript"></script>
         <script src="#{request.contextPath}resources/js/canvasjs.min.js" type="text/javascript"></script>
 
