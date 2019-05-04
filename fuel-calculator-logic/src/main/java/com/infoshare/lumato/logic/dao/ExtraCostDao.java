@@ -29,20 +29,15 @@ public class ExtraCostDao extends CommonDAO {
         executeAndCloseTransaction(currentSession);
     }
 
+    //delete
+
     public List<ExtraCosts> getAllExtraCostsByUser() {
         Session currentSession = getSession();
-
         String hQuery = "FROM ExtraCosts E WHERE E.theUser.id=:userId";
         Query<ExtraCosts> query = currentSession.createQuery(hQuery, ExtraCosts.class).setParameter("userId", userId);
         List<ExtraCosts> extraCostsList = query.getResultList();
         executeAndCloseTransaction(currentSession);
         return extraCostsList;
-    }
-
-    public void deleteExtraCost(ExtraCosts extraCosts) {
-        Session currentSession = getSession();
-        currentSession.delete(extraCosts);
-        executeAndCloseTransaction(currentSession);
     }
 
     public int getNumberOfPages(int pageSize) {

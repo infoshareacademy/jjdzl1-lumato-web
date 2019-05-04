@@ -37,12 +37,6 @@ public class CarDAO extends CommonDAO {
         return cars;
     }
 
-    public void deleteCar(Car theCar) {
-        Session currentSession = getSession();
-        currentSession.delete(theCar);
-        executeAndCloseTransaction(currentSession);
-    }
-
     public int getNumberOfPages(int pageSize) {
         double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
         return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
@@ -93,4 +87,6 @@ public class CarDAO extends CommonDAO {
         executeAndCloseTransaction(currentSession);
         return numberOfCars;
     }
+
+    //delete
 }

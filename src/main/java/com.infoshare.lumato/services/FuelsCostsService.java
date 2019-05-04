@@ -56,7 +56,7 @@ public class FuelsCostsService extends PaginationService implements Serializable
 
     @Override
     public void deleteObject(Object fuelCosts) {
-        fuelCostsDAO.deleteFuelCost((FuelCosts) fuelCosts);
+        fuelCostsDAO.deleteObject(fuelCosts);
     }
 
     @Override

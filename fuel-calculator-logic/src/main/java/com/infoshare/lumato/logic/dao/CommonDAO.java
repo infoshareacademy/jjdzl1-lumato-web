@@ -29,4 +29,13 @@ public abstract class CommonDAO {
         executeAndCloseTransaction(currentSession);
         return amountOfRecords;
     }
+
+    public void deleteObject(Object o) {
+        Session currentSession = getSession();
+        currentSession.delete(o);
+        executeAndCloseTransaction(currentSession);
+    }
+
+
+
 }

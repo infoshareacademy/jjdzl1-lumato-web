@@ -49,7 +49,7 @@ public class CarsService extends PaginationService implements Serializable, Serv
 
     @Override
     public void deleteObject(Object car) {
-        carDAO.deleteCar((Car) car);
+        carDAO.deleteObject(car);
     }
 
     @Override

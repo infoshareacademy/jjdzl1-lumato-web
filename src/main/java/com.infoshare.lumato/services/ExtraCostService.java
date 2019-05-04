@@ -22,7 +22,7 @@ public class ExtraCostService extends PaginationService implements Serializable,
 
     @Override
     public void deleteObject(Object extraCosts) {
-        extraCostDao.deleteExtraCost((ExtraCosts) extraCosts);
+        extraCostDao.deleteObject(extraCosts);
     }
 
     @Override

@@ -39,11 +39,7 @@ public class FuelCostsDAO extends CommonDAO {
         return fuelCostsList;
     }
 
-    public void deleteFuelCost(FuelCosts fuelCosts) {
-        Session currentSession = getSession();
-        currentSession.delete(fuelCosts);
-        executeAndCloseTransaction(currentSession);
-    }
+    //delete
 
     public int getNumberOfPages(int itemsOnPage) {
         double numberOfPages = Math.ceil(countFuelingByUser() / itemsOnPage);

@@ -1,6 +1,7 @@
 package com.infoshare.lumato.logic.dao;
 
 import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
 
 import javax.enterprise.context.RequestScoped;
@@ -11,6 +12,7 @@ import javax.persistence.NoResultException;
 @RequestScoped
 public class UserDAO extends CommonDAO {
 
+    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     public void addOrUpdateUser(User theUser) {
         Session currentSession = this.getSession();
@@ -18,14 +20,14 @@ public class UserDAO extends CommonDAO {
         executeAndCloseTransaction(currentSession);
     }
 
-    // TODO: 07.04.2019 optional?
     public User findUserInDatabaseByEmail(String email) {
         User userInDB = null;
         Session currentSession = this.getSession();
 
         try {
             String hQuery = "FROM User U WHERE U.email=:theEmail";
-            userInDB = currentSession.createQuery(hQuery, User.class).setParameter("theEmail", email).getSingleResult();
+            userInDB =
+                    currentSession.createQuery(hQuery, User.class).setParameter("theEmail", email).getSingleResult();
         } catch (NoResultException e) {
             System.out.println("No user in DataBAse!@");
         }
@@ -34,10 +36,5 @@ public class UserDAO extends CommonDAO {
         return userInDB;
     }
 
-    public void deleteCurrentUser(User theUser) {
-        Session currentSession = this.getSession();
-        User tempUser = currentSession.get(User.class, theUser.getUserId());
-        currentSession.delete(tempUser);
-        executeAndCloseTransaction(currentSession);
-    }
+    //delete
 }
