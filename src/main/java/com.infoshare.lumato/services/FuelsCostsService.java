@@ -71,7 +71,7 @@ public class FuelsCostsService extends PaginationService implements Serializable
 
     @Override
     public int getNumberOfPages() {
-        return fuelCostsDAO.getNumberOfPages(itemsOnPage);
+        return fuelCostsDAO.getNumberOfPages(FuelCosts.class, itemsOnPage);
     }
 
     @Override

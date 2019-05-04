@@ -17,6 +17,8 @@ public class CarsService extends PaginationService implements Serializable, Serv
     @Inject
     CarDAO carDAO;
 
+    Car car;
+
     public boolean isFieldEmpty(Car car) {
         return (car.getBrand().isEmpty() | car.getModel().isEmpty() | car.getRegPlate().isEmpty() | car.getFuelType().isEmpty());
     }
@@ -75,7 +77,7 @@ public class CarsService extends PaginationService implements Serializable, Serv
 
     @Override
     public int getNumberOfPages() {
-        return carDAO.getNumberOfPages(itemsOnPage);
+        return carDAO.getNumberOfPages(Car.class, itemsOnPage);
     }
 
     @Override

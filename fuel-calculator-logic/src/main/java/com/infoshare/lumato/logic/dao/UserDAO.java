@@ -12,8 +12,6 @@ import javax.persistence.NoResultException;
 @RequestScoped
 public class UserDAO extends CommonDAO {
 
-    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
-
     public void addOrUpdateUser(User theUser) {
         Session currentSession = this.getSession();
         currentSession.saveOrUpdate(theUser);

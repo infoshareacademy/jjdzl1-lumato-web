@@ -15,7 +15,10 @@ import java.util.List;
 @RequestScoped
 public class FuelCostsDAO extends CommonDAO {
 
-    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    //    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    //    delete
+    //    countObjectsByUser
+    //    getNumberOfPages
 
     private final int userId = currentUser.getUserId();
 
@@ -37,24 +40,6 @@ public class FuelCostsDAO extends CommonDAO {
         List<FuelCosts> fuelCostsList = query.getResultList();
         executeAndCloseTransaction(currentSession);
         return fuelCostsList;
-    }
-
-    //delete
-
-    public int getNumberOfPages(int itemsOnPage) {
-        double numberOfPages = Math.ceil(countFuelingByUser() / itemsOnPage);
-        return countFuelingByUser() % itemsOnPage != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
-    }
-
-    private Long countFuelingByUser() {
-        Session currentSession = getSession();
-        String countQ =
-                "select count (F.id) from FuelCosts F where F.theUser.id=:userId";
-        Query countQuery =
-                currentSession.createQuery(countQ).setParameter("userId", userId);
-        Long numberOfCars = (Long) countQuery.uniqueResult();
-        executeAndCloseTransaction(currentSession);
-        return numberOfCars;
     }
 
     public Double calculateAverageFuelCost(String fuelType) {

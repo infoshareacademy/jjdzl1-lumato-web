@@ -16,7 +16,10 @@ import java.util.List;
 @Named
 public class CarDAO extends CommonDAO {
 
-    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    //    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    //    delete
+    //    countObjectsByUser
+    //    getNumberOfPages
 
     private final int userId = currentUser.getUserId();
 
@@ -35,11 +38,6 @@ public class CarDAO extends CommonDAO {
         List<Car> cars = query.getResultList();
         executeAndCloseTransaction(currentSession);
         return cars;
-    }
-
-    public int getNumberOfPages(int pageSize) {
-        double numberOfPages = Math.ceil(countCarsByUser() / pageSize);
-        return countCarsByUser() % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
     }
 
     public Car findCarById(int id) {
@@ -77,16 +75,4 @@ public class CarDAO extends CommonDAO {
         return carList;
     }
 
-    private Long countCarsByUser() {
-        Session currentSession = getSession();
-        String countQ =
-                "select count (C.id) from Car C where C.theUser.id=:userId";
-        Query countQuery =
-                currentSession.createQuery(countQ).setParameter("userId", userId);
-        Long numberOfCars = (Long) countQuery.uniqueResult();
-        executeAndCloseTransaction(currentSession);
-        return numberOfCars;
-    }
-
-    //delete
 }
