@@ -1,5 +1,6 @@
 package com.infoshare.lumato.logic.dao;
 
+import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.User;
 import com.infoshare.lumato.logic.persistence.HibernateConfig;
 import com.infoshare.lumato.logic.utils.HttpUtils;
@@ -7,13 +8,14 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class CommonDAO {
 
-    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
-
     @Inject
     HibernateConfig hibernateConfig;
+
+    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
     Session getSession() {
         Session currentSession = hibernateConfig.getSessionFactory().openSession();
@@ -47,9 +49,18 @@ public class CommonDAO {
         return amountOfRecords;
     }
 
-    public int getNumberOfPages(Class o, int pageSize) {
-        double numberOfPages = Math.ceil(countObjectsByUser(o) / pageSize);
-        return countObjectsByUser(o) % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
+    public List<Object> getAllItemsByUser(Class c) {
+        Session currentSession = getSession();
+        String hQuery = "FROM " + c.getSimpleName() + " T where T.theUser.id=:userId";
+        Query query = currentSession.createQuery(hQuery, Car.class).setParameter("userId", currentUser.getUserId());
+        List resultList = query.getResultList();
+        executeAndCloseTransaction(currentSession);
+        return resultList;
+    }
+
+    public int getNumberOfPages(Class c, int pageSize) {
+        double numberOfPages = Math.ceil(countObjectsByUser(c) / pageSize);
+        return countObjectsByUser(c) % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
     }
 
     void executeAndCloseTransaction(Session currentSession) {
@@ -57,6 +68,14 @@ public class CommonDAO {
         currentSession.close();
     }
 
-
-
+    public List<Object> getItemsPerPage(int pageNumber, int pageSize, Class c) {
+        Session currentSession = getSession();
+        Query selectQuery =
+                currentSession.createQuery("FROM " + c.getSimpleName() + " T where T.theUser.id=:userId").setParameter("userId", currentUser.getUserId());
+        selectQuery.setFirstResult((pageNumber - 1) * pageSize);
+        selectQuery.setMaxResults(pageSize);
+        List resultList = selectQuery.getResultList();
+        executeAndCloseTransaction(currentSession);
+        return resultList;
+    }
 }

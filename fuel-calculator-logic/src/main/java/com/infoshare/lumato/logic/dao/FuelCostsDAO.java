@@ -3,7 +3,6 @@ package com.infoshare.lumato.logic.dao;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.FuelCosts;
 import com.infoshare.lumato.logic.model.User;
-import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -15,11 +14,6 @@ import java.util.List;
 @RequestScoped
 public class FuelCostsDAO extends CommonDAO {
 
-    //    private final User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
-    //    delete
-    //    countObjectsByUser
-    //    getNumberOfPages
-
     private final int userId = currentUser.getUserId();
 
     public void addFuelCostByCarId(FuelCosts fuelCosts, Car tempCar) {
@@ -30,16 +24,6 @@ public class FuelCostsDAO extends CommonDAO {
         tempUser.addFuelCost(fuelCosts);
         car.addFuelCost(fuelCosts);
         executeAndCloseTransaction(currentSession);
-    }
-
-    public List<FuelCosts> getAllFuelCostByUser() {
-        Session currentSession = getSession();
-        String hQuery = "FROM FuelCosts F WHERE F.theUser.id=:userId";
-        Query<FuelCosts> query =
-                currentSession.createQuery(hQuery, FuelCosts.class).setParameter("userId", userId);
-        List<FuelCosts> fuelCostsList = query.getResultList();
-        executeAndCloseTransaction(currentSession);
-        return fuelCostsList;
     }
 
     public Double calculateAverageFuelCost(String fuelType) {
@@ -58,16 +42,5 @@ public class FuelCostsDAO extends CommonDAO {
         } else {
             return (Double) list.get(0);
         }
-    }
-
-    public List getItemsPerPage(int pageNumber, int pageSize) {
-        Session currentSession = getSession();
-        Query selectQuery =
-                currentSession.createQuery("FROM FuelCosts F where F.theUser.id=:userId").setParameter("userId", userId);
-        selectQuery.setFirstResult((pageNumber - 1) * pageSize);
-        selectQuery.setMaxResults(pageSize);
-        List fuelList = selectQuery.getResultList();
-        executeAndCloseTransaction(currentSession);
-        return fuelList;
     }
 }

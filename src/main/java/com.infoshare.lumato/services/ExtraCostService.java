@@ -32,7 +32,7 @@ public class ExtraCostService extends PaginationService implements Serializable,
 
     @Override
     public List getCurrentItemsList() {
-        return extraCostDao.getItemsPerPage(page, itemsOnPage);
+        return extraCostDao.getItemsPerPage(page, itemsOnPage, ExtraCosts.class);
     }
 
     @Override

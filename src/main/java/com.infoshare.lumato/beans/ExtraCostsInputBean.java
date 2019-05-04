@@ -31,7 +31,7 @@ public class ExtraCostsInputBean extends Bean implements Serializable {
 
     private ExtraCosts extraCost = new ExtraCosts();
 
-    private List<ExtraCosts> extraCosts;
+    private List<Object> extraCosts;
 
     @PostConstruct
     public void construct() {

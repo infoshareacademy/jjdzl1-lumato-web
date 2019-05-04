@@ -36,8 +36,8 @@ public class CarsService extends PaginationService implements Serializable, Serv
         return (car.getProductionYear() >= 1908 && car.getProductionYear() <= currentYear);
     }
 
-    public List<Car> getAllObjectsByUser() {
-        return carDAO.getAllCarsByUser();
+    public List<Object> getAllObjectsByUser() {
+        return carDAO.getAllItemsByUser(Car.class);
     }
 
     public Car getCarByRegPLate(String regPlate) {
@@ -81,8 +81,8 @@ public class CarsService extends PaginationService implements Serializable, Serv
     }
 
     @Override
-    public List<Car> getCurrentItemsList() {
-        return carDAO.getCarsPerPage(page, itemsOnPage);
+    public List getCurrentItemsList() {
+        return carDAO.getItemsPerPage(page, itemsOnPage, Car.class);
     }
 
     @Override

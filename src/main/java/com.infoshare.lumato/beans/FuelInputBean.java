@@ -34,7 +34,7 @@ public class FuelInputBean extends Bean implements Serializable {
 
     private List<FuelCosts> fuelCostsList;
 
-    public List<Car> getCars() {
+    public List<Object> getCars() {
         return carList;
     }
 

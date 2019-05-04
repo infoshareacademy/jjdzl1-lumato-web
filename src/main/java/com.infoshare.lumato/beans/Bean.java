@@ -26,7 +26,7 @@ public class Bean {
 
     Car car = new Car();
 
-    List<Car> carList;
+    List<Object> carList;
 
     Service service;
 

@@ -76,7 +76,7 @@ public class FuelsCostsService extends PaginationService implements Serializable
 
     @Override
     public List getCurrentItemsList() {
-        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage);
+        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage, FuelCosts.class);
     }
 
     @Override
