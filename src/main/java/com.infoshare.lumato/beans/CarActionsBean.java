@@ -3,7 +3,6 @@ package com.infoshare.lumato.beans;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.services.CarsService;
-import com.infoshare.lumato.services.Service;
 import com.infoshare.lumato.utils.FuelType;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +30,7 @@ public class CarActionsBean extends Bean implements Serializable {
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
-        this.setService(carsService);
+        super.setService(carsService);
     }
 
     public List getCars() {
@@ -49,10 +48,6 @@ public class CarActionsBean extends Bean implements Serializable {
         setCar(theCar);
         carsService.deleteObject(car);
         redirectToCarPage();
-    }
-
-    public void setService(Service carsService) {
-        super.setService(carsService);
     }
 
     public void attemptToAddNewCar() {
@@ -73,7 +68,6 @@ public class CarActionsBean extends Bean implements Serializable {
         } else addNewObject();
     }
 
-
     public void updateCar(Car car) {
         this.car = car;
         carsService.updateObject(car);
@@ -92,5 +86,4 @@ public class CarActionsBean extends Bean implements Serializable {
     public Car getObjectById(int id) {
         return (Car) carsService.getObjectById(id);
     }
-
 }

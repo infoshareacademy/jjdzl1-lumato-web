@@ -44,7 +44,7 @@ public abstract class Bean {
         service.lastPage();
     }
 
-    public void getCurrentPage() {
+    void getCurrentPage() {
         page = service.getPage();
     }
 
@@ -59,7 +59,7 @@ public abstract class Bean {
         service.getCurrentItemsList();
     }
 
-    public List<Integer> getListOfPages() {
+    List<Integer> getListOfPages() {
         pageList = new ArrayList<>();
         IntStream.rangeClosed(1, service.getNumberOfPages()).
                 forEachOrdered(i -> pageList.add(i));

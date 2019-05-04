@@ -1,7 +1,5 @@
 package com.infoshare.lumato.services;
 
-import com.infoshare.lumato.logic.model.Car;
-
 import java.util.List;
 
 public interface Service {
@@ -13,8 +11,6 @@ public interface Service {
     void deleteObject(Object obj);
 
     void updateObject(Object obj);
-
-    boolean isFieldEmpty(Car obj);
 
     int getNumberOfPages();
 

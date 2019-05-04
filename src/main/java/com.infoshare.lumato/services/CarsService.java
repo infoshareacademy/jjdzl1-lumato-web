@@ -17,21 +17,8 @@ public class CarsService extends PaginationService implements Serializable, Serv
     @Inject
     CarDAO carDAO;
 
-    public void addObject(Object car) {
-        carDAO.addOrUpdateCar((Car) car);
-    }
-
-    public void deleteObject(Object car) {
-        carDAO.deleteCar((Car) car);
-    }
-
-    public void updateObject(Object car) {
-        carDAO.addOrUpdateCar((Car) car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
-    }
-
-    public List<Car> getAllObjectsByUser() {
-        return carDAO.getAllCarsByUser();
+    public boolean isFieldEmpty(Car car) {
+        return (car.getBrand().isEmpty() | car.getModel().isEmpty() | car.getRegPlate().isEmpty() | car.getFuelType().isEmpty());
     }
 
     public boolean doesObjectExist(Car car) {
@@ -42,41 +29,48 @@ public class CarsService extends PaginationService implements Serializable, Serv
         return carInDB.getRegPlate().equals(car.getRegPlate());
     }
 
-    public boolean isFieldEmpty(Car car) {
-        return (car.getBrand().isEmpty() | car.getModel().isEmpty() | car.getRegPlate().isEmpty() | car.getFuelType().isEmpty());
-    }
-
     public boolean isCarProductionYearValid(Car car) {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         return (car.getProductionYear() >= 1908 && car.getProductionYear() <= currentYear);
+    }
+
+    public List<Car> getAllObjectsByUser() {
+        return carDAO.getAllCarsByUser();
     }
 
     public Car getCarByRegPLate(String regPlate) {
         return carDAO.findCarByRegistrationPlate(regPlate);
     }
 
+    @Override
+    public void addObject(Object car) {
+        carDAO.addOrUpdateCar((Car) car);
+    }
+
+    @Override
+    public void deleteObject(Object car) {
+        carDAO.deleteCar((Car) car);
+    }
+
+    @Override
+    public void updateObject(Object car) {
+        carDAO.addOrUpdateCar((Car) car);
+        HttpUtils.redirect("/app/cars-input.xhtml");
+    }
+
+    @Override
     public Object getObjectById(int id) {
         return carDAO.findCarById(id);
     }
 
     @Override
-    public void firstPage() {
-        super.firstPage();
+    public int getPage() {
+        return page;
     }
 
     @Override
-    public void previousPage() {
-       super.previousPage();
-    }
-
-    @Override
-    public void nextPage() {
-        super.nextPage();
-    }
-
-    @Override
-    public void lastPage() {
-        super.lastPage();
+    public void setPage(int page) {
+        this.page = page;
     }
 
     @Override
@@ -94,11 +88,23 @@ public class CarsService extends PaginationService implements Serializable, Serv
         super.setItemsOnPage(itemsOnPage);
     }
 
-    public int getPage() {
-        return page;
+    @Override
+    public void firstPage() {
+        super.firstPage();
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    @Override
+    public void previousPage() {
+        super.previousPage();
+    }
+
+    @Override
+    public void nextPage() {
+        super.nextPage();
+    }
+
+    @Override
+    public void lastPage() {
+        super.lastPage();
     }
 }

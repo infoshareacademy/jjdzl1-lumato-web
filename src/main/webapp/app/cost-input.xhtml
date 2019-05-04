@@ -124,9 +124,9 @@
 
                                     <h:column>
                                         <f:facet name="header">Car</f:facet>
-                                        <h:outputText value="#{carBean.objectById(tempExtraCost.carId).brand}
-                                                  #{carBean.objectById(tempExtraCost.carId).model}
-                                                  #{carBean.objectById(tempExtraCost.carId).regPlate}"/>
+                                        <h:outputText value="#{carBean.getObjectById(tempExtraCost.carId).brand}
+                                                  #{carBean.getObjectById(tempExtraCost.carId).model}
+                                                  #{carBean.getObjectById(tempExtraCost.carId).regPlate}"/>
                                     </h:column>
 
                                     <h:column>

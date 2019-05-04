@@ -15,35 +15,23 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Setter
 @Getter
 @RequestScoped
 @Named("extraCostInputBean")
-public class ExtraCostsInputBean implements Serializable {
+public class ExtraCostsInputBean extends Bean implements Serializable {
 
     @Inject
-    private ExtraCostService extraCostService;
+    ExtraCostService extraCostService = new ExtraCostService();
 
     @Inject
     private CarsService carsService;
 
     @Inject
     private MessageService messageService;
-
-    private int page;
-
-    int itemsOnPage;
-
-    int[] itemsShowOnPage = {4, 8, 12};
-
-    List<Integer> pageList;
-
-    private Car car = new Car();
 
     private List<Car> carList;
 
@@ -59,6 +47,7 @@ public class ExtraCostsInputBean implements Serializable {
     }
 
     public List getExtraCostList() {
+        super.setService(extraCostService);
         pageList = getListOfPages();
         getCurrentPage();
         return extraCosts = extraCostService.getCurrentItemsList();
@@ -66,10 +55,6 @@ public class ExtraCostsInputBean implements Serializable {
 
     private void loadCars() {
         carList = carsService.getAllObjectsByUser();
-    }
-
-    public List<ExtraCosts> getCompleteExtraCostList() {
-        return extraCosts;
     }
 
     public void attemptToAddExtraCost() {
@@ -97,49 +82,11 @@ public class ExtraCostsInputBean implements Serializable {
     }
 
     private void deleteExtraCost() {
-        extraCostService.deleteExtraCost(extraCost);
+        extraCostService.deleteObject(extraCost);
         redirectToExtraCostInputPage();
     }
 
     private void redirectToExtraCostInputPage() {
         HttpUtils.redirect("/app/cost-input.xhtml");
-    }
-
-    public void previousPage() {
-        extraCostService.previousPage();
-    }
-
-    public void nextPage() {
-        extraCostService.nextPage();
-    }
-
-    public void firstPage() {
-        extraCostService.firstPage();
-    }
-
-    public void lastPage() {
-        extraCostService.lastPage();
-    }
-
-    private void getCurrentPage() {
-        page = extraCostService.getPage();
-    }
-
-    private List<Integer> getListOfPages() {
-        pageList = new ArrayList<>();
-        IntStream.rangeClosed(1, extraCostService.getNumberOfPages()).
-                forEachOrdered(i -> pageList.add(i));
-        return pageList;
-    }
-
-    public void goToSelectedPage() {
-        extraCostService.setPage(page);
-        extraCostService.getCurrentItemsList();
-    }
-
-    public void setNumberOfItemsOnPage() {
-        extraCostService.setItemsOnPage(itemsOnPage);
-        extraCostService.setPage(page = 1);
-        extraCostService.getCurrentItemsList();
     }
 }
