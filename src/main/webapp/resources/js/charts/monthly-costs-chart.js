@@ -1,15 +1,19 @@
 var rootURL = restApiContextPath;
 
-function showMonthlyCostChart(userId) {
-    getMonthlyCosts(userId);
+function showMonthlyCostChart(uid, ut) {
+    getMonthlyCosts(uid, ut);
 }
 
-function getMonthlyCosts(userId) {
+function getMonthlyCosts(uid, ut) {
     console.log('getMonthlyCosts was invoked');
-    document.getElementById("chartContainer").html = "<h1>Loading...</h1>"
+    document.getElementById("chartContainer").html = "<h1 class='text-light'>Loading...</h1>"
     $.ajax({
         type: 'GET',
-        url: rootURL + "/charts/costs-per-month?limit=10&user_id="+userId,
+        beforeSend: function(request) {
+            request.setRequestHeader("UID:", uid);
+            request.setRequestHeader("FT:", ut);
+        },
+        url: rootURL + "/charts/costs-per-month?limit=10&user_id="+uid,
         dataType: "json", // data type of response
         success: defineChart,
         error: function() {
