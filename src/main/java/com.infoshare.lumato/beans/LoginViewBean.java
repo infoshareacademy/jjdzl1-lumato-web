@@ -49,11 +49,10 @@ public class LoginViewBean {
             String passwordHashed = SecurityUtils.generatePasswordHash(rawPassword);
             user.setPassword(passwordHashed);
             userService.storeInSession(user);
-            tokenDao.generateUserToken(user);
             Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+            String userToken = tokenDao.generateUserToken(user);
             sessionMap.put("userid", user.getUserId());
-            sessionMap.put("useremail", user.getEmail());
-            sessionMap.put("userpassword", user.getPassword());
+            sessionMap.put("usertoken", userToken);
             HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/start.xhtml");
         } else {
             messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect email or password!");

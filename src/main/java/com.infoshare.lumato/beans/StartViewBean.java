@@ -2,10 +2,12 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.logic.dao.CarDAO;
 import com.infoshare.lumato.logic.dao.FuelCostsDAO;
+import com.infoshare.lumato.logic.dao.TokenDao;
 import com.infoshare.lumato.logic.dao.UserDAO;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.User;
 
+import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.PostConstruct;
@@ -20,8 +22,12 @@ import java.util.Locale;
 @Named("globalAppBean")
 public class StartViewBean implements Serializable {
 
-    private int amountOfUsers;
-    private int amountOfCars;
+    private static int amountOfUsers;
+    private static int amountOfCars;
+    private static String token;
+
+    @Inject
+    TokenDao tokenDao;
 
     @Inject
     UserDAO userDAO;
@@ -36,6 +42,11 @@ public class StartViewBean implements Serializable {
     public void construct() {
         amountOfCars = carDAO.countAllRecords(Car.class);
         amountOfUsers = userDAO.countAllRecords(User.class);
+        token = tokenDao.getUserToken((Integer) HttpUtils.getCurrentUserFromSession().getUserId());
+    }
+
+    public String getCurrentUserToken() {
+        return token;
     }
 
     public int countAllUsers(){
