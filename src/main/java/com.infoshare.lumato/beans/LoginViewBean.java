@@ -1,5 +1,6 @@
 package com.infoshare.lumato.beans;
 
+import com.infoshare.lumato.logic.dao.TokenDao;
 import com.infoshare.lumato.logic.model.User;
 import com.infoshare.lumato.logic.utils.HttpUtils;
 import com.infoshare.lumato.services.MessageService;
@@ -12,10 +13,14 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
+import java.util.Map;
 
 @RequestScoped
 @Named("loginBean")
 public class LoginViewBean {
+
+    @Inject
+    TokenDao tokenDao;
 
     @Inject
     private UserService userService;
@@ -44,7 +49,11 @@ public class LoginViewBean {
             String passwordHashed = SecurityUtils.generatePasswordHash(rawPassword);
             user.setPassword(passwordHashed);
             userService.storeInSession(user);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userid", user.getUserId());
+            tokenDao.generateUserToken(user);
+            Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+            sessionMap.put("userid", user.getUserId());
+            sessionMap.put("useremail", user.getEmail());
+            sessionMap.put("userpassword", user.getPassword());
             HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/start.xhtml");
         } else {
             messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect email or password!");

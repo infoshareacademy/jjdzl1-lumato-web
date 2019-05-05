@@ -1,9 +1,6 @@
 package com.infoshare.lumato.logic.persistence;
 
-import com.infoshare.lumato.logic.model.Car;
-import com.infoshare.lumato.logic.model.ExtraCosts;
-import com.infoshare.lumato.logic.model.FuelCosts;
-import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -61,6 +58,7 @@ public class HibernateConfig {
             configuration.addAnnotatedClass(ExtraCosts.class);
             configuration.addAnnotatedClass(FuelCosts.class);
             configuration.addAnnotatedClass(User.class);
+            configuration.addAnnotatedClass(Token.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                     .applySettings(configuration.getProperties()).build();

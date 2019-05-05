@@ -15,9 +15,6 @@
         <junit.jupiter.version>5.4.0</junit.jupiter.version>
     </properties>
 
-
-
-
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -37,14 +34,16 @@
             <version>8.0.15</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.4.1.Final</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
     </dependencies>
-
-
 </project>
