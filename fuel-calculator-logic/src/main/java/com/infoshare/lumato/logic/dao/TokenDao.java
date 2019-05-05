@@ -4,6 +4,7 @@ import com.infoshare.lumato.logic.model.Token;
 import com.infoshare.lumato.logic.model.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -38,6 +39,15 @@ public class TokenDao extends CommonDAO {
         }
         executeAndCloseTransaction(session);
         return token.getUserToken();
+    }
+
+    public void deleteUserToken(int userId) {
+        Session session = getSession();
+        String hQuery = "delete from Token T where T.userId= :idParam";
+        session.createQuery(hQuery)
+                .setParameter("idParam", userId)
+                .executeUpdate();
+        executeAndCloseTransaction(session);
     }
 
 }

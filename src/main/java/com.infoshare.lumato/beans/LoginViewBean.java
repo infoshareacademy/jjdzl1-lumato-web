@@ -61,6 +61,7 @@ public class LoginViewBean {
     }
 
     public void logOut() {
+        tokenDao.deleteUserToken(HttpUtils.getCurrentUserFromSession().getUserId());
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().invalidateSession();
         try {

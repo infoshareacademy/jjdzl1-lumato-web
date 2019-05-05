@@ -24,10 +24,6 @@ public class StartViewBean implements Serializable {
 
     private static int amountOfUsers;
     private static int amountOfCars;
-    private static String token;
-
-    @Inject
-    TokenDao tokenDao;
 
     @Inject
     UserDAO userDAO;
@@ -42,11 +38,6 @@ public class StartViewBean implements Serializable {
     public void construct() {
         amountOfCars = carDAO.countAllRecords(Car.class);
         amountOfUsers = userDAO.countAllRecords(User.class);
-        token = tokenDao.getUserToken((Integer) HttpUtils.getCurrentUserFromSession().getUserId());
-    }
-
-    public String getCurrentUserToken() {
-        return token;
     }
 
     public int countAllUsers(){
