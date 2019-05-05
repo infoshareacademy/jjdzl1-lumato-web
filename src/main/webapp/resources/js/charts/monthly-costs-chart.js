@@ -10,8 +10,8 @@ function getMonthlyCosts(uid, ut) {
     $.ajax({
         type: 'GET',
         beforeSend: function(request) {
-            request.setRequestHeader("UID:", uid);
-            request.setRequestHeader("FT:", ut);
+            request.setRequestHeader("UID", uid);
+            request.setRequestHeader("FT", ut);
         },
         url: rootURL + "/charts/costs-per-month?limit=10&user_id="+uid,
         dataType: "json", // data type of response
