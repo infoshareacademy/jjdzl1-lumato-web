@@ -44,7 +44,6 @@ function defineChart(data) {
         });
     }
 
-
     var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         title:{
