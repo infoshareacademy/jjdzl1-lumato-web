@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templates/maintemplate.xhtml">
+    <ui:define name="content">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn-outline-primary"
+                 onclick="showMonthlyCostChart('#{sessionScope.userid}','#{sessionScope.usertoken}')" style="cursor: pointer;">
+                Monthly costs chart
+            </button>
+        </div>
+
+        <div id="chartContainer">
+        </div>
+
+        <script src="#{request.contextPath}resources/js/charts/monthly-costs-chart.js" type="text/javascript"></script>
+        <script src="#{request.contextPath}resources/js/canvasjs.min.js" type="text/javascript"></script>
+
+    </ui:define>
+</ui:composition>
+</html>

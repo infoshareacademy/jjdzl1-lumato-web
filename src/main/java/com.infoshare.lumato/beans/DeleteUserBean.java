@@ -38,11 +38,11 @@ public class DeleteUserBean {
     public void deleteUser() {
         if (userService.passwordMatchesUserInSessionPassword(user)) {
             userService.deleteCurrentUser();
-            HttpUtils.redirect("/login.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "login.xhtml");
         } else {
             messageService.addMessageCookie("wrongPassword", "Wrong password!");
             user = null;
-            HttpUtils.redirect("/app/user-delete.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-delete.xhtml");
         }
     }
 }

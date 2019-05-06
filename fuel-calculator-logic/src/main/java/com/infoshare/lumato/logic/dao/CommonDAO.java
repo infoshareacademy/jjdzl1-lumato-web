@@ -17,7 +17,7 @@ public class CommonDAO {
 
     User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
 
-    Session getSession() {
+    public Session getSession() {
         Session currentSession = hibernateConfig.getSessionFactory().openSession();
         currentSession.beginTransaction();
         return currentSession;
@@ -63,7 +63,7 @@ public class CommonDAO {
         return countObjectsByUser(c) % pageSize != 0 ? (int) numberOfPages + 1 : (int) numberOfPages;
     }
 
-    void executeAndCloseTransaction(Session currentSession) {
+    public void executeAndCloseTransaction(Session currentSession) {
         currentSession.getTransaction().commit();
         currentSession.close();
     }
