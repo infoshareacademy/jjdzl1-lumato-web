@@ -7,6 +7,7 @@ import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -15,7 +16,12 @@ public class CommonDAO {
     @Inject
     HibernateConfig hibernateConfig;
 
-    User currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    User currentUser;
+
+    @PostConstruct
+    public void setUserId() {
+        currentUser = (User) HttpUtils.getSession().getAttribute("currentUser");
+    }
 
     public Session getSession() {
         Session currentSession = hibernateConfig.getSessionFactory().openSession();

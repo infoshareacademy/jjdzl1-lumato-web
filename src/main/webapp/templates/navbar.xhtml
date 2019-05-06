@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <a class="navbar-brand" href="#{request.contextPath}app/start.xhtml">Fuel Calculator</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <!--HOME -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="#{request.contextPath}app/start.xhtml">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <!--ACCOUNT SETTINGS-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#{request.contextPath}app/cars-input.xhtml">My cars</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#{request.contextPath}app/user-edit.xhtml">Edit account</a>
+                        <a class="dropdown-item" href="#{request.contextPath}app/user-change-password.xhtml">Change password</a>
+                        <a class="dropdown-item" href="#{request.contextPath}app/user-delete.xhtml">Delete account</a>
+                    </div>
+                </li>
+
+                <!--REGISTER DATA-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Register costs
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#{request.contextPath}app/fuel-input.xhtml">Register refueling</a>
+                        <a class="dropdown-item" href="#{request.contextPath}app/cost-input.xhtml">Register extra cost</a>
+                    </div>
+                </li>
+
+                <!-- STATS -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        My statistics
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#{request.contextPath}app/charts.xhtml">My monthly costs</a>
+                    </div>
+                </li>
+
+                <!--CONTACT-->
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Contact</a>
+                </li>
+
+                <!--LOGOUT-->
+                <li class="nav-item">
+                    <h:commandLink action="#{loginBean.logOut()}"
+                                   styleClass="nav-link"
+                                   value="Log out"
+                    />
+                </li>
+            </ul>
+        </div>
+    </nav>
+</ui:composition>
+
+</html>
