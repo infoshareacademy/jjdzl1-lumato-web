@@ -8,7 +8,6 @@ abstract class PaginationService {
 
     int itemsOnPage = 4;
 
-
     void firstPage() {
         page = 1;
     }

@@ -17,15 +17,15 @@ public class FuelCostsTableDAO implements Serializable {
 
     private static final long serialVersionUID = 6256489859167556819L;
 
-    private List<FuelCosts> fuelCostsList;
+    private List<Object> fuelCostsList;
 
-    private List<Car> carList;
+    private List<Object> carList;
 
-    public List<FuelCosts> getFuelCostsList() {
+    public List<Object> getFuelCostsList() {
         return fuelCostsList;
     }
 
-    public List<Car> getCarList() {
+    public List<Object> getCarList() {
         return carList;
     }
 
@@ -37,8 +37,8 @@ public class FuelCostsTableDAO implements Serializable {
 
     @PostConstruct
     public void construct() {
-        this.carList = this.carDAO.getAllCarsByUser();
-        this.fuelCostsList = this.fuelCostsDAO.getAllFuelCostByUser();
+        this.carList = this.carDAO.getAllItemsByUser(Car.class);
+        this.fuelCostsList = this.fuelCostsDAO.getAllItemsByUser(FuelCosts.class);
     }
 
 }

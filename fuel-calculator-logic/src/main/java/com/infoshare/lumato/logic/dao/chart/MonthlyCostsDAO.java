@@ -1,11 +1,12 @@
 package com.infoshare.lumato.logic.dao.chart;
 
-import com.infoshare.lumato.logic.dao.CommonDAO;
 import com.infoshare.lumato.logic.model.chart.MonthCost;
+import com.infoshare.lumato.logic.persistence.HibernateConfig;
 import org.hibernate.Session;
 import org.hibernate.jdbc.ReturningWork;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.*;
 import java.time.LocalDate;
@@ -16,7 +17,21 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 @Named
-public class MonthlyCostsDAO extends CommonDAO {
+public class MonthlyCostsDAO {
+
+    @Inject
+    HibernateConfig hibernateConfig;
+
+    private Session getSession() {
+        Session currentSession = hibernateConfig.getSessionFactory().openSession();
+        currentSession.beginTransaction();
+        return currentSession;
+    }
+
+    public void executeAndCloseTransaction(Session currentSession) {
+        currentSession.getTransaction().commit();
+        currentSession.close();
+    }
 
     public List<MonthCost> getMonthlyCostsFromTenLastMonths(int userId, int limit) {
         if (userId==0) return new ArrayList<MonthCost>();

@@ -132,11 +132,6 @@
                                              style="margin-bottom: 1.75rem">
 
                                     <h:column>
-                                        <f:facet name="header">ID</f:facet>
-                                        <h:outputText value="#{car.carId}"/>
-                                    </h:column>
-
-                                    <h:column>
                                         <f:facet name="header">Year</f:facet>
                                         <h:outputText value="#{car.productionYear}"/>
                                     </h:column>
@@ -172,7 +167,7 @@
                                         <h:commandButton value="DELETE"
                                                          styleClass="btn btn-outline-danger"
                                                          style="width: 100%"
-                                                         action="#{carBean.attemptToDeleteCar(car)}"
+                                                         action="#{carBean.deleteCar(car)}"
                                                          onclick="if(!(confirm('Do you want to delete this car?'))) return false"/>
                                     </h:column>
                                 </h:dataTable>

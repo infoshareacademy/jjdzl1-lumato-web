@@ -73,6 +73,6 @@ public class UserService {
     }
 
     public void deleteCurrentUser(){
-        userDAO.deleteCurrentUser(HttpUtils.getCurrentUserFromSession());
+        userDAO.deleteObject(HttpUtils.getCurrentUserFromSession());
     }
 }

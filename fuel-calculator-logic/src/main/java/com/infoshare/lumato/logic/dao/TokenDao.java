@@ -2,17 +2,32 @@ package com.infoshare.lumato.logic.dao;
 
 import com.infoshare.lumato.logic.model.Token;
 import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.logic.persistence.HibernateConfig;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 
 @Named
 @RequestScoped
-public class TokenDao extends CommonDAO {
+public class TokenDao {
+
+    @Inject
+    HibernateConfig hibernateConfig;
+
+    public Session getSession() {
+        Session currentSession = hibernateConfig.getSessionFactory().openSession();
+        currentSession.beginTransaction();
+        return currentSession;
+    }
+
+    public void executeAndCloseTransaction(Session currentSession) {
+        currentSession.getTransaction().commit();
+        currentSession.close();
+    }
 
     public String generateUserToken(User user) {
         int length = 50;

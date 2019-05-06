@@ -17,15 +17,15 @@ public class ExtraCostsTableDAO implements Serializable {
 
     private static final long serialVersionUID = 6256489859167556819L;
 
-    private List<ExtraCosts> extraCostsList;
+    private List<Object> extraCostsList;
 
-    private List<Car> carList;
+    private List<Object> carList;
 
-    public List<ExtraCosts> getExtraCostsList() {
+    public List<Object> getExtraCostsList() {
         return extraCostsList;
     }
 
-    public List<Car> getCarList() {
+    public List<Object> getCarList() {
         return carList;
     }
 
@@ -37,8 +37,8 @@ public class ExtraCostsTableDAO implements Serializable {
 
     @PostConstruct
     public void construct() {
-        this.carList = this.carDAO.getAllCarsByUser();
-        this.extraCostsList = this.extraCostDao.getAllExtraCostsByUser();
+        this.carList = this.carDAO.getAllItemsByUser(Car.class);
+        this.extraCostsList = this.extraCostDao.getAllItemsByUser(ExtraCosts.class);
     }
 
 }
