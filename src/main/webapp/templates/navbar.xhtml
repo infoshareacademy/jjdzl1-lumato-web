@@ -67,10 +67,12 @@
 
                 <!--LOGOUT-->
                 <li class="nav-item">
-                    <h:commandLink action="#{loginBean.logOut()}"
-                                   styleClass="nav-link"
-                                   value="Log out"
-                    />
+                    <h:form>
+                        <h:commandLink action="#{loginBean.logOut}"
+                                       styleClass="nav-link"
+                                       value="Log out"
+                        />
+                    </h:form>
                 </li>
             </ul>
 

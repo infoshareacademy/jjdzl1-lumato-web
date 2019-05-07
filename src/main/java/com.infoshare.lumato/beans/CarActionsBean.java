@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@RequestScoped
+@ViewScoped
 @Named("carBean")
 public class CarActionsBean extends Bean implements Serializable {
 
@@ -73,12 +74,12 @@ public class CarActionsBean extends Bean implements Serializable {
 
     public void redirectToCarPage() {
         this.car = null;
-        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/cars-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/cars-input.xhtml");
     }
 
     public String redirectToCarEdit(Car theCar) {
         setCar(theCar);
-        return HttpUtils.getRequest().getContextPath() + "/app/cars-edit.xhtml";
+        return HttpUtils.getRequest().getContextPath() + "app/cars-edit.xhtml";
     }
 
     public Car getObjectById(int id) {
