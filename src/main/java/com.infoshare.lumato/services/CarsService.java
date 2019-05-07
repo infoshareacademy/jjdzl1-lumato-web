@@ -57,7 +57,7 @@ public class CarsService extends PaginationService implements Serializable, Serv
     @Override
     public void updateObject(Object car) {
         carDAO.addOrUpdateCar((Car) car);
-        HttpUtils.redirect("/app/cars-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/cars-input.xhtml");
     }
 
     @Override
