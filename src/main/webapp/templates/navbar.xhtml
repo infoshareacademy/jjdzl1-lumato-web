@@ -8,7 +8,10 @@
 <ui:composition>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-        <a class="navbar-brand" href="#{request.contextPath}app/start.xhtml">Fuel Calculator</a>
+        <a class="navbar-brand" href="#{request.contextPath}app/start.xhtml">
+            <h:graphicImage library="img" name="bp250.png" height="30" width="30"/>
+            &nbsp;Fuel Calculator
+        </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -68,6 +71,13 @@
                                    styleClass="nav-link"
                                    value="Log out"
                     />
+                </li>
+            </ul>
+
+            <!-- LOGGED IN AS: WHO!? -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item text-light">
+                        Logged in as: #{request.getSession().getAttribute("currentUser").email}
                 </li>
             </ul>
         </div>
