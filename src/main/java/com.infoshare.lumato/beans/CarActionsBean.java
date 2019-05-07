@@ -17,7 +17,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@ViewScoped
+@RequestScoped
 @Named("carBean")
 public class CarActionsBean extends Bean implements Serializable {
 
