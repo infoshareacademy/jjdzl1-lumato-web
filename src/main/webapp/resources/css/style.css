@@ -2,7 +2,6 @@
 
 body {
     overflow-x: hidden;
-    /*background-image: url("/resources/img/image_b.jpg");*/
     background-color: rgb(13, 14, 17);
     z-index: -1;
     background-size: cover;
@@ -12,157 +11,7 @@ body {
 
 #container-fluid {
     padding: 10px;
-    transition: margin-left 0.4s;
-    margin-left: 250px;
-    transition: all 0.3s linear;
-}
-
-/** HEADER STYLES */
-
-.header {
-    padding: 0;
-    display: table;
-    width: 100%;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    margin-bottom: 10px;
-    font-size: 22px;
-    color: white;
-}
-
-.header-section {
-    display: inline-block;
-    padding: 5px;
-    margin: 0;
-    display: table-cell;
-}
-
-.header i{
-    color: white;
-    font-size: 35px
-}
-.header a{
-    text-decoration: none;
-}
-
-
-#slide-button {
-    width: 1px;
-}
-
-#header-button {
-    padding: 0 6px;
-    margin: 0;
-    font-size: inherit;
-    /*background-color: #ffffff;*/
-    opacity: 0.5;
-    border: none;
-    color: inherit;
-    box-shadow: inherit;
-}
-
-#open-close-icon {
     margin: 0px;
-    display: inline-block;
-}
-
-#open-close-button {
-    padding: 5px;
-    margin: 0px;
-    display: inline-block;
-}
-
-#user-info {
-    font-size: 16px;
-}
-
-#community-buttons {
-    text-align: right;
-}
-
-/** SIDE MENU */
-.sideMenu {
-    /*background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);*/
-    background-image: linear-gradient(180deg, rgb(50, 56, 62) 10%, #2e2f30 100%);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #3399ff;
-    overflow-x: hidden;
-    padding-top: 0;
-    transition: 0.4s;
-    padding-bottom: 0px;
-}
-
-.sidebar-head {
-    font-size: 22px;
-    font-weight: 700;
-}
-
-#product-logo {
-    margin: 25px 0;
-}
-
-.sideMenu .close {
-    position: absolute;
-    top: 0;
-    right: 22px;
-    margin-left: 50px;
-    font-size: 30px;
-}
-
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 250px; /* sidebar options width */
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.sidebar-nav li {
-     text-indent: 0px;
-     line-height: 40px;
- }
-
-.sidebar-nav li i {
-    vertical-align: middle;
-    color: white;
-    font-size: 25px;
-}
-
-.sidebar-nav li a {
-    padding-left: 25px;
-    display: block;
-    text-decoration: none;
-    color: white; /* navigation options text color */
-}
-
-hr{
-border-color: rgb(13, 14, 17);
-}
-
-#product-logo {
-    margin-left: 20px;
-}
-
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.sidebar-nav li a:active, .sidebar-nav li a:focus {
-    text-decoration: none;
 }
 
 /*Login page background*/
@@ -217,4 +66,14 @@ input[type="text"], input[type="password"] {
     font-size: 20px;
     padding: 25px;
 }
-/* othe popovers were useless so they are not included */
+
+/* DROPDOWN MENU */
+.dropdown-item:hover{
+    opacity: 0.5;
+}
+
+.dropdown-item, .dropdown-menu {
+    color: #DDD;
+    background-color: #232425;
+}
+

@@ -14,15 +14,11 @@
 </h:head>
 
 <h:body>
+    <ui:insert name="navbar">
+        <ui:include src="/templates/navbar.xhtml"/>
+    </ui:insert>
+
     <div id="container-fluid">
-        <ui:insert name = "header" >
-            <ui:include src = "/templates/header.xhtml" />
-        </ui:insert>
-
-        <ui:insert name = "navigation" >
-            <ui:include src = "/templates/navigation.xhtml" />
-        </ui:insert>
-
         <ui:insert name = "content" >
         </ui:insert>
 

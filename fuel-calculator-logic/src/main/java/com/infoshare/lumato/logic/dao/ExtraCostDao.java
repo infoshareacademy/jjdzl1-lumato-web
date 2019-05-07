@@ -13,11 +13,9 @@ import javax.inject.Named;
 @RequestScoped
 public class ExtraCostDao extends CommonDAO {
 
-    private final int userId = currentUser.getUserId();
-
     public void addExtraCostByCarId(ExtraCosts extraCosts, Car car) {
         Session currentSession = getSession();
-        User tempUser = currentSession.get(User.class, userId);
+        User tempUser = currentSession.get(User.class, currentUser.getUserId());
         Car tempCar = currentSession.get(Car.class, car.getCarId());
         tempUser.addExtraCost(extraCosts);
         tempCar.addExtraCost(extraCosts);

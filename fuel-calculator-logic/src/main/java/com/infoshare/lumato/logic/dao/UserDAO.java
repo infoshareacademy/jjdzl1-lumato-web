@@ -1,7 +1,6 @@
 package com.infoshare.lumato.logic.dao;
 
 import com.infoshare.lumato.logic.model.User;
-import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
 
 import javax.enterprise.context.RequestScoped;

@@ -75,6 +75,6 @@ public class ExtraCostsInputBean extends Bean implements Serializable {
     }
 
     private void redirectToExtraCostInputPage() {
-        HttpUtils.redirect("/app/cost-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/cost-input.xhtml");
     }
 }

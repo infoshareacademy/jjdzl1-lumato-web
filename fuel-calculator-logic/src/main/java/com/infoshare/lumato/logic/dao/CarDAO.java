@@ -16,11 +16,9 @@ import java.util.List;
 @Named
 public class CarDAO extends CommonDAO {
 
-    private final int userId = currentUser.getUserId();
-
     public void addOrUpdateCar(Car theCar) {
         Session currentSession = getSession();
-        User tempUser = currentSession.get(User.class, userId);
+        User tempUser = currentSession.get(User.class, currentUser.getUserId());
         tempUser.addCar(theCar);
         currentSession.saveOrUpdate(theCar);
         executeAndCloseTransaction(currentSession);

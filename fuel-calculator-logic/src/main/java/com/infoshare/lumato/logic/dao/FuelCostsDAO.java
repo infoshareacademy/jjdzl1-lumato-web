@@ -6,6 +6,7 @@ import com.infoshare.lumato.logic.model.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import java.util.List;
@@ -14,12 +15,10 @@ import java.util.List;
 @RequestScoped
 public class FuelCostsDAO extends CommonDAO {
 
-    private final int userId = currentUser.getUserId();
-
     public void addFuelCostByCarId(FuelCosts fuelCosts, Car tempCar) {
         fuelCosts.setFuelType(tempCar.getFuelType());
         Session currentSession = getSession();
-        User tempUser = currentSession.get(User.class, userId);
+        User tempUser = currentSession.get(User.class, currentUser.getUserId());
         Car car = currentSession.get(Car.class, tempCar.getCarId());
         tempUser.addFuelCost(fuelCosts);
         car.addFuelCost(fuelCosts);
