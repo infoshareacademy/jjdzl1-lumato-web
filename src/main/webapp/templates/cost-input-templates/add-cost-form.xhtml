@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition>
+
+    <h:form id="extra-cost-input">
+        <div class="card shadow bg-dark text-white-50">
+            <div class="card-header">
+                <h5 class="h5 mb-1 text-gray-800">Add Extra Costs</h5>
+            </div>
+
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Select a car</label>
+                    <div class="col-sm-7 col align-self-center">
+                        <h:selectOneMenu value="#{extraCostInputBean.car.regPlate}"
+                                         styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                         style="width: 100%; text-align: center">
+
+                            <f:selectItems value="#{extraCostInputBean.carList}"
+                                           var="car"
+                                           itemValue="#{car.regPlate}"
+                                           itemLabel="#{car.productionYear} #{car.brand} #{car.model} #{car.regPlate}  #{car.fuelType}"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+
+                <!--TODO replace js method - price in cost - two digits after decimal ane one "."-->
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Cost</label>
+                    <div class="col-sm-7 col align-self-center">
+                        <h:inputText class="form-control form-control-user"
+                                     id="extra-cost-price"
+                                     value="#{extraCostInputBean.extraCost.cost}"
+                                     style="background-color: transparent; color: darkgray;"
+
+                                     onkeypress="if(event.which &lt; 46 || event.which &gt; 57) return false;">
+                        </h:inputText>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Description</label>
+                    <div class="col-sm-7 col align-self-center">
+                        <h:inputText class="form-control form-control-user"
+                                     id="description"
+                                     style="background-color: transparent; color: darkgray;"
+
+                                     value="#{extraCostInputBean.extraCost.description}">
+                        </h:inputText>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-5 col-form-label">Date</label>
+                    <div class="col-sm-7 col align-self-center">
+                        <h:inputText a:placeholder="DD-MM-YYYY"
+                                     id="extra-cost-date"
+                                     class="form-control form-control-user"
+                                     style="background-color: transparent; color: darkgray;"
+
+                                     value="#{extraCostInputBean.dateAsString}">
+                        </h:inputText>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <h:commandButton value="Save"
+                                     id="submit-new-extra-cost"
+                                     styleClass="btn btn-primary"
+                                     style="border-radius:15px; width: 100%"
+                                     action="#{extraCostInputBean.attemptToAddExtraCost}"/>
+                </div>
+                <div class="errorMessage">
+                    #{messageBean.getMessageValue("wrongCredentialsMessage")}
+                </div>
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>
+</html>
+
+
