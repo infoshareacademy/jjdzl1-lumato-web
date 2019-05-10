@@ -3,22 +3,19 @@ package com.infoshare.lumato.logic.dao;
 
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.User;
-import com.infoshare.lumato.logic.utils.HttpUtils;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
-import java.util.List;
 
 @RequestScoped
 @Named
 public class CarDAO extends CommonDAO {
 
-    public void addOrUpdateCar(Car theCar) {
+    public void addOrUpdateCar(Car theCar, int userId) {
         Session currentSession = getSession();
-        User tempUser = currentSession.get(User.class, currentUser.getUserId());
+        User tempUser = currentSession.get(User.class, userId);
         tempUser.addCar(theCar);
         currentSession.saveOrUpdate(theCar);
         executeAndCloseTransaction(currentSession);

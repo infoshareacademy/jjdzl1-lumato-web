@@ -1,8 +1,10 @@
-package com.infoshare.lumato.logic.dao;
+package com.infoshare.lumato.beans;
 
-
+import com.infoshare.lumato.logic.dao.CarDAO;
+import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.FuelCosts;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -13,7 +15,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class FuelCostsTableDAO implements Serializable {
+public class FuelCostsTableBean implements Serializable {
 
     private static final long serialVersionUID = 6256489859167556819L;
 
@@ -37,8 +39,9 @@ public class FuelCostsTableDAO implements Serializable {
 
     @PostConstruct
     public void construct() {
-        this.carList = this.carDAO.getAllItemsByUser(Car.class);
-        this.fuelCostsList = this.fuelCostsDAO.getAllItemsByUser(FuelCosts.class);
+        this.carList = this.carDAO.getAllItemsByUser(Car.class, HttpUtils.getCurrentUserFromSession().getUserId());
+        this.fuelCostsList = this.fuelCostsDAO.getAllItemsByUser(FuelCosts.class, HttpUtils.getCurrentUserFromSession().getUserId());
     }
+
 
 }

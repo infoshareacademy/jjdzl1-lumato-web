@@ -2,7 +2,8 @@ package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.logic.dao.CarDAO;
 import com.infoshare.lumato.logic.model.Car;
-import com.infoshare.lumato.logic.utils.HttpUtils;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -18,6 +19,8 @@ public class CarsService extends PaginationService implements Serializable, Serv
     CarDAO carDAO;
 
     Car car;
+
+    User currentUser = HttpUtils.getCurrentUserFromSession();
 
     public boolean isFieldEmpty(Car car) {
         return (car.getBrand().isEmpty() | car.getModel().isEmpty() | car.getRegPlate().isEmpty() | car.getFuelType().isEmpty());
@@ -37,7 +40,7 @@ public class CarsService extends PaginationService implements Serializable, Serv
     }
 
     public List<Object> getAllObjectsByUser() {
-        return carDAO.getAllItemsByUser(Car.class);
+        return carDAO.getAllItemsByUser(Car.class, currentUser.getUserId());
     }
 
     public Car getCarByRegPLate(String regPlate) {
@@ -46,7 +49,7 @@ public class CarsService extends PaginationService implements Serializable, Serv
 
     @Override
     public void addObject(Object car) {
-        carDAO.addOrUpdateCar((Car) car);
+        carDAO.addOrUpdateCar((Car) car, currentUser.getUserId());
     }
 
     @Override
@@ -56,7 +59,7 @@ public class CarsService extends PaginationService implements Serializable, Serv
 
     @Override
     public void updateObject(Object car) {
-        carDAO.addOrUpdateCar((Car) car);
+        carDAO.addOrUpdateCar((Car) car, currentUser.getUserId());
         HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/cars-input.xhtml");
     }
 
@@ -77,12 +80,12 @@ public class CarsService extends PaginationService implements Serializable, Serv
 
     @Override
     public int getNumberOfPages() {
-        return carDAO.getNumberOfPages(Car.class, itemsOnPage);
+        return carDAO.getNumberOfPages(Car.class, itemsOnPage, currentUser.getUserId());
     }
 
     @Override
     public List getCurrentItemsList() {
-        return carDAO.getItemsPerPage(page, itemsOnPage, Car.class);
+        return carDAO.getItemsPerPage(page, itemsOnPage, Car.class, currentUser.getUserId());
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.infoshare.lumato.controllers;
 
 import com.infoshare.lumato.logic.dao.chart.MonthlyCostsDAO;
 import com.infoshare.lumato.logic.model.chart.MonthCost;
-import com.infoshare.lumato.logic.utils.HttpUtils;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

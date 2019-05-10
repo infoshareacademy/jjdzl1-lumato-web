@@ -15,10 +15,10 @@ import java.util.List;
 @RequestScoped
 public class FuelCostsDAO extends CommonDAO {
 
-    public void addFuelCostByCarId(FuelCosts fuelCosts, Car tempCar) {
+    public void addFuelCostByCarId(FuelCosts fuelCosts, Car tempCar, int userId) {
         fuelCosts.setFuelType(tempCar.getFuelType());
         Session currentSession = getSession();
-        User tempUser = currentSession.get(User.class, currentUser.getUserId());
+        User tempUser = currentSession.get(User.class, userId);
         Car car = currentSession.get(Car.class, tempCar.getCarId());
         tempUser.addFuelCost(fuelCosts);
         car.addFuelCost(fuelCosts);
