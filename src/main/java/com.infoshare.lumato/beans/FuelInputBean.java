@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@RequestScoped
+@ViewScoped
 @Named("fuelInputBean")
 public class FuelInputBean extends Bean implements Serializable {
 
