@@ -1,7 +1,7 @@
 package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.logic.model.User;
-import com.infoshare.lumato.logic.utils.HttpUtils;
+import com.infoshare.lumato.utils.HttpUtils;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
 import com.infoshare.lumato.utils.SecurityUtils;

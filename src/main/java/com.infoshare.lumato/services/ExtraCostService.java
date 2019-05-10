@@ -3,6 +3,8 @@ package com.infoshare.lumato.services;
 import com.infoshare.lumato.logic.dao.ExtraCostDao;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.ExtraCosts;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -16,8 +18,10 @@ public class ExtraCostService extends PaginationService implements Serializable,
     @Inject
     ExtraCostDao extraCostDao;
 
+    User currentUser = HttpUtils.getCurrentUserFromSession();
+
     public void addExtraCost(ExtraCosts extraCost, Car car) {
-        extraCostDao.addExtraCostByCarId(extraCost, car);
+        extraCostDao.addExtraCostByCarId(extraCost, car, currentUser.getUserId());
     }
 
     @Override
@@ -27,12 +31,12 @@ public class ExtraCostService extends PaginationService implements Serializable,
 
     @Override
     public int getNumberOfPages() {
-        return extraCostDao.getNumberOfPages(ExtraCosts.class, itemsOnPage);
+        return extraCostDao.getNumberOfPages(ExtraCosts.class, itemsOnPage, currentUser.getUserId());
     }
 
     @Override
     public List getCurrentItemsList() {
-        return extraCostDao.getItemsPerPage(page, itemsOnPage, ExtraCosts.class);
+        return extraCostDao.getItemsPerPage(page, itemsOnPage, ExtraCosts.class, currentUser.getUserId());
     }
 
     @Override

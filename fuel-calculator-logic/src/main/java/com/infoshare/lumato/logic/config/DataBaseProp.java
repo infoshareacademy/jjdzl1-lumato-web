@@ -1,9 +1,6 @@
 package com.infoshare.lumato.logic.config;
 
-
-import com.infoshare.lumato.logic.utils.HttpUtils;
-
-import javax.servlet.ServletContext;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -11,11 +8,11 @@ import java.util.Properties;
 public class DataBaseProp {
 
     private Properties getProperties(){
-        ServletContext context = HttpUtils.getRequest().getServletContext();
-        String fullPath = context.getRealPath("/config/db.properties");
         Properties properties = new Properties();
         try {
-            properties.load(new FileInputStream(fullPath));
+            File file = new File("config/db.properties");
+            System.out.println("FILE PATH: " + file.getAbsolutePath());
+            properties.load(new FileInputStream(file));
         } catch (IOException e) {
             System.out.println("NO db.properties FILE in /webapp/config/ OR WRONG db.properties CONTENT");
             e.printStackTrace();

@@ -4,7 +4,9 @@ import com.infoshare.lumato.beans.FuelInputBean;
 import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.FuelCosts;
+import com.infoshare.lumato.logic.model.User;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
+import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -22,8 +24,10 @@ public class FuelsCostsService extends PaginationService implements Serializable
     @Inject
     FuelInputBean fuelInputBean;
 
+    User currentUser = HttpUtils.getCurrentUserFromSession();
+
     public void addFuelCost(FuelCosts fuelCosts, Car car) {
-        fuelCostsDAO.addFuelCostByCarId(fuelCosts, car);
+        fuelCostsDAO.addFuelCostByCarId(fuelCosts, car, currentUser.getUserId());
     }
 
     public boolean isFuelAmountAndPriceNotEmpty(FuelCosts fuelCosts) {
@@ -71,12 +75,12 @@ public class FuelsCostsService extends PaginationService implements Serializable
 
     @Override
     public int getNumberOfPages() {
-        return fuelCostsDAO.getNumberOfPages(FuelCosts.class, itemsOnPage);
+        return fuelCostsDAO.getNumberOfPages(FuelCosts.class, itemsOnPage, currentUser.getUserId());
     }
 
     @Override
     public List getCurrentItemsList() {
-        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage, FuelCosts.class);
+        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage, FuelCosts.class, currentUser.getUserId());
     }
 
     @Override

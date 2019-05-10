@@ -1,4 +1,4 @@
-package com.infoshare.lumato.logic.utils;
+package com.infoshare.lumato.utils;
 
 import com.infoshare.lumato.logic.model.User;
 
