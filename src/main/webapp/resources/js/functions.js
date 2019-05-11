@@ -22,7 +22,8 @@ function highlightNew() {
     path = location.pathname.substring(1);
 
     newActiveItemId = pathMatches(/start/) ? "nav-home" :
-    pathMatches(/cars-input|user-edit|user-change-password|user-delete/ ) ? "nav-account" :
+    pathMatches(/user-edit|user-change-password|user-delete/ ) ? "nav-account" :
+    pathMatches(/cars-input/ ) ? "nav-cars-input" :
     pathMatches(/fuel-input|cost-input/) ? "nav-register-data" :
     pathMatches(/charts/) ? "nav-stats" :
     pathMatches(/contact/) ? "nav-contact" : "";
