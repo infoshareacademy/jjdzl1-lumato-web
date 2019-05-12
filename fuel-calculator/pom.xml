@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>FuelCalculator</artifactId>
+        <groupId>com.infoshare.lumato</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.infoshare.lumato</groupId>
+    <artifactId>fuel-calculator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>ear</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.infoshare.lumato</groupId>
+            <artifactId>fuel-calculator-rest-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.infoshare.lumato</groupId>
+            <artifactId>fuel-calculator-app</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>fuel-calculator</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <modules>
+                        <webModule>
+                            <groupId>com.infoshare.lumato</groupId>
+                            <artifactId>fuel-calculator-app</artifactId>
+                            <!--<uri>fuel-calculator-app.war</uri>-->
+                            <contextRoot>/fc</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>com.infoshare.lumato</groupId>
+                            <artifactId>fuel-calculator-rest-api</artifactId>
+                            <!--<uri>fuel-calculator-rest-api.war</uri>-->
+                            <contextRoot>/api</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

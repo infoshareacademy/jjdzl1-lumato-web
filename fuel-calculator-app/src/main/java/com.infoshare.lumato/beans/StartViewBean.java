@@ -5,7 +5,6 @@ import com.infoshare.lumato.logic.dao.FuelCostsDAO;
 import com.infoshare.lumato.logic.dao.UserDAO;
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.User;
-
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.PostConstruct;

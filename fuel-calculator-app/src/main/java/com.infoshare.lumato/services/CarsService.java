@@ -7,7 +7,6 @@ import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
-
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;

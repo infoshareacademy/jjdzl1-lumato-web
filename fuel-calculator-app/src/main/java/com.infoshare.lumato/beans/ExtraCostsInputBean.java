@@ -2,10 +2,10 @@ package com.infoshare.lumato.beans;
 
 import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.logic.model.ExtraCosts;
-import com.infoshare.lumato.utils.HttpUtils;
 import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.ExtraCostService;
+import com.infoshare.lumato.utils.HttpUtils;
 import lombok.Getter;
 import lombok.Setter;
 
