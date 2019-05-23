@@ -1,6 +1,6 @@
 package com.infoshare.lumato.utils;
 
-import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.logic.model.User;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
@@ -30,7 +30,6 @@ public class HttpUtils {
         return (HttpServletResponse) FacesContext.getCurrentInstance()
                 .getExternalContext().getResponse();
     }
-
 
     public static void redirect(String address) {
         try {

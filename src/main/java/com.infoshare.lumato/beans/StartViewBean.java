@@ -1,14 +1,14 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.dao.CarDAO;
-import com.infoshare.lumato.dao.FuelCostsDAO;
-import com.infoshare.lumato.dao.UserDAO;
-import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.logic.dao.CarDAO;
+import com.infoshare.lumato.logic.dao.FuelCostsDAO;
+import com.infoshare.lumato.logic.dao.UserDAO;
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.User;
+
 import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,8 +20,8 @@ import java.util.Locale;
 @Named("globalAppBean")
 public class StartViewBean implements Serializable {
 
-    private int amountOfUsers;
-    private int amountOfCars;
+    private static int amountOfUsers;
+    private static int amountOfCars;
 
     @Inject
     UserDAO userDAO;
@@ -34,8 +34,8 @@ public class StartViewBean implements Serializable {
 
     @PostConstruct
     public void construct() {
-        amountOfCars = carDAO.countAllRecords("cars");
-        amountOfUsers = userDAO.countAllRecords("users");
+        amountOfCars = carDAO.countAllRecords(Car.class);
+        amountOfUsers = userDAO.countAllRecords(User.class);
     }
 
     public int countAllUsers(){
@@ -51,5 +51,4 @@ public class StartViewBean implements Serializable {
         double av =  NumberUtils.toScaledBigDecimal(averageFuelCost, 2, RoundingMode.HALF_UP).doubleValue();
         return String.format(Locale.CANADA,"%.2f", av);
     }
-
 }

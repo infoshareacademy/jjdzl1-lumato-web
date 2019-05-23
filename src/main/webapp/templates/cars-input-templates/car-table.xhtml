@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition>
+
+    <h:form id="car-table">
+        <div class="card shadow bg-dark text-white-50 ">
+            <div class="card-header">
+                <h5 class="h5 mb-1 text-gray-800">Your cars</h5>
+            </div>
+
+            <div class="card-body table-responsive">
+
+                <div class="col">
+                    <h:dataTable value="#{carBean.cars}"
+                                 var="car"
+                                 id="table"
+                                 styleClass=" table-hover table"
+                                 style="margin-bottom: 1.75rem">
+
+                        <h:column>
+                            <f:facet name="header">Year</f:facet>
+                            <h:outputText value="#{car.productionYear}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Brand</f:facet>
+                            <h:outputText value="#{car.brand}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Model</f:facet>
+                            <h:outputText value="#{car.model}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Type of Fuel</f:facet>
+                            <h:outputText value="#{car.fuelType}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Registration Plate</f:facet>
+                            <h:outputText value="#{car.regPlate}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandLink value="UPDATE "
+                                           styleClass="btn btn-outline-info"
+                                           style="width: 100%"
+                                           action="#{carBean.redirectToCarEdit(car)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandLink value="DELETE"
+                                           styleClass="btn btn-outline-danger"
+                                           style="width: 100%"
+                                           action="#{carBean.deleteCar(car)}"
+                                           onclick="if(!(confirm('Do you want to delete this car?'))) return false"/>
+                        </h:column>
+                    </h:dataTable>
+
+                    <div class="row">
+                        <div class="col">
+                            <h:commandButton value="&laquo;"
+                                             styleClass="btn btn-outline-danger"
+                                             style="width: 100%"
+                                             action="#{carBean.firstPage}"/>
+                        </div>
+
+                        <div class="col">
+                            <h:commandButton value="PREV"
+                                             styleClass="btn btn-outline-danger"
+                                             style="width: 100%"
+                                             action="#{carBean.previousPage}"/>
+                        </div>
+
+                        <div class="form-group row">
+                            <h:selectOneMenu value="#{carBean.page}"
+
+                                             styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                             style="width: 100%; text-align: center">
+                                <f:selectItems value="#{carBean.pageList}"
+                                               var="page"
+                                               itemValue="#{page}"
+                                               itemLabel="Page #{page} of #{carBean.pageList.size()}"/>
+                                <f:ajax listener="#{carBean.goToSelectedPage}" render=":car-table:table"/>
+
+                            </h:selectOneMenu>
+                        </div>
+
+
+                        <div class="col">
+                            <h:commandButton value="NEXT"
+                                             styleClass="btn btn-outline-info"
+                                             style="width: 100%"
+                                             action="#{carBean.nextPage}"/>
+                        </div>
+                        <div class="col">
+                            <h:commandButton value="&raquo;"
+                                             styleClass="btn btn-outline-danger"
+                                             style="width: 100%"
+                                             action="#{carBean.lastPage}"/>
+                        </div>
+
+                        <div class="form-group row">
+                            <h:selectOneMenu value="#{carBean.itemsOnPage}"
+                                             styleClass="btn btn-outline-primary btn-md dropdown-toggle"
+                                             style="width: 100%; text-align: center">
+                                <f:selectItems value="#{carBean.itemsShowOnPage}"
+                                               var="page"
+                                               itemValue="#{page}"
+                                               itemLabel="Show: #{page}"/>
+                                <f:ajax listener="#{carBean.setNumberOfItemsOnPage}" render=":car-table:table"/>
+
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:form>
+
+</ui:composition>
+</html>

@@ -1,24 +1,28 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.FuelCosts;
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.FuelCosts;
+import com.infoshare.lumato.utils.HttpUtils;
 import com.infoshare.lumato.services.CalendarService;
 import com.infoshare.lumato.services.CarsService;
 import com.infoshare.lumato.services.FuelsCostsService;
-import com.infoshare.lumato.services.MessageService;
-import com.infoshare.lumato.utils.FuelCostComparatorByDate;
-import com.infoshare.lumato.utils.HttpUtils;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
 
-@RequestScoped
+@Setter
+@Getter
+@ViewScoped
 @Named("fuelInputBean")
-public class FuelInputBean implements Serializable {
+public class FuelInputBean extends Bean implements Serializable {
+
 
     @Inject
     private FuelsCostsService fuelsCostsService;
@@ -26,65 +30,24 @@ public class FuelInputBean implements Serializable {
     @Inject
     private CarsService carsService;
 
-    @Inject
-    private MessageService messageService;
-
-    private String dateAsString;
-
     private FuelCosts fuelCost = new FuelCosts();
 
     private List<FuelCosts> fuelCostsList;
 
-    private Car car = new Car();
-
-    private List<Car> carList;
-
-    public String getDateAsString() {
-        return dateAsString;
-    }
-
-    public void setDateAsString(String dateAsString) {
-        this.dateAsString = dateAsString;
-    }
-
-    public void setFuelCost(FuelCosts fuelCost) {
-        this.fuelCost = fuelCost;
-    }
-
-    public FuelCosts getFuelCost() {
-        return fuelCost;
-    }
-
-    public void setCar(Car car) {
-        this.car = car;
-    }
-
-    public Car getCar() {
-        return car;
-    }
-
-    public List<FuelCosts> getCompleteFuelCostsList() {
-        fuelCostsList.sort(new FuelCostComparatorByDate());
-        return fuelCostsList;
-    }
-
-    public List<Car> getCars() {
+    public List<Object> getCars() {
         return carList;
-    }
-
-    private void loadFuelCostList() {
-        fuelCostsList = fuelsCostsService.getAllFuelCostsByUser();
-    }
-
-    private void loadCars() {
-        carList = fuelsCostsService.getAllCarsByUser();
     }
 
     @PostConstruct
     public void construct() {
-        loadFuelCostList();
         loadCars();
-        Collections.sort(this.fuelCostsList, new FuelCostComparatorByDate());
+        super.setService(fuelsCostsService);
+    }
+
+    public List getFuelCostList() {
+        pageList = getListOfPages();
+        getCurrentPage();
+        return fuelCostsList = fuelsCostsService.getCurrentItemsList();
     }
 
     private void addFuelCost(Car car) {
@@ -95,7 +58,6 @@ public class FuelInputBean implements Serializable {
     public void attemptToAddFuelCost() {
         Calendar calendar = CalendarService.returnCalendarDateFromInputString(dateAsString);
         car = carsService.getCarByRegPLate(car.getRegPlate());
-
         if (calendar != null && fuelsCostsService.isFuelAmountAndPriceNotEmpty(fuelCost) & fuelsCostsService.isMileageCorrect(fuelCost, calendar)) {
             this.fuelCost.setDate(calendar);
             addFuelCost(car);
@@ -106,17 +68,21 @@ public class FuelInputBean implements Serializable {
         }
     }
 
-    public void attemptToDeleteFuelCost(FuelCosts theFuelCost) {
+    public void deleteFuelCost(FuelCosts theFuelCost) {
         setFuelCost(theFuelCost);
-        deleteFuelCost();
-    }
-
-    private void deleteFuelCost() {
-        fuelsCostsService.deleteFuelCost(fuelCost);
+        fuelsCostsService.deleteObject(fuelCost);
         redirectToFuelInputPage();
     }
 
     private void redirectToFuelInputPage() {
-        HttpUtils.redirect("/app/fuel-input.xhtml");
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/fuel-input.xhtml");
+    }
+
+    public List<FuelCosts> getCompleteFuelCostsList() {
+        return fuelCostsList;
+    }
+
+    private void loadCars() {
+        carList = carsService.getAllObjectsByUser();
     }
 }

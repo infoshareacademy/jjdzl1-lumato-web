@@ -1,10 +1,11 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.services.CarsService;
-import com.infoshare.lumato.services.MessageService;
-import com.infoshare.lumato.utils.FuelType;
+import com.infoshare.lumato.logic.model.Car;
 import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.services.CarsService;
+import com.infoshare.lumato.utils.FuelType;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -13,59 +14,40 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
+@Setter
+@Getter
 @RequestScoped
 @Named("carBean")
-public class CarActionsBean implements Serializable {
+public class CarActionsBean extends Bean implements Serializable {
 
     @Inject
-    private CarsService carsService;
-
-    @Inject
-    private MessageService messageService;
-
-    private Car car = new Car();
+    CarsService carsService = new CarsService();
 
     private FuelType[] fuelTypes;
-
-    private List<Car> carList;
-
-    public Car getCar() {
-        return car;
-    }
-
-    private void setCar(Car car) {
-        this.car = car;
-    }
 
     @PostConstruct
     public void construct() {
         fuelTypes = FuelType.values();
-        loadCars();
+        super.setService(carsService);
     }
 
-    private void loadCars() {
-        try {
-            carList = carsService.getAllCarsByUser();
-        } catch (Exception e) {
-            System.out.println("Cannot load users!");
-            e.printStackTrace();
-        }
+    public List getCars() {
+        pageList = getListOfPages();
+        getCurrentPage();
+        return carList = carsService.getCurrentItemsList();
     }
 
-    public FuelType[] getFuelTypes() {
-        return fuelTypes;
-    }
-
-    public List<Car> getCars() {
-        return carList;
-    }
-
-    private void addNewCar() {
-        carsService.addCar(car);
+    private void addNewObject() {
+        carsService.addObject(car);
         redirectToCarPage();
     }
 
-    // TODO: 03.03.2019 put call==null in methods
+    public void deleteCar(Car theCar) {
+        setCar(theCar);
+        carsService.deleteObject(car);
+        redirectToCarPage();
+    }
+
     public void attemptToAddNewCar() {
         if (carsService.isFieldEmpty(car)) {
             messageService.addMessageCookie("wrongCredentialsMessage", "All fields must be filled!");
@@ -77,30 +59,21 @@ public class CarActionsBean implements Serializable {
             car = null;
             redirectToCarPage();
         }
-        if (carsService.doesCarExist(car)) {
-            messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exist!");
+        if (carsService.doesObjectExist(car)) {
+            messageService.addMessageCookie("wrongCredentialsMessage", "Car with this registration number already exists!");
             car = null;
             redirectToCarPage();
-        } else addNewCar();
-    }
-
-    private void deleteCar() {
-        carsService.deleteCar(car);
-        redirectToCarPage();
-    }
-
-    public void attemptToDeleteCar(Car theCar) {
-        setCar(theCar);
-        deleteCar();
+        } else addNewObject();
     }
 
     public void updateCar(Car car) {
         this.car = car;
-        carsService.updateCar(car);
+        carsService.updateObject(car);
     }
 
-    private void redirectToCarPage() {
-        HttpUtils.redirect("/app/cars-input.xhtml");
+    public void redirectToCarPage() {
+        this.car = null;
+        HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "/app/cars-input.xhtml");
     }
 
     public String redirectToCarEdit(Car theCar) {
@@ -108,7 +81,7 @@ public class CarActionsBean implements Serializable {
         return "/app/cars-edit.xhtml";
     }
 
-    public Car getCarById(int id) {
-        return carsService.getCarById(id);
+    public Car getObjectById(int id) {
+        return (Car) carsService.getObjectById(id);
     }
 }

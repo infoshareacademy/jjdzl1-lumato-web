@@ -12,38 +12,41 @@
 
 
             <div class="col-8">
-
-
                 <h:form>
                     <div class="row justify-content-center">
-
                         <div class="col-8">
 
-                            <div class="card shadow">
+                            <div class="card shadow bg-dark text-white-50">
                                 <div class="card-header">
                                     <h5 class="h5 mb-1 text-gray-800">Update Your Cars</h5>
                                 </div>
 
-                                <div class="card-body">
+                                <div class="card-body table-responsive">
 
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Update Brand</label>
                                         <div class="col-sm-7 col align-self-center">
-                                            <h:inputText styleClass="form-control" value="#{carBean.car.brand}"/>
+                                            <h:inputText styleClass="form-control"
+                                                         style="background-color: transparent; color: darkgray;"
+                                                         value="#{carBean.car.brand}"/>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Update Model</label>
                                         <div class="col-sm-7 col align-self-center">
-                                            <h:inputText styleClass="form-control" value="#{carBean.car.model}"/>
+                                            <h:inputText styleClass="form-control"
+                                                         style="background-color: transparent; color: darkgray;"
+                                                         value="#{carBean.car.model}"/>
                                         </div>
                                     </div>
 
+                                    <!--TODO replace js method - Update Production Year - for numbers starting from 19 or 20-->
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Update Production Year</label>
                                         <div class="col-sm-7 col align-self-center">
                                             <h:inputText styleClass="form-control"
+                                                         style="background-color: transparent; color: darkgray;"
                                                          value="#{carBean.car.productionYear}"/>
                                         </div>
                                     </div>
@@ -51,7 +54,9 @@
                                     <div class="form-group row">
                                         <label class="col-sm-5 col-form-label">Update Registration Number</label>
                                         <div class="col-sm-7 col align-self-center">
-                                            <h:inputText styleClass="form-control" value="#{carBean.car.regPlate}"/>
+                                            <h:inputText styleClass="form-control"
+                                                         style="background-color: transparent; color: darkgray;"
+                                                         value="#{carBean.car.regPlate}"/>
                                         </div>
                                     </div>
 
@@ -59,7 +64,7 @@
                                         <label class="col-sm-5 col-form-label">Update Fuel type</label>
                                         <div class="col-sm-7 col align-self-center">
                                             <h:selectOneMenu value="#{carBean.car.fuelType}"
-                                                             styleClass="btn btn-secondary btn-md dropdown-toggle"
+                                                             styleClass="btn btn-outline-primary btn-md dropdown-toggle"
                                                              style="width: 100%; text-align: center">
 
                                                 <f:selectItem itemLabel="#{carBean.fuelTypes[0].name}"
@@ -71,22 +76,22 @@
                                             </h:selectOneMenu></div>
                                     </div>
 
-                                    <h:inputHidden value="#{carBean.car.idUserInCars}"/>
+                                    <!--<h:inputHidden value="#{carBean.car.user}"/>-->
                                     <h:inputHidden value="#{carBean.car.carId}"/>
 
                                     <br/>
 
                                     <div class="form-group">
                                         <h:commandButton value="Apply Changes"
-                                                         styleClass="btn btn-primary"
+                                                         styleClass="btn btn-outline-primary"
                                                          style="border-radius:15px; width: 100%"
                                                          action="#{carBean.updateCar(carBean.car)}"/>
                                     </div>
                                     <div class="form-group">
                                         <h:commandButton value="Go Back"
-                                                         styleClass="btn btn-secondary"
+                                                         styleClass="btn btn-outline-secondary"
                                                          style="border-radius:15px; width: 100%"
-                                                         action="/app/cars-input.xhtml"/>
+                                                         action="#{carBean.redirectToCarPage}"/>
                                     </div>
                                 </div>
                             </div>

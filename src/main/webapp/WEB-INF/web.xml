@@ -15,16 +15,15 @@
         <filter-name>restrict-page-filter</filter-name>
         <url-pattern>/app/*</url-pattern>
     </filter-mapping>
+
     <filter-mapping>
         <filter-name>no-cache-filter</filter-name>
         <url-pattern>/app/*</url-pattern>
     </filter-mapping>
-
     <context-param>
         <param-name>net.bootsfaces.get_bootstrap_from_cdn</param-name>
         <param-value>true</param-value>
     </context-param>
-
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>

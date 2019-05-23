@@ -1,6 +1,7 @@
 package com.infoshare.lumato.utils;
 
-import com.infoshare.lumato.models.FuelCosts;
+
+import com.infoshare.lumato.logic.model.FuelCosts;
 
 import java.util.Comparator;
 

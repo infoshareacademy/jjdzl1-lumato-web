@@ -1,9 +1,11 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.logic.dao.TokenDao;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.utils.HttpUtils;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
-import com.infoshare.lumato.utils.HttpUtils;
+import com.infoshare.lumato.utils.SecurityUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -11,10 +13,14 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
+import java.util.Map;
 
 @RequestScoped
 @Named("loginBean")
 public class LoginViewBean {
+
+    @Inject
+    TokenDao tokenDao;
 
     @Inject
     private UserService userService;
@@ -39,19 +45,27 @@ public class LoginViewBean {
 
     public void attemptToLogIn() {
         if (userService.verifyLoginAttempt(user)) {
+            String rawPassword = user.getPassword();
+            String passwordHashed = SecurityUtils.generatePasswordHash(rawPassword);
+            user.setPassword(passwordHashed);
             userService.storeInSession(user);
-            HttpUtils.redirect("/app/start.xhtml");
+            Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+            String userToken = tokenDao.generateUserToken(user);
+            sessionMap.put("userid", user.getUserId());
+            sessionMap.put("usertoken", userToken);
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/start.xhtml");
         } else {
-            messageService.addMessageCookie("wrongCredentialsMessage", "Wrong email or password!");
-            HttpUtils.redirect("/login.xhtml");
+            messageService.addMessageCookie("wrongCredentialsMessage", "Incorrect email or password!");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "login.xhtml");
         }
     }
 
     public void logOut() {
+        tokenDao.deleteUserToken(HttpUtils.getCurrentUserFromSession().getUserId());
         FacesContext context = FacesContext.getCurrentInstance();
         context.getExternalContext().invalidateSession();
         try {
-            context.getExternalContext().redirect("/login.xhtml");
+            context.getExternalContext().redirect(HttpUtils.getRequest().getContextPath() + "login.xhtml");
         } catch (IOException e) {
             e.printStackTrace();
         }

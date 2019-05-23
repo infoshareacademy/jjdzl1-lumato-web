@@ -1,9 +1,9 @@
 package com.infoshare.lumato.beans;
 
-import com.infoshare.lumato.models.User;
+import com.infoshare.lumato.logic.model.User;
+import com.infoshare.lumato.utils.HttpUtils;
 import com.infoshare.lumato.services.MessageService;
 import com.infoshare.lumato.services.UserService;
-import com.infoshare.lumato.utils.HttpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -19,8 +19,6 @@ public class DeleteUserBean {
 
     @Inject
     private MessageService messageService;
-
-
 
     private User user;
 
@@ -38,13 +36,13 @@ public class DeleteUserBean {
     }
 
     public void deleteUser() {
-        if (userService.passwordIsOk(user)) {
-            userService.deleteUser(HttpUtils.getCurrentUserFromSession());
-            HttpUtils.redirect("/login.xhtml");
+        if (userService.passwordMatchesUserInSessionPassword(user)) {
+            userService.deleteCurrentUser();
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "login.xhtml");
         } else {
             messageService.addMessageCookie("wrongPassword", "Wrong password!");
             user = null;
-            HttpUtils.redirect("/app/user-management.xhtml");
+            HttpUtils.redirect(HttpUtils.getRequest().getContextPath() + "app/user-delete.xhtml");
         }
     }
 }

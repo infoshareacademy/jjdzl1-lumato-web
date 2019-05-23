@@ -21,7 +21,7 @@ public class RestrictPageFilter implements Filter {
         HttpSession session = req.getSession(true);
 
         if (session.getAttribute("currentUser") == null) {
-            resp.sendRedirect("/login.xhtml");
+            resp.sendRedirect(req.getContextPath() + "login.xhtml");
         } else {
             chain.doFilter(request, response);
         }

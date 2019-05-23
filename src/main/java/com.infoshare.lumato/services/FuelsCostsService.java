@@ -1,40 +1,33 @@
 package com.infoshare.lumato.services;
 
 import com.infoshare.lumato.beans.FuelInputBean;
-import com.infoshare.lumato.dao.CarDAO;
-import com.infoshare.lumato.dao.FuelCostsDAO;
-import com.infoshare.lumato.models.Car;
-import com.infoshare.lumato.models.FuelCosts;
+import com.infoshare.lumato.logic.dao.FuelCostsDAO;
+import com.infoshare.lumato.logic.model.Car;
+import com.infoshare.lumato.logic.model.FuelCosts;
+import com.infoshare.lumato.logic.model.User;
 import com.infoshare.lumato.utils.FuelCostComparatorByDate;
+import com.infoshare.lumato.utils.HttpUtils;
 
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@RequestScoped
-public class FuelsCostsService {
+@ViewScoped
+public class FuelsCostsService extends PaginationService implements Serializable, Service {
 
     @Inject
     FuelCostsDAO fuelCostsDAO;
 
     @Inject
-    CarDAO carDAO;
-
-    @Inject
     FuelInputBean fuelInputBean;
 
+    User currentUser = HttpUtils.getCurrentUserFromSession();
+
     public void addFuelCost(FuelCosts fuelCosts, Car car) {
-        fuelCostsDAO.addFuelCostByCarId(fuelCosts, car);
-    }
-
-    public List<Car> getAllCarsByUser() {
-        return carDAO.getAllCarsByUser();
-    }
-
-    public List<FuelCosts> getAllFuelCostsByUser() {
-        return fuelCostsDAO.getAllFuelCostByUser();
+        fuelCostsDAO.addFuelCostByCarId(fuelCosts, car, currentUser.getUserId());
     }
 
     public boolean isFuelAmountAndPriceNotEmpty(FuelCosts fuelCosts) {
@@ -65,7 +58,66 @@ public class FuelsCostsService {
         return true;
     }
 
-    public void deleteFuelCost(FuelCosts fuelCosts) {
-        fuelCostsDAO.deleteFuelCost(fuelCosts);
+    @Override
+    public void deleteObject(Object fuelCosts) {
+        fuelCostsDAO.deleteObject(fuelCosts);
+    }
+
+    @Override
+    public int getPage() {
+        return page;
+    }
+
+    @Override
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    @Override
+    public int getNumberOfPages() {
+        return fuelCostsDAO.getNumberOfPages(FuelCosts.class, itemsOnPage, currentUser.getUserId());
+    }
+
+    @Override
+    public List getCurrentItemsList() {
+        return fuelCostsDAO.getItemsPerPage(page, itemsOnPage, FuelCosts.class, currentUser.getUserId());
+    }
+
+    @Override
+    public void setItemsOnPage(int itemsOnPage) {
+        super.setItemsOnPage(itemsOnPage);
+    }
+
+    @Override
+    public void firstPage() {
+        super.firstPage();
+    }
+
+    @Override
+    public void previousPage() {
+        super.previousPage();
+    }
+
+    @Override
+    public void nextPage() {
+        super.nextPage();
+    }
+
+    @Override
+    public void lastPage() {
+        super.lastPage();
+    }
+
+    @Override
+    public void addObject(Object obj) {
+    }
+
+    @Override
+    public void updateObject(Object obj) {
+    }
+
+    @Override
+    public Object getObjectById(int id) {
+        return null;
     }
 }
